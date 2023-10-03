@@ -12,8 +12,8 @@ export function MainNav({
       {...props}
     >
       <Link
-        href="/examples/dashboard"
-        className="text-sm font-medium transition-colors hover:text-primary"
+        href="/homepage"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Overview
       </Link>
@@ -21,7 +21,7 @@ export function MainNav({
         href="/examples/dashboard"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Customers
+        Form
       </Link>
       <Link
         href="/examples/dashboard"
