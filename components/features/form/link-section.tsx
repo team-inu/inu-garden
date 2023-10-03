@@ -2,7 +2,6 @@ import { Button } from "@/components/ui/button";
 import SelectForm from "./selection-form";
 import { UseFormReturn, useFieldArray } from "react-hook-form";
 import AssessmentSection from "./assessment-section";
-import { useMemo } from "react";
 
 type LinkedSectionProps = {
   index: number;
@@ -74,15 +73,17 @@ const LinkedSection: React.FC<LinkedSectionProps> = ({
                 <div className="self-start border-2 rounded-full p-1 px-3 dark:border-white">
                   {resultIndex + 1}.{index + 1}
                 </div>
-                <Button
-                  className="self-end"
-                  type="button"
-                  onClick={() => {
-                    removeClo(index);
-                  }}
-                >
-                  -
-                </Button>
+                {cloFields.length > 1 && (
+                  <Button
+                    className="self-end"
+                    type="button"
+                    onClick={() => {
+                      removeClo(index);
+                    }}
+                  >
+                    -
+                  </Button>
+                )}
               </div>
               <SelectForm
                 name={`resultForm[${resultIndex}].clo[${index}].description`}

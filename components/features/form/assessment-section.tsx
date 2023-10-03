@@ -54,14 +54,16 @@ const AssessmentSection: React.FC<AssessmentSectionProps> = ({
                 placeholder="Please enter actual percentage"
                 form={form}
               />
-              <Button
-                type="button"
-                onClick={() => {
-                  remove(index);
-                }}
-              >
-                -
-              </Button>
+              {fields.length > 1 && (
+                <Button
+                  type="button"
+                  onClick={() => {
+                    remove(index);
+                  }}
+                >
+                  -
+                </Button>
+              )}
             </div>
           );
         })}

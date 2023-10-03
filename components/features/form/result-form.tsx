@@ -6,7 +6,6 @@ import { Form } from "@/components/ui/form";
 import { useFieldArray, useForm } from "react-hook-form";
 import InputForm from "./input-form";
 import * as z from "zod";
-import { useState } from "react";
 import LinkedSection from "./link-section";
 import { cn } from "@/lib/utils";
 
@@ -58,13 +57,23 @@ const formSchema = z.object({
 const initialLinkedSection = {
   po: "",
   plo: "",
-  clo: [],
+  clo: [
+    {
+      description: "",
+      assessment: [
+        {
+          description: "",
+          percentagePredict: "",
+          percentageActual: "",
+        },
+      ],
+    },
+  ],
 };
 
 type FormValuesType = z.infer<typeof formSchema>;
 
 export function ResultForm() {
-  const [assessmentNumber, setAssessmentNumber] = useState<number[]>([]);
   const form = useForm<FormValuesType>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,7 +88,7 @@ export function ResultForm() {
       bachelorAmount: 0,
       masterAmount: 0,
       doctorAmount: 0,
-      resultForm: [],
+      resultForm: [initialLinkedSection],
     },
     mode: "onChange",
   });
@@ -172,15 +181,17 @@ export function ResultForm() {
                     <div className="self-start border-2 rounded-full p-1 px-3 dark:border-white">
                       {index + 1}
                     </div>
-                    <Button
-                      className="self-end"
-                      type="button"
-                      onClick={() => {
-                        remove(index);
-                      }}
-                    >
-                      -
-                    </Button>
+                    {fields.length > 1 && (
+                      <Button
+                        className="self-end"
+                        type="button"
+                        onClick={() => {
+                          remove(index);
+                        }}
+                      >
+                        -
+                      </Button>
+                    )}
                   </div>
                   <LinkedSection index={index} form={form} />
                 </div>
