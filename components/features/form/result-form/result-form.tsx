@@ -4,32 +4,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import { useFieldArray, useForm } from "react-hook-form";
-import InputForm from "./input-form";
+import InputForm from "../input-form";
 import * as z from "zod";
 import LinkedSection from "./link-section";
 import { cn } from "@/lib/utils";
+import SelectForm from "../selection-form";
+import MultiSelectionForm from "../multi-selection-form";
 
-const formSchema = z.object({
+const resultFormSchema = z.object({
   courseId: z.string().nonempty(),
-  lecturer: z
-    .string({
-      required_error: "Lecturer is required",
-    })
-    .min(3, {
-      message: "Lecturer must be at least 3 characters long",
-    })
-    .max(30, {
-      message: "Lecturer must be at most 30 characters long",
-    }),
+  name: z.string(),
+  faculty: z.string(),
   department: z.string(),
   programme: z.string(),
-  faculty: z.string(),
-  code: z.string(),
-  name: z.string(),
-  credit: z.string(),
-  bachelorAmount: z.number(),
-  masterAmount: z.number(),
-  doctorAmount: z.number(),
+  courseCreadit: z.string(),
+  studentDegree: z.array(z.string()).nonempty({
+    message: "Student Degree is required",
+  }),
+  studentAmount: z.string(),
+  lecturer: z.string(),
   resultForm: z.array(
     z.object({
       po: z.string().nonempty({
@@ -40,12 +33,18 @@ const formSchema = z.object({
       }),
       clo: z.array(
         z.object({
-          description: z.string(),
+          description: z.string().nonempty(),
           assessment: z.array(
             z.object({
-              description: z.string(),
-              percentagePredict: z.string(),
-              percentageActual: z.string(),
+              description: z.string().nonempty({
+                message: "required",
+              }),
+              percentagePredict: z.string().nonempty({
+                message: "required",
+              }),
+              percentageActual: z.string().nonempty({
+                message: "required",
+              }),
             })
           ),
         })
@@ -71,23 +70,21 @@ const initialLinkedSection = {
   ],
 };
 
-type FormValuesType = z.infer<typeof formSchema>;
+type FormValuesType = z.infer<typeof resultFormSchema>;
 
 export function ResultForm() {
   const form = useForm<FormValuesType>({
-    resolver: zodResolver(formSchema),
+    resolver: zodResolver(resultFormSchema),
     defaultValues: {
       courseId: "",
-      lecturer: "",
+      name: "",
+      faculty: "",
       department: "",
       programme: "",
-      faculty: "",
-      code: "",
-      name: "",
-      credit: "",
-      bachelorAmount: 0,
-      masterAmount: 0,
-      doctorAmount: 0,
+      courseCreadit: "",
+      studentDegree: [],
+      studentAmount: "",
+      lecturer: "",
       resultForm: [initialLinkedSection],
     },
     mode: "onChange",
@@ -113,10 +110,66 @@ export function ResultForm() {
           form={form}
         />
         <InputForm
-          name="courseName"
+          name="name"
           lable="Course Name"
           placeholder="Course Name"
           form={form}
+        />
+        <SelectForm
+          name="faculty"
+          lable="Faculty"
+          placeholder="Please select faculty"
+          form={form}
+          options={[
+            {
+              value: "engineering",
+              text: "Engineering",
+            },
+            {
+              value: "science",
+              text: "Science",
+            },
+          ]}
+        />
+        <SelectForm
+          name="department"
+          lable="Department"
+          placeholder="Please select department"
+          form={form}
+          options={[
+            {
+              value: "computer",
+              text: "Computer",
+            },
+            {
+              value: "electrical",
+              text: "Electrical",
+            },
+          ]}
+        />
+        <SelectForm
+          name="programme"
+          lable="Programme"
+          placeholder="Please select programme"
+          form={form}
+          options={[
+            {
+              text: "Regular",
+              value: "regular",
+            },
+            {
+              text: "International",
+              value: "international",
+            },
+            {
+              text: "RC",
+              value: "rc",
+            },
+            {
+              text: "TC",
+              value: "tc",
+            },
+          ]}
         />
         <InputForm
           name="courseCreadit"
@@ -124,40 +177,57 @@ export function ResultForm() {
           placeholder="Course Credit"
           form={form}
         />
+        <MultiSelectionForm
+          name="studentDegree"
+          lable={"Student Degree"}
+          placeholder={"Please select student degree"}
+          form={form}
+          options={[
+            {
+              value: "bachelor1",
+              text: "Bachelor year 1",
+            },
+            {
+              value: "bachelor2",
+              text: "Bachelor year 2",
+            },
+            {
+              value: "bachelor3",
+              text: "Bachelor year 3",
+            },
+            {
+              value: "bachelor4",
+              text: "Bachelor year 4",
+            },
+            {
+              value: "master1",
+              text: "Master year 1",
+            },
+            {
+              value: "master2",
+              text: "Master year 2",
+            },
+            {
+              value: "doctor1",
+              text: "Doctor year 1",
+            },
+            {
+              value: "doctor2",
+              text: "Doctor year 2",
+            },
+          ]}
+        />
         <InputForm
           name="studentAmount"
           lable="Student Amount"
           placeholder="Student Amount"
           form={form}
         />
+
         <InputForm
-          name="studentDegree"
-          lable="Student Degree"
-          placeholder="Undergraduate, Master, or Doctorate"
-          form={form}
-        />
-        {/* <InputForm
           name="lecturer"
           lable="Lecturer"
           placeholder="Lecturer"
-          form={form}
-        /> */}
-        <InputForm
-          name="department"
-          lable="Department"
-          placeholder="Department"
-          form={form}
-        />
-        <InputForm
-          name="programme"
-          lable="Programme"
-          placeholder="Programme"
-          form={form}
-        />
-        <InputForm
-          name="faculty"
-          lable="Faculty"
-          placeholder="Faculty"
           form={form}
         />
         <Button

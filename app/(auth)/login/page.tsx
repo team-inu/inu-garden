@@ -1,5 +1,5 @@
 "use client";
-import { UserAuthForm } from "@/components/auth/user-auth";
+import { UserAuthForm } from "@/components/features/auth/user-auth";
 import { ModeToggle } from "@/components/mode-toggle";
 import Image from "next/image";
 import Link from "next/link";

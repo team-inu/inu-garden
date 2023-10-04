@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import SelectForm from "./selection-form";
+import SelectForm from "../selection-form";
 import { UseFormReturn, useFieldArray } from "react-hook-form";
 import AssessmentSection from "./assessment-section";
 

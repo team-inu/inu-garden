@@ -1,5 +1,5 @@
 "use client";
-import { ResultForm } from "@/components/features/form/result-form";
+import { ResultForm } from "@/components/features/form/result-form/result-form";
 
 const CourseLearningOutcomeForm = () => {
   return (

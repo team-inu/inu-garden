@@ -29,13 +29,14 @@ const InputForm: React.FC<InputFormProps> = ({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="min-w-[150px]">
+        <FormItem className="min-w-[250px] mb-5">
           <FormLabel>{lable}</FormLabel>
           <FormControl>
-            <Input placeholder={placeholder} {...field} required />
+            <Input placeholder={placeholder} {...field} />
           </FormControl>
           {description && <FormDescription>{description}</FormDescription>}
-          <FormMessage />
+          {/* Absolute for this task */}
+          <FormMessage className="absolute" />
         </FormItem>
       )}
     />

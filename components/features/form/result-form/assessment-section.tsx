@@ -1,5 +1,5 @@
 import { UseFormReturn, useFieldArray } from "react-hook-form";
-import InputForm from "./input-form";
+import InputForm from "../input-form";
 import { Button } from "@/components/ui/button";
 
 type AssessmentSectionProps = {
@@ -27,14 +27,14 @@ const AssessmentSection: React.FC<AssessmentSectionProps> = ({
           append({});
         }}
       >
-        เพิ่ม Ass
+        เพิ่ม Assessment
       </Button>
       <div className="space-y-5">
         {fields.map((field, index) => {
           return (
             <div
               key={field.id}
-              className="flex space-x-5 justify-center items-center"
+              className="flex space-x-5 justify-center items-center w-full"
             >
               <InputForm
                 name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].description`}
@@ -56,6 +56,7 @@ const AssessmentSection: React.FC<AssessmentSectionProps> = ({
               />
               {fields.length > 1 && (
                 <Button
+                  className="self-center mt-3"
                   type="button"
                   onClick={() => {
                     remove(index);
