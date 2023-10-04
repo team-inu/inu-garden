@@ -29,7 +29,7 @@ const InputForm: React.FC<InputFormProps> = ({
       control={form.control}
       name={name}
       render={({ field }) => (
-        <FormItem className="min-w-[250px] mb-5">
+        <FormItem>
           <FormLabel>{lable}</FormLabel>
           <FormControl>
             <Input placeholder={placeholder} {...field} />

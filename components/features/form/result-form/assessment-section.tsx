@@ -19,7 +19,7 @@ const AssessmentSection: React.FC<AssessmentSectionProps> = ({
     name: `resultForm[${resultIndex}].clo[${cloIndex}].assessment`,
   });
   return (
-    <div className="flex space-x-5">
+    <div className="flex space-x-5 ">
       <Button
         type="button"
         className="self-start"
@@ -29,34 +29,35 @@ const AssessmentSection: React.FC<AssessmentSectionProps> = ({
       >
         เพิ่ม Assessment
       </Button>
-      <div className="space-y-5">
+      <div className="space-y-5 w-full">
         {fields.map((field, index) => {
           return (
-            <div
-              key={field.id}
-              className="flex space-x-5 justify-center items-center w-full"
-            >
-              <InputForm
-                name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].description`}
-                lable="Assessment"
-                placeholder="Please enter assessment"
-                form={form}
-              />
-              <InputForm
-                name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].percentagePredict`}
-                lable="Expected Percentage"
-                placeholder="Please enter expected percentage"
-                form={form}
-              />
-              <InputForm
-                name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].percentageActual`}
-                lable="Actual Percentage"
-                placeholder="Please enter actual percentage"
-                form={form}
-              />
+            <div key={field.id} className="flex space-x-5 !w-full">
+              <div className="w-1/2">
+                <InputForm
+                  name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].description`}
+                  lable="Assessment"
+                  placeholder="Please enter assessment"
+                  form={form}
+                />
+              </div>
+              <div className="w-1/2">
+                <InputForm
+                  name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].percentagePredict`}
+                  lable="Expected Percentage"
+                  placeholder="Please enter expected percentage"
+                  form={form}
+                />
+                <InputForm
+                  name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].percentageActual`}
+                  lable="Actual Percentage"
+                  placeholder="Please enter actual percentage"
+                  form={form}
+                />
+              </div>
               {fields.length > 1 && (
                 <Button
-                  className="self-center mt-3"
+                  className=""
                   type="button"
                   onClick={() => {
                     remove(index);
