@@ -1,7 +1,5 @@
 "use client";
 import { CalendarDateRangePicker } from "@/components/date-range-picker";
-import { MainNav } from "@/components/main-nav";
-import { ModeToggle } from "@/components/mode-toggle";
 import { Overview } from "@/components/overview";
 import { RecentSales } from "@/components/recent-sales";
 import { Search } from "@/components/search";
