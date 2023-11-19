@@ -1,6 +1,7 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const emojiCharacters = ['😂', '🥶', '🥵', '🤣', '😭', '😘', '🥰', '😍', '😊', '😁', '🥺',  '🤗', '🤔',  '😳', '🥳', '😎']
@@ -70,7 +71,7 @@ export default function Home() {
         <div className="flex flex-col items-start">
           <div className="flex flex-row">
             <div className="font-bold text-2xl text-white select-none">
-              Inu【犬】
+              <Link href={"/homepage"}>Inu【犬】</Link>
             </div>
             {emojiComponent}
           </div>

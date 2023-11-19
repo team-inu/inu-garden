@@ -5,13 +5,16 @@ import { Input } from "@/components/ui/input";
 const CoursePage = () => {
   return (
     <div className="w-10/12 mx-auto py-8">
-      <div className="mb-16 flex items-center  space-x-3">
+      <div className="mb-16 flex items-center justify-between w-full space-x-3 mx-auto">
+        <div className="w-full">
         <Input
           type="search"
           placeholder="Search..."
-          className="dark:bg-input"
+          className="dark:bg-input "
         />
-        <div className="w-1/4">
+        </div>
+
+        <div className="w-1/12">
           <Button variant={"default"} className="text-base font-bold">
             Add course
           </Button>

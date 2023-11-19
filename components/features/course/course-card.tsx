@@ -8,9 +8,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { BackpackIcon, FileTextIcon, PersonIcon } from "@radix-ui/react-icons";
+import Link from "next/link";
 
 const CourseCard = () => {
   return (
+   <Link href="/homepage">
     <Card className="hover:opacity-70 transition-opacity ease-in-out duration-300 cursor-pointer ">
       <CardHeader>
         <CardTitle className="flex items-center space-x-2">
@@ -38,6 +40,7 @@ const CourseCard = () => {
         </div>
       </CardContent>
     </Card>
+   </Link>
   );
 };
 
