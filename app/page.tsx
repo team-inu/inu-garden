@@ -71,7 +71,7 @@ export default function Home() {
         <div className="flex flex-col items-start">
           <div className="flex flex-row">
             <div className="font-bold text-2xl text-white select-none">
-              <Link href={"/homepage"}>Inu【犬】</Link>
+              <Link href={"/course"}>Inu【犬】</Link>
             </div>
             {emojiComponent}
           </div>
