@@ -1,5 +1,5 @@
 "use client";
-import { CalendarDateRangePicker } from "@/components/date-range-picker";
+import { CalendarDateRangePicker } from "@/components/ui/date-range-picker";
 import Dashboard from "@/components/features/course/dashboard/dashboard";
 import { Overview } from "@/components/overview";
 import { RecentSales } from "@/components/recent-sales";
