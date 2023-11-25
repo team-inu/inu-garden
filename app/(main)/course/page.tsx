@@ -1,3 +1,4 @@
+"use client";
 import CourseCard from "@/components/features/course/course-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -5,7 +6,11 @@ import { Input } from "@/components/ui/input";
 const CoursePage = () => {
   return (
     <div className="w-10/12 mx-auto py-8">
+      <div>
+        <h1 className="text-4xl font-bold mb-5">Course</h1>
+      </div>
       <div className="mb-16 flex items-center justify-between w-full space-x-3 mx-auto">
+
         <div className="w-full">
         <Input
           type="search"
