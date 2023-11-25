@@ -21,8 +21,8 @@ const AdmissionPage = () => {
           mathGPA: 3.5,
           englishGPA: 3.5,
           scienceGPA: 3.5,
-          school: "1",
-          city: "1",
+          school: "Chiang Mai School",
+          city: "Chiang Mai",
         },
         {  id: "2",
           studentId: "6307050001",
@@ -34,8 +34,8 @@ const AdmissionPage = () => {
           mathGPA: 3.5,
           englishGPA: 3.5,
           scienceGPA: 3.5,
-          school: "1",
-          city: "1",
+          school: "Bangkok School",
+          city: "Bangkok",
         },
         ]} />
       </div>

@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Admission} from "@/data/schema"
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
-import { AddmissionRowActions } from "./admission-row-action"
-import { admissiones } from "./admission-table"
-
+import { ColumnDef } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Admission } from "@/data/schema";
+import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
+import { AddmissionRowActions } from "./admission-row-action";
+import { admissiones } from "./admission-table";
+import { Button } from "@/components/ui/button";
 
 export const columns: ColumnDef<Admission>[] = [
   {
@@ -47,7 +47,9 @@ export const columns: ColumnDef<Admission>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Student ID" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("studentId")}</div>,
+    cell: ({ row }) => (
+      <div className="w-[80px]">{row.getValue("studentId")}</div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -63,7 +65,7 @@ export const columns: ColumnDef<Admission>[] = [
             {row.getValue("firstName")}
           </span>
         </div>
-      )
+      );
     },
   },
   {
@@ -78,7 +80,7 @@ export const columns: ColumnDef<Admission>[] = [
             {row.getValue("lastName")}
           </span>
         </div>
-      )
+      );
     },
   },
   {
@@ -89,20 +91,20 @@ export const columns: ColumnDef<Admission>[] = [
     cell: ({ row }) => {
       const admission = admissiones.find(
         (label) => label.value === row.getValue("admission")
-      )
+      );
 
       if (!admission) {
-        return null
+        return null;
       }
 
       return (
         <div className="flex w-[100px] items-center">
           <span>{admission.value}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
@@ -113,14 +115,12 @@ export const columns: ColumnDef<Admission>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue("email")}
-          </span>
+          <span className="truncate font-medium">{row.getValue("email")}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
@@ -131,20 +131,18 @@ export const columns: ColumnDef<Admission>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue("GPAX")}
-          </span>
+          <span className="truncate font-medium">{row.getValue("GPAX")}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "mathGPA",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="mathGPA" />
+      <DataTableColumnHeader column={column} title="GPA Math" />
     ),
     cell: ({ row }) => {
       return (
@@ -153,16 +151,16 @@ export const columns: ColumnDef<Admission>[] = [
             {row.getValue("mathGPA")}
           </span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "englishGPA",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="englishGPA" />
+      <DataTableColumnHeader column={column} title="Eng GPA" />
     ),
     cell: ({ row }) => {
       return (
@@ -171,16 +169,16 @@ export const columns: ColumnDef<Admission>[] = [
             {row.getValue("englishGPA")}
           </span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "scienceGPA",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="scienceGPA" />
+      <DataTableColumnHeader column={column} title="GPA Sci" />
     ),
     cell: ({ row }) => {
       return (
@@ -189,50 +187,46 @@ export const columns: ColumnDef<Admission>[] = [
             {row.getValue("scienceGPA")}
           </span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "school",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="school" />
+      <DataTableColumnHeader column={column} title="School" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue("school")}
-          </span>
+          <span className="truncate font-medium">{row.getValue("school")}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     accessorKey: "city",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="city" />
+      <DataTableColumnHeader column={column} title="City" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue("city")}
-          </span>
+          <span className="truncate font-medium">{row.getValue("city")}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     id: "actions",
     cell: ({ row }) => <AddmissionRowActions row={row} />,
   },
-]
+];
