@@ -82,21 +82,11 @@ export const priorities: Option[] = [
 ]
 
 const inputs: SelectorOption[] = [
-  // {
-  //   options: statuses,
-  //   title: "Status",
-  //   columnName: "status",
-  // },
-  // {
-  //   options: labels,
-  //   title: "Label",
-  //   columnName: "label",
-  // },
-  // {
-  //   options: priorities,
-  //   title: "Priority",
-  //   columnName: "priority",
-  // },
+  {
+    options: labels,
+    title: "label",
+    columnName: "label",
+  },
 ]
 
 

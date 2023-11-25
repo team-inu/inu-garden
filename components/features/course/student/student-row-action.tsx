@@ -21,11 +21,12 @@ import {
 import { labels } from "@/data/data"
 import { StudentSchema } from "@/data/schema" // TODO: make it dynamic
 
+
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
-export function DataTableRowActions<TData>({
+export function StudentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const student = StudentSchema.parse(row.original)

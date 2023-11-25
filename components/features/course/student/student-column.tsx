@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { labels, priorities, statuses } from "@/data/data"
 import { Student } from "@/data/schema"
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
-import { DataTableRowActions } from "@/components/ui/data-table-row-actions"
+import { StudentRowActions } from "@/components/features/course/student/student-row-action"
 
 export const columns: ColumnDef<Student>[] = [
   {
@@ -118,6 +118,6 @@ export const columns: ColumnDef<Student>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <DataTableRowActions row={row} />,
+    cell: ({ row }) => <StudentRowActions row={row} />,
   },
 ]
