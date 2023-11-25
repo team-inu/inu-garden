@@ -58,6 +58,9 @@ export default function Home() {
       observer.observe(flower.current);
     }
   }, [isInView]);
+
+
+  
   return (
     <div className="bg-black h-screen w-full flex justify-center items-center overflow-hidden">
       <div className="flex flex-row items-center space-x-5">
@@ -66,7 +69,7 @@ export default function Home() {
           animate={{ rotate: 360, scale: 1 }}
           whileTap={{ scale: 0.5 }}
         >
-          <Image src="/images/shiba.svg" alt="shiba" width={80} height={80} />
+          <Image  priority src="/images/shiba.svg" alt="shiba" width={80} height={80} />
         </motion.div>
         <div className="flex flex-col items-start">
           <div className="flex flex-row">
