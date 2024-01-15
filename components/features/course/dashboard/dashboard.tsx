@@ -1,5 +1,5 @@
 import { Overview } from "@/components/overview";
-import { RecentSales } from "@/components/recent-sales";
+import { BadStudent } from "@/components/bad-student";
 import { Badge } from "@/components/ui/badge";
 import {
   Card,
@@ -17,17 +17,20 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium flex">Latest Assigment</CardTitle>
+            <CardTitle className="text-sm font-medium flex">
+              Latest Assigment
+            </CardTitle>
             <TimerIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-          {/* Latest Assigment */}
-            <div className="text-2xl font-bold flex items-center">Assignment 1
-            <Badge variant="green" className="ml-2">New</Badge>
+            {/* Latest Assigment */}
+            <div className="text-2xl font-bold flex items-center">
+              Assignment 1
+              <Badge variant="green" className="ml-2">
+                New
+              </Badge>
             </div>
-            <p className="text-xs text-muted-foreground">
-              due date 12/12/2021
-            </p>
+            <p className="text-xs text-muted-foreground">due date 12/12/2021</p>
           </CardContent>
         </Card>
         <Card>
@@ -81,7 +84,9 @@ export default function Dashboard() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">CLO 1 Percentage</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              CLO 1 Percentage
+            </CardTitle>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -120,7 +125,7 @@ export default function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <RecentSales />
+            <BadStudent />
           </CardContent>
         </Card>
       </div>
