@@ -1,24 +1,11 @@
 "use client";
-import { CalendarDateRangePicker } from "@/components/ui/date-range-picker";
+
 import Dashboard from "@/components/features/course/dashboard/dashboard";
-import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { StudentDataTable } from "@/components/features/course/student/student-table";
-import { columns } from "@/components/features/course/student/student-column";
-import { z } from "zod";
+import Student from "@/components/features/course/student/student";
+import Assignment from "@/components/features/course/assignment/assignment";
 
 const HomePage = () => {
-
-   const taskSchema = z.object({
-    id: z.string(),
-    firstname: z.string(),
-    lastname: z.string(),
-    email: z.string(),
-    score: z.number(),
-  })
-
-  type Task = z.infer<typeof taskSchema>
-  
   return (
     <>
       <div className="md:hidden"></div>
@@ -40,33 +27,11 @@ const HomePage = () => {
             <TabsContent value="forms" className="space-y-4">
               this is forms sections
             </TabsContent>
+            <TabsContent value="assignment" className="space-y-4">
+              <Assignment />
+            </TabsContent>
             <TabsContent value="student" className="space-y-4">
-              <StudentDataTable columns={columns} data={[
-                {
-                  id: "1",
-                  firstName: "John",
-                  lastName: "eiei",
-                  email: "a",
-                  name: "a",
-                  label: "passed",
-                },
-                {
-                  id: "2",
-                  firstName: "Por",
-                  lastName: "Doe",
-                  email: "a",
-                  name: "a",
-                  label: "passed",
-                },
-                {
-                  id: "3",
-                  firstName: "Annt",
-                  lastName: "Doe",
-                  email: "a",
-                  name: "a",
-                  label: "failed",
-                },
-              ]} />
+              <Student />
             </TabsContent>
           </Tabs>
         </div>
