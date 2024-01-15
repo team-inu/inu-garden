@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons"
-import { Row } from "@tanstack/react-table"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { Row } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -16,20 +16,19 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
+} from "@/components/ui/dropdown-menu";
 
-import { labels } from "@/data/data"
-import { AdmissionSchema } from "@/data/schema" // TODO: make it dynamic
-
+import { labels } from "@/data/data";
+import { AdmissionSchema } from "@/data/schema"; // TODO: make it dynamic
 
 interface DataTableRowActionsProps<TData> {
-  row: Row<TData>
+  row: Row<TData>;
 }
 
 export function AddmissionRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const admission = AdmissionSchema.parse(row.original)
+  const admission = AdmissionSchema.parse(row.original);
 
   return (
     <DropdownMenu>
@@ -50,7 +49,7 @@ export function AddmissionRowActions<TData>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={admission.firstName}> 
+            <DropdownMenuRadioGroup value={admission.firstName}>
               {labels.map((label) => (
                 <DropdownMenuRadioItem key={label.value} value={label.value}>
                   {label.label}
@@ -66,5 +65,5 @@ export function AddmissionRowActions<TData>({
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
-  )
+  );
 }
