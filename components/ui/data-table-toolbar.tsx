@@ -1,6 +1,6 @@
 "use client";
 
-import { Cross2Icon } from "@radix-ui/react-icons";
+import { Cross2Icon, MixerHorizontalIcon, PlusCircledIcon } from "@radix-ui/react-icons";
 import { Table, useReactTable } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
@@ -24,12 +24,17 @@ export type SelectorOption = {
 interface DataTableToolbarProps<TData> {
   table: Table<TData>;
   selectorOptions: SelectorOption[];
+  isViewOptions?: boolean;
+  isCreateEnabled?: boolean;
 }
 
 export function DataTableToolbar<TData>({
   table,
   selectorOptions: something,
+  isViewOptions = true,
+  isCreateEnabled = true,
 }: DataTableToolbarProps<TData>) {
+  const hasOption = something.length > 0;
   const [searchValue, setSearchValue] = useState<string>("");
   const isFiltered = table.getState().columnFilters.length > 0;
 
@@ -46,20 +51,21 @@ export function DataTableToolbar<TData>({
           className="h-8 w-[150px] lg:w-[250px]"
         />
 
-        {something.map((input, i) => {
-          return (
-            table.getColumn(input.columnName) && (
-              <DataTableFacetedFilter
-                column={table.getColumn(input.columnName)}
-                title={input.title}
-                options={input.options}
-                key={i}
-              />
-            )
-          );
-        })}
+        {hasOption &&
+          something.map((input, i) => {
+            return (
+              table.getColumn(input.columnName) && (
+                <DataTableFacetedFilter
+                  column={table.getColumn(input.columnName)}
+                  title={input.title}
+                  options={input.options}
+                  key={i}
+                />
+              )
+            );
+          })}
 
-        {isFiltered && (
+        {hasOption && isFiltered && (
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
@@ -70,7 +76,17 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <DataTableViewOptions table={table} />
+      {isCreateEnabled && (
+         <Button
+         variant="outline"
+         size="sm"
+         className="ml-auto hidden h-8 lg:flex"
+       >
+         <PlusCircledIcon className="mr-2 h-4 w-4" />
+         Add 
+       </Button>
+      )}
+      {isViewOptions && <DataTableViewOptions table={table} />}
     </div>
   );
 }
