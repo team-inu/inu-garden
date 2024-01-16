@@ -25,7 +25,7 @@ const mockPO: PO[] = [
     description: "PO3 description",
   },
 ];
-const mockPLO: PLO[] = [
+export const mockPLO: PLO[] = [
   {
     id: "01HG65WNM26ZY60SC0CYC4V4TK",
     name: "PLO1",
@@ -42,7 +42,7 @@ const mockPLO: PLO[] = [
     description: "PLO3 description",
   },
 ];
-const mockSubPLO: SubPLO[] = [
+export const mockSubPLO: SubPLO[] = [
   {
     id: "01HG65WNM2DZATRKR411FN3MXW",
     descriptionThai: "Sub PLO1 description",
@@ -85,7 +85,9 @@ const TABEE = () => {
       <div>
         {selectedRows && (
           <div>
-            <h1 className="text-2xl font-bold mb-5 ">Sub program learning outcome of {selectedRows}</h1>
+            <h1 className="text-2xl font-bold mb-5 ">
+              Sub program learning outcome of {selectedRows}
+            </h1>
             <SubProgramLearningOutcomeDataTable
               columns={subPloColumns}
               data={mockSubPLO}
