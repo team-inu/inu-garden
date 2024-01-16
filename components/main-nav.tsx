@@ -18,22 +18,28 @@ export function MainNav({
         Course
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/admission"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Addmission
+        Admission
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/graduation"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Graduation
       </Link>
       <Link
-        href="/examples/dashboard"
+        href="/lecturer"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
         Lecturer
+      </Link>
+      <Link
+        href="/tabee"
+        className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+      >
+        TABEE
       </Link>
     </nav>
   );

@@ -19,16 +19,17 @@ import {
 } from "@/components/ui/dropdown-menu"
 
 import { labels } from "@/data/data"
-import { StudentSchema } from "@/data/schema" // TODO: make it dynamic
+import { POSchema } from "@/data/schema" // TODO: make it dynamic
+
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
-export function DataTableRowActions<TData>({
+export function PORowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const student = StudentSchema.parse(row.original)
+  const PO = POSchema.parse(row.original)
 
   return (
     <DropdownMenu>
@@ -49,7 +50,7 @@ export function DataTableRowActions<TData>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={student.name}> 
+            <DropdownMenuRadioGroup value={PO.name}> 
               {labels.map((label) => (
                 <DropdownMenuRadioItem key={label.value} value={label.value}>
                   {label.label}

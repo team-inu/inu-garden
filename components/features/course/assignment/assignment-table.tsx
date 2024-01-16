@@ -26,73 +26,20 @@ import {
 } from "@/components/ui/table"
 
 import { DataTablePagination } from "@/components/ui/data-table-pagination"
-import { DataTableToolbar, Option, SelectorOption } from "@/components/ui/data-table-toolbar"
-import { ArrowDownIcon, ArrowUpIcon, ArrowRightIcon, CheckCircledIcon, CircleIcon, Cross2Icon, CrossCircledIcon, QuestionMarkCircledIcon, StopwatchIcon } from "@radix-ui/react-icons"
-import { labels } from "@/data/data"
+import { DataTableToolbar} from "@/components/ui/data-table-toolbar"
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  getValues?: (id: string) => void
 }
 
-export const statuses: Option[] = [
-  {
-    value: "backlog",
-    label: "Backlog",
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: "todo",
-    label: "Todo",
-    icon: CircleIcon,
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-    icon: StopwatchIcon,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircledIcon,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: CrossCircledIcon,
-  },
-]
-
-export const priorities: Option[] = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
-  },
-  {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
-  },
-  {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
-  },
-]
-
-const inputs: SelectorOption[] = [
-  {
-    options: labels,
-    title: "label",
-    columnName: "label",
-  },
-]
 
 
-export function StudentDataTable<TData, TValue>({
+export function AssignmentDataTable<TData, TValue>({
   columns,
   data,
+  getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -126,7 +73,7 @@ export function StudentDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={inputs}  />
+      <DataTableToolbar table={table} selectorOptions={[]}  />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -147,12 +94,17 @@ export function StudentDataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody>
+          <TableBody className="cursor-pointer">
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => {
+                    if (getValues) {
+                      getValues(row.getValue("name"))
+                    }
+                  }}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -177,7 +129,7 @@ export function StudentDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false}/>
     </div>
   )
 }

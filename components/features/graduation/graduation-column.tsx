@@ -1,16 +1,13 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Graduation } from "@/data/schema";
+import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
+import { GraduationRowActions } from "./graduation-row-action";
+import { Button } from "@/components/ui/button";
 
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
-
-import { labels, priorities, statuses } from "@/data/data"
-import { Student } from "@/data/schema"
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
-import { StudentRowActions } from "@/components/features/course/student/student-row-action"
-
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Graduation>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -38,9 +35,20 @@ export const columns: ColumnDef<Student>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="id" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "studentId",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Student ID" />
+    ),
+    cell: ({ row }) => (
+      <div className="w-[80px]">{row.getValue("studentId")}</div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -56,7 +64,7 @@ export const columns: ColumnDef<Student>[] = [
             {row.getValue("firstName")}
           </span>
         </div>
-      )
+      );
     },
   },
   {
@@ -71,53 +79,61 @@ export const columns: ColumnDef<Student>[] = [
             {row.getValue("lastName")}
           </span>
         </div>
-      )
+      );
     },
   },
   {
-    accessorKey: "label",
+    accessorKey: "year",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Label" />
+      <DataTableColumnHeader column={column} title="Year" />
     ),
     cell: ({ row }) => {
-      const label = labels.find(
-        (label) => label.value === row.getValue("label")
-      )
-
-      if (!label) {
-        return null
-      }
-
       return (
-        <div className="flex w-[100px] items-center">
-          <span>{label.value}</span>
+        <div className="flex space-x-2">
+          <span className="truncate font-medium">{row.getValue("year")}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
-    accessorKey: "email",
+    accessorKey: "workPlace",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
+      <DataTableColumnHeader column={column} title="WorkPlace" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="truncate font-medium">{row.getValue("workPlace")}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: "remarks",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Remarks" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("email")}
+            {row.getValue("remarks")}
           </span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     id: "actions",
-    cell: ({ row }) => <StudentRowActions row={row} />,
+    cell: ({ row }) => <GraduationRowActions row={row} />,
   },
-]
+];

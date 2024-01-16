@@ -27,70 +27,15 @@ import {
 
 import { DataTablePagination } from "@/components/ui/data-table-pagination"
 import { DataTableToolbar, Option, SelectorOption } from "@/components/ui/data-table-toolbar"
-import { ArrowDownIcon, ArrowUpIcon, ArrowRightIcon, CheckCircledIcon, CircleIcon, Cross2Icon, CrossCircledIcon, QuestionMarkCircledIcon, StopwatchIcon } from "@radix-ui/react-icons"
-import { labels } from "@/data/data"
+import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons"
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export const statuses: Option[] = [
-  {
-    value: "backlog",
-    label: "Backlog",
-    icon: QuestionMarkCircledIcon,
-  },
-  {
-    value: "todo",
-    label: "Todo",
-    icon: CircleIcon,
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-    icon: StopwatchIcon,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircledIcon,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: CrossCircledIcon,
-  },
-]
-
-export const priorities: Option[] = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
-  },
-  {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
-  },
-  {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
-  },
-]
-
-const inputs: SelectorOption[] = [
-  {
-    options: labels,
-    title: "label",
-    columnName: "label",
-  },
-]
-
-
-export function StudentDataTable<TData, TValue>({
+export function GraduationDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -126,7 +71,7 @@ export function StudentDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={inputs}  />
+      <DataTableToolbar table={table} selectorOptions={[]}   />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

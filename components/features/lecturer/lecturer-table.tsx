@@ -27,70 +27,38 @@ import {
 
 import { DataTablePagination } from "@/components/ui/data-table-pagination"
 import { DataTableToolbar, Option, SelectorOption } from "@/components/ui/data-table-toolbar"
-import { ArrowDownIcon, ArrowUpIcon, ArrowRightIcon, CheckCircledIcon, CircleIcon, Cross2Icon, CrossCircledIcon, QuestionMarkCircledIcon, StopwatchIcon } from "@radix-ui/react-icons"
-import { labels } from "@/data/data"
+import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons"
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
 }
 
-export const statuses: Option[] = [
+export const lectureres: Option[] = [
   {
-    value: "backlog",
-    label: "Backlog",
+    value: "โครงการ 2B",
+    label: "โครงการ 2B",
     icon: QuestionMarkCircledIcon,
   },
   {
-    value: "todo",
-    label: "Todo",
+    value: "โครงการ 3B",
+    label: "โครงการ 3B",
     icon: CircleIcon,
-  },
-  {
-    value: "in progress",
-    label: "In Progress",
-    icon: StopwatchIcon,
-  },
-  {
-    value: "done",
-    label: "Done",
-    icon: CheckCircledIcon,
-  },
-  {
-    value: "canceled",
-    label: "Canceled",
-    icon: CrossCircledIcon,
   },
 ]
 
-export const priorities: Option[] = [
-  {
-    label: "Low",
-    value: "low",
-    icon: ArrowDownIcon,
-  },
-  {
-    label: "Medium",
-    value: "medium",
-    icon: ArrowRightIcon,
-  },
-  {
-    label: "High",
-    value: "high",
-    icon: ArrowUpIcon,
-  },
-]
 
 const inputs: SelectorOption[] = [
   {
-    options: labels,
-    title: "label",
-    columnName: "label",
+    options: lectureres,
+    title: "Lecturer",
+    columnName: "lecturer",
   },
 ]
 
 
-export function StudentDataTable<TData, TValue>({
+export function LecturerDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
