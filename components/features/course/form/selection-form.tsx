@@ -13,7 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import { UseFormReturn } from "react-hook-form";
 
 type SelectionFormProps = {

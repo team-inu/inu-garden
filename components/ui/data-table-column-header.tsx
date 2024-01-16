@@ -7,7 +7,7 @@ import {
 } from "@radix-ui/react-icons";
 import { Column } from "@tanstack/react-table";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
