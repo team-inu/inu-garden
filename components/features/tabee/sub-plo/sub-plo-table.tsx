@@ -31,11 +31,15 @@ import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  disableToolbar?: boolean;
+  disablePagination?: boolean;
 }
 
 export function SubProgramLearningOutcomeDataTable<TData, TValue>({
   columns,
   data,
+  disableToolbar = false,
+  disablePagination = false,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -69,12 +73,14 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar
-        table={table}
-        selectorOptions={[]}
-        isCreateEnabled={false}
-        isViewOptions={false}
-      />
+      {!disableToolbar && (
+        <DataTableToolbar
+          table={table}
+          selectorOptions={[]}
+          isCreateEnabled={false}
+          isViewOptions={false}
+        />
+      )}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -125,7 +131,9 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} isRowSelectionEnabled={false} />
+      {!disablePagination && (
+        <DataTablePagination table={table} isRowSelectionEnabled={false} />
+      )}
     </div>
   );
 }
