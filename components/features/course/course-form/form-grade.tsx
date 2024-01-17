@@ -16,7 +16,7 @@ const CourseFormGrade = () => {
           <FormItem>
             <FormLabel>A</FormLabel>
             <FormControl>
-              <Input className="h-9" {...field} />
+              <Input {...field} type="number" min="0" max="100" />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -28,7 +28,7 @@ const CourseFormGrade = () => {
           <FormItem>
             <FormLabel>B</FormLabel>
             <FormControl>
-              <Input className="h-9" {...field} />
+              <Input {...field} type="number" min="0" max="100" />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -40,7 +40,7 @@ const CourseFormGrade = () => {
           <FormItem>
             <FormLabel>C</FormLabel>
             <FormControl>
-              <Input className="h-9" {...field} />
+              <Input {...field} type="number" min="0" max="100" />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -52,7 +52,7 @@ const CourseFormGrade = () => {
           <FormItem>
             <FormLabel>D</FormLabel>
             <FormControl>
-              <Input className="h-9" {...field} />
+              <Input {...field} type="number" min="0" max="100" />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -64,7 +64,7 @@ const CourseFormGrade = () => {
           <FormItem>
             <FormLabel>F</FormLabel>
             <FormControl>
-              <Input className="h-9" {...field} />
+              <Input {...field} type="number" min="0" max="100" />
             </FormControl>
             <FormMessage />
           </FormItem>
