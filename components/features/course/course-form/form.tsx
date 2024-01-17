@@ -51,8 +51,34 @@ const CourseForm = () => {
     name: "courseLearningOutcome",
   });
 
+  const checkGrade = (values: CreateCourseSchemaValues) => {
+    if (
+      values.grade.a < values.grade.b ||
+      values.grade.a < values.grade.c ||
+      values.grade.a < values.grade.d ||
+      values.grade.b < values.grade.c ||
+      values.grade.b < values.grade.d ||
+      values.grade.c < values.grade.d
+    ) {
+      console.log("A must be greater than B,C,D");
+    } else if (
+      values.grade.b < values.grade.c ||
+      values.grade.b < values.grade.d ||
+      values.grade.b < values.grade.f
+    ) {
+      console.log("B must be greater than C,D,F");
+    } else if (
+      values.grade.c < values.grade.d ||
+      values.grade.c < values.grade.f
+    ) {
+      console.log("C must be greater than D,F");
+    } else if (values.grade.d < values.grade.f) {
+      console.log("D must be greater than F");
+    }
+  };
+
   const onSubmit = (values: CreateCourseSchemaValues) => {
-    console.log(values);
+    checkGrade(values);
   };
   return (
     <div>
@@ -66,7 +92,7 @@ const CourseForm = () => {
                 <FormItem>
                   <FormLabel>Name</FormLabel>
                   <FormControl>
-                    <Input className="h-9" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -79,7 +105,7 @@ const CourseForm = () => {
                 <FormItem>
                   <FormLabel>Code</FormLabel>
                   <FormControl>
-                    <Input className="h-9" {...field} />
+                    <Input {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -136,7 +162,7 @@ const CourseForm = () => {
               <FormItem>
                 <FormLabel>Course introduction and description</FormLabel>
                 <FormControl>
-                  <Textarea className="h-24" {...field} />
+                  <Textarea {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -146,18 +172,22 @@ const CourseForm = () => {
           <CourseFormGrade />
 
           <div className="pt-5">Course Learning Outcome</div>
-          <div className="grid grid-cols-4 gap-4 items-center">
+          <div className="grid grid-cols-3 gap-y-8  items-center">
             {fields.map((item, index) => {
               return (
                 <div key={item.id}>
-                  <CourseFormLink index={index} remove={remove} />
+                  <CourseFormLink
+                    index={index}
+                    remove={remove}
+                    courseFormLinkLength={fields.length}
+                  />
                 </div>
               );
             })}
             <Button
               variant={"ghost"}
               type="button"
-              className="w-80 h-80 border-2 border-dashed"
+              className="w-80 h-96 border-2 border-dashed"
               onClick={() => {
                 append({
                   code: "",
