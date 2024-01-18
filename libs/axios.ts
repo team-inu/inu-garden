@@ -2,7 +2,7 @@ import { JSONBigIntParser, deserializeDate } from "@/libs/utils";
 import axios from "axios";
 
 export const Axios = axios.create({
-  baseURL: window.APP_CONFIG.BACKEND_URL,
+  baseURL: process.env.NEXT_BACKEND_URL,
   withCredentials: true,
 });
 

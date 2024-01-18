@@ -1,6 +1,5 @@
 "use client";
 import {
-  Form,
   FormControl,
   FormField,
   FormItem,
@@ -31,12 +30,14 @@ import { ProgramLearningOutcomeDataTable } from "../../tabee/plo/plo-table";
 import { mockPLO, mockSubPLO } from "../../tabee/tabee";
 
 import { SubProgramLearningOutcomeDataTable } from "../../tabee/sub-plo/sub-plo-table";
-import { sub } from "date-fns";
 import { ploColumns } from "./plo-showcase";
 import { subPloColumns } from "./subplo-showcase";
+import { cn } from "@/libs/utils";
+import { useCreateCourse } from "@/hooks/course-hook";
 
 const CourseForm = () => {
   const [selectedRows, setSelectedRows] = useState<string>("");
+  const { mutate: join, isPending: isSubmitting } = useCreateCourse();
   const getVales = (id: string) => {
     setSelectedRows(id);
   };
@@ -79,6 +80,7 @@ const CourseForm = () => {
 
   const onSubmit = (values: CreateCourseSchemaValues) => {
     checkGrade(values);
+    join(values);
   };
   return (
     <div>
@@ -228,7 +230,13 @@ const CourseForm = () => {
               </div>
             )}
           </div>
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className={cn("w-full", {
+              // "bg-green-500": isSubmitting,
+            })}
+            // disabled={isSubmitting}
+          >
             Create Course
           </Button>
         </form>
