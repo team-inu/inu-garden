@@ -13,7 +13,16 @@ export const CreateCourseSchema = z.object({
   lecturer: z
     .string({ required_error: "required" })
     .min(1, { message: "required" }),
+  curriculum: z
+    .string({ required_error: "required" })
+    .min(1, { message: "required" }),
   semester: z
+    .string({ required_error: "required" })
+    .min(1, { message: "required" }),
+  academicYear: z
+    .string({ required_error: "required" })
+    .min(1, { message: "required" }),
+  graduateYear: z
     .string({ required_error: "required" })
     .min(1, { message: "required" }),
   courseLearningOutcome: z
@@ -59,14 +68,21 @@ export const CreateCourseSchema = z.object({
 export type CreateCourseSchemaValues = z.infer<typeof CreateCourseSchema>;
 
 export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> =
-  {
-    courseLearningOutcome: [
-      {
-        code: "",
-        weight: "",
-        description: "",
-        subProgramLearningOutcome: "",
-        programOutcome: "",
-      },
-    ],
-  };
+{
+  grade: {
+    a: "80",
+    b: "75",
+    c: "70",
+    d: "65",
+    f: "60",
+  },
+  courseLearningOutcome: [
+    {
+      code: "",
+      weight: "",
+      description: "",
+      subProgramLearningOutcome: "",
+      programOutcome: "",
+    },
+  ],
+};
