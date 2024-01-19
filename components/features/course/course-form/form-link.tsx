@@ -1,3 +1,4 @@
+"use client";
 import {
   FormControl,
   FormField,
@@ -102,7 +103,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
         name={`courseLearningOutcome[${index}].programOutcome`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Link sub PLO</FormLabel>
+            <FormLabel>Link PLO</FormLabel>
             <FormControl>
               <Select {...field} onValueChange={field.onChange}>
                 <FormControl>
@@ -111,8 +112,9 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"1"}>PO1</SelectItem>
-                  <SelectItem value={"2"}>PO2</SelectItem>
+                  <SelectItem value={"1A"}>1A</SelectItem>
+                  <SelectItem value={"1B"}>1B</SelectItem>
+                  <SelectItem value={"1C"}>1C</SelectItem>
                 </SelectContent>
               </Select>
             </FormControl>
