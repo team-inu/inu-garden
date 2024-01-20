@@ -25,7 +25,7 @@ export default function Dashboard() {
           <CardContent>
             {/* Latest Assigment */}
             <div className="text-2xl font-bold flex items-center">
-              Assignment 1
+              Lomuto
               <Badge variant="green" className="ml-2">
                 New
               </Badge>
