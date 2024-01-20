@@ -1,6 +1,6 @@
-"use client"
-
-import * as React from "react"
+"use client";
+import * as XLSX from "xlsx";
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,31 +23,31 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination"
-import { DataTableToolbar} from "@/components/ui/data-table-toolbar"
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
+import { toast } from "sonner";
+import { tableToObject, worksheetToTables } from "@/lib/excel";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
-  getValues?: (id: string) => void
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
+  getValues?: (name: string, id: string) => void;
 }
-
-
 
 export function AssignmentDataTable<TData, TValue>({
   columns,
   data,
   getValues,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+    React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
     data,
@@ -69,11 +69,11 @@ export function AssignmentDataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
+  });
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={[]}  />
+      <DataTableToolbar table={table} selectorOptions={[]} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -89,7 +89,7 @@ export function AssignmentDataTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -102,7 +102,7 @@ export function AssignmentDataTable<TData, TValue>({
                   data-state={row.getIsSelected() && "selected"}
                   onClick={() => {
                     if (getValues) {
-                      getValues(row.getValue("name"))
+                      getValues(row.getValue("id"), row.getValue("name"));
                     }
                   }}
                 >
@@ -129,7 +129,7 @@ export function AssignmentDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} isRowSelectionEnabled={false}/>
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
-  )
+  );
 }

@@ -6,8 +6,6 @@ import { columns as scoreColumns } from "../score/score-column";
 import { AssignmentDataTable } from "./assignment-table";
 import { ScoreDataTable } from "../score/score-table";
 import Image from "next/image";
-import PieChartCustom from "@/components/piechart";
-import RadialBarChartCustom from "@/components/radial-bar-chart";
 import {
   Card,
   CardContent,
@@ -16,12 +14,17 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ScatterChartCustom from "@/components/scatter-chart";
-import { Button } from "@/components/ui/button";
+import { isNullOrUndefined } from "util";
+
+type SelectedRowType = {
+  name: string;
+  id: string;
+};
 
 const Assignment = () => {
-  const [selectedRows, setSelectedRows] = useState<string>("");
-  const getVales = (id: string) => {
-    setSelectedRows(id);
+  const [selectedRows, setSelectedRows] = useState<SelectedRowType>();
+  const getVales = (id: string, name: string) => {
+    setSelectedRows({ name: name, id: id });
   };
   return (
     <div className="space-y-5">
@@ -33,7 +36,7 @@ const Assignment = () => {
           data={[
             {
               id: "1",
-              name: "Assignment 1",
+              name: "Lomuto",
               clo: "CLO1, CLO2",
               plo: "PLO1",
               po: "PO1",
@@ -69,9 +72,6 @@ const Assignment = () => {
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle>Score</CardTitle>
-              <CardDescription>
-                <Button className="" variant={"secondary"}>Import Score</Button>
-              </CardDescription>
             </CardHeader>
             <CardContent>
               <ScoreDataTable
@@ -85,6 +85,8 @@ const Assignment = () => {
                     score: 100,
                   },
                 ]}
+                assignmentName={selectedRows.name}
+                assignmentId={selectedRows.id}
               />
             </CardContent>
           </Card>
@@ -92,7 +94,7 @@ const Assignment = () => {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle>Summary</CardTitle>
-                <CardDescription>Score of {selectedRows}</CardDescription>
+                <CardDescription>Score of {selectedRows.name}</CardDescription>
               </CardHeader>
               <CardContent>
                 <ScatterChartCustom />
