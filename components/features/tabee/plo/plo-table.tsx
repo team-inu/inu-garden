@@ -58,12 +58,16 @@ const inputs: SelectorOption[] = [
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  disableToolbar?: boolean;
+  disablePagination?: boolean;
   getValues: (id: string) => void;
 }
 
 export function ProgramLearningOutcomeDataTable<TData, TValue>({
   columns,
   data,
+  disableToolbar = false,
+  disablePagination = false,
   getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
@@ -98,7 +102,14 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={inputs} isCreateEnabled={false} isViewOptions={false} />
+      {!disableToolbar && (
+        <DataTableToolbar
+          table={table}
+          selectorOptions={inputs}
+          isCreateEnabled={false}
+          isViewOptions={false}
+        />
+      )}
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -151,7 +162,9 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} isRowSelectionEnabled={false}/>
+      {!disablePagination && (
+        <DataTablePagination table={table} isRowSelectionEnabled={false} />
+      )}
     </div>
   );
 }

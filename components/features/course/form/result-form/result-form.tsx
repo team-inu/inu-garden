@@ -7,7 +7,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import InputForm from "../input-form";
 import * as z from "zod";
 import LinkedSection from "./link-section";
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 import SelectForm from "../selection-form";
 import MultiSelectionForm from "../multi-selection-form";
 

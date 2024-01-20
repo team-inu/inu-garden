@@ -3,7 +3,7 @@
 import { CheckIcon, PlusCircleIcon } from "lucide-react";
 import React from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/libs/utils";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
