@@ -1,6 +1,6 @@
-"use client"
-
-import * as React from "react"
+"use client";
+import * as XLSX from "xlsx";
+import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +14,7 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table"
+} from "@tanstack/react-table";
 
 import {
   Table,
@@ -23,16 +23,32 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination"
-import { DataTableToolbar, Option, SelectorOption } from "@/components/ui/data-table-toolbar"
-import { ArrowDownIcon, ArrowUpIcon, ArrowRightIcon, CheckCircledIcon, CircleIcon, Cross2Icon, CrossCircledIcon, QuestionMarkCircledIcon, StopwatchIcon } from "@radix-ui/react-icons"
-import { labels } from "@/data/data"
+import { DataTablePagination } from "@/components/ui/data-table-pagination";
+import {
+  DataTableToolbar,
+  Option,
+  SelectorOption,
+} from "@/components/ui/data-table-toolbar";
+import {
+  ArrowDownIcon,
+  ArrowUpIcon,
+  ArrowRightIcon,
+  CheckCircledIcon,
+  CircleIcon,
+  Cross2Icon,
+  CrossCircledIcon,
+  QuestionMarkCircledIcon,
+  StopwatchIcon,
+} from "@radix-ui/react-icons";
+import { labels } from "@/data/data";
+import { toast } from "sonner";
+import { tableToObject, worksheetToTables } from "@/lib/excel";
 
 interface DataTableProps<TData, TValue> {
-  columns: ColumnDef<TData, TValue>[]
-  data: TData[]
+  columns: ColumnDef<TData, TValue>[];
+  data: TData[];
 }
 
 export const statuses: Option[] = [
@@ -61,7 +77,7 @@ export const statuses: Option[] = [
     label: "Canceled",
     icon: CrossCircledIcon,
   },
-]
+];
 
 export const priorities: Option[] = [
   {
@@ -79,7 +95,7 @@ export const priorities: Option[] = [
     value: "high",
     icon: ArrowUpIcon,
   },
-]
+];
 
 const inputs: SelectorOption[] = [
   {
@@ -87,20 +103,19 @@ const inputs: SelectorOption[] = [
     title: "label",
     columnName: "label",
   },
-]
-
+];
 
 export function StudentDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
-  const [rowSelection, setRowSelection] = React.useState({})
+  const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+    React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
-  )
-  const [sorting, setSorting] = React.useState<SortingState>([])
+  );
+  const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
     data,
@@ -122,11 +137,38 @@ export function StudentDataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
-  })
+  });
+
+  const handleUploadStudent = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return toast.error("Can not read file");
+    }
+
+    const buffer = await file.arrayBuffer();
+    const workBook = XLSX.read(buffer, { type: "buffer" });
+
+    const sheet = workBook.Sheets[workBook.SheetNames[1]];
+
+    const [studentTable] = await worksheetToTables(sheet);
+
+    const student = tableToObject(studentTable[0], studentTable.slice(1));
+
+    // TODO: push to backend
+    console.log(student);
+
+    e.target.value = "";
+  };
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={inputs}  />
+      <DataTableToolbar
+        table={table}
+        selectorOptions={inputs}
+        handleImport={handleUploadStudent}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -142,7 +184,7 @@ export function StudentDataTable<TData, TValue>({
                             header.getContext()
                           )}
                     </TableHead>
-                  )
+                  );
                 })}
               </TableRow>
             ))}
@@ -179,5 +221,5 @@ export function StudentDataTable<TData, TValue>({
       </div>
       <DataTablePagination table={table} />
     </div>
-  )
+  );
 }
