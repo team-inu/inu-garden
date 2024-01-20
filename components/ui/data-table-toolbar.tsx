@@ -1,6 +1,10 @@
 "use client";
 
-import { Cross2Icon, MixerHorizontalIcon, PlusCircledIcon } from "@radix-ui/react-icons";
+import {
+  Cross2Icon,
+  MixerHorizontalIcon,
+  PlusCircledIcon,
+} from "@radix-ui/react-icons";
 import { Table, useReactTable } from "@tanstack/react-table";
 
 import { Button } from "@/components/ui/button";
@@ -8,7 +12,8 @@ import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { useState } from "react";
+import { ChangeEvent, useRef, useState } from "react";
+import { ImportIcon } from "lucide-react";
 export type Option = {
   value: string;
   label: string;
@@ -26,6 +31,7 @@ interface DataTableToolbarProps<TData> {
   selectorOptions: SelectorOption[];
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
+  handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function DataTableToolbar<TData>({
@@ -33,10 +39,12 @@ export function DataTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
+  handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [searchValue, setSearchValue] = useState<string>("");
   const isFiltered = table.getState().columnFilters.length > 0;
+  const fileImportRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="flex items-center justify-between">
@@ -76,17 +84,37 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      {isCreateEnabled && (
-         <Button
-         variant="outline"
-         size="sm"
-         className="ml-auto hidden h-8 lg:flex"
-       >
-         <PlusCircledIcon className="mr-2 h-4 w-4" />
-         Add 
-       </Button>
-      )}
-      {isViewOptions && <DataTableViewOptions table={table} />}
+      <div className="space-x-2 flex">
+        {isCreateEnabled && (
+          <div className="flex space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-auto hidden h-8 lg:flex"
+            >
+              <PlusCircledIcon className="mr-2 h-4 w-4" />
+              Add
+            </Button>
+
+            <Input
+              type="file"
+              className="hidden"
+              ref={fileImportRef}
+              onChange={handleImport}
+            />
+            <Button
+              className="ml-auto hidden h-8 lg:flex"
+              variant="outline"
+              size="sm"
+              onClick={() => fileImportRef.current?.click()}
+            >
+              <ImportIcon className="mr-2 h-4 w-4" />
+              Import
+            </Button>
+          </div>
+        )}
+        {isViewOptions && <DataTableViewOptions table={table} />}
+      </div>
     </div>
   );
 }
