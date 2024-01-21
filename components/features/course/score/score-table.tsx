@@ -29,7 +29,7 @@ import {
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
 import { toast } from "sonner";
-import { tableToObject, worksheetToTables } from "@/lib/excel";
+import { tableToObject, worksheetToTables } from "@/libs/excel";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

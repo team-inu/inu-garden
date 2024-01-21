@@ -44,7 +44,7 @@ import {
 } from "@radix-ui/react-icons";
 import { labels } from "@/data/data";
 import { toast } from "sonner";
-import { tableToObject, worksheetToTables } from "@/lib/excel";
+import { tableToObject, worksheetToTables } from "@/libs/excel";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

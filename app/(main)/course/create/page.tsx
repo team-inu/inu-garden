@@ -1,12 +1,17 @@
-'use client'
+"use client";
 import CourseForm from "@/components/features/course/course-form/form";
 import CourseFormHeader from "@/components/features/course/course-form/form-header";
-import { Button } from '@/components/ui/button';
-import { useCreateCourse } from '@/hooks/course-hook';
-import { useStrictForm } from '@/hooks/form-hook';
-import { cn } from '@/libs/utils';
-import { CreateCourseSchema, CreateCourseSchemaDefaultValues, CreateCourseSchemaValues } from '@/types/schema/course-schema';
-import { FormProvider } from 'react-hook-form';
+import { Button } from "@/components/ui/button";
+import { useCreateCourse } from "@/hooks/course-hook";
+import { useStrictForm } from "@/hooks/form-hook";
+import { cn } from "@/libs/utils";
+import {
+  CreateCourseSchema,
+  CreateCourseSchemaDefaultValues,
+  CreateCourseSchemaValues,
+} from "@/types/schema/course-schema";
+import { ArrowBigLeftDashIcon } from "lucide-react";
+import { FormProvider } from "react-hook-form";
 
 const CreateCoursePage = () => {
   const form = useStrictForm(
@@ -47,7 +52,14 @@ const CreateCoursePage = () => {
   return (
     <FormProvider {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        <div className="container py-8">
+        <Button
+          className="self-start mx-10 mt-5 absolute"
+          onClick={() => window.history.back()}
+        >
+          <ArrowBigLeftDashIcon className="w-5 h-5" />
+          Back
+        </Button>
+        <div className="container py-8 shadow-sm shadow-white">
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="mb-5">
@@ -59,12 +71,9 @@ const CreateCoursePage = () => {
             </div>
           </div>
           {/* Form */}
-          <div>
+          <div className="space-y-5">
             <CourseForm />
-            <Button
-              type="submit"
-              className={"w-full"}
-            >
+            <Button type="submit" className={"w-full"}>
               Create Course
             </Button>
           </div>

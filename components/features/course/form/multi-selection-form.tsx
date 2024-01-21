@@ -27,26 +27,25 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { UseFormReturn } from "react-hook-form";
+import { UseFormReturn, useFormContext } from "react-hook-form";
 
 type MultiSelectionFormProps = {
   name: string;
-  lable: string;
+  lable?: string;
   placeholder: string;
   options: {
     value: string;
     text: string;
   }[];
-  form: UseFormReturn<any>;
 };
 
 const MultiSelectionForm: React.FC<MultiSelectionFormProps> = ({
-  form,
   name,
   lable,
   options,
 }) => {
   const selectedValues = new Set<string>();
+  const form = useFormContext();
 
   return (
     <FormField
@@ -54,7 +53,7 @@ const MultiSelectionForm: React.FC<MultiSelectionFormProps> = ({
       name={name}
       render={() => (
         <FormItem>
-          <FormLabel>{lable}</FormLabel>
+          {lable && <FormLabel>{lable}</FormLabel>}
           <Popover>
             <PopoverTrigger asChild>
               <FormControl>
@@ -111,6 +110,7 @@ const MultiSelectionForm: React.FC<MultiSelectionFormProps> = ({
                         onSelect={() => {
                           if (isSelected) {
                             selectedValues.delete(option.value);
+                            form.setValue(name, Array.from(selectedValues));
                           } else {
                             selectedValues.add(option.value);
                           }

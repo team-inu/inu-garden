@@ -10,26 +10,21 @@ const CoursePage = () => {
       <div>
         <h1 className="text-4xl font-bold mb-5">Course</h1>
       </div>
-      <div className="mb-16 flex items-center justify-between w-full space-x-3 mx-auto">
-        <div className="w-full">
-          <Input
-            type="search"
-            placeholder="Search..."
-            className="dark:bg-input "
-          />
-        </div>
-
-        <div className="w-1/12">
-          <Link href="/course/create">
-            <Button
-              variant={"default"}
-              className="text-base font-bold  min-w-max"
-              size={"lg"}
-            >
-              Add course
-            </Button>
-          </Link>
-        </div>
+      <div className="mb-16 flex items-center justify-between w-full  ">
+        <Input
+          type="search"
+          placeholder="Search..."
+          className="dark:bg-input w-10/12"
+        />
+        <Link href="/course/create" className="w-2/12 flex justify-end">
+          <Button
+            variant={"default"}
+            className="text-base font-bold  min-w-max"
+            size={"lg"}
+          >
+            Add course
+          </Button>
+        </Link>
       </div>
       <div className="grid grid-cols-3 gap-5">
         <CourseCard />

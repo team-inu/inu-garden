@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { tableToObject, worksheetToTables } from "@/lib/excel";
+import { tableToObject, worksheetToTables } from "@/libs/excel";
 import { CreateCourseSchemaValues } from "@/types/schema/course-schema";
 import { TimerIcon, ImportIcon } from "lucide-react";
 import { ChangeEvent, useRef } from "react";

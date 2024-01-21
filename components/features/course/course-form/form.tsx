@@ -7,12 +7,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
-import {
-  CreateCourseSchema,
-  CreateCourseSchemaDefaultValues,
-  CreateCourseSchemaValues,
-} from "@/types/schema/course-schema";
+import { CreateCourseSchemaValues } from "@/types/schema/course-schema";
 import {
   Select,
   SelectContent,
@@ -22,7 +17,7 @@ import {
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import CourseFormLink from "./form-link";
-import { FormProvider, useFieldArray, useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import CourseFormGrade from "./form-grade";
 import { useState } from "react";
@@ -32,8 +27,6 @@ import { mockPLO, mockSubPLO } from "../../tabee/tabee";
 import { SubProgramLearningOutcomeDataTable } from "../../tabee/sub-plo/sub-plo-table";
 import { ploColumns } from "./plo-showcase";
 import { subPloColumns } from "./subplo-showcase";
-import { cn } from "@/libs/utils";
-import { useCreateCourse } from "@/hooks/course-hook";
 
 const CourseForm = () => {
   const [selectedRows, setSelectedRows] = useState<string>("");
@@ -234,7 +227,6 @@ const CourseForm = () => {
           </div>
         )}
       </div>
-
     </div>
   );
 };
