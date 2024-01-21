@@ -1,27 +1,12 @@
 import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio-schema";
 
-const coursePortfolio: CreateCoursePortfolioSchemaType = {
+export const coursePortfolioFetch: Pick<CreateCoursePortfolioSchemaType, 'info' |'outcome'> = {
   info: {
     courseName: "วิชาไรไม่รู้",
     courseCode: "CPE100",
     lecturer: ["นายไก่ ไข่", "นายงู จาน"],
   },
-  summary: {
-    teachingMethod: [{ name: "teachingMethod1" }, "teachingMethod2"],
-    onlineTool: "zooommmmmmmmm",
-    objective: ["สามารถ1", "สามารถ2", "สามารถ3", "สามารถ4", "สามารถ5"],
-  },
-  development: {
-    plan: ["plan1", "plan2"],
-    doAndCheck: ["doAndCheck1", "doAndCheck2"],
-    act: ["act1", "act2"],
-    subjectsComments: {
-      upstream: ["upstream1", "upstream2"],
-      downstream: ["downstream1", "downstream2"],
-      other: ["other1", "other2"],
-    },
-    otherComments: ["otherComments1", "otherComments2"],
-  },
+
   outcome: {
     grade: {
       studentAmount: "100",

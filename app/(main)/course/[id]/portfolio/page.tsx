@@ -15,10 +15,13 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { coursePortfolioFetch } from '@/data/create-portfolio';
 import { useStrictForm } from "@/hooks/form-hook";
+import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
 import {
-  CreateCoursePortfolioSchema,
-  CreateCoursePortfolioSchemaDefaultValues,
+  CreateCoursePortfolioFillableSchema,
+  CreateCoursePortfolioFillableSchemaDefaultValues,
+  CreateCoursePortfolioFillableSchemaType,
   CreateCoursePortfolioSchemaType,
 } from "@/types/schema/course-portfolio-schema";
 import { ArrowBigLeftDashIcon, PlusCircleIcon } from "lucide-react";
@@ -26,8 +29,8 @@ import { FormProvider, useFieldArray } from "react-hook-form";
 
 const CoursePortfolioPage = () => {
   const form = useStrictForm(
-    CreateCoursePortfolioSchema,
-    CreateCoursePortfolioSchemaDefaultValues
+    CreateCoursePortfolioFillableSchema,
+    CreateCoursePortfolioFillableSchemaDefaultValues
   );
   const {
     fields: teachingMethodFields,
@@ -91,8 +94,17 @@ const CoursePortfolioPage = () => {
     name: "development.subjectsComments.downstream",
   });
 
-  const onSubmit = (values: CreateCoursePortfolioSchemaType) => {
-    console.log(values);
+  const onSubmit = (values: CreateCoursePortfolioFillableSchemaType) => {
+    console.log('hi gus')
+
+    const test: CreateCoursePortfolioSchemaType = {
+      development: values.development,
+      summary: values.summary,
+      info: coursePortfolioFetch.info,
+      outcome: coursePortfolioFetch.outcome,
+    }
+
+    generatePortfolioDocument(test);
   };
 
   return (
@@ -331,15 +343,34 @@ const CoursePortfolioPage = () => {
                     </Button>
                   </div>
                 </div>
-                <div className="grid w-full items-center gap-2">
                   <Label className="text-lg">วิชาอื่นๆ (ถ้ามี)</Label>
-                  <Input type="string" />
-                </div>
+              <FormField
+                control={form.control}
+                name={`development.subjectsComments.other`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
               </div>
-              <div className="grid w-full items-center gap-2">
+
                 <Label className="text-lg">ความคิดเห็นอื่นๆ (ถ้ามี)</Label>
-                <Input type="string" />
-              </div>
+              <FormField
+                control={form.control}
+                name={`development.otherComments`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
             </div>
             {/* Attached documents */}
             <div className="space-y-2">

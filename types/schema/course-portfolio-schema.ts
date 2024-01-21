@@ -93,13 +93,9 @@ const Development = z.object({
         comments: z.string().min(1, { message: "required" }),
       })
     ),
-    other: z
-      .array(z.object({ name: z.string().min(1, { message: "required" }) }))
-      .min(1, { message: "required" }),
+    other: z.string().min(1, { message: "required" })
   }),
-  otherComments: z
-    .array(z.string().min(1, { message: "required" }))
-    .min(1, { message: "required" }),
+  otherComments: z.string().min(1, { message: "required" }),
 });
 
 export type DevelopmentType = z.infer<typeof Development>;
@@ -115,22 +111,31 @@ export type CreateCoursePortfolioSchemaType = z.infer<
   typeof CreateCoursePortfolioSchema
 >;
 
-export const CreateCoursePortfolioSchemaDefaultValues: Partial<CreateCoursePortfolioSchemaType> =
-  {
-    summary: {
-      teachingMethod: [{ name: "" }],
-      onlineTool: "",
-      objective: [{ name: "" }],
+export const CreateCoursePortfolioFillableSchema = z.object({
+  summary: Summary,
+  development: Development,
+});
+
+export type CreateCoursePortfolioFillableSchemaType = z.infer<
+  typeof CreateCoursePortfolioFillableSchema
+>
+
+export const CreateCoursePortfolioFillableSchemaDefaultValues: Partial<CreateCoursePortfolioFillableSchemaType> =
+{
+  summary: {
+    teachingMethod: [{ name: "" }],
+    onlineTool: "",
+    objective: [{ name: "" }],
+  },
+  development: {
+    plan: [{ name: "" }],
+    doAndCheck: [{ name: "" }],
+    act: [{ name: "" }],
+    subjectsComments: {
+      upstream: [{ courseName: "", comments: "" }],
+      downstream: [{ courseName: "", comments: "" }],
+      other: "",
     },
-    development: {
-      plan: [{ name: "" }],
-      doAndCheck: [{ name: "" }],
-      act: [{ name: "" }],
-      subjectsComments: {
-        upstream: [{ courseName: "", comments: "" }],
-        downstream: [{ courseName: "", comments: "" }],
-        other: [{ name: "" }],
-      },
-      otherComments: [""],
-    },
-  };
+    otherComments: '',
+  },
+};

@@ -5,7 +5,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Student from "@/components/features/course/student/student";
 import Assignment from "@/components/features/course/assignment/assignment";
 import { Button } from "@/components/ui/button";
-import { exportToWord } from "@/libs/word/portfolio-document";
 import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio-schema";
 import Link from "next/link";
 

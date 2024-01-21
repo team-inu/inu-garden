@@ -55,10 +55,10 @@ const CourseStream: React.FC<CourseStreamProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"1"}>
+                  <SelectItem value={"CPE100 Basic programming computer"}>
                     CPE100 Basic programming computer
                   </SelectItem>
-                  <SelectItem value={"2"}>
+                  <SelectItem value={"CPE200 Data Structure and Algorithm"}>
                     CPE200 Data Structure and Algorithm
                   </SelectItem>
                 </SelectContent>

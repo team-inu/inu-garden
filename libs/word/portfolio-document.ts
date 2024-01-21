@@ -5,7 +5,7 @@ import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio
 
 const INDENT = 300;
 
-export async function exportToWord({
+export async function generatePortfolioDocument({
   info,
   summary,
   outcome,
@@ -222,7 +222,7 @@ export async function exportToWord({
 
           ...summary.teachingMethod.map((method) => {
             return createParagraph({
-              text: method,
+              text: method.name,
               style: "boldStyle",
               numbering: {
                 reference: "methodList",
@@ -250,7 +250,7 @@ export async function exportToWord({
 
           ...summary.objective.map((objective) => {
             return createParagraph({
-              text: objective,
+              text: objective.name,
               numbering: {
                 reference: "objectiveList",
                 level: 0,
@@ -331,7 +331,7 @@ export async function exportToWord({
 
           ...development.plan.map((plan) => {
             return createParagraph({
-              text: plan,
+              text: plan.name,
               bullet: {
                 level: 0,
               },
@@ -348,7 +348,7 @@ export async function exportToWord({
 
           ...development.doAndCheck.map((doAndCheck) => {
             return createParagraph({
-              text: doAndCheck,
+              text: doAndCheck.name,
               bullet: {
                 level: 0,
               },
@@ -365,7 +365,7 @@ export async function exportToWord({
 
           ...development.act.map((act) => {
             return createParagraph({
-              text: act,
+              text: act.name,
               bullet: {
                 level: 0,
               },
@@ -389,11 +389,11 @@ export async function exportToWord({
 
           ...development.subjectsComments.upstream.map((upstream) => {
             return createParagraph({
-              text: upstream,
+              text: `${upstream.courseName}: ${upstream.comments}`,
               bullet: {
                 level: 1,
-              },
-            });
+              }
+            })
           }),
           createParagraph({
             text: "วิชา Downstream",
@@ -402,14 +402,14 @@ export async function exportToWord({
               left: INDENT * 2,
             },
           }),
-
+   
           ...development.subjectsComments.downstream.map((downstream) => {
             return createParagraph({
-              text: downstream,
+              text: `${downstream.courseName}: ${downstream.comments}`,
               bullet: {
                 level: 1,
               },
-            });
+            })
           }),
           createParagraph({
             text: "วิชาอื่นๆ (ถ้ามี)",
@@ -419,14 +419,21 @@ export async function exportToWord({
             },
           }),
 
-          ...development.subjectsComments.other.map((other) => {
-            return createParagraph({
-              text: other,
-              bullet: {
-                level: 1,
-              },
-            });
+          // ...development.subjectsComments.other.map((other) => {
+          //   return createParagraph({
+          //     text: other,
+          //     bullet: {
+          //       level: 1,
+          //     },
+          //   });
+          // }),
+          createParagraph({
+            text: development.subjectsComments.other,
+            bullet: {
+              level: 1,
+            },
           }),
+
           createParagraph({
             text: "ความเห็นอื่นๆ (ถ้ามี)",
             style: "boldStyle",
@@ -435,14 +442,21 @@ export async function exportToWord({
               level: 0,
             },
           }),
-          ...development.otherComments.map((otherComment) => {
-            return createParagraph({
-              text: otherComment,
-              bullet: {
-                level: 0,
-              },
-            });
+          // ...development.otherComments.map((otherComment) => {
+          //   return createParagraph({
+          //     text: otherComment,
+          //     bullet: {
+          //       level: 0,
+          //     },
+          //   });
+          // }),
+          createParagraph({
+            text: development.otherComments,
+            bullet: {
+              level: 0,
+            },
           }),
+
           createParagraph({
             text: "เอกสารแนบ",
             style: "boldStyle",
