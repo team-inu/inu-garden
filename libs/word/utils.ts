@@ -6,7 +6,7 @@ export const createCell = (
   colSpan: number = 1
 ) => {
   return new TableCell({
-    children: [new Paragraph(text)],
+    children: [new Paragraph({ text: text, style: 'normalStyle' })],
     rowSpan: rowSpan,
     columnSpan: colSpan,
   });

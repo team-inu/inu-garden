@@ -1,4 +1,4 @@
-import { Document, Packer, Paragraph, TextRun, IParagraphOptions } from "docx";
+import { Document, Packer, Paragraph, TextRun, IParagraphOptions, CharacterSet } from "docx";
 import { GradeTable } from "@/libs/word/table/grade-table";
 import { OutcomeTable } from "@/libs/word/table/outcome-table";
 import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio-schema";
@@ -11,13 +11,20 @@ export async function generatePortfolioDocument({
   outcome,
   development,
 }: CreateCoursePortfolioSchemaType) {
+  const font = await fetch("/fonts/THSarabunNew/THSarabunNew.ttf")
+  const buff = Buffer.from(await font.arrayBuffer());
+
   const doc = new Document({
+    fonts: [
+      { name: "THSarabunNew", data: buff, characterSet: CharacterSet.ANSI },
+    ],
     styles: {
       paragraphStyles: [
         {
           id: "normalStyle",
           run: {
             size: 24,
+            font: "THSarabunNew",
           },
         },
         {
@@ -25,6 +32,7 @@ export async function generatePortfolioDocument({
           basedOn: "normalStyle",
           run: {
             bold: true,
+            font: "THSarabunNew",
           },
         },
       ],
