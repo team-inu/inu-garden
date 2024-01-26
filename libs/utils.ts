@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { parseISO } from "date-fns";
 import { twMerge } from "tailwind-merge";
 import JSONBigInt from "json-bigint";
+import { Children, ReactElement, isValidElement } from "react";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -30,4 +31,14 @@ export const deserializeDate = (data: unknown) => {
     }
   }
   return data;
+};
+
+export const classNames = (...classes: ClassValue[]) => {
+  return twMerge(clsx(classes));
+};
+
+export const getValidChildren = (children: React.ReactNode) => {
+  return Children.toArray(children).filter((child) =>
+    isValidElement(child)
+  ) as ReactElement[];
 };

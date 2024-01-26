@@ -1,12 +1,18 @@
 "use client";
 
 import Dashboard from "@/components/features/course/dashboard/dashboard";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from "@/components/ui/tabs-api";
 import Student from "@/components/features/course/student/student";
 import Assignment from "@/components/features/course/assignment/assignment";
 import { Button } from "@/components/ui/button";
 import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio-schema";
 import Link from "next/link";
+import CourseSetting from "@/components/features/course/settings/course-setting";
 
 const HomePage = () => {
   const handleCourseExport = async () => {
@@ -43,6 +49,9 @@ const HomePage = () => {
             </TabsContent>
             <TabsContent value="student" className="space-y-4">
               <Student />
+            </TabsContent>
+            <TabsContent value="setting" className="space-y-4">
+              <CourseSetting />
             </TabsContent>
           </Tabs>
         </div>
