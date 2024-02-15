@@ -80,10 +80,10 @@ export function AdmissionRowActions<TData>({
             email: admission.email,
             admission: admission.admission,
             city: admission.city,
-            gpaEng: admission.englishGPA,
-            gpaMath: admission.mathGPA,
-            gpaSci: admission.scienceGPA,
-            gpax: admission.GPAX,
+            gpaEng: String(admission.englishGPA),
+            gpaMath: String(admission.mathGPA),
+            gpaSci: String(admission.scienceGPA),
+            gpax: String(admission.GPAX),
             school: admission.school,
           }}
         />
