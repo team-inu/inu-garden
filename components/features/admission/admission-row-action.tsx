@@ -8,62 +8,104 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import { labels } from "@/data/data";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { AdmissionSchema } from "@/data/schema"; // TODO: make it dynamic
+import { useState } from 'react';
+import { CreateAdmissionType } from '@/types/schema/admission-schema';
+import { DialogClose } from '@radix-ui/react-dialog';
+import AdmissionDialog from './admission-dialog';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function AddmissionRowActions<TData>({
+export function AdmissionRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const admission = AdmissionSchema.parse(row.original);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+
+  const onSubmit = (values: CreateAdmissionType) => {
+    console.log(values);
+  };
+
+  const onDelete = () => {
+    console.log("delete");
+  };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-        >
-          <DotsHorizontalIcon className="h-4 w-4" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={admission.firstName}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  {label.label}
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Dialog
+      open={isEditDialogOpen || isDeleteDialogOpen}
+      onOpenChange={
+        isEditDialogOpen ? setIsEditDialogOpen : setIsDeleteDialogOpen
+      }
+    >
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          >
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {isEditDialogOpen && (
+        <AdmissionDialog
+          isEdit
+          onSubmit={onSubmit}
+          defaultValues={{
+            admissionId: admission.id,
+            firstName: admission.firstName,
+            lastName: admission.lastName,
+            email: admission.email,
+            admission: admission.admission,
+            city: admission.city,
+            gpaEng: admission.englishGPA,
+            gpaMath: admission.mathGPA,
+            gpaSci: admission.scienceGPA,
+            gpax: admission.GPAX,
+            school: admission.school,
+          }}
+        />
+      )}
+
+      {isDeleteDialogOpen && (
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are your sure to delete?</DialogTitle>
+            <DialogDescription>
+             {` You can't undo this action. This will permanently delete the.`}
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button onClick={onDelete}>Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      )}
+    </Dialog>
   );
 }

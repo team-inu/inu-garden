@@ -4,9 +4,8 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Admission } from "@/data/schema";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { AddmissionRowActions } from "./admission-row-action";
 import { admissiones } from "./admission-table";
-import { Button } from "@/components/ui/button";
+import { AdmissionRowActions } from './admission-row-action';
 
 export const columns: ColumnDef<Admission>[] = [
   {
@@ -43,12 +42,12 @@ export const columns: ColumnDef<Admission>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "studentId",
+    accessorKey: "admissionId",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Student ID" />
+      <DataTableColumnHeader column={column} title="Admission ID" />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("studentId")}</div>
+      <div className="w-[80px]">{row.getValue("admissionId")}</div>
     ),
     enableSorting: false,
     enableHiding: false,
@@ -227,6 +226,6 @@ export const columns: ColumnDef<Admission>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <AddmissionRowActions row={row} />,
+    cell: ({ row }) => <AdmissionRowActions row={row} />,
   },
 ];
