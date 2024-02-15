@@ -91,12 +91,11 @@ export const columns: ColumnDef<Assignement>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("dueDate")}
+            {(row.getValue("dueDate") as Date).toDateString()}
           </span>
         </div>
       );
     },
-
   },
 
   {

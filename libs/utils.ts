@@ -42,3 +42,13 @@ export const getValidChildren = (children: React.ReactNode) => {
     isValidElement(child)
   ) as ReactElement[];
 };
+
+export const checkMultipleString = (value: string) => {
+  if (value.includes(",")) {
+    const result = value.split(",").map((clo) => {
+      return { label: clo, value: clo };
+    });
+    return result;
+  }
+  return [{ label: value, value: value }];
+};

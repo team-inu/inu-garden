@@ -11,9 +11,7 @@ const GraduationPage = () => {
       <div className="flex items-center justify-between w-full space-x-3 mx-auto">
         <h1 className="text-4xl font-bold mb-5">Graduation</h1>
         <div className="w-1/12">
-          <Button variant={"default"} className="text-base font-bold">
-            Add Graduation form
-          </Button>
+          <Button>Add Form</Button>
         </div>
       </div>
       <div className="">

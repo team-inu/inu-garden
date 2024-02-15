@@ -29,6 +29,7 @@ import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
 import { toast } from "sonner";
 import { tableToObject, worksheetToTables } from "@/libs/excel";
+import { AssignmentTableToolbar } from "./assignment-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -73,7 +74,7 @@ export function AssignmentDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={[]} />
+      <AssignmentTableToolbar table={table} selectorOptions={[]} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

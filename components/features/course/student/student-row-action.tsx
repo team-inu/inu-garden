@@ -11,8 +11,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
-import { labels } from "@/data/data";
 import { StudentSchema } from "@/data/schema"; // TODO: make it dynamic
 import { useState } from "react";
 import {
@@ -22,25 +20,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 import { DialogClose } from "@radix-ui/react-dialog";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
-import {
-  CreateStudentDefaultValues,
-  CreateStudentSchema,
-  CreateStudentType,
-} from "@/types/schema/studen-schema";
-import { on } from "events";
+import { CreateStudentType } from "@/types/schema/studen-schema";
 import StudentDialog from "./student-dialog";
 
 interface DataTableRowActionsProps<TData> {

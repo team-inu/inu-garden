@@ -35,7 +35,7 @@ export const AssignmentSchema = z.object({
   plo: z.string(),
   po: z.string(),
   weigth: z.string(),
-  dueDate: z.string(),
+  dueDate: z.date(),
   percentage: z.string(),
 });
 
@@ -43,7 +43,6 @@ export type Assignement = z.infer<typeof AssignmentSchema>;
 
 export const LecturerSchema = z.object({
   id: z.string(),
-  name: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
