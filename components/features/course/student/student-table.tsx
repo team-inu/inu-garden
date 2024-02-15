@@ -45,6 +45,7 @@ import {
 import { labels } from "@/data/data";
 import { toast } from "sonner";
 import { tableToObject, worksheetToTables } from "@/libs/excel";
+import { StudentTableToolbar } from "./student-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -162,9 +163,13 @@ export function StudentDataTable<TData, TValue>({
     e.target.value = "";
   };
 
+  const handleCreateStudent = () => {
+    console.log("create student");
+  };
+
   return (
     <div className="space-y-4">
-      <DataTableToolbar
+      <StudentTableToolbar
         table={table}
         selectorOptions={inputs}
         handleImport={handleUploadStudent}

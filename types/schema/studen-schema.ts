@@ -15,9 +15,9 @@ export const CreateStudentSchema = z.object({
     .min(1, { message: "required" }),
 });
 
-export type StudentType = z.infer<typeof CreateStudentSchema>;
+export type CreateStudentType = z.infer<typeof CreateStudentSchema>;
 
-export const CreateStudentDefaultValues: StudentType = {
+export const CreateStudentDefaultValues: CreateStudentType = {
   studentId: "",
   firstName: "",
   lastName: "",

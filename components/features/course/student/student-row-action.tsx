@@ -38,7 +38,10 @@ import { useStrictForm } from "@/hooks/form-hook";
 import {
   CreateStudentDefaultValues,
   CreateStudentSchema,
+  CreateStudentType,
 } from "@/types/schema/studen-schema";
+import { on } from "events";
+import StudentDialog from "./student-dialog";
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -50,15 +53,13 @@ export function StudentRowActions<TData>({
   const student = StudentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const form = useStrictForm(CreateStudentSchema, {
-    studentId: student.id,
-    firstName: student.firstName,
-    lastName: student.lastName,
-    email: student.email,
-  });
 
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: CreateStudentType) => {
     console.log(values);
+  };
+
+  const onDelete = () => {
+    console.log("delete");
   };
 
   return (
@@ -88,84 +89,16 @@ export function StudentRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Edit student</DialogTitle>
-            <DialogDescription>
-              You can edit the student details here.
-            </DialogDescription>
-          </DialogHeader>
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)}>
-              <FormField
-                control={form.control}
-                name="studentId"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>StudentId</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} disabled />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="firstName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Firstname</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="lastName"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Lastname</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-            </form>
-          </Form>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button>Save</Button>
-          </DialogFooter>
-        </DialogContent>
+        <StudentDialog
+          isEdit
+          onSubmit={onSubmit}
+          defaultValues={{
+            studentId: student.id,
+            firstName: student.firstName,
+            lastName: student.lastName,
+            email: student.email,
+          }}
+        />
       )}
 
       {isDeleteDialogOpen && (
@@ -181,7 +114,7 @@ export function StudentRowActions<TData>({
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button>Delete</Button>
+            <Button onClick={onDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       )}
