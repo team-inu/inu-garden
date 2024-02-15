@@ -26,7 +26,7 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>
 }
 
-export function AddmissionRowActions<TData>({
+export function LecturerRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const lecturer = LecturerSchema.parse(row.original)
@@ -50,7 +50,7 @@ export function AddmissionRowActions<TData>({
         <DropdownMenuSub>
           <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
           <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={lecturer.firstName}> 
+            <DropdownMenuRadioGroup value={lecturer.firstName}>
               {labels.map((label) => (
                 <DropdownMenuRadioItem key={label.value} value={label.value}>
                   {label.label}

@@ -4,9 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Lecturer } from "@/data/schema";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { AddmissionRowActions } from "@/components/features/lecturer/lecturer-row-action";
-import { lectureres } from "@/components/features/lecturer/lecturer-table";
-import { Button } from "@/components/ui/button";
+import { LecturerRowActions } from "@/components/features/lecturer/lecturer-row-action";
 
 export const columns: ColumnDef<Lecturer>[] = [
   {
@@ -90,6 +88,6 @@ export const columns: ColumnDef<Lecturer>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => <AddmissionRowActions row={row} />,
+    cell: ({ row }) => <LecturerRowActions row={row} />,
   },
 ];
