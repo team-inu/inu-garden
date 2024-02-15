@@ -37,7 +37,7 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function AddmissionRowActions<TData>({
+export function LecturerRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
   const lecturer = LecturerSchema.parse(row.original);
