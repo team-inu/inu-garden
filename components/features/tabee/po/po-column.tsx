@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import {  PO } from "@/data/schema";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { PORowActions } from "./po-row-action";
+import { PoRowActions } from "./po-row-action";
 
 
 export const columns: ColumnDef<PO>[] = [
@@ -39,9 +39,9 @@ export const columns: ColumnDef<PO>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  
+
   {
     id: "actions",
-    cell: ({ row }) => <PORowActions row={row} />,
+    cell: ({ row }) => <PoRowActions row={row} />,
   },
 ];
