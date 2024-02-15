@@ -32,6 +32,7 @@ import {
   SelectorOption,
 } from "@/components/ui/data-table-toolbar";
 import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
+import { AdmissionTableToolbar } from './admission-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -95,7 +96,10 @@ export function AdmissionDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar table={table} selectorOptions={inputs} />
+      <AdmissionTableToolbar
+        table={table}
+        selectorOptions={inputs}
+      />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

@@ -50,7 +50,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
             {Object.keys(form.getValues()).map((key) => {
               return (
                 <FormField
-                  key=''
+                  key={key}
                   control={form.control}
                   // TODO: eliminate as
                   name={key as keyof CreateAdmissionType}
@@ -74,7 +74,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button>Save</Button>
+          <Button type='submit' onClick={form.handleSubmit(onSubmit)} >Save</Button>
         </DialogFooter>
       </DialogContent>
     </div>

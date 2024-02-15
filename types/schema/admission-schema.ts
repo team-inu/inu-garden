@@ -17,16 +17,16 @@ export const CreateAdmissionSchema = z.object({
     .string({ required_error: "required" })
     .min(1, { message: "required" }),
   gpax: z
-    .number({ required_error: "required" })
+    .string({ required_error: "required" })
     .min(1, { message: "required" }),
   gpaMath: z
-    .number({ required_error: "required" })
+    .string({ required_error: "required" })
     .min(1, { message: "required" }),
   gpaEng: z
-    .number({ required_error: "required" })
+    .string({ required_error: "required" })
     .min(1, { message: "required" }),
   gpaSci: z
-    .number({ required_error: "required" })
+    .string({ required_error: "required" })
     .min(1, { message: "required" }),
   school: z
     .string({ required_error: "required" })
@@ -45,10 +45,10 @@ export const CreateAdmissionDefaultValues: CreateAdmissionType = {
   lastName: "",
   admission: "",
   email: "",
-  gpax: 0,
-  gpaMath: 0,
-  gpaEng: 0,
-  gpaSci: 0,
+  gpax: "",
+  gpaMath: "",
+  gpaEng: "",
+  gpaSci: "",
   school: '',
   city: '',
 };
