@@ -4,7 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PLO } from "@/data/schema";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { PLORowActions } from "@/components/features/tabee/plo/plo-row-action";
+import { PloRowActions } from "@/components/features/tabee/plo/plo-row-action";
 
 export const columns: ColumnDef<PLO>[] = [
   {
@@ -50,6 +50,6 @@ export const columns: ColumnDef<PLO>[] = [
 
   {
     id: "actions",
-    cell: ({ row }) => <PLORowActions row={row} />,
+    cell: ({ row }) => <PloRowActions row={row} />,
   },
 ];
