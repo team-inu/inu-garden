@@ -15,9 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { coursePortfolioFetch } from '@/data/create-portfolio';
+import { coursePortfolioFetch } from "@/data/create-portfolio";
 import { useStrictForm } from "@/hooks/form-hook";
-import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
+import { generatePortfolioDocument } from "@/libs/word/portfolio-document";
 import {
   CreateCoursePortfolioFillableSchema,
   CreateCoursePortfolioFillableSchemaDefaultValues,
@@ -95,14 +95,12 @@ const CoursePortfolioPage = () => {
   });
 
   const onSubmit = (values: CreateCoursePortfolioFillableSchemaType) => {
-    console.log('hi gus')
-
     const test: CreateCoursePortfolioSchemaType = {
       development: values.development,
       summary: values.summary,
       info: coursePortfolioFetch.info,
       outcome: coursePortfolioFetch.outcome,
-    }
+    };
 
     generatePortfolioDocument(test);
   };
@@ -218,9 +216,7 @@ const CoursePortfolioPage = () => {
                 </Label>
                 <Input type="string" />
               </div>
-              <div className="">
-                <OutcomeTable />
-              </div>
+              <div className="">{/* <OutcomeTable /> */}</div>
             </div>
             {/* Development */}
             <div className="space-y-2">
@@ -343,22 +339,22 @@ const CoursePortfolioPage = () => {
                     </Button>
                   </div>
                 </div>
-                  <Label className="text-lg">วิชาอื่นๆ (ถ้ามี)</Label>
-              <FormField
-                control={form.control}
-                name={`development.subjectsComments.other`}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormControl>
-                      <Input {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+                <Label className="text-lg">วิชาอื่นๆ (ถ้ามี)</Label>
+                <FormField
+                  control={form.control}
+                  name={`development.subjectsComments.other`}
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <Input {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
 
-                <Label className="text-lg">ความคิดเห็นอื่นๆ (ถ้ามี)</Label>
+              <Label className="text-lg">ความคิดเห็นอื่นๆ (ถ้ามี)</Label>
               <FormField
                 control={form.control}
                 name={`development.otherComments`}

@@ -1,6 +1,7 @@
 import { Axios } from "@/libs/axios";
 import { ApiError, ApiResponse } from "@/types/api-response-type";
-import axios, { RawAxiosRequestHeaders } from "axios";
+import axios from "axios";
+import { toast } from "sonner";
 
 export abstract class ApiService {
   protected get<T = object>(url: string) {
@@ -31,31 +32,12 @@ export abstract class ApiService {
     });
   }
 
-  protected getFile<T = object>(url: string, disableCache: boolean = false) {
-    if (url.startsWith("/"))
-      url = window.APP_CONFIG.BACKEND_URL + "/file" + url;
-
-    const headers: RawAxiosRequestHeaders = {};
-    if (disableCache) {
-      headers["Cache-Control"] = "no-cache";
-    }
-
-    return Axios.get<ApiResponse<T>>(url, { headers })
-      .then((response) => response.data.toString())
-      .catch(this.throwError);
-  }
-
   // Throws the error object from the API response. Or return the root of the error if it does not exist,
   // in case the root of the error instance is not from the API response.
   protected throwError(error: unknown): never {
-    if (typeof error === "string") {
-      throw new Error(error);
-    } else if (axios.isAxiosError(error)) {
-      // If `response` does not exist, that means "Network Error"
-      throw error?.response?.data.error || error;
-    } else {
-      throw error;
-    }
+    toast.error("Something went wrong", {
+      description: error.message,
+    });
   }
 
   public static isDomainError(error: unknown): error is ApiError {

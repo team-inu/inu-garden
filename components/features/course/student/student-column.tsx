@@ -1,14 +1,14 @@
-"use client"
+"use client";
 
-import { ColumnDef } from "@tanstack/react-table"
+import { ColumnDef } from "@tanstack/react-table";
 
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, priorities, statuses } from "@/data/data"
-import { Student } from "@/data/schema"
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header"
-import { StudentRowActions } from "@/components/features/course/student/student-row-action"
+import { labels, priorities, statuses } from "@/data/data";
+import { Student } from "@/data/schema";
+import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
+import { StudentRowActions } from "@/components/features/course/student/student-row-action";
 
 export const columns: ColumnDef<Student>[] = [
   {
@@ -56,7 +56,7 @@ export const columns: ColumnDef<Student>[] = [
             {row.getValue("firstName")}
           </span>
         </div>
-      )
+      );
     },
   },
   {
@@ -71,7 +71,7 @@ export const columns: ColumnDef<Student>[] = [
             {row.getValue("lastName")}
           </span>
         </div>
-      )
+      );
     },
   },
   {
@@ -82,20 +82,20 @@ export const columns: ColumnDef<Student>[] = [
     cell: ({ row }) => {
       const label = labels.find(
         (label) => label.value === row.getValue("label")
-      )
+      );
 
       if (!label) {
-        return null
+        return null;
       }
 
       return (
         <div className="flex w-[100px] items-center">
           <span>{label.value}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
@@ -106,18 +106,16 @@ export const columns: ColumnDef<Student>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue("email")}
-          </span>
+          <span className="truncate font-medium">{row.getValue("email")}</span>
         </div>
-      )
+      );
     },
     filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
+      return value.includes(row.getValue(id));
     },
   },
   {
     id: "actions",
     cell: ({ row }) => <StudentRowActions row={row} />,
   },
-]
+];

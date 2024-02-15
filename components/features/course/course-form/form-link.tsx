@@ -83,7 +83,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
           <FormItem>
             <FormLabel>Link sub PLO</FormLabel>
             <FormControl>
-              <Select {...field} onValueChange={field.onChange}>
+              <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a semester" />
@@ -105,7 +105,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
           <FormItem>
             <FormLabel>Link PLO</FormLabel>
             <FormControl>
-              <Select {...field} onValueChange={field.onChange}>
+              <Select value={field.value} onValueChange={field.onChange}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a semester" />

@@ -48,10 +48,10 @@ const CourseStream: React.FC<CourseStreamProps> = ({
           <FormItem>
             <FormLabel>Course</FormLabel>
             <FormControl>
-              <Select {...field} onValueChange={field.onChange}>
+              <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select a course" />
+                    <SelectValue />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>

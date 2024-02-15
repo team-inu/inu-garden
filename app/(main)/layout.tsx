@@ -1,27 +1,16 @@
-import { ThemeProvider } from "@/providers/theme-provider";
+"use client";
 import "../globals.css";
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Navbar from "@/components/features/navbar/navbar";
+import { withAuth } from "@/components/features/routes/private-route";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export const metadata: Metadata = {
-  title: "Inu",
-  description: "Inu: Quality Department Management System",
-};
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar />
-        {children}
-      </body>
-    </html>
+    <>
+      <Navbar />
+      {children}
+    </>
   );
 }
+
+export default withAuth(RootLayout);
