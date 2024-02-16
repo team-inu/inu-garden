@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "format": "prettier . --write"
   },
   "dependencies": {
     "@emotion/react": "^11.11.1",
@@ -59,6 +60,9 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/json-bigint": "^1.0.4"
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/json-bigint": "^1.0.4",
+    "prettier": "3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.11"
   }
 }
