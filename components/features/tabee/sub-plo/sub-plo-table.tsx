@@ -27,6 +27,7 @@ import {
 
 import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
+import { SubPloTableToolbar } from "./sub-plo-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -71,14 +72,38 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const handleUploadSubPlo = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    // const file = e.target.files?.[0];
+    // if (!file) {
+    //   return toast.error("Can not read file");
+    // }
+
+    // const buffer = await file.arrayBuffer();
+    // const workBook = XLSX.read(buffer, { type: "buffer" });
+
+    // const sheet = workBook.Sheets[workBook.SheetNames[1]];
+
+    // const [studentTable] = await worksheetToTables(sheet);
+
+    // const student = tableToObject(studentTable[0], studentTable.slice(1));
+
+    // TODO: push to backend
+    // console.log(student);
+
+    e.target.value = "";
+  };
+
   return (
     <div className="space-y-4">
       {!disableToolbar && (
-        <DataTableToolbar
+        <SubPloTableToolbar
           table={table}
           selectorOptions={[]}
-          isCreateEnabled={false}
-          isViewOptions={false}
+          isCreateEnabled={true}
+          isViewOptions={true}
+          handleImport={handleUploadSubPlo}
         />
       )}
       <div className="rounded-md border">

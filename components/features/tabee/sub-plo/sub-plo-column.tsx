@@ -20,24 +20,22 @@ export const columns: ColumnDef<SubPLO>[] = [
   {
     accessorKey: "descriptionThai",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="descriptionThai" />
+      <DataTableColumnHeader column={column} title="Description Thai" />
     ),
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue("descriptionThai")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: "descriptionEnglish",
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="descriptionEnglish" />
+      <DataTableColumnHeader column={column} title="Description English" />
     ),
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue("descriptionEnglish")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
   },
 
   {
