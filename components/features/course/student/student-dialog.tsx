@@ -116,7 +116,9 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
         </Form>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button onClick={() => form.reset()} variant="outline">
+              Cancel
+            </Button>
           </DialogClose>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
             {isEdit ? "Edit" : "Add"}

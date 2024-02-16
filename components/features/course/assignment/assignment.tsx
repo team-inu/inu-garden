@@ -14,7 +14,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import ScatterChartCustom from "@/components/scatter-chart";
-import { isNullOrUndefined } from "util";
 import { Score } from "@/data/schema";
 
 type SelectedRowType = {
