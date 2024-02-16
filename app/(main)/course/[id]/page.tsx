@@ -28,7 +28,6 @@ const HomePage = () => {
             <div className="flex justify-between">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="forms">forms</TabsTrigger>
                 <TabsTrigger value="outcome">PO, PLO, CLO</TabsTrigger>
                 <TabsTrigger value="assignment">Assignments</TabsTrigger>
                 <TabsTrigger value="student">Students</TabsTrigger>
@@ -40,9 +39,6 @@ const HomePage = () => {
             </div>
             <TabsContent value="overview" className="space-y-4">
               <Dashboard />
-            </TabsContent>
-            <TabsContent value="forms" className="space-y-4">
-              this is forms sections
             </TabsContent>
             <TabsContent value="assignment" className="space-y-4">
               <Assignment />
