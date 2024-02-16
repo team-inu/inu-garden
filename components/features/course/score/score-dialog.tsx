@@ -17,37 +17,42 @@ import {
 import { Input } from "@/components/ui/input";
 import { useStrictForm } from "@/hooks/form-hook";
 import {
+  CreateScoreDefaultValues,
+  CreateScoreSchema,
+  CreateScoreType,
+} from "@/types/schema/score-schema";
+import {
   CreateStudentDefaultValues,
   CreateStudentSchema,
   CreateStudentType,
 } from "@/types/schema/studen-schema";
 import { DialogClose } from "@radix-ui/react-dialog";
 
-type StudentDialogProps = {
-  onSubmit: (values: CreateStudentType) => void;
-  defaultValues?: CreateStudentType;
+type ScoreDialogProps = {
+  onSubmit: (values: CreateScoreType) => void;
+  defaultValues?: CreateScoreType;
   isEdit?: boolean;
 };
 
-const StudentDialog: React.FC<StudentDialogProps> = ({
+const ScoreDialog: React.FC<ScoreDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateStudentSchema,
-    defaultValues ?? CreateStudentDefaultValues
+    CreateScoreSchema,
+    defaultValues ?? CreateScoreDefaultValues
   );
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Student" : "Add Student"}</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit Score" : "Add Score"}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the student information"
-              : "Fill in the student information"}
+              ? "Edit the score information"
+              : "Fill in the score information"}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -99,10 +104,10 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
             />
             <FormField
               control={form.control}
-              name="email"
+              name="score"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>Scores</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -116,7 +121,9 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
         </Form>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button onClick={() => form.reset()} variant="outline">
+              Cancel
+            </Button>
           </DialogClose>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
             {isEdit ? "Edit" : "Add"}
@@ -127,4 +134,4 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
   );
 };
 
-export default StudentDialog;
+export default ScoreDialog;

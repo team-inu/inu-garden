@@ -1,50 +1,104 @@
-"use client"
+/* eslint-disable react/no-unescaped-entities */
+"use client";
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons"
-import { Row } from "@tanstack/react-table"
+import { DotsHorizontalIcon } from "@radix-ui/react-icons";
+import { Row } from "@tanstack/react-table";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-
+} from "@/components/ui/dropdown-menu";
+import { useState } from "react";
+import { ScoreSchema } from "@/data/schema";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import ScoreDialog from "./score-dialog";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { CreateScoreType } from "@/types/schema/score-schema";
 
 interface DataTableRowActionsProps<TData> {
-  row: Row<TData>
+  row: Row<TData>;
 }
 
 export function ScoreRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  const scoreData = ScoreSchema.parse(row.original);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
+  const onSubmit = (values: CreateScoreType) => {
+    console.log(values);
+  };
+
+  const onDelete = () => {
+    console.log("delete");
+  };
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          variant="ghost"
-          className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-        >
-          <DotsHorizontalIcon className="h-4 w-4" />
-          <span className="sr-only">Open menu</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem>Edit</DropdownMenuItem>
-        <DropdownMenuItem>Make a copy</DropdownMenuItem>
-        <DropdownMenuItem>Favorite</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
-  )
+    <Dialog
+      open={isEditDialogOpen || isDeleteDialogOpen}
+      onOpenChange={
+        isEditDialogOpen ? setIsEditDialogOpen : setIsDeleteDialogOpen
+      }
+    >
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
+          >
+            <DotsHorizontalIcon className="h-4 w-4" />
+            <span className="sr-only">Open menu</span>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end" className="w-[160px]">
+          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+            Edit
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
+            Delete
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      {isEditDialogOpen && (
+        <ScoreDialog
+          isEdit
+          onSubmit={onSubmit}
+          defaultValues={{
+            studentId: scoreData.studentId,
+            firstName: scoreData.firstName,
+            lastName: scoreData.lastName,
+            score: scoreData.score,
+          }}
+        />
+      )}
+
+      {isDeleteDialogOpen && (
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are your sure to delete?</DialogTitle>
+            <DialogDescription>
+              You can't undo this action. This will permanently delete the.
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button onClick={onDelete}>Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      )}
+    </Dialog>
+  );
 }

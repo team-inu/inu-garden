@@ -30,6 +30,7 @@ import { DataTablePagination } from "@/components/ui/data-table-pagination";
 import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
 import { toast } from "sonner";
 import { tableToObject, worksheetToTables } from "@/libs/excel";
+import { ScoreTableToolbar } from "./score-table-toolbar";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -108,7 +109,7 @@ export function ScoreDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <DataTableToolbar
+      <ScoreTableToolbar
         table={table}
         selectorOptions={[]}
         isViewOptions={false}
