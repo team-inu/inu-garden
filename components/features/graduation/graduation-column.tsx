@@ -1,20 +1,22 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Graduation } from "@/data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { GraduationRowActions } from "./graduation-row-action";
-import { Button } from "@/components/ui/button";
+import { ColumnDef } from '@tanstack/react-table';
+
+import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { Graduation } from '@/data/schema';
+
+import { GraduationRowActions } from './graduation-row-action';
 
 export const columns: ColumnDef<Graduation>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -33,27 +35,27 @@ export const columns: ColumnDef<Graduation>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="id" />
     ),
-    cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "studentId",
+    accessorKey: 'studentId',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Student ID" />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("studentId")}</div>
+      <div className="w-[80px]">{row.getValue('studentId')}</div>
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
+    accessorKey: 'firstName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="First Name" />
     ),
@@ -61,14 +63,14 @@ export const columns: ColumnDef<Graduation>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("firstName")}
+            {row.getValue('firstName')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "lastName",
+    accessorKey: 'lastName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Last Name" />
     ),
@@ -76,21 +78,21 @@ export const columns: ColumnDef<Graduation>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("lastName")}
+            {row.getValue('lastName')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "year",
+    accessorKey: 'year',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Year" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("year")}</span>
+          <span className="truncate font-medium">{row.getValue('year')}</span>
         </div>
       );
     },
@@ -99,14 +101,16 @@ export const columns: ColumnDef<Graduation>[] = [
     },
   },
   {
-    accessorKey: "workPlace",
+    accessorKey: 'workPlace',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="WorkPlace" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("workPlace")}</span>
+          <span className="truncate font-medium">
+            {row.getValue('workPlace')}
+          </span>
         </div>
       );
     },
@@ -115,7 +119,7 @@ export const columns: ColumnDef<Graduation>[] = [
     },
   },
   {
-    accessorKey: "remarks",
+    accessorKey: 'remarks',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Remarks" />
     ),
@@ -123,7 +127,7 @@ export const columns: ColumnDef<Graduation>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("remarks")}
+            {row.getValue('remarks')}
           </span>
         </div>
       );
@@ -133,7 +137,7 @@ export const columns: ColumnDef<Graduation>[] = [
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <GraduationRowActions row={row} />,
   },
 ];

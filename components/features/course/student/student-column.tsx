@@ -1,23 +1,22 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from '@tanstack/react-table';
 
-import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
-
-import { labels, priorities, statuses } from "@/data/data";
-import { Student } from "@/data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { StudentRowActions } from "@/components/features/course/student/student-row-action";
+import { StudentRowActions } from '@/components/features/course/student/student-row-action';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { labels, priorities, statuses } from '@/data/data';
+import { Student } from '@/data/schema';
 
 export const columns: ColumnDef<Student>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -36,16 +35,16 @@ export const columns: ColumnDef<Student>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Task" />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
+    accessorKey: 'firstName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="First Name" />
     ),
@@ -53,14 +52,14 @@ export const columns: ColumnDef<Student>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("firstName")}
+            {row.getValue('firstName')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "lastName",
+    accessorKey: 'lastName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Last Name" />
     ),
@@ -68,20 +67,20 @@ export const columns: ColumnDef<Student>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("lastName")}
+            {row.getValue('lastName')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "label",
+    accessorKey: 'label',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Label" />
     ),
     cell: ({ row }) => {
       const label = labels.find(
-        (label) => label.value === row.getValue("label")
+        (label) => label.value === row.getValue('label'),
       );
 
       if (!label) {
@@ -99,14 +98,14 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    accessorKey: "email",
+    accessorKey: 'email',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Email" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("email")}</span>
+          <span className="truncate font-medium">{row.getValue('email')}</span>
         </div>
       );
     },
@@ -115,7 +114,7 @@ export const columns: ColumnDef<Student>[] = [
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <StudentRowActions row={row} />,
   },
 ];

@@ -1,89 +1,90 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
+import { ColumnDef } from '@tanstack/react-table';
 
-import { Checkbox } from "@/components/ui/checkbox";
-import { Assignement } from "@/data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { AssigmentRowActions } from "./assignment-row-action";
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { Assignement } from '@/data/schema';
+
+import { AssigmentRowActions } from './assignment-row-action';
 
 export const columns: ColumnDef<Assignement>[] = [
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Task" />
     ),
-    cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: 'name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="name" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("name")}</span>
+          <span className="truncate font-medium">{row.getValue('name')}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "clo",
+    accessorKey: 'clo',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="clo" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("clo")}</span>
+          <span className="truncate font-medium">{row.getValue('clo')}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "plo",
+    accessorKey: 'plo',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="plo" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("plo")}</span>
+          <span className="truncate font-medium">{row.getValue('plo')}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "po",
+    accessorKey: 'po',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="po" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("po")}</span>
+          <span className="truncate font-medium">{row.getValue('po')}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "weigth",
+    accessorKey: 'weigth',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="weigth" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("weigth")}</span>
+          <span className="truncate font-medium">{row.getValue('weigth')}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: "dueDate",
+    accessorKey: 'dueDate',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="dueDate" />
     ),
@@ -91,7 +92,7 @@ export const columns: ColumnDef<Assignement>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {(row.getValue("dueDate") as Date).toDateString()}
+            {(row.getValue('dueDate') as Date).toDateString()}
           </span>
         </div>
       );
@@ -99,7 +100,7 @@ export const columns: ColumnDef<Assignement>[] = [
   },
 
   {
-    accessorKey: "percentage",
+    accessorKey: 'percentage',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="percentage" />
     ),
@@ -107,14 +108,14 @@ export const columns: ColumnDef<Assignement>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("percentage")}
+            {row.getValue('percentage')}
           </span>
         </div>
       );
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <AssigmentRowActions row={row} />,
   },
 ];

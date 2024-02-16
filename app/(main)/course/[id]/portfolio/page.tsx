@@ -1,36 +1,38 @@
-"use client";
-import ArrayInput from "@/components/features/course/course-portfolio/array-input-form";
-import AttachedDocumentCheckbox from "@/components/features/course/course-portfolio/attached-doc-checkbox";
-import CourseStream from "@/components/features/course/course-portfolio/course-stream";
-import { GradeTable } from "@/components/features/course/course-portfolio/grade-table";
-import Information from "@/components/features/course/course-portfolio/information";
-import OutcomeTable from "@/components/features/course/course-portfolio/outcome-table";
-import { Overview } from "@/components/overview";
-import { Button } from "@/components/ui/button";
+'use client';
+
+import { ArrowBigLeftDashIcon, PlusCircleIcon } from 'lucide-react';
+import { FormProvider, useFieldArray } from 'react-hook-form';
+
+import ArrayInput from '@/components/features/course/course-portfolio/array-input-form';
+import AttachedDocumentCheckbox from '@/components/features/course/course-portfolio/attached-doc-checkbox';
+import CourseStream from '@/components/features/course/course-portfolio/course-stream';
+import { GradeTable } from '@/components/features/course/course-portfolio/grade-table';
+import Information from '@/components/features/course/course-portfolio/information';
+import OutcomeTable from '@/components/features/course/course-portfolio/outcome-table';
+import { Overview } from '@/components/overview';
+import { Button } from '@/components/ui/button';
 import {
   FormControl,
   FormField,
   FormItem,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { coursePortfolioFetch } from "@/data/create-portfolio";
-import { useStrictForm } from "@/hooks/form-hook";
-import { generatePortfolioDocument } from "@/libs/word/portfolio-document";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { coursePortfolioFetch } from '@/data/create-portfolio';
+import { useStrictForm } from '@/hooks/form-hook';
+import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
 import {
   CreateCoursePortfolioFillableSchema,
   CreateCoursePortfolioFillableSchemaDefaultValues,
   CreateCoursePortfolioFillableSchemaType,
   CreateCoursePortfolioSchemaType,
-} from "@/types/schema/course-portfolio-schema";
-import { ArrowBigLeftDashIcon, PlusCircleIcon } from "lucide-react";
-import { FormProvider, useFieldArray } from "react-hook-form";
+} from '@/types/schema/course-portfolio-schema';
 
 const CoursePortfolioPage = () => {
   const form = useStrictForm(
     CreateCoursePortfolioFillableSchema,
-    CreateCoursePortfolioFillableSchemaDefaultValues
+    CreateCoursePortfolioFillableSchemaDefaultValues,
   );
   const {
     fields: teachingMethodFields,
@@ -38,7 +40,7 @@ const CoursePortfolioPage = () => {
     remove: teachingRemove,
   } = useFieldArray({
     control: form.control,
-    name: "summary.teachingMethod",
+    name: 'summary.teachingMethod',
   });
 
   const {
@@ -47,7 +49,7 @@ const CoursePortfolioPage = () => {
     remove: objectiveRemove,
   } = useFieldArray({
     control: form.control,
-    name: "summary.objective",
+    name: 'summary.objective',
   });
 
   const {
@@ -56,7 +58,7 @@ const CoursePortfolioPage = () => {
     remove: planRemove,
   } = useFieldArray({
     control: form.control,
-    name: "development.plan",
+    name: 'development.plan',
   });
 
   const {
@@ -65,7 +67,7 @@ const CoursePortfolioPage = () => {
     remove: doRemove,
   } = useFieldArray({
     control: form.control,
-    name: "development.doAndCheck",
+    name: 'development.doAndCheck',
   });
 
   const {
@@ -74,7 +76,7 @@ const CoursePortfolioPage = () => {
     remove: actRemove,
   } = useFieldArray({
     control: form.control,
-    name: "development.act",
+    name: 'development.act',
   });
 
   const {
@@ -83,7 +85,7 @@ const CoursePortfolioPage = () => {
     remove: upstreamRemove,
   } = useFieldArray({
     control: form.control,
-    name: "development.subjectsComments.upstream",
+    name: 'development.subjectsComments.upstream',
   });
   const {
     fields: downstreamFields,
@@ -91,7 +93,7 @@ const CoursePortfolioPage = () => {
     remove: downstreamRemove,
   } = useFieldArray({
     control: form.control,
-    name: "development.subjectsComments.downstream",
+    name: 'development.subjectsComments.downstream',
   });
 
   const onSubmit = (values: CreateCoursePortfolioFillableSchemaType) => {
@@ -109,17 +111,17 @@ const CoursePortfolioPage = () => {
     <div className="hidden flex-col md:flex">
       <Button
         variant="secondary"
-        className="self-start mx-10 mt-5 absolute"
+        className="absolute mx-10 mt-5 self-start"
         onClick={() => window.history.back()}
       >
-        <ArrowBigLeftDashIcon className="w-5 h-5" />
+        <ArrowBigLeftDashIcon className="h-5 w-5" />
         Back
       </Button>
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="container p-8 pt-6 text-lg space-y-7 shadow-sm shadow-white">
+          <div className="container space-y-7 p-8 pt-6 text-lg shadow-sm shadow-white">
             {/* button back to before page */}
-            <h2 className="text-3xl py-3   text-center font-bold tracking-tight bg-primary">
+            <h2 className="bg-primary py-3   text-center text-3xl font-bold tracking-tight">
               Course Portfolio
             </h2>
             {/* information */}
@@ -146,13 +148,13 @@ const CoursePortfolioPage = () => {
             {/* Summary */}
             <div className="space-y-2">
               <div className="text-xl font-semibold">2. สรุปผลการดำเนินงาน</div>
-              <div className="flex space-x-5 items-center ">
+              <div className="flex items-center space-x-5 ">
                 <Label className="text-lg">
-                  2.1 วิธีการสอนและการประเมินผล{" "}
+                  2.1 วิธีการสอนและการประเมินผล{' '}
                 </Label>
                 <PlusCircleIcon
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => teachingAppend({ name: "" })}
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => teachingAppend({ name: '' })}
                 />
               </div>
               {teachingMethodFields.map((item, index) => {
@@ -179,11 +181,11 @@ const CoursePortfolioPage = () => {
                   </FormItem>
                 )}
               />
-              <div className="flex space-x-5 items-center">
+              <div className="flex items-center space-x-5">
                 <Label className="text-lg">2.3 วัตถุประสงค์การสอน</Label>
                 <PlusCircleIcon
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => objectiveAppend({ name: "" })}
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => objectiveAppend({ name: '' })}
                 />
               </div>
               {objectiveFields.map((item, index) => {
@@ -203,9 +205,9 @@ const CoursePortfolioPage = () => {
               <div className="text-xl font-semibold">3. ผลการศึกษา</div>
               <div className="space-y-5">
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
-                <div className="w-3/4 mx-auto space-y-5">
+                <div className="mx-auto w-3/4 space-y-5">
                   <Overview />
-                  <div className="w-3/4 mx-auto">
+                  <div className="mx-auto w-3/4">
                     <GradeTable />
                   </div>
                 </div>
@@ -221,13 +223,13 @@ const CoursePortfolioPage = () => {
             {/* Development */}
             <div className="space-y-2">
               <div className="text-xl font-semibold">4. การพัฒนา</div>
-              <div className="flex space-x-5 items-center">
+              <div className="flex items-center space-x-5">
                 <Label className="text-lg">
                   4.1 การพัฒนาจากรอบที่แล้ว (Plan)
                 </Label>
                 <PlusCircleIcon
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => planAppend({ name: "" })}
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => planAppend({ name: '' })}
                 />
               </div>
               {planFields.map((item, index) => {
@@ -241,13 +243,13 @@ const CoursePortfolioPage = () => {
                   />
                 );
               })}
-              <div className="flex space-x-5 items-center">
+              <div className="flex items-center space-x-5">
                 <Label className="text-lg">
                   4.2 การพัฒนาและปัญหาหลัก (Do & Check)
                 </Label>
                 <PlusCircleIcon
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => doAppend({ name: "" })}
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => doAppend({ name: '' })}
                 />
               </div>
               {doFields.map((item, index) => {
@@ -261,13 +263,13 @@ const CoursePortfolioPage = () => {
                   />
                 );
               })}
-              <div className="flex space-x-5 items-center">
+              <div className="flex items-center space-x-5">
                 <Label className="text-lg">
                   4.3 แนวทางการปรับปรุงในรอบหน้า (Act)
                 </Label>
                 <PlusCircleIcon
-                  className="w-5 h-5 cursor-pointer"
-                  onClick={() => actAppend({ name: "" })}
+                  className="h-5 w-5 cursor-pointer"
+                  onClick={() => actAppend({ name: '' })}
                 />
               </div>
               {actFields.map((item, index) => {
@@ -281,7 +283,7 @@ const CoursePortfolioPage = () => {
                   />
                 );
               })}
-              <div className="w-11/12 mx-auto space-y-2">
+              <div className="mx-auto w-11/12 space-y-2">
                 <Label className="text-lg font-semibold">
                   4.4 ความคิดเห็นสำหรับวิชาอื่น
                 </Label>
@@ -301,11 +303,11 @@ const CoursePortfolioPage = () => {
                       );
                     })}
                     <Button
-                      variant={"ghost"}
+                      variant={'ghost'}
                       type="button"
-                      className="w-full  h-auto  border-2 border-dashed"
+                      className="h-auto  w-full  border-2 border-dashed"
                       onClick={() => {
-                        upstreamAppend({ courseName: "", comments: "" });
+                        upstreamAppend({ courseName: '', comments: '' });
                       }}
                     >
                       Add section
@@ -328,11 +330,11 @@ const CoursePortfolioPage = () => {
                       );
                     })}
                     <Button
-                      variant={"ghost"}
+                      variant={'ghost'}
                       type="button"
-                      className="w-full  h-auto  border-2 border-dashed"
+                      className="h-auto  w-full  border-2 border-dashed"
                       onClick={() => {
-                        downstreamAppend({ courseName: "", comments: "" });
+                        downstreamAppend({ courseName: '', comments: '' });
                       }}
                     >
                       Add section

@@ -1,4 +1,5 @@
-"use client";
+'use client';
+
 import {
   CartesianGrid,
   Legend,
@@ -9,7 +10,7 @@ import {
   XAxis,
   YAxis,
   ZAxis,
-} from "recharts";
+} from 'recharts';
 
 const data01 = [
   {
@@ -50,7 +51,7 @@ const ScatterChartCustom = () => {
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="x" type="number" name="stature" unit="cm" />
         <YAxis dataKey="y" type="number" name="weight" unit="kg" />
-        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
         <Legend />
         <Scatter name="A school" data={data01} fill="#adfa1d" />
       </ScatterChart>

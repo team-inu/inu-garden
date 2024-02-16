@@ -1,35 +1,37 @@
-"use client";
+'use client';
+
+import { useState } from 'react';
+import { useFieldArray, useFormContext } from 'react-hook-form';
+
+import { Button } from '@/components/ui/button';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { CreateCourseSchemaValues } from "@/types/schema/course-schema";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import CourseFormLink from "./form-link";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { Button } from "@/components/ui/button";
-import CourseFormGrade from "./form-grade";
-import { useState } from "react";
-import { ProgramLearningOutcomeDataTable } from "../../tabee/plo/plo-table";
-import { mockPLO, mockSubPLO } from "../../tabee/tabee";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
-import { SubProgramLearningOutcomeDataTable } from "../../tabee/sub-plo/sub-plo-table";
-import { ploColumns } from "./plo-showcase";
-import { subPloColumns } from "./subplo-showcase";
+import { ProgramLearningOutcomeDataTable } from '../../tabee/plo/plo-table';
+import { SubProgramLearningOutcomeDataTable } from '../../tabee/sub-plo/sub-plo-table';
+import { mockPLO, mockSubPLO } from '../../tabee/tabee';
+import CourseFormGrade from './form-grade';
+import CourseFormLink from './form-link';
+import { ploColumns } from './plo-showcase';
+import { subPloColumns } from './subplo-showcase';
 
 const CourseForm = () => {
-  const [selectedRows, setSelectedRows] = useState<string>("");
+  const [selectedRows, setSelectedRows] = useState<string>('');
   const getVales = (id: string) => {
     setSelectedRows(id);
   };
@@ -38,7 +40,7 @@ const CourseForm = () => {
 
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: "courseLearningOutcome",
+    name: 'courseLearningOutcome',
   });
 
   return (
@@ -83,9 +85,9 @@ const CourseForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"a"}>นายเอ ไม่รู้ลืม</SelectItem>
-                  <SelectItem value={"b"}>นายบี สีข้าวสาร</SelectItem>
-                  <SelectItem value={"c"}>นายซี สี่ไม่ยั้ง</SelectItem>
+                  <SelectItem value={'a'}>นายเอ ไม่รู้ลืม</SelectItem>
+                  <SelectItem value={'b'}>นายบี สีข้าวสาร</SelectItem>
+                  <SelectItem value={'c'}>นายซี สี่ไม่ยั้ง</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -105,8 +107,8 @@ const CourseForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"1"}>1</SelectItem>
-                  <SelectItem value={"2"}>2</SelectItem>
+                  <SelectItem value={'1'}>1</SelectItem>
+                  <SelectItem value={'2'}>2</SelectItem>
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -171,7 +173,7 @@ const CourseForm = () => {
       <CourseFormGrade />
 
       <div className="pt-5">Course Learning Outcome</div>
-      <div className="grid grid-cols-3 gap-y-8  items-center">
+      <div className="grid grid-cols-3 items-center  gap-y-8">
         {fields.map((item, index) => {
           return (
             <div key={item.id}>
@@ -184,16 +186,16 @@ const CourseForm = () => {
           );
         })}
         <Button
-          variant={"ghost"}
+          variant={'ghost'}
           type="button"
-          className="w-80 h-96 border-2 border-dashed"
+          className="h-96 w-80 border-2 border-dashed"
           onClick={() => {
             append({
-              code: "",
-              weight: "",
-              description: "",
-              subProgramLearningOutcome: "",
-              programOutcome: "",
+              code: '',
+              weight: '',
+              description: '',
+              subProgramLearningOutcome: '',
+              programOutcome: '',
             });
           }}
         >

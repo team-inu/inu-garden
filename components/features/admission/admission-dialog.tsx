@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,11 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
-import { CreateAdmissionDefaultValues, CreateAdmissionSchema, CreateAdmissionType } from '@/types/schema/admission-schema';
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
+import {
+  CreateAdmissionDefaultValues,
+  CreateAdmissionSchema,
+  CreateAdmissionType,
+} from '@/types/schema/admission-schema';
 
 type AdmissionDialogProps = {
   onSubmit: (values: CreateAdmissionType) => void;
@@ -32,17 +37,19 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateAdmissionSchema,
-    defaultValues ?? CreateAdmissionDefaultValues
+    defaultValues ?? CreateAdmissionDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Admission" : "Add Admission"}</DialogTitle>
+          <DialogTitle>
+            {isEdit ? 'Edit Admission' : 'Add Admission'}
+          </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the admission information"
-              : "Fill in the admission information"}
+              ? 'Edit the admission information'
+              : 'Fill in the admission information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -66,7 +73,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
                     </FormItem>
                   )}
                 />
-              )
+              );
             })}
           </form>
         </Form>
@@ -74,7 +81,9 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button type='submit' onClick={form.handleSubmit(onSubmit)} >Save</Button>
+          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </div>

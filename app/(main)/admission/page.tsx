@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Admission from "@/components/features/admission/admission";
+import Admission from '@/components/features/admission/admission';
 
 const AdmissionPage = () => {
   return (
-    <div className="w-10/12 mx-auto py-8">
+    <div className="mx-auto w-10/12 py-8">
       <Admission />
     </div>
   );

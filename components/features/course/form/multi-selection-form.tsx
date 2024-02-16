@@ -1,33 +1,32 @@
-"use client";
+'use client';
 
-import { CheckIcon, PlusCircleIcon } from "lucide-react";
-import React from "react";
+import { CheckIcon, PlusCircleIcon } from 'lucide-react';
+import React from 'react';
+import { UseFormReturn, useFormContext } from 'react-hook-form';
 
-import { cn } from "@/libs/utils";
-
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import {
   Command,
   CommandEmpty,
   CommandGroup,
   CommandInput,
   CommandItem,
-} from "@/components/ui/command";
+} from '@/components/ui/command';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { Separator } from "@/components/ui/separator";
-import { UseFormReturn, useFormContext } from "react-hook-form";
+} from '@/components/ui/popover';
+import { Separator } from '@/components/ui/separator';
+import { cn } from '@/libs/utils';
 
 type MultiSelectionFormProps = {
   name: string;
@@ -79,7 +78,7 @@ const MultiSelectionForm: React.FC<MultiSelectionFormProps> = ({
                         ) : (
                           options
                             .filter((option) =>
-                              selectedValues.has(option.value)
+                              selectedValues.has(option.value),
                             )
                             .map((option) => (
                               <Badge
@@ -120,13 +119,13 @@ const MultiSelectionForm: React.FC<MultiSelectionFormProps> = ({
                       >
                         <div
                           className={cn(
-                            "mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary",
+                            'mr-2 flex h-4 w-4 items-center justify-center rounded-sm border border-primary',
                             isSelected
-                              ? "bg-primary text-primary-foreground"
-                              : "opacity-50 [&_svg]:invisible"
+                              ? 'bg-primary text-primary-foreground'
+                              : 'opacity-50 [&_svg]:invisible',
                           )}
                         >
-                          <CheckIcon className={cn("h-4 w-4")} />
+                          <CheckIcon className={cn('h-4 w-4')} />
                         </div>
                         <span>{option.text}</span>
                       </CommandItem>

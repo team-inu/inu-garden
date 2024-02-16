@@ -1,34 +1,35 @@
-import { Metadata } from "next";
-import Image from "next/image";
+import { Metadata } from 'next';
+import Image from 'next/image';
 
-import { Separator } from "@/components/ui/separator";
-import { SidebarNav } from "../../common/sidebar-nav";
+import { Separator } from '@/components/ui/separator';
+
+import { SidebarNav } from '../../common/sidebar-nav';
 
 export const metadata: Metadata = {
-  title: "Forms",
-  description: "Advanced form example using react-hook-form and Zod.",
+  title: 'Forms',
+  description: 'Advanced form example using react-hook-form and Zod.',
 };
 
 const sidebarNavItems = [
   {
-    title: "Profile",
-    href: "/course/1?tab=setting",
+    title: 'Profile',
+    href: '/course/1?tab=setting',
   },
   {
-    title: "Account",
-    href: "/course/1?tab=setting/account",
+    title: 'Account',
+    href: '/course/1?tab=setting/account',
   },
   {
-    title: "Appearance",
-    href: "/examples/forms/appearance",
+    title: 'Appearance',
+    href: '/examples/forms/appearance',
   },
   {
-    title: "Notifications",
-    href: "/examples/forms/notifications",
+    title: 'Notifications',
+    href: '/examples/forms/notifications',
   },
   {
-    title: "Display",
-    href: "/examples/forms/display",
+    title: 'Display',
+    href: '/examples/forms/display',
   },
 ];
 

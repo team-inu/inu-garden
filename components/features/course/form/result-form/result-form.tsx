@@ -1,15 +1,17 @@
-"use client";
+'use client';
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/components/ui/button";
-import { Form } from "@/components/ui/form";
-import { useFieldArray, useForm } from "react-hook-form";
-import InputForm from "../input-form";
-import * as z from "zod";
-import LinkedSection from "./link-section";
-import { cn } from "@/libs/utils";
-import SelectForm from "../selection-form";
-import MultiSelectionForm from "../multi-selection-form";
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useFieldArray, useForm } from 'react-hook-form';
+import * as z from 'zod';
+
+import { Button } from '@/components/ui/button';
+import { Form } from '@/components/ui/form';
+import { cn } from '@/libs/utils';
+
+import InputForm from '../input-form';
+import MultiSelectionForm from '../multi-selection-form';
+import SelectForm from '../selection-form';
+import LinkedSection from './link-section';
 
 const resultFormSchema = z.object({
   courseId: z.string().nonempty(),
@@ -19,17 +21,17 @@ const resultFormSchema = z.object({
   programme: z.string(),
   courseCreadit: z.string(),
   studentDegree: z.array(z.string()).nonempty({
-    message: "Student Degree is required",
+    message: 'Student Degree is required',
   }),
   studentAmount: z.string(),
   lecturer: z.string(),
   resultForm: z.array(
     z.object({
       po: z.string().nonempty({
-        message: "PO is required",
+        message: 'PO is required',
       }),
       plo: z.string().nonempty({
-        message: "PLO is required",
+        message: 'PLO is required',
       }),
       clo: z.array(
         z.object({
@@ -37,33 +39,33 @@ const resultFormSchema = z.object({
           assessment: z.array(
             z.object({
               description: z.string().nonempty({
-                message: "required",
+                message: 'required',
               }),
               percentagePredict: z.string().nonempty({
-                message: "required",
+                message: 'required',
               }),
               percentageActual: z.string().nonempty({
-                message: "required",
+                message: 'required',
               }),
-            })
+            }),
           ),
-        })
+        }),
       ),
-    })
+    }),
   ),
 });
 
 const initialLinkedSection = {
-  po: "",
-  plo: "",
+  po: '',
+  plo: '',
   clo: [
     {
-      description: "",
+      description: '',
       assessment: [
         {
-          description: "",
-          percentagePredict: "",
-          percentageActual: "",
+          description: '',
+          percentagePredict: '',
+          percentageActual: '',
         },
       ],
     },
@@ -76,18 +78,18 @@ export function ResultForm() {
   const form = useForm<FormValuesType>({
     resolver: zodResolver(resultFormSchema),
     defaultValues: {
-      courseId: "",
-      name: "",
-      faculty: "",
-      department: "",
-      programme: "",
-      courseCreadit: "",
+      courseId: '',
+      name: '',
+      faculty: '',
+      department: '',
+      programme: '',
+      courseCreadit: '',
       studentDegree: [],
-      studentAmount: "",
-      lecturer: "",
+      studentAmount: '',
+      lecturer: '',
       resultForm: [initialLinkedSection],
     },
-    mode: "onChange",
+    mode: 'onChange',
   });
 
   function onSubmit(values: FormValuesType) {
@@ -97,7 +99,7 @@ export function ResultForm() {
   const { control } = form;
   const { fields, append, remove } = useFieldArray({
     control,
-    name: "resultForm",
+    name: 'resultForm',
   });
 
   return (
@@ -122,12 +124,12 @@ export function ResultForm() {
           form={form}
           options={[
             {
-              value: "engineering",
-              text: "Engineering",
+              value: 'engineering',
+              text: 'Engineering',
             },
             {
-              value: "science",
-              text: "Science",
+              value: 'science',
+              text: 'Science',
             },
           ]}
         />
@@ -138,12 +140,12 @@ export function ResultForm() {
           form={form}
           options={[
             {
-              value: "computer",
-              text: "Computer",
+              value: 'computer',
+              text: 'Computer',
             },
             {
-              value: "electrical",
-              text: "Electrical",
+              value: 'electrical',
+              text: 'Electrical',
             },
           ]}
         />
@@ -154,20 +156,20 @@ export function ResultForm() {
           form={form}
           options={[
             {
-              text: "Regular",
-              value: "regular",
+              text: 'Regular',
+              value: 'regular',
             },
             {
-              text: "International",
-              value: "international",
+              text: 'International',
+              value: 'international',
             },
             {
-              text: "RC",
-              value: "rc",
+              text: 'RC',
+              value: 'rc',
             },
             {
-              text: "TC",
-              value: "tc",
+              text: 'TC',
+              value: 'tc',
             },
           ]}
         />
@@ -179,41 +181,41 @@ export function ResultForm() {
         />
         <MultiSelectionForm
           name="studentDegree"
-          lable={"Student Degree"}
-          placeholder={"Please select student degree"}
+          lable={'Student Degree'}
+          placeholder={'Please select student degree'}
           form={form}
           options={[
             {
-              value: "bachelor1",
-              text: "Bachelor year 1",
+              value: 'bachelor1',
+              text: 'Bachelor year 1',
             },
             {
-              value: "bachelor2",
-              text: "Bachelor year 2",
+              value: 'bachelor2',
+              text: 'Bachelor year 2',
             },
             {
-              value: "bachelor3",
-              text: "Bachelor year 3",
+              value: 'bachelor3',
+              text: 'Bachelor year 3',
             },
             {
-              value: "bachelor4",
-              text: "Bachelor year 4",
+              value: 'bachelor4',
+              text: 'Bachelor year 4',
             },
             {
-              value: "master1",
-              text: "Master year 1",
+              value: 'master1',
+              text: 'Master year 1',
             },
             {
-              value: "master2",
-              text: "Master year 2",
+              value: 'master2',
+              text: 'Master year 2',
             },
             {
-              value: "doctor1",
-              text: "Doctor year 1",
+              value: 'doctor1',
+              text: 'Doctor year 1',
             },
             {
-              value: "doctor2",
-              text: "Doctor year 2",
+              value: 'doctor2',
+              text: 'Doctor year 2',
             },
           ]}
         />
@@ -232,7 +234,7 @@ export function ResultForm() {
         />
         <Button
           type="button"
-          className={cn("w-full")}
+          className={cn('w-full')}
           onClick={() => {
             append(initialLinkedSection);
           }}
@@ -240,15 +242,15 @@ export function ResultForm() {
           เพิ่ม PLO PO
         </Button>
         <div className="">
-          <div className="space-y-5 flex flex-col items-center">
+          <div className="flex flex-col items-center space-y-5">
             {fields.map((item, index) => {
               return (
                 <div
                   key={item.id}
-                  className="flex flex-col border-2 p-5 w-full"
+                  className="flex w-full flex-col border-2 p-5"
                 >
-                  <div className="w-full flex justify-between items-center mb-7">
-                    <div className="self-start border-2 rounded-full p-1 px-3 dark:border-white">
+                  <div className="mb-7 flex w-full items-center justify-between">
+                    <div className="self-start rounded-full border-2 p-1 px-3 dark:border-white">
                       {index + 1}
                     </div>
                     {fields.length > 1 && (

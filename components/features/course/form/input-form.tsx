@@ -1,3 +1,5 @@
+import { UseFormReturn } from 'react-hook-form';
+
 import {
   FormControl,
   FormDescription,
@@ -5,9 +7,8 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { UseFormReturn } from "react-hook-form";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 
 type InputFormProps = {
   name: string;

@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,11 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
-import { CreatePloDefaultValues, CreatePloSchema, CreatePloType } from '@/types/schema/plo-schema';
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
+import {
+  CreatePloDefaultValues,
+  CreatePloSchema,
+  CreatePloType,
+} from '@/types/schema/plo-schema';
 
 type PloDialogProps = {
   onSubmit: (values: CreatePloType) => void;
@@ -32,17 +37,17 @@ const PloDialog: React.FC<PloDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreatePloSchema,
-    defaultValues ?? CreatePloDefaultValues
+    defaultValues ?? CreatePloDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Plo" : "Add Plo"}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Plo' : 'Add Plo'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the plo information"
-              : "Fill in the plo information"}
+              ? 'Edit the plo information'
+              : 'Fill in the plo information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -96,9 +101,13 @@ const PloDialog: React.FC<PloDialogProps> = ({
         </Form>
         <DialogFooter>
           <DialogClose asChild>
-            <Button onClick={() => form.reset()} variant="outline">Cancel</Button>
+            <Button onClick={() => form.reset()} variant="outline">
+              Cancel
+            </Button>
           </DialogClose>
-          <Button type='submit' onClick={form.handleSubmit(onSubmit)} >Save</Button>
+          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </div>

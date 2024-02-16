@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import { CircleIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,8 +14,15 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import * as React from 'react';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import {
+  DataTableToolbar,
+  Option,
+  SelectorOption,
+} from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,15 +30,8 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from "@/components/ui/data-table-toolbar";
-import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 import { AdmissionTableToolbar } from './admission-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
@@ -41,13 +41,13 @@ interface DataTableProps<TData, TValue> {
 
 export const admissiones: Option[] = [
   {
-    value: "โครงการ 2B",
-    label: "โครงการ 2B",
+    value: 'โครงการ 2B',
+    label: 'โครงการ 2B',
     icon: QuestionMarkCircledIcon,
   },
   {
-    value: "โครงการ 3B",
-    label: "โครงการ 3B",
+    value: 'โครงการ 3B',
+    label: 'โครงการ 3B',
     icon: CircleIcon,
   },
 ];
@@ -55,8 +55,8 @@ export const admissiones: Option[] = [
 const inputs: SelectorOption[] = [
   {
     options: admissiones,
-    title: "Admission",
-    columnName: "admission",
+    title: 'Admission',
+    columnName: 'admission',
   },
 ];
 
@@ -68,7 +68,7 @@ export function AdmissionDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -96,10 +96,7 @@ export function AdmissionDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <AdmissionTableToolbar
-        table={table}
-        selectorOptions={inputs}
-      />
+      <AdmissionTableToolbar table={table} selectorOptions={inputs} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -112,7 +109,7 @@ export function AdmissionDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -125,13 +122,13 @@ export function AdmissionDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

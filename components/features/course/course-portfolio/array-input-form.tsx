@@ -1,13 +1,14 @@
+import { TrashIcon } from 'lucide-react';
+import { UseFieldArrayRemove, useFormContext } from 'react-hook-form';
+
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { TrashIcon } from "lucide-react";
-import { UseFieldArrayRemove, useFormContext } from "react-hook-form";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 
 type ArrayInputProps = {
   index: number;
@@ -35,7 +36,7 @@ const ArrayInput: React.FC<ArrayInputProps> = ({
                 <Input {...field} />
                 {fieldLength > 1 && (
                   <TrashIcon
-                    className="w-5 h-5 absolute right-3 top-3 cursor-pointer hover:text-destructive"
+                    className="absolute right-3 top-3 h-5 w-5 cursor-pointer hover:text-destructive"
                     onClick={() => remove(index)}
                   />
                 )}

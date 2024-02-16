@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,15 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateStudentDefaultValues,
   CreateStudentSchema,
   CreateStudentType,
-} from "@/types/schema/studen-schema";
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/types/schema/studen-schema';
 
 type StudentDialogProps = {
   onSubmit: (values: CreateStudentType) => void;
@@ -36,18 +37,18 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateStudentSchema,
-    defaultValues ?? CreateStudentDefaultValues
+    defaultValues ?? CreateStudentDefaultValues,
   );
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Student" : "Add Student"}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Student' : 'Add Student'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the student information"
-              : "Fill in the student information"}
+              ? 'Edit the student information'
+              : 'Fill in the student information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -121,7 +122,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
             </Button>
           </DialogClose>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-            {isEdit ? "Edit" : "Add"}
+            {isEdit ? 'Edit' : 'Add'}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,10 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
-"use client";
+'use client';
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,21 +27,15 @@ import {
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { labels } from "@/data/data";
-import { LecturerSchema } from "@/data/schema"; // TODO: make it dynamic
-import { CreateLecturerType } from "@/types/schema/lecturer-schema";
-import { useState } from "react";
-import LecturerDialog from "./lecturer-dialog";
+} from '@/components/ui/dropdown-menu';
+import { labels } from '@/data/data';
+import { LecturerSchema } from '@/data/schema';
+// TODO: make it dynamic
+import { CreateLecturerType } from '@/types/schema/lecturer-schema';
+
+import LecturerDialog from './lecturer-dialog';
+
+/* eslint-disable react/no-unescaped-entities */
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -49,7 +53,7 @@ export function LecturerRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log("delete");
+    console.log('delete');
   };
 
   return (

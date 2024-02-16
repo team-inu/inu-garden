@@ -1,19 +1,20 @@
-"use client";
+'use client';
 
 import {
   Cross2Icon,
   MixerHorizontalIcon,
   PlusCircledIcon,
-} from "@radix-ui/react-icons";
-import { Table, useReactTable } from "@tanstack/react-table";
+} from '@radix-ui/react-icons';
+import { Table, useReactTable } from '@tanstack/react-table';
+import { ImportIcon } from 'lucide-react';
+import { ChangeEvent, useRef, useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import { Button } from '@/components/ui/button';
+import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
+import { Input } from '@/components/ui/input';
 
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { ChangeEvent, useRef, useState } from "react";
-import { ImportIcon } from "lucide-react";
+import { DataTableFacetedFilter } from './data-table-faceted-filter';
+
 export type Option = {
   value: string;
   label: string;
@@ -44,7 +45,7 @@ export function DataTableToolbar<TData>({
   dialog,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
 
@@ -53,7 +54,7 @@ export function DataTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="type here for filter"
-          value={searchValue ?? ""}
+          value={searchValue ?? ''}
           onChange={(event) => {
             table.setGlobalFilter(event.target.value);
             setSearchValue(event.target.value);
@@ -86,7 +87,7 @@ export function DataTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <div className="space-x-2 flex">
+      <div className="flex space-x-2">
         {isCreateEnabled && (
           <div className="flex space-x-2">
             <Button

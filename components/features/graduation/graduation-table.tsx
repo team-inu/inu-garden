@@ -1,6 +1,5 @@
-"use client";
+'use client';
 
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,8 +13,15 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import * as React from 'react';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import {
+  DataTableToolbar,
+  Option,
+  SelectorOption,
+} from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,15 +29,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from "@/components/ui/data-table-toolbar";
-import { GraduationTableToolbar } from "./graduation-table-toolbar";
+import { GraduationTableToolbar } from './graduation-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,7 +46,7 @@ export function GraduationDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -73,7 +73,7 @@ export function GraduationDataTable<TData, TValue>({
   });
 
   const handleUploadStudent = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     // const file = e.target.files?.[0];
     // if (!file) {
@@ -92,7 +92,7 @@ export function GraduationDataTable<TData, TValue>({
     // TODO: push to backend
     // console.log(student);
 
-    e.target.value = "";
+    e.target.value = '';
   };
 
   return (
@@ -114,7 +114,7 @@ export function GraduationDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -127,13 +127,13 @@ export function GraduationDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

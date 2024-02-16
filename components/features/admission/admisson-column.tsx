@@ -1,20 +1,22 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Admission } from "@/data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { admissiones } from "./admission-table";
+import { ColumnDef } from '@tanstack/react-table';
+
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { Admission } from '@/data/schema';
+
 import { AdmissionRowActions } from './admission-row-action';
+import { admissiones } from './admission-table';
 
 export const columns: ColumnDef<Admission>[] = [
   {
-    id: "select",
+    id: 'select',
     header: ({ table }) => (
       <Checkbox
         checked={
           table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+          (table.getIsSomePageRowsSelected() && 'indeterminate')
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
@@ -33,27 +35,27 @@ export const columns: ColumnDef<Admission>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="id" />
     ),
-    cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "admissionId",
+    accessorKey: 'admissionId',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Admission ID" />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("admissionId")}</div>
+      <div className="w-[80px]">{row.getValue('admissionId')}</div>
     ),
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "firstName",
+    accessorKey: 'firstName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="First Name" />
     ),
@@ -61,14 +63,14 @@ export const columns: ColumnDef<Admission>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("firstName")}
+            {row.getValue('firstName')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "lastName",
+    accessorKey: 'lastName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Last Name" />
     ),
@@ -76,20 +78,20 @@ export const columns: ColumnDef<Admission>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("lastName")}
+            {row.getValue('lastName')}
           </span>
         </div>
       );
     },
   },
   {
-    accessorKey: "admission",
+    accessorKey: 'admission',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Admission" />
     ),
     cell: ({ row }) => {
       const admission = admissiones.find(
-        (label) => label.value === row.getValue("admission")
+        (label) => label.value === row.getValue('admission'),
       );
 
       if (!admission) {
@@ -107,14 +109,14 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "email",
+    accessorKey: 'email',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Email" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("email")}</span>
+          <span className="truncate font-medium">{row.getValue('email')}</span>
         </div>
       );
     },
@@ -123,14 +125,14 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "GPAX",
+    accessorKey: 'GPAX',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="GPAX" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("GPAX")}</span>
+          <span className="truncate font-medium">{row.getValue('GPAX')}</span>
         </div>
       );
     },
@@ -139,7 +141,7 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "mathGPA",
+    accessorKey: 'mathGPA',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="GPA Math" />
     ),
@@ -147,7 +149,7 @@ export const columns: ColumnDef<Admission>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("mathGPA")}
+            {row.getValue('mathGPA')}
           </span>
         </div>
       );
@@ -157,7 +159,7 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "englishGPA",
+    accessorKey: 'englishGPA',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Eng GPA" />
     ),
@@ -165,7 +167,7 @@ export const columns: ColumnDef<Admission>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("englishGPA")}
+            {row.getValue('englishGPA')}
           </span>
         </div>
       );
@@ -175,7 +177,7 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "scienceGPA",
+    accessorKey: 'scienceGPA',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="GPA Sci" />
     ),
@@ -183,7 +185,7 @@ export const columns: ColumnDef<Admission>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("scienceGPA")}
+            {row.getValue('scienceGPA')}
           </span>
         </div>
       );
@@ -193,14 +195,14 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "school",
+    accessorKey: 'school',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="School" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("school")}</span>
+          <span className="truncate font-medium">{row.getValue('school')}</span>
         </div>
       );
     },
@@ -209,14 +211,14 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: "city",
+    accessorKey: 'city',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="City" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("city")}</span>
+          <span className="truncate font-medium">{row.getValue('city')}</span>
         </div>
       );
     },
@@ -225,7 +227,7 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <AdmissionRowActions row={row} />,
   },
 ];

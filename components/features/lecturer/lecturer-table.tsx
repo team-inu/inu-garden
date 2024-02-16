@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import { CircleIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,8 +14,15 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import * as React from 'react';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import {
+  DataTableToolbar,
+  Option,
+  SelectorOption,
+} from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,16 +30,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from "@/components/ui/data-table-toolbar";
-import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-import { LecturerTableToolbar } from "./lecturer-table-toolbar";
+import { LecturerTableToolbar } from './lecturer-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -41,13 +41,13 @@ interface DataTableProps<TData, TValue> {
 
 export const lectureres: Option[] = [
   {
-    value: "โครงการ 2B",
-    label: "โครงการ 2B",
+    value: 'โครงการ 2B',
+    label: 'โครงการ 2B',
     icon: QuestionMarkCircledIcon,
   },
   {
-    value: "โครงการ 3B",
-    label: "โครงการ 3B",
+    value: 'โครงการ 3B',
+    label: 'โครงการ 3B',
     icon: CircleIcon,
   },
 ];
@@ -55,8 +55,8 @@ export const lectureres: Option[] = [
 const inputs: SelectorOption[] = [
   {
     options: lectureres,
-    title: "Lecturer",
-    columnName: "lecturer",
+    title: 'Lecturer',
+    columnName: 'lecturer',
   },
 ];
 
@@ -68,7 +68,7 @@ export function LecturerDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -95,7 +95,7 @@ export function LecturerDataTable<TData, TValue>({
   });
 
   const handleUploadStudent = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     // const file = e.target.files?.[0];
     // if (!file) {
@@ -114,7 +114,7 @@ export function LecturerDataTable<TData, TValue>({
     // TODO: push to backend
     // console.log(student);
 
-    e.target.value = "";
+    e.target.value = '';
   };
 
   return (
@@ -136,7 +136,7 @@ export function LecturerDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -149,13 +149,13 @@ export function LecturerDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

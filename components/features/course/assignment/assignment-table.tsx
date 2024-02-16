@@ -1,6 +1,5 @@
-"use client";
-import * as XLSX from "xlsx";
-import * as React from "react";
+'use client';
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,8 +13,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import * as React from 'react';
+import { toast } from 'sonner';
+import * as XLSX from 'xlsx';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,13 +27,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
+import { tableToObject, worksheetToTables } from '@/libs/excel';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
-import { toast } from "sonner";
-import { tableToObject, worksheetToTables } from "@/libs/excel";
-import { AssignmentTableToolbar } from "./assignment-table-toolbar";
+import { AssignmentTableToolbar } from './assignment-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,7 +47,7 @@ export function AssignmentDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -87,7 +88,7 @@ export function AssignmentDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -100,10 +101,10 @@ export function AssignmentDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
                     if (getValues) {
-                      getValues(row.getValue("id"), row.getValue("name"));
+                      getValues(row.getValue('id'), row.getValue('name'));
                     }
                   }}
                 >
@@ -111,7 +112,7 @@ export function AssignmentDataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

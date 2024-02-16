@@ -1,17 +1,17 @@
-"use client";
+'use client';
 
-import { Cross2Icon, PlusCircledIcon } from "@radix-ui/react-icons";
-import { Table } from "@tanstack/react-table";
+import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
+import { Table } from '@tanstack/react-table';
+import { ImportIcon } from 'lucide-react';
+import { useRef, useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "@/components/ui/data-table-view-options";
+import { Button } from '@/components/ui/button';
+import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
+import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
+import { Dialog } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 
-import { DataTableFacetedFilter } from "@/components/ui/data-table-faceted-filter";
-import { useRef, useState } from "react";
-import { ImportIcon } from "lucide-react";
-import { Dialog } from "@/components/ui/dialog";
-import ScoreDialog from "./score-dialog";
+import ScoreDialog from './score-dialog';
 
 export type Option = {
   value: string;
@@ -42,7 +42,7 @@ export function ScoreTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
-  const [searchValue, setSearchValue] = useState<string>("");
+  const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
 
@@ -51,7 +51,7 @@ export function ScoreTableToolbar<TData>({
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="type here for filter"
-          value={searchValue ?? ""}
+          value={searchValue ?? ''}
           onChange={(event) => {
             table.setGlobalFilter(event.target.value);
             setSearchValue(event.target.value);
@@ -84,7 +84,7 @@ export function ScoreTableToolbar<TData>({
           </Button>
         )}
       </div>
-      <div className="space-x-2 flex">
+      <div className="flex space-x-2">
         {isCreateEnabled && (
           <div className="flex space-x-2">
             <Button

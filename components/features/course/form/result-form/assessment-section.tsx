@@ -1,6 +1,8 @@
-import { UseFormReturn, useFieldArray } from "react-hook-form";
-import InputForm from "../input-form";
-import { Button } from "@/components/ui/button";
+import { UseFormReturn, useFieldArray } from 'react-hook-form';
+
+import { Button } from '@/components/ui/button';
+
+import InputForm from '../input-form';
 
 type AssessmentSectionProps = {
   resultIndex: number;
@@ -29,10 +31,10 @@ const AssessmentSection: React.FC<AssessmentSectionProps> = ({
       >
         เพิ่ม Assessment
       </Button>
-      <div className="space-y-5 w-full">
+      <div className="w-full space-y-5">
         {fields.map((field, index) => {
           return (
-            <div key={field.id} className="flex space-x-5 !w-full">
+            <div key={field.id} className="flex !w-full space-x-5">
               <div className="w-1/2">
                 <InputForm
                   name={`resultForm[${resultIndex}].clo[${cloIndex}].assessment[${index}].description`}

@@ -1,21 +1,22 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
-import { PLO } from "@/data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { PLORowActions } from "@/components/features/tabee/plo/plo-row-action";
+import { ColumnDef } from '@tanstack/react-table';
+
+import { PLORowActions } from '@/components/features/tabee/plo/plo-row-action';
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { PLO } from '@/data/schema';
 
 export const ploColumns: ColumnDef<PLO>[] = [
   {
-    accessorKey: "name",
+    accessorKey: 'name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="name" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue("name")}</span>
+          <span className="truncate font-medium">{row.getValue('name')}</span>
         </div>
       );
     },
@@ -24,7 +25,7 @@ export const ploColumns: ColumnDef<PLO>[] = [
     },
   },
   {
-    accessorKey: "description",
+    accessorKey: 'description',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="description" />
     ),
@@ -32,7 +33,7 @@ export const ploColumns: ColumnDef<PLO>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue("description")}
+            {row.getValue('description')}
           </span>
         </div>
       );

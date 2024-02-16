@@ -1,18 +1,12 @@
 /* eslint-disable react/no-unescaped-entities */
-"use client";
+'use client';
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useState } from "react";
-import { ScoreSchema } from "@/data/schema";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -20,10 +14,19 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import ScoreDialog from "./score-dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { CreateScoreType } from "@/types/schema/score-schema";
+} from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { ScoreSchema } from '@/data/schema';
+import { CreateScoreType } from '@/types/schema/score-schema';
+
+import ScoreDialog from './score-dialog';
+
+/* eslint-disable react/no-unescaped-entities */
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -41,7 +44,7 @@ export function ScoreRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log("delete");
+    console.log('delete');
   };
   return (
     <Dialog

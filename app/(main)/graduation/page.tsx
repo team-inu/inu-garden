@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { GraduationDataTable } from "@/components/features/graduation/graduation-table";
-import { columns } from "@/components/features/graduation/graduation-column";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
+import { columns } from '@/components/features/graduation/graduation-column';
+import { GraduationDataTable } from '@/components/features/graduation/graduation-table';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 
 const GraduationPage = () => {
   return (
-    <div className="w-10/12 mx-auto py-8">
-      <div className="flex items-center justify-between w-full space-x-3 mx-auto">
-        <h1 className="text-4xl font-bold mb-5">Graduation</h1>
+    <div className="mx-auto w-10/12 py-8">
+      <div className="mx-auto flex w-full items-center justify-between space-x-3">
+        <h1 className="mb-5 text-4xl font-bold">Graduation</h1>
         <div className="w-1/12">
           <Button>Add Form</Button>
         </div>
@@ -19,22 +19,22 @@ const GraduationPage = () => {
           columns={columns}
           data={[
             {
-              id: "1",
-              studentId: "6307050000",
-              firstName: "กกก",
-              lastName: "Doe",
-              workPlace: "corp",
+              id: '1',
+              studentId: '6307050000',
+              firstName: 'กกก',
+              lastName: 'Doe',
+              workPlace: 'corp',
               year: 2554,
-              remarks: "จบแล้ว",
+              remarks: 'จบแล้ว',
             },
             {
-              id: "2",
-              studentId: "6307050001",
-              firstName: "Alice",
-              lastName: "Doe",
-              workPlace: "jo",
+              id: '2',
+              studentId: '6307050001',
+              firstName: 'Alice',
+              lastName: 'Doe',
+              workPlace: 'jo',
               year: 2556,
-              remarks: "ตาย",
+              remarks: 'ตาย',
             },
           ]}
         />

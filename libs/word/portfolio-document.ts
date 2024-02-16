@@ -1,7 +1,15 @@
-import { Document, Packer, Paragraph, TextRun, IParagraphOptions, CharacterSet } from "docx";
-import { GradeTable } from "@/libs/word/table/grade-table";
-import { OutcomeTable } from "@/libs/word/table/outcome-table";
-import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio-schema";
+import {
+  CharacterSet,
+  Document,
+  IParagraphOptions,
+  Packer,
+  Paragraph,
+  TextRun,
+} from 'docx';
+
+import { GradeTable } from '@/libs/word/table/grade-table';
+import { OutcomeTable } from '@/libs/word/table/outcome-table';
+import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
 
 const INDENT = 300;
 
@@ -11,28 +19,28 @@ export async function generatePortfolioDocument({
   outcome,
   development,
 }: CreateCoursePortfolioSchemaType) {
-  const font = await fetch("/fonts/THSarabunNew/THSarabunNew.ttf")
+  const font = await fetch('/fonts/THSarabunNew/THSarabunNew.ttf');
   const buff = Buffer.from(await font.arrayBuffer());
 
   const doc = new Document({
     fonts: [
-      { name: "THSarabunNew", data: buff, characterSet: CharacterSet.ANSI },
+      { name: 'THSarabunNew', data: buff, characterSet: CharacterSet.ANSI },
     ],
     styles: {
       paragraphStyles: [
         {
-          id: "normalStyle",
+          id: 'normalStyle',
           run: {
             size: 24,
-            font: "THSarabunNew",
+            font: 'THSarabunNew',
           },
         },
         {
-          id: "boldStyle",
-          basedOn: "normalStyle",
+          id: 'boldStyle',
+          basedOn: 'normalStyle',
           run: {
             bold: true,
-            font: "THSarabunNew",
+            font: 'THSarabunNew',
           },
         },
       ],
@@ -40,24 +48,24 @@ export async function generatePortfolioDocument({
     numbering: {
       config: [
         {
-          reference: "bigList",
+          reference: 'bigList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "%1.  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '%1.  ',
+              alignment: 'numTab',
             },
           ],
         },
         {
-          reference: "summaryList",
+          reference: 'summaryList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "1.%1  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '1.%1  ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -69,13 +77,13 @@ export async function generatePortfolioDocument({
           ],
         },
         {
-          reference: "methodList",
+          reference: 'methodList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "%1.  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '%1.  ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -87,13 +95,13 @@ export async function generatePortfolioDocument({
           ],
         },
         {
-          reference: "objectiveList",
+          reference: 'objectiveList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "%1.  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '%1.  ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -105,13 +113,13 @@ export async function generatePortfolioDocument({
           ],
         },
         {
-          reference: "outcomeList",
+          reference: 'outcomeList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "2.%1  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '2.%1  ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -123,13 +131,13 @@ export async function generatePortfolioDocument({
           ],
         },
         {
-          reference: "POList",
+          reference: 'POList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "%1.  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '%1.  ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -141,13 +149,13 @@ export async function generatePortfolioDocument({
           ],
         },
         {
-          reference: "devList",
+          reference: 'devList',
           levels: [
             {
               level: 0,
-              format: "decimal",
-              text: "3.%1  ",
-              alignment: "numTab",
+              format: 'decimal',
+              text: '3.%1  ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -159,13 +167,13 @@ export async function generatePortfolioDocument({
           ],
         },
         {
-          reference: "documentList",
+          reference: 'documentList',
           levels: [
             {
               level: 0,
-              format: "bullet",
-              text: "\u2610 ",
-              alignment: "numTab",
+              format: 'bullet',
+              text: '\u2610 ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -176,9 +184,9 @@ export async function generatePortfolioDocument({
             },
             {
               level: 1,
-              format: "bullet",
-              text: "\u2611 ",
-              alignment: "numTab",
+              format: 'bullet',
+              text: '\u2611 ',
+              alignment: 'numTab',
               style: {
                 paragraph: {
                   indent: {
@@ -196,34 +204,34 @@ export async function generatePortfolioDocument({
         properties: {},
         children: [
           createParagraph({
-            children: [new TextRun({ text: "Course Portfolio", bold: true })],
-            alignment: "center",
+            children: [new TextRun({ text: 'Course Portfolio', bold: true })],
+            alignment: 'center',
           }),
           createParagraph({
             children: [
-              new TextRun({ text: "รายวิชา: \t", bold: true }),
+              new TextRun({ text: 'รายวิชา: \t', bold: true }),
               new TextRun({ text: info.courseName }),
             ],
           }),
           createParagraph({
             children: [
-              new TextRun({ text: "ผู้สอน: \t", bold: true }),
-              new TextRun({ text: info.lecturer.join(", ") }),
+              new TextRun({ text: 'ผู้สอน: \t', bold: true }),
+              new TextRun({ text: info.lecturer.join(', ') }),
             ],
           }),
           createParagraph({
-            text: "สรุปการดำเนินงาน",
-            style: "boldStyle",
+            text: 'สรุปการดำเนินงาน',
+            style: 'boldStyle',
             numbering: {
-              reference: "bigList",
+              reference: 'bigList',
               level: 0,
             },
           }),
           createParagraph({
-            text: "การสอน",
-            style: "boldStyle",
+            text: 'การสอน',
+            style: 'boldStyle',
             numbering: {
-              reference: "summaryList",
+              reference: 'summaryList',
               level: 0,
             },
           }),
@@ -231,9 +239,9 @@ export async function generatePortfolioDocument({
           ...summary.teachingMethod.map((method) => {
             return createParagraph({
               text: method.name,
-              style: "boldStyle",
+              style: 'boldStyle',
               numbering: {
-                reference: "methodList",
+                reference: 'methodList',
                 level: 0,
               },
             });
@@ -241,17 +249,17 @@ export async function generatePortfolioDocument({
 
           createParagraph({
             text: summary.onlineTool,
-            style: "boldStyle",
+            style: 'boldStyle',
             numbering: {
-              reference: "summaryList",
+              reference: 'summaryList',
               level: 0,
             },
           }),
           createParagraph({
-            text: "วัตถุประสงค์รายวิชา",
-            style: "boldStyle",
+            text: 'วัตถุประสงค์รายวิชา',
+            style: 'boldStyle',
             numbering: {
-              reference: "summaryList",
+              reference: 'summaryList',
               level: 0,
             },
           }),
@@ -260,46 +268,46 @@ export async function generatePortfolioDocument({
             return createParagraph({
               text: objective.name,
               numbering: {
-                reference: "objectiveList",
+                reference: 'objectiveList',
                 level: 0,
               },
             });
           }),
 
           createParagraph({
-            text: "ผลการศึกษา",
-            style: "boldStyle",
+            text: 'ผลการศึกษา',
+            style: 'boldStyle',
             numbering: {
-              reference: "bigList",
+              reference: 'bigList',
               level: 0,
             },
           }),
           createParagraph({
-            text: "เกรด",
-            style: "boldStyle",
+            text: 'เกรด',
+            style: 'boldStyle',
             numbering: {
-              reference: "outcomeList",
+              reference: 'outcomeList',
               level: 0,
             },
           }),
           createParagraph({
-            text: "รูป 2.1 เกรด",
+            text: 'รูป 2.1 เกรด',
             indent: {
               left: INDENT * 2,
             },
           }),
           new GradeTable().generate(outcome.grade),
           createParagraph({
-            text: "ตาราง 2.1 Grade Distribution",
+            text: 'ตาราง 2.1 Grade Distribution',
             indent: {
               left: INDENT * 2,
             },
           }),
           createParagraph({
-            text: "Program Outcome",
-            style: "boldStyle",
+            text: 'Program Outcome',
+            style: 'boldStyle',
             numbering: {
-              reference: "outcomeList",
+              reference: 'outcomeList',
               level: 0,
             },
           }),
@@ -308,31 +316,31 @@ export async function generatePortfolioDocument({
             return createParagraph({
               text: programOutcome.tabeeOutcome,
               numbering: {
-                reference: "POList",
+                reference: 'POList',
                 level: 0,
               },
             });
           }),
           createParagraph({
-            text: "ตาราง 2.2 ผลการประเมิน TABEE Outcome",
+            text: 'ตาราง 2.2 ผลการประเมิน TABEE Outcome',
             indent: {
               left: INDENT * 2,
             },
           }),
           new OutcomeTable().generate(outcome.programOutcomes),
           createParagraph({
-            text: "การพัฒนา",
-            style: "boldStyle",
+            text: 'การพัฒนา',
+            style: 'boldStyle',
             numbering: {
-              reference: "bigList",
+              reference: 'bigList',
               level: 0,
             },
           }),
           createParagraph({
-            text: "แนวทางการพัฒนาจากรอบที่แล้ว (Plan)",
-            style: "boldStyle",
+            text: 'แนวทางการพัฒนาจากรอบที่แล้ว (Plan)',
+            style: 'boldStyle',
             numbering: {
-              reference: "devList",
+              reference: 'devList',
               level: 0,
             },
           }),
@@ -346,10 +354,10 @@ export async function generatePortfolioDocument({
             });
           }),
           createParagraph({
-            text: "การพัฒนาและปัญหาหลัก (Do & Check)",
-            style: "boldStyle",
+            text: 'การพัฒนาและปัญหาหลัก (Do & Check)',
+            style: 'boldStyle',
             numbering: {
-              reference: "devList",
+              reference: 'devList',
               level: 0,
             },
           }),
@@ -363,10 +371,10 @@ export async function generatePortfolioDocument({
             });
           }),
           createParagraph({
-            text: "แนวทางการปรับปรุงหลักในรอบหน้า (Act)",
-            style: "boldStyle",
+            text: 'แนวทางการปรับปรุงหลักในรอบหน้า (Act)',
+            style: 'boldStyle',
             numbering: {
-              reference: "devList",
+              reference: 'devList',
               level: 0,
             },
           }),
@@ -380,16 +388,16 @@ export async function generatePortfolioDocument({
             });
           }),
           createParagraph({
-            text: "ความเห็นสำหรับวิชาอื่น",
-            style: "boldStyle",
+            text: 'ความเห็นสำหรับวิชาอื่น',
+            style: 'boldStyle',
             numbering: {
-              reference: "devList",
+              reference: 'devList',
               level: 0,
             },
           }),
           createParagraph({
-            text: "วิชา Upstream",
-            style: "boldStyle",
+            text: 'วิชา Upstream',
+            style: 'boldStyle',
             indent: {
               left: INDENT * 2,
             },
@@ -400,28 +408,28 @@ export async function generatePortfolioDocument({
               text: `${upstream.courseName}: ${upstream.comments}`,
               bullet: {
                 level: 1,
-              }
-            })
+              },
+            });
           }),
           createParagraph({
-            text: "วิชา Downstream",
-            style: "boldStyle",
+            text: 'วิชา Downstream',
+            style: 'boldStyle',
             indent: {
               left: INDENT * 2,
             },
           }),
-   
+
           ...development.subjectsComments.downstream.map((downstream) => {
             return createParagraph({
               text: `${downstream.courseName}: ${downstream.comments}`,
               bullet: {
                 level: 1,
               },
-            })
+            });
           }),
           createParagraph({
-            text: "วิชาอื่นๆ (ถ้ามี)",
-            style: "boldStyle",
+            text: 'วิชาอื่นๆ (ถ้ามี)',
+            style: 'boldStyle',
             indent: {
               left: INDENT * 2,
             },
@@ -443,10 +451,10 @@ export async function generatePortfolioDocument({
           }),
 
           createParagraph({
-            text: "ความเห็นอื่นๆ (ถ้ามี)",
-            style: "boldStyle",
+            text: 'ความเห็นอื่นๆ (ถ้ามี)',
+            style: 'boldStyle',
             numbering: {
-              reference: "devList",
+              reference: 'devList',
               level: 0,
             },
           }),
@@ -466,27 +474,27 @@ export async function generatePortfolioDocument({
           }),
 
           createParagraph({
-            text: "เอกสารแนบ",
-            style: "boldStyle",
+            text: 'เอกสารแนบ',
+            style: 'boldStyle',
             numbering: {
-              reference: "bigList",
+              reference: 'bigList',
               level: 0,
             },
           }),
 
           createParagraph({
             numbering: {
-              reference: "documentList",
+              reference: 'documentList',
               level: 0,
             },
-            children: [new TextRun("not submitted docs")],
+            children: [new TextRun('not submitted docs')],
           }),
           createParagraph({
             numbering: {
-              reference: "documentList",
+              reference: 'documentList',
               level: 1,
             },
-            children: [new TextRun("submitted docs")],
+            children: [new TextRun('submitted docs')],
           }),
         ],
       },
@@ -495,18 +503,18 @@ export async function generatePortfolioDocument({
 
   const buffer = await Packer.toBuffer(doc);
   const blob = new Blob([buffer], {
-    type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+    type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
   });
-  const link = document.createElement("a");
+  const link = document.createElement('a');
 
   link.href = window.URL.createObjectURL(blob);
-  link.download = "my.docx";
+  link.download = 'my.docx';
   link.click();
 }
 
 let createParagraph = (options: IParagraphOptions) => {
   return new Paragraph({
     ...options,
-    style: options.style ? options.style : "normalStyle",
+    style: options.style ? options.style : 'normalStyle',
   });
 };

@@ -1,11 +1,12 @@
-import { authService } from "@/services/auth-service";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+
+import { authService } from '@/services/auth-service';
 
 export const useUser = () =>
   useQuery({
-    queryKey: ["user"],
+    queryKey: ['user'],
     queryFn: () => authService.me(),
     staleTime: Infinity,
     gcTime: 0,
@@ -22,10 +23,10 @@ export const useAuth = () => {
     authService
       .signIn(email, password)
       .then(() => {
-        router.push("/course", { scroll: false });
+        router.push('/course', { scroll: false });
       })
       .catch((error) => {
-        toast.error("Cannot sign in to your account", {
+        toast.error('Cannot sign in to your account', {
           description: error,
         });
       });
@@ -34,7 +35,7 @@ export const useAuth = () => {
   const signOut = () => {
     authService.signOut().finally(() => {
       queryClient.removeQueries();
-      router.push("/login", { scroll: false });
+      router.push('/login', { scroll: false });
     });
   };
 

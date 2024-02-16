@@ -1,8 +1,9 @@
-import { useAuth } from "@/hooks/auth-hook";
-import { Loader2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { ComponentType, ReactNode, useEffect } from "react";
-import { toast } from "sonner";
+import { Loader2Icon } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { ComponentType, ReactNode, useEffect } from 'react';
+import { toast } from 'sonner';
+
+import { useAuth } from '@/hooks/auth-hook';
 
 export type WithAuthProps = {
   children?: ReactNode;
@@ -10,10 +11,10 @@ export type WithAuthProps = {
 
 export function withAuth<T extends WithAuthProps = WithAuthProps>(
   WrappedComponent: ComponentType<T>,
-  herf: string = "/login"
+  herf: string = '/login',
 ) {
   const displayName =
-    WrappedComponent.displayName || WrappedComponent.name || "Component";
+    WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithAuth = (props: Omit<T, keyof WithAuthProps>) => {
     const { user } = useAuth();
@@ -21,8 +22,8 @@ export function withAuth<T extends WithAuthProps = WithAuthProps>(
 
     useEffect(() => {
       if (user.isError) {
-        toast.warning("Authentication is required", {
-          description: "Please sign in to continue",
+        toast.warning('Authentication is required', {
+          description: 'Please sign in to continue',
         });
       }
     }, [user.isError]);

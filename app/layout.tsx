@@ -1,15 +1,17 @@
-import { ThemeProvider } from "@/providers/ThemeProvider";
-import "./globals.css";
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import TanstackProvider from "@/providers/TanstackQueryProvider";
-import { Toaster } from "@/components/ui/sonner";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
-const inter = Inter({ subsets: ["latin"] });
+import { Toaster } from '@/components/ui/sonner';
+import TanstackProvider from '@/providers/TanstackQueryProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+
+import './globals.css';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Inu",
-  description: "Inu: Quality Department Management System",
+  title: 'Inu',
+  description: 'Inu: Quality Department Management System',
 };
 
 export default function RootLayout({

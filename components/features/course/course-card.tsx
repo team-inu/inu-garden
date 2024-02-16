@@ -1,4 +1,8 @@
-"use client";
+'use client';
+
+import { BackpackIcon, FileTextIcon, PersonIcon } from '@radix-ui/react-icons';
+import Link from 'next/link';
+
 import {
   Card,
   CardContent,
@@ -6,33 +10,29 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { BackpackIcon, FileTextIcon, PersonIcon } from "@radix-ui/react-icons";
-import Link from "next/link";
+} from '@/components/ui/card';
 
 export type CourseCardProps = {
-  href: string,
-  courseId: string,
-  courseName: string,
-  studentAmount: number,
-  teacherAmount: number,
-  finishedTask: number,
-  totalTask: number,
-}
+  href: string;
+  courseId: string;
+  courseName: string;
+  studentAmount: number;
+  teacherAmount: number;
+  finishedTask: number;
+  totalTask: number;
+};
 
 const CourseCard: React.FC<CourseCardProps> = (props) => {
   return (
     <Link href={props.href}>
       <div className="rounded-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
-        <Card className="hover:opacity-70 transition-opacity ease-in-out duration-300 cursor-pointer ">
+        <Card className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-70 ">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
+              <div className="h-10 w-10 rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500" />
               <div>
                 <div className="font-bold">{props.courseId}</div>
-                <CardDescription>
-                  {props.courseName}
-                </CardDescription>
+                <CardDescription>{props.courseName}</CardDescription>
               </div>
             </CardTitle>
           </CardHeader>
@@ -48,7 +48,9 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
               </div>
               <div className="flex items-center space-x-2">
                 <FileTextIcon />
-                <div>Task: {props.finishedTask}/{props.totalTask}</div>
+                <div>
+                  Task: {props.finishedTask}/{props.totalTask}
+                </div>
               </div>
             </div>
           </CardContent>

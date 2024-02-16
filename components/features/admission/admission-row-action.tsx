@@ -1,15 +1,12 @@
-"use client";
+'use client';
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+// TODO: make it dynamic
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -17,11 +14,16 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { AdmissionSchema } from "@/data/schema"; // TODO: make it dynamic
-import { useState } from 'react';
+} from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { AdmissionSchema } from '@/data/schema';
 import { CreateAdmissionType } from '@/types/schema/admission-schema';
-import { DialogClose } from '@radix-ui/react-dialog';
+
 import AdmissionDialog from './admission-dialog';
 
 interface DataTableRowActionsProps<TData> {
@@ -40,7 +42,7 @@ export function AdmissionRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log("delete");
+    console.log('delete');
   };
 
   return (
@@ -94,7 +96,7 @@ export function AdmissionRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-             {` You can't undo this action. This will permanently delete the.`}
+              {` You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
 

@@ -1,23 +1,25 @@
-"use client";
+'use client';
+
+import { Select } from '@radix-ui/react-select';
+import { XIcon } from 'lucide-react';
+import { UseFieldArrayRemove } from 'react-hook-form';
+
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/libs/utils";
-import { Select } from "@radix-ui/react-select";
-import { XIcon } from "lucide-react";
-import { UseFieldArrayRemove } from "react-hook-form";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/libs/utils';
 
 type CourseFormLinkProps = {
   index: number;
@@ -32,9 +34,9 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
 }) => {
   const disableRemove = courseFormLinkLength === 1;
   return (
-    <div className="w-96 min-h-fit p-5 pb-7 border relative space-y-2">
+    <div className="relative min-h-fit w-96 space-y-2 border p-5 pb-7">
       <XIcon
-        className={cn("w-5 h-5 top-2 right-1 cursor-pointer absolute ", {
+        className={cn('absolute right-1 top-2 h-5 w-5 cursor-pointer ', {
           hidden: disableRemove,
         })}
         onClick={() => remove(index)}
@@ -90,8 +92,8 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"1"}>PLO1</SelectItem>
-                  <SelectItem value={"2"}>PLO2</SelectItem>
+                  <SelectItem value={'1'}>PLO1</SelectItem>
+                  <SelectItem value={'2'}>PLO2</SelectItem>
                 </SelectContent>
               </Select>
             </FormControl>
@@ -112,9 +114,9 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"1A"}>1A</SelectItem>
-                  <SelectItem value={"1B"}>1B</SelectItem>
-                  <SelectItem value={"1C"}>1C</SelectItem>
+                  <SelectItem value={'1A'}>1A</SelectItem>
+                  <SelectItem value={'1B'}>1B</SelectItem>
+                  <SelectItem value={'1C'}>1C</SelectItem>
                 </SelectContent>
               </Select>
             </FormControl>

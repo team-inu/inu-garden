@@ -1,6 +1,16 @@
-"use client";
-import * as XLSX from "xlsx";
-import * as React from "react";
+'use client';
+
+import {
+  ArrowDownIcon,
+  ArrowRightIcon,
+  ArrowUpIcon,
+  CheckCircledIcon,
+  CircleIcon,
+  Cross2Icon,
+  CrossCircledIcon,
+  QuestionMarkCircledIcon,
+  StopwatchIcon,
+} from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,8 +24,17 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import * as React from 'react';
+import { toast } from 'sonner';
+import * as XLSX from 'xlsx';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import {
+  DataTableToolbar,
+  Option,
+  SelectorOption,
+} from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,29 +42,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
+import { labels } from '@/data/data';
+import { tableToObject, worksheetToTables } from '@/libs/excel';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from "@/components/ui/data-table-toolbar";
-import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  ArrowRightIcon,
-  CheckCircledIcon,
-  CircleIcon,
-  Cross2Icon,
-  CrossCircledIcon,
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
-} from "@radix-ui/react-icons";
-import { labels } from "@/data/data";
-import { toast } from "sonner";
-import { tableToObject, worksheetToTables } from "@/libs/excel";
-import { StudentTableToolbar } from "./student-table-toolbar";
+import { StudentTableToolbar } from './student-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -54,46 +55,46 @@ interface DataTableProps<TData, TValue> {
 
 export const statuses: Option[] = [
   {
-    value: "backlog",
-    label: "Backlog",
+    value: 'backlog',
+    label: 'Backlog',
     icon: QuestionMarkCircledIcon,
   },
   {
-    value: "todo",
-    label: "Todo",
+    value: 'todo',
+    label: 'Todo',
     icon: CircleIcon,
   },
   {
-    value: "in progress",
-    label: "In Progress",
+    value: 'in progress',
+    label: 'In Progress',
     icon: StopwatchIcon,
   },
   {
-    value: "done",
-    label: "Done",
+    value: 'done',
+    label: 'Done',
     icon: CheckCircledIcon,
   },
   {
-    value: "canceled",
-    label: "Canceled",
+    value: 'canceled',
+    label: 'Canceled',
     icon: CrossCircledIcon,
   },
 ];
 
 export const priorities: Option[] = [
   {
-    label: "Low",
-    value: "low",
+    label: 'Low',
+    value: 'low',
     icon: ArrowDownIcon,
   },
   {
-    label: "Medium",
-    value: "medium",
+    label: 'Medium',
+    value: 'medium',
     icon: ArrowRightIcon,
   },
   {
-    label: "High",
-    value: "high",
+    label: 'High',
+    value: 'high',
     icon: ArrowUpIcon,
   },
 ];
@@ -101,8 +102,8 @@ export const priorities: Option[] = [
 const inputs: SelectorOption[] = [
   {
     options: labels,
-    title: "label",
-    columnName: "label",
+    title: 'label',
+    columnName: 'label',
   },
 ];
 
@@ -114,7 +115,7 @@ export function StudentDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -141,15 +142,15 @@ export function StudentDataTable<TData, TValue>({
   });
 
   const handleUploadStudent = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = e.target.files?.[0];
     if (!file) {
-      return toast.error("Can not read file");
+      return toast.error('Can not read file');
     }
 
     const buffer = await file.arrayBuffer();
-    const workBook = XLSX.read(buffer, { type: "buffer" });
+    const workBook = XLSX.read(buffer, { type: 'buffer' });
 
     const sheet = workBook.Sheets[workBook.SheetNames[1]];
 
@@ -160,11 +161,11 @@ export function StudentDataTable<TData, TValue>({
     // TODO: push to backend
     console.log(student);
 
-    e.target.value = "";
+    e.target.value = '';
   };
 
   const handleCreateStudent = () => {
-    console.log("create student");
+    console.log('create student');
   };
 
   return (
@@ -186,7 +187,7 @@ export function StudentDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -199,13 +200,13 @@ export function StudentDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

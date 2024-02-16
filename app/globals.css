@@ -30,7 +30,7 @@ body {
     --ring: 24.6 95% 53.1%;
     --radius: 0.3rem;
   }
- 
+
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
@@ -52,11 +52,8 @@ body {
     --input: 12 6.5% 15.1%;
     --ring: 20.5 90.2% 48.2%;
   }
-
-
 }
 
- 
 @layer base {
   * {
     @apply border-border;

@@ -1,12 +1,9 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import * as React from 'react';
 
-import { cn } from "@/libs/utils";
-import { Icons } from "@/components/icons";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
+import { Icons } from '@/components/icons';
+import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -14,13 +11,16 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useAuth } from '@/hooks/auth-hook';
+import { useStrictForm } from '@/hooks/form-hook';
+import { cn } from '@/libs/utils';
 import {
   SigninDefaultValues,
   SigninSchema,
   SigninType,
-} from "@/types/schema/auth";
-import { useAuth } from "@/hooks/auth-hook";
+} from '@/types/schema/auth';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -33,7 +33,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   }
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}

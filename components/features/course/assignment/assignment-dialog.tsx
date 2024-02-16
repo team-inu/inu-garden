@@ -1,12 +1,16 @@
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { CalendarIcon } from '@radix-ui/react-icons';
+import { format } from 'date-fns';
+
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -14,25 +18,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import MultipleSelector from "@/components/ui/muti-select";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import MultipleSelector from '@/components/ui/muti-select';
 import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import { useStrictForm } from "@/hooks/form-hook";
-import { cn } from "@/libs/utils";
+} from '@/components/ui/popover';
+import { useStrictForm } from '@/hooks/form-hook';
+import { cn } from '@/libs/utils';
 import {
   CreateAssignmentDefaultValues,
   CreateAssignmentSchema,
   CreateAssignmentType,
-} from "@/types/schema/assignment-schema";
-
-import { DialogClose } from "@radix-ui/react-dialog";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format } from "date-fns";
+} from '@/types/schema/assignment-schema';
 
 type StudentDialogProps = {
   onSubmit: (values: CreateAssignmentType) => void;
@@ -47,45 +47,45 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateAssignmentSchema,
-    defaultValues ?? CreateAssignmentDefaultValues
+    defaultValues ?? CreateAssignmentDefaultValues,
   );
 
   const cloOptions = [
-    { label: "CLO1", value: "CLO1" },
-    { label: "CLO2", value: "CLO2" },
-    { label: "CLO3", value: "CLO3" },
+    { label: 'CLO1', value: 'CLO1' },
+    { label: 'CLO2', value: 'CLO2' },
+    { label: 'CLO3', value: 'CLO3' },
   ];
 
   const ploOptions = [
-    { label: "PLO1", value: "PLO1" },
-    { label: "PLO2", value: "PLO2" },
+    { label: 'PLO1', value: 'PLO1' },
+    { label: 'PLO2', value: 'PLO2' },
   ];
 
   const poOptions = [
-    { label: "PO1", value: "PO1" },
-    { label: "PO2", value: "PO2" },
-    { label: "PO3", value: "PO3" },
-    { label: "PO4", value: "PO4" },
-    { label: "PO5", value: "PO5" },
-    { label: "PO6", value: "PO6" },
-    { label: "PO7", value: "PO7" },
-    { label: "PO8", value: "PO8" },
-    { label: "PO9", value: "PO9" },
-    { label: "PO10", value: "PO10" },
-    { label: "PO11", value: "PO11" },
-    { label: "PO12", value: "PO12" },
+    { label: 'PO1', value: 'PO1' },
+    { label: 'PO2', value: 'PO2' },
+    { label: 'PO3', value: 'PO3' },
+    { label: 'PO4', value: 'PO4' },
+    { label: 'PO5', value: 'PO5' },
+    { label: 'PO6', value: 'PO6' },
+    { label: 'PO7', value: 'PO7' },
+    { label: 'PO8', value: 'PO8' },
+    { label: 'PO9', value: 'PO9' },
+    { label: 'PO10', value: 'PO10' },
+    { label: 'PO11', value: 'PO11' },
+    { label: 'PO12', value: 'PO12' },
   ];
   return (
     <div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>
-            {isEdit ? "Edit Assignment" : "Add Assignment"}
+            {isEdit ? 'Edit Assignment' : 'Add Assignment'}
           </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the assignment information"
-              : "Fill in the assignment information"}
+              ? 'Edit the assignment information'
+              : 'Fill in the assignment information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -148,14 +148,14 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
                       <PopoverTrigger asChild>
                         <FormControl>
                           <Button
-                            variant={"outline"}
+                            variant={'outline'}
                             className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
+                              'w-[240px] pl-3 text-left font-normal',
+                              !field.value && 'text-muted-foreground',
                             )}
                           >
                             {field.value ? (
-                              format(field.value, "PPP")
+                              format(field.value, 'PPP')
                             ) : (
                               <span>Pick a date</span>
                             )}
@@ -168,7 +168,7 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                          disabled={(date) => date < new Date("1900-01-01")}
+                          disabled={(date) => date < new Date('1900-01-01')}
                           initialFocus
                         />
                       </PopoverContent>

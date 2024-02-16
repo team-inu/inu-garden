@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,11 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
-import { CreateSubPloDefaultValues, CreateSubPloSchema, CreateSubPloType } from '@/types/schema/sub-plo-schema';
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
+import {
+  CreateSubPloDefaultValues,
+  CreateSubPloSchema,
+  CreateSubPloType,
+} from '@/types/schema/sub-plo-schema';
 
 type SubPloDialogProps = {
   onSubmit: (values: CreateSubPloType) => void;
@@ -32,22 +37,22 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateSubPloSchema,
-    defaultValues ?? CreateSubPloDefaultValues
+    defaultValues ?? CreateSubPloDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit SubPlo" : "Add SubPlo"}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit SubPlo' : 'Add SubPlo'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the sub-plo information"
-              : "Fill in the sub-plo information"}
+              ? 'Edit the sub-plo information'
+              : 'Fill in the sub-plo information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
+            <FormField
               control={form.control}
               name="id"
               render={({ field }) => (
@@ -96,9 +101,13 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
         </Form>
         <DialogFooter>
           <DialogClose asChild>
-            <Button onClick={() => form.reset()} variant="outline">Cancel</Button>
+            <Button onClick={() => form.reset()} variant="outline">
+              Cancel
+            </Button>
           </DialogClose>
-          <Button type='submit' onClick={form.handleSubmit(onSubmit)} >Save</Button>
+          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </div>

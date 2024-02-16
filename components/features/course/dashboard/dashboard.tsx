@@ -1,17 +1,17 @@
-import { Overview } from "@/components/overview";
+import { TimerIcon } from '@radix-ui/react-icons';
+import { FolderIcon, UserIcon } from 'lucide-react';
+import React from 'react';
 
-import { Badge } from "@/components/ui/badge";
+import BadStudent from '@/components/bad-student';
+import { Overview } from '@/components/overview';
+import { Badge } from '@/components/ui/badge';
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { TimerIcon } from "@radix-ui/react-icons";
-import React from "react";
-import { FolderIcon, UserIcon } from "lucide-react";
-import BadStudent from "@/components/bad-student";
+} from '@/components/ui/card';
 
 export default function Dashboard() {
   return (
@@ -19,14 +19,14 @@ export default function Dashboard() {
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium flex">
+            <CardTitle className="flex text-sm font-medium">
               Latest Assigment
             </CardTitle>
             <TimerIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             {/* Latest Assigment */}
-            <div className="text-2xl font-bold flex items-center">
+            <div className="flex items-center text-2xl font-bold">
               Lomuto
               <Badge variant="green" className="ml-2">
                 New
@@ -93,24 +93,24 @@ export default function Dashboard() {
             <BadStudent
               data={[
                 {
-                  studentId: "6307050XXXX",
-                  firstName: "John",
-                  lastName: "Doe",
-                  email: "jhon@mail.com",
+                  studentId: '6307050XXXX',
+                  firstName: 'John',
+                  lastName: 'Doe',
+                  email: 'jhon@mail.com',
                   fails: 3,
                 },
                 {
-                  studentId: "6307050XXXX",
-                  firstName: "Annie",
-                  lastName: "Doe",
-                  email: "no@mail.com",
+                  studentId: '6307050XXXX',
+                  firstName: 'Annie',
+                  lastName: 'Doe',
+                  email: 'no@mail.com',
                   fails: 2,
                 },
                 {
-                  studentId: "6307050XXXX",
-                  firstName: "Por",
-                  lastName: "Ping",
-                  email: "no@mail.com",
+                  studentId: '6307050XXXX',
+                  firstName: 'Por',
+                  lastName: 'Ping',
+                  email: 'no@mail.com',
                   fails: 1,
                 },
               ]}

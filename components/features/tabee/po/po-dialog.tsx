@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,11 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
-import { CreatePoDefaultValues, CreatePoSchema, CreatePoType } from '@/types/schema/po-schema';
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
+import {
+  CreatePoDefaultValues,
+  CreatePoSchema,
+  CreatePoType,
+} from '@/types/schema/po-schema';
 
 type PoDialogProps = {
   onSubmit: (values: CreatePoType) => void;
@@ -32,22 +37,20 @@ const PoDialog: React.FC<PoDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreatePoSchema,
-    defaultValues ?? CreatePoDefaultValues
+    defaultValues ?? CreatePoDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit PO" : "Add PO"}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit PO' : 'Add PO'}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? "Edit the PO information"
-              : "Fill in the PO information"}
+            {isEdit ? 'Edit the PO information' : 'Fill in the PO information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-          <FormField
+            <FormField
               control={form.control}
               name="id"
               render={({ field }) => (
@@ -96,9 +99,13 @@ const PoDialog: React.FC<PoDialogProps> = ({
         </Form>
         <DialogFooter>
           <DialogClose asChild>
-            <Button onClick={() => form.reset()} variant="outline">Cancel</Button>
+            <Button onClick={() => form.reset()} variant="outline">
+              Cancel
+            </Button>
           </DialogClose>
-          <Button type='submit' onClick={form.handleSubmit(onSubmit)} >Save</Button>
+          <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+            Save
+          </Button>
         </DialogFooter>
       </DialogContent>
     </div>

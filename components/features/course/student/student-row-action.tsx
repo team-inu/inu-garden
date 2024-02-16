@@ -1,18 +1,13 @@
 /* eslint-disable react/no-unescaped-entities */
-"use client";
+'use client';
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+// TODO: make it dynamic
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { StudentSchema } from "@/data/schema"; // TODO: make it dynamic
-import { useState } from "react";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -20,10 +15,19 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { DialogClose } from "@radix-ui/react-dialog";
-import { CreateStudentType } from "@/types/schema/studen-schema";
-import StudentDialog from "./student-dialog";
+} from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { StudentSchema } from '@/data/schema';
+import { CreateStudentType } from '@/types/schema/studen-schema';
+
+import StudentDialog from './student-dialog';
+
+/* eslint-disable react/no-unescaped-entities */
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -41,7 +45,7 @@ export function StudentRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log("delete");
+    console.log('delete');
   };
 
   return (

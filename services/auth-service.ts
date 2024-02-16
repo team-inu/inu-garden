@@ -1,9 +1,9 @@
-import { ApiService } from "@/services/api-service";
-import { User } from "@/types/auth-type";
+import { ApiService } from '@/services/api-service';
+import { User } from '@/types/auth-type';
 
 class AuthService extends ApiService {
   public async me(): Promise<User> {
-    return this.get("/auth/me")
+    return this.get('/auth/me')
       .then((response) => {
         return response.data.data as unknown as User;
       })
@@ -11,7 +11,7 @@ class AuthService extends ApiService {
   }
 
   public async signIn(email: string, password: string): Promise<void> {
-    return this.post("/auth/login", { email, password })
+    return this.post('/auth/login', { email, password })
       .then(() => {})
       .catch(this.throwError);
   }
@@ -26,7 +26,7 @@ class AuthService extends ApiService {
   // }
 
   public async signOut(): Promise<void> {
-    return this.get("/auth/logout")
+    return this.get('/auth/logout')
       .then(() => {})
       .catch(this.throwError);
   }

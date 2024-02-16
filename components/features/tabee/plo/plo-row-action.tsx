@@ -1,15 +1,12 @@
-"use client";
+'use client';
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+// TODO: make it dynamic
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -17,11 +14,16 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { PLOSchema } from "@/data/schema"; // TODO: make it dynamic
-import { useState } from 'react';
+} from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { PLOSchema } from '@/data/schema';
 import { CreatePloType } from '@/types/schema/plo-schema';
-import { DialogClose } from '@radix-ui/react-dialog';
+
 import Plodi from './plo-dialog';
 import PloDialog from './plo-dialog';
 
@@ -29,9 +31,7 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function PloRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const plo = PLOSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -41,7 +41,7 @@ export function PloRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log("delete");
+    console.log('delete');
   };
 
   return (
@@ -87,7 +87,7 @@ export function PloRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-             {` You can't undo this action. This will permanently delete the.`}
+              {` You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
 

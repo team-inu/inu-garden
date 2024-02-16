@@ -1,15 +1,12 @@
-"use client";
+'use client';
 
-import { DotsHorizontalIcon } from "@radix-ui/react-icons";
-import { Row } from "@tanstack/react-table";
+import { DialogClose } from '@radix-ui/react-dialog';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { Row } from '@tanstack/react-table';
+// TODO: make it dynamic
+import { useState } from 'react';
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -17,20 +14,23 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
-import { POSchema } from "@/data/schema"; // TODO: make it dynamic
-import { useState } from 'react';
+} from '@/components/ui/dialog';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { POSchema } from '@/data/schema';
 import { CreatePoType } from '@/types/schema/po-schema';
-import { DialogClose } from '@radix-ui/react-dialog';
+
 import PoDialog from './po-dialog';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function PoRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function PoRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const po = POSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -40,7 +40,7 @@ export function PoRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log("delete");
+    console.log('delete');
   };
 
   return (
@@ -86,7 +86,7 @@ export function PoRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-             {` You can't undo this action. This will permanently delete the.`}
+              {` You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
 

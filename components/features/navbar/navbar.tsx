@@ -1,9 +1,10 @@
-"use client";
-import { MainNav } from "@/components/main-nav";
-import { ModeToggle } from "@/components/mode-toggle";
-import { Search } from "@/components/search";
-import TeamSwitcher from "@/components/team-switcher";
-import { UserNav } from "@/components/user-nav";
+'use client';
+
+import { MainNav } from '@/components/main-nav';
+import { ModeToggle } from '@/components/mode-toggle';
+import { Search } from '@/components/search';
+import TeamSwitcher from '@/components/team-switcher';
+import { UserNav } from '@/components/user-nav';
 
 const Navbar = () => {
   return (

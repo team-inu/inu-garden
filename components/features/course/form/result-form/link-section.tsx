@@ -1,7 +1,9 @@
-import { Button } from "@/components/ui/button";
-import SelectForm from "../selection-form";
-import { UseFormReturn, useFieldArray } from "react-hook-form";
-import AssessmentSection from "./assessment-section";
+import { UseFormReturn, useFieldArray } from 'react-hook-form';
+
+import { Button } from '@/components/ui/button';
+
+import SelectForm from '../selection-form';
+import AssessmentSection from './assessment-section';
 
 type LinkedSectionProps = {
   index: number;
@@ -27,16 +29,16 @@ const LinkedSection: React.FC<LinkedSectionProps> = ({
       <SelectForm
         name={`resultForm[${resultIndex}].po`}
         lable="PO"
-        placeholder={"Please select PO"}
+        placeholder={'Please select PO'}
         form={form}
         options={[
           {
-            value: "po1",
-            text: "po1",
+            value: 'po1',
+            text: 'po1',
           },
           {
-            value: "po2",
-            text: "po2",
+            value: 'po2',
+            text: 'po2',
           },
         ]}
       />
@@ -47,12 +49,12 @@ const LinkedSection: React.FC<LinkedSectionProps> = ({
         form={form}
         options={[
           {
-            value: "plo1",
-            text: "plo1",
+            value: 'plo1',
+            text: 'plo1',
           },
           {
-            value: "plo2",
-            text: "plo2",
+            value: 'plo2',
+            text: 'plo2',
           },
         ]}
       />
@@ -68,9 +70,9 @@ const LinkedSection: React.FC<LinkedSectionProps> = ({
       <div className="space-y-5">
         {cloFields.map((item, index) => {
           return (
-            <div key={item.id} className="flex flex-col border-2 p-3 space-y-5">
-              <div className="w-full flex justify-between items-center ">
-                <div className="self-start border-2 rounded-full p-1 px-3 dark:border-white">
+            <div key={item.id} className="flex flex-col space-y-5 border-2 p-3">
+              <div className="flex w-full items-center justify-between ">
+                <div className="self-start rounded-full border-2 p-1 px-3 dark:border-white">
                   {resultIndex + 1}.{index + 1}
                 </div>
                 {cloFields.length > 1 && (
@@ -92,12 +94,12 @@ const LinkedSection: React.FC<LinkedSectionProps> = ({
                 form={form}
                 options={[
                   {
-                    value: "clo1",
-                    text: "clo1",
+                    value: 'clo1',
+                    text: 'clo1',
                   },
                   {
-                    value: "clo2",
-                    text: "clo2",
+                    value: 'clo2',
+                    text: 'clo2',
                   },
                 ]}
               />

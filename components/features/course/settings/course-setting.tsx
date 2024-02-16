@@ -1,4 +1,4 @@
-import SettingsLayout from "./setting-layout";
+import SettingsLayout from './setting-layout';
 
 const CourseSetting = () => {
   return (

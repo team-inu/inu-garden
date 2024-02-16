@@ -1,4 +1,7 @@
-"use client";
+'use client';
+
+import { useEffect, useState } from 'react';
+
 import {
   Table,
   TableBody,
@@ -8,102 +11,101 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
-import { useEffect, useState } from "react";
+} from '@/components/ui/table';
 
 const outcomes = [
   {
-    tabee: "knowledge of basic and engineering sciences",
+    tabee: 'knowledge of basic and engineering sciences',
     course: [
       {
         outcome:
-          "Can apply knowledge of mathematics, science, and engineering to solve engineering problems. ",
+          'Can apply knowledge of mathematics, science, and engineering to solve engineering problems. ',
         assessemt: [
           {
-            name: "การบ้านครั้งที่ 1",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'การบ้านครั้งที่ 1',
+            passingCriteria: '50',
+            studentPass: '10',
           },
           {
-            name: "Final",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'Final',
+            passingCriteria: '50',
+            studentPass: '10',
           },
         ],
       },
       {
-        outcome: "course outcome 2",
+        outcome: 'course outcome 2',
         assessemt: [
           {
-            name: "Midterm",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'Midterm',
+            passingCriteria: '50',
+            studentPass: '10',
           },
           {
-            name: "การสอบย่อยครั้งที่ 1",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'การสอบย่อยครั้งที่ 1',
+            passingCriteria: '50',
+            studentPass: '10',
           },
           {
-            name: "การสอบย่อยครั้งที่ 15",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'การสอบย่อยครั้งที่ 15',
+            passingCriteria: '50',
+            studentPass: '10',
           },
         ],
       },
     ],
-    studentPass: "10",
+    studentPass: '10',
   },
   {
-    tabee: "Analysis and synthesis of complex engineering problems",
+    tabee: 'Analysis and synthesis of complex engineering problems',
     course: [
       {
-        outcome: "course outcome 1",
+        outcome: 'course outcome 1',
         assessemt: [
           {
-            name: "การบ้านครั้งที่ 1",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'การบ้านครั้งที่ 1',
+            passingCriteria: '50',
+            studentPass: '10',
           },
           {
-            name: "Final",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'Final',
+            passingCriteria: '50',
+            studentPass: '10',
           },
         ],
       },
       {
-        outcome: "course outcome 2",
+        outcome: 'course outcome 2',
         assessemt: [
           {
-            name: "Midterm",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'Midterm',
+            passingCriteria: '50',
+            studentPass: '10',
           },
           {
-            name: "การสอบย่อยครั้งที่ 1",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'การสอบย่อยครั้งที่ 1',
+            passingCriteria: '50',
+            studentPass: '10',
           },
           {
-            name: "การสอบปลายภาค",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'การสอบปลายภาค',
+            passingCriteria: '50',
+            studentPass: '10',
           },
         ],
       },
       {
-        outcome: "course outcome 3",
+        outcome: 'course outcome 3',
         assessemt: [
           {
-            name: "กระบวนปราณวารี",
-            passingCriteria: "50",
-            studentPass: "10",
+            name: 'กระบวนปราณวารี',
+            passingCriteria: '50',
+            studentPass: '10',
           },
         ],
       },
     ],
-    studentPass: "10",
+    studentPass: '10',
   },
 ];
 const OutcomeTable = () => {

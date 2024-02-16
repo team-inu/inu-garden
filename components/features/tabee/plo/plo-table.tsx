@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import * as React from "react";
+import { CircleIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,8 +14,16 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import { get } from 'http';
+import * as React from 'react';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import {
+  DataTableToolbar,
+  Option,
+  SelectorOption,
+} from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -23,27 +31,19 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from "@/components/ui/data-table-toolbar";
-import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
-import { get } from "http";
-import { PloTableToolbar } from "./plo-table-toolbar";
+import { PloTableToolbar } from './plo-table-toolbar';
 
 export const ploes: Option[] = [
   {
-    value: "โครงการ 2B",
-    label: "โครงการ 2B",
+    value: 'โครงการ 2B',
+    label: 'โครงการ 2B',
     icon: QuestionMarkCircledIcon,
   },
   {
-    value: "โครงการ 3B",
-    label: "โครงการ 3B",
+    value: 'โครงการ 3B',
+    label: 'โครงการ 3B',
     icon: CircleIcon,
   },
 ];
@@ -51,8 +51,8 @@ export const ploes: Option[] = [
 const inputs: SelectorOption[] = [
   {
     options: ploes,
-    title: "Plo",
-    columnName: "plo",
+    title: 'Plo',
+    columnName: 'plo',
   },
 ];
 
@@ -75,7 +75,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -101,9 +101,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadPlo = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleUploadPlo = async (e: React.ChangeEvent<HTMLInputElement>) => {
     // const file = e.target.files?.[0];
     // if (!file) {
     //   return toast.error("Can not read file");
@@ -121,19 +119,19 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
     // TODO: push to backend
     // console.log(student);
 
-    e.target.value = "";
+    e.target.value = '';
   };
 
   return (
     <div className="space-y-4">
       {!disableToolbar && (
-      <PloTableToolbar
-        table={table}
-        selectorOptions={[]}
-        isCreateEnabled={true}
-        isViewOptions={true}
-        handleImport={handleUploadPlo}
-      />
+        <PloTableToolbar
+          table={table}
+          selectorOptions={[]}
+          isCreateEnabled={true}
+          isViewOptions={true}
+          handleImport={handleUploadPlo}
+        />
       )}
       <div className="rounded-md border">
         <Table>
@@ -147,7 +145,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -160,15 +158,15 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                  onClick={() => getValues(row.getValue("name"))}
+                  data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => getValues(row.getValue('name'))}
                   className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

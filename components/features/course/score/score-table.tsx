@@ -1,7 +1,5 @@
-"use client";
+'use client';
 
-import * as XLSX from "xlsx";
-import * as React from "react";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -15,8 +13,13 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
-} from "@tanstack/react-table";
+} from '@tanstack/react-table';
+import * as React from 'react';
+import { toast } from 'sonner';
+import * as XLSX from 'xlsx';
 
+import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -24,13 +27,10 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
+import { tableToObject, worksheetToTables } from '@/libs/excel';
 
-import { DataTablePagination } from "@/components/ui/data-table-pagination";
-import { DataTableToolbar } from "@/components/ui/data-table-toolbar";
-import { toast } from "sonner";
-import { tableToObject, worksheetToTables } from "@/libs/excel";
-import { ScoreTableToolbar } from "./score-table-toolbar";
+import { ScoreTableToolbar } from './score-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -51,7 +51,7 @@ export function ScoreDataTable<TData, TValue>({
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    []
+    [],
   );
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
@@ -82,11 +82,11 @@ export function ScoreDataTable<TData, TValue>({
 
     const file = e.target.files?.[0];
     if (!file) {
-      return toast.error("Can not read file");
+      return toast.error('Can not read file');
     }
 
     const buffer = await file.arrayBuffer();
-    const workBook = XLSX.read(buffer, { type: "buffer" });
+    const workBook = XLSX.read(buffer, { type: 'buffer' });
 
     const sheet = workBook.Sheets[workBook.SheetNames[3]];
 
@@ -104,7 +104,7 @@ export function ScoreDataTable<TData, TValue>({
 
     console.log(payload);
 
-    e.target.value = "";
+    e.target.value = '';
   };
 
   return (
@@ -127,7 +127,7 @@ export function ScoreDataTable<TData, TValue>({
                         ? null
                         : flexRender(
                             header.column.columnDef.header,
-                            header.getContext()
+                            header.getContext(),
                           )}
                     </TableHead>
                   );
@@ -140,10 +140,10 @@ export function ScoreDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
+                  data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
                     if (getValues) {
-                      getValues(row.getValue("name"));
+                      getValues(row.getValue('name'));
                     }
                   }}
                 >
@@ -151,7 +151,7 @@ export function ScoreDataTable<TData, TValue>({
                     <TableCell key={cell.id}>
                       {flexRender(
                         cell.column.columnDef.cell,
-                        cell.getContext()
+                        cell.getContext(),
                       )}
                     </TableCell>
                   ))}

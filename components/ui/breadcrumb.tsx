@@ -1,14 +1,15 @@
-import { classNames, getValidChildren } from "@/libs/utils";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 import {
   ComponentPropsWithoutRef,
   ReactNode,
   cloneElement,
   forwardRef,
-} from "react";
-import Link from "next/link";
+} from 'react';
 
-export type BreadcrumbProps = ComponentPropsWithoutRef<"nav"> & {
+import { classNames, getValidChildren } from '@/libs/utils';
+
+export type BreadcrumbProps = ComponentPropsWithoutRef<'nav'> & {
   separator?: ReactNode;
   addSeparator?: boolean;
 };
@@ -22,7 +23,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
       addSeparator = true,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const validChildren = getValidChildren(children);
     const clones = validChildren.map((child, index) => {
@@ -35,7 +36,7 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
 
     return (
       <nav
-        className={classNames("relative break-words", className)}
+        className={classNames('relative break-words', className)}
         aria-label="breadcrumb"
         {...props}
         ref={forwardedRef}
@@ -43,9 +44,9 @@ export const Breadcrumb = forwardRef<HTMLElement, BreadcrumbProps>(
         <ol className="flex items-center">{clones}</ol>
       </nav>
     );
-  }
+  },
 );
-Breadcrumb.displayName = "Breadcrumb";
+Breadcrumb.displayName = 'Breadcrumb';
 
 export type BreadcrumbItemProps = BreadcrumbProps & {
   isCurrentPage?: boolean;
@@ -63,7 +64,7 @@ export const BreadcrumbItem = forwardRef<HTMLLIElement, BreadcrumbItemProps>(
       addSeparator,
       ...props
     },
-    forwardedRef
+    forwardedRef,
   ) => {
     const validChildren = getValidChildren(children);
     const clones = validChildren.map((child) => {
@@ -82,7 +83,7 @@ export const BreadcrumbItem = forwardRef<HTMLLIElement, BreadcrumbItemProps>(
 
     return (
       <li
-        className={classNames("inline-flex items-center", className)}
+        className={classNames('inline-flex items-center', className)}
         {...props}
         ref={forwardedRef}
       >
@@ -92,20 +93,20 @@ export const BreadcrumbItem = forwardRef<HTMLLIElement, BreadcrumbItemProps>(
         )}
       </li>
     );
-  }
+  },
 );
-BreadcrumbItem.displayName = "BreadcrumbItem";
+BreadcrumbItem.displayName = 'BreadcrumbItem';
 
-export type BreadcrumbLinkProps = ComponentPropsWithoutRef<"a"> &
-  Pick<BreadcrumbItemProps, "isCurrentPage">;
+export type BreadcrumbLinkProps = ComponentPropsWithoutRef<'a'> &
+  Pick<BreadcrumbItemProps, 'isCurrentPage'>;
 
 export const BreadcrumbLink = forwardRef<
   HTMLAnchorElement,
   BreadcrumbLinkProps
 >(({ className, isCurrentPage, ...props }, forwardedRef) => {
   const resultClassNames = classNames(
-    "text-sm font-medium underline-offset-4 aria-[current]:opacity-60 [&:not([aria-current])]:hover:underline",
-    className
+    'text-sm font-medium underline-offset-4 aria-[current]:opacity-60 [&:not([aria-current])]:hover:underline',
+    className,
   );
 
   if (isCurrentPage) {
@@ -122,15 +123,15 @@ export const BreadcrumbLink = forwardRef<
   return (
     <Link
       className={resultClassNames}
-      href={props.href || "#"}
+      href={props.href || '#'}
       {...props}
       ref={forwardedRef}
     />
   );
 });
-BreadcrumbLink.displayName = "BreadcrumbLink";
+BreadcrumbLink.displayName = 'BreadcrumbLink';
 
-export type BreadcrumbSeparatorProps = ComponentPropsWithoutRef<"span">;
+export type BreadcrumbSeparatorProps = ComponentPropsWithoutRef<'span'>;
 
 export const BreadcrumbSeparator = forwardRef<
   HTMLSpanElement,
@@ -138,11 +139,11 @@ export const BreadcrumbSeparator = forwardRef<
 >(({ className, ...props }, forwardedRef) => {
   return (
     <span
-      className={classNames("mx-2 opacity-50", className)}
+      className={classNames('mx-2 opacity-50', className)}
       role="presentation"
       {...props}
       ref={forwardedRef}
     />
   );
 });
-BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
+BreadcrumbSeparator.displayName = 'BreadcrumbSeparator';

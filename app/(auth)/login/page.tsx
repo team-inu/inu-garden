@@ -1,9 +1,11 @@
-"use client";
-import { UserAuthForm } from "@/components/features/auth/user-auth";
-import { ModeToggle } from "@/components/mode-toggle";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+
+import { UserAuthForm } from '@/components/features/auth/user-auth';
+import { ModeToggle } from '@/components/mode-toggle';
 
 const LoginPage = () => {
   const [isClient, setIsClient] = useState(false);
@@ -27,7 +29,7 @@ const LoginPage = () => {
             className="absolute inset-0 bg-zinc-900"
             src="https://media.tenor.com/UdISY4O42VQAAAAd/realistic-cat.gif"
             layout="fill"
-            alt={""}
+            alt={''}
           />
           <div className="relative z-20 flex items-center text-lg font-medium">
             <svg
@@ -69,14 +71,14 @@ const LoginPage = () => {
               <UserAuthForm />
             </div>
             <p className="px-8 text-center text-sm text-muted-foreground">
-              By clicking continue, you agree to our{" "}
+              By clicking continue, you agree to our{' '}
               <Link
                 href="/terms"
                 className="underline underline-offset-4 hover:text-primary"
               >
                 Terms of Service
-              </Link>{" "}
-              and{" "}
+              </Link>{' '}
+              and{' '}
               <Link
                 href="/privacy"
                 className="underline underline-offset-4 hover:text-primary"

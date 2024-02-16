@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,15 +15,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateLecturerDefaultValues,
   CreateLecturerSchema,
   CreateLecturerType,
-} from "@/types/schema/lecturer-schema";
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/types/schema/lecturer-schema';
 
 type LecturerDialogProps = {
   onSubmit: (values: CreateLecturerType) => void;
@@ -36,17 +37,17 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateLecturerSchema,
-    defaultValues ?? CreateLecturerDefaultValues
+    defaultValues ?? CreateLecturerDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Lecturer" : "Add Lecturer"}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Lecturer' : 'Add Lecturer'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the lecturer information"
-              : "Fill in the lecturer information"}
+              ? 'Edit the lecturer information'
+              : 'Fill in the lecturer information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

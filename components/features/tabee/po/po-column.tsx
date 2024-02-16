@@ -1,45 +1,44 @@
-"use client";
+'use client';
 
-import { ColumnDef } from "@tanstack/react-table";
-import { Checkbox } from "@/components/ui/checkbox";
-import {  PO } from "@/data/schema";
-import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { PoRowActions } from "./po-row-action";
+import { ColumnDef } from '@tanstack/react-table';
 
+import { Checkbox } from '@/components/ui/checkbox';
+import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
+import { PO } from '@/data/schema';
+
+import { PoRowActions } from './po-row-action';
 
 export const columns: ColumnDef<PO>[] = [
   {
-    accessorKey: "id",
+    accessorKey: 'id',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="id" />
     ),
-    cell: ({ row }) => <div className="">{row.getValue("id")}</div>,
+    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
-    accessorKey: "name",
+    accessorKey: 'name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="name" />
     ),
-    cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("name")}</div>
-    ),
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue('name')}</div>,
     enableSorting: false,
   },
   {
-    accessorKey: "description",
+    accessorKey: 'description',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Description" />
     ),
     cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue("description")}</div>
+      <div className="w-[80px]">{row.getValue('description')}</div>
     ),
     enableSorting: false,
   },
 
   {
-    id: "actions",
+    id: 'actions',
     cell: ({ row }) => <PoRowActions row={row} />,
   },
 ];

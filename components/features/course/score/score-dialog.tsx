@@ -1,11 +1,13 @@
-import { Button } from "@/components/ui/button";
+import { DialogClose } from '@radix-ui/react-dialog';
+
+import { Button } from '@/components/ui/button';
 import {
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from "@/components/ui/dialog";
+} from '@/components/ui/dialog';
 import {
   Form,
   FormControl,
@@ -13,20 +15,19 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { useStrictForm } from "@/hooks/form-hook";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateScoreDefaultValues,
   CreateScoreSchema,
   CreateScoreType,
-} from "@/types/schema/score-schema";
+} from '@/types/schema/score-schema';
 import {
   CreateStudentDefaultValues,
   CreateStudentSchema,
   CreateStudentType,
-} from "@/types/schema/studen-schema";
-import { DialogClose } from "@radix-ui/react-dialog";
+} from '@/types/schema/studen-schema';
 
 type ScoreDialogProps = {
   onSubmit: (values: CreateScoreType) => void;
@@ -41,18 +42,18 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateScoreSchema,
-    defaultValues ?? CreateScoreDefaultValues
+    defaultValues ?? CreateScoreDefaultValues,
   );
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Score" : "Add Score"}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Score' : 'Add Score'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the score information"
-              : "Fill in the score information"}
+              ? 'Edit the score information'
+              : 'Fill in the score information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -126,7 +127,7 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
             </Button>
           </DialogClose>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-            {isEdit ? "Edit" : "Add"}
+            {isEdit ? 'Edit' : 'Add'}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -1,18 +1,19 @@
-"use client";
+'use client';
 
-import Dashboard from "@/components/features/course/dashboard/dashboard";
+import Link from 'next/link';
+
+import Assignment from '@/components/features/course/assignment/assignment';
+import Dashboard from '@/components/features/course/dashboard/dashboard';
+import CourseSetting from '@/components/features/course/settings/course-setting';
+import Student from '@/components/features/course/student/student';
+import { Button } from '@/components/ui/button';
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
-} from "@/components/ui/tabs-api";
-import Student from "@/components/features/course/student/student";
-import Assignment from "@/components/features/course/assignment/assignment";
-import { Button } from "@/components/ui/button";
-import { CreateCoursePortfolioSchemaType } from "@/types/schema/course-portfolio-schema";
-import Link from "next/link";
-import CourseSetting from "@/components/features/course/settings/course-setting";
+} from '@/components/ui/tabs-api';
+import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
 
 const HomePage = () => {
   const handleCourseExport = async () => {

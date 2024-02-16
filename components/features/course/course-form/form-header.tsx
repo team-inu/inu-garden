@@ -1,13 +1,15 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { tableToObject, worksheetToTables } from "@/libs/excel";
-import { CreateCourseSchemaValues } from "@/types/schema/course-schema";
-import { TimerIcon, ImportIcon } from "lucide-react";
-import { ChangeEvent, useRef } from "react";
-import { useFormContext } from "react-hook-form";
-import { toast } from "sonner";
-import * as XLSX from "xlsx";
+'use client';
+
+import { ImportIcon, TimerIcon } from 'lucide-react';
+import { ChangeEvent, useRef } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
+import * as XLSX from 'xlsx';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { tableToObject, worksheetToTables } from '@/libs/excel';
+import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseFormHeader = () => {
   const formCtx = useFormContext<CreateCourseSchemaValues>();
@@ -15,11 +17,11 @@ const CourseFormHeader = () => {
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
-      return toast.error("Can not read file");
+      return toast.error('Can not read file');
     }
 
     const buffer = await file.arrayBuffer();
-    const workBook = XLSX.read(buffer, { type: "buffer" });
+    const workBook = XLSX.read(buffer, { type: 'buffer' });
 
     const sheet1 = workBook.Sheets[workBook.SheetNames[0]];
 
@@ -29,17 +31,17 @@ const CourseFormHeader = () => {
     const clo = tableToObject(CLOTable[0], CLOTable.slice(1));
 
     formCtx.reset({
-      name: info["CourseTitle"],
-      code: info["_CourseID"],
-      semester: info["Semester"],
-      lecturer: "a",
-      description: "",
+      name: info['CourseTitle'],
+      code: info['_CourseID'],
+      semester: info['Semester'],
+      lecturer: 'a',
+      description: '',
       courseLearningOutcome: clo.map((c) => ({
-        code: c["_No."],
-        description: c["Course Learning Outcomes (CLOs)"],
-        programOutcome: c["KMUTT PLO"],
-        subProgramLearningOutcome: "",
-        weight: "",
+        code: c['_No.'],
+        description: c['Course Learning Outcomes (CLOs)'],
+        programOutcome: c['KMUTT PLO'],
+        subProgramLearningOutcome: '',
+        weight: '',
       })),
     });
   };
@@ -53,15 +55,15 @@ const CourseFormHeader = () => {
         onChange={handleUpload}
       />
       <Button
-        variant={"secondary"}
+        variant={'secondary'}
         className="space-x-3"
         onClick={() => fileImportRef.current?.click()}
       >
-        <ImportIcon className="w-5 h-5" />
+        <ImportIcon className="h-5 w-5" />
         <div className="">Import</div>
       </Button>
-      <Button variant={"secondary"} className="space-x-3">
-        <TimerIcon className="w-5 h-5" />
+      <Button variant={'secondary'} className="space-x-3">
+        <TimerIcon className="h-5 w-5" />
         <div className="">History</div>
       </Button>
     </div>

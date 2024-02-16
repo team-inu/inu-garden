@@ -1,22 +1,23 @@
+import { XIcon } from 'lucide-react';
+import { UseFieldArrayRemove } from 'react-hook-form';
+
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/libs/utils";
-import { XIcon } from "lucide-react";
-import { UseFieldArrayRemove } from "react-hook-form";
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { cn } from '@/libs/utils';
 
 type CourseStreamProps = {
   index: number;
@@ -35,9 +36,9 @@ const CourseStream: React.FC<CourseStreamProps> = ({
 }) => {
   const disableRemove = fieldLength === 1;
   return (
-    <div className="w-96 h-auto p-5 pb-7 border relative space-y-2">
+    <div className="relative h-auto w-96 space-y-2 border p-5 pb-7">
       <XIcon
-        className={cn("w-5 h-5 top-2 right-1 cursor-pointer absolute ", {
+        className={cn('absolute right-1 top-2 h-5 w-5 cursor-pointer ', {
           hidden: disableRemove,
         })}
         onClick={() => remove(index)}
@@ -55,10 +56,10 @@ const CourseStream: React.FC<CourseStreamProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={"CPE100 Basic programming computer"}>
+                  <SelectItem value={'CPE100 Basic programming computer'}>
                     CPE100 Basic programming computer
                   </SelectItem>
-                  <SelectItem value={"CPE200 Data Structure and Algorithm"}>
+                  <SelectItem value={'CPE200 Data Structure and Algorithm'}>
                     CPE200 Data Structure and Algorithm
                   </SelectItem>
                 </SelectContent>

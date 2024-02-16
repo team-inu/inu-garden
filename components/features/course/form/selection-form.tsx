@@ -1,20 +1,21 @@
-import { buttonVariants } from "@/components/ui/button";
+import { UseFormReturn } from 'react-hook-form';
+
+import { buttonVariants } from '@/components/ui/button';
 import {
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form";
+} from '@/components/ui/form';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { cn } from "@/libs/utils";
-import { UseFormReturn } from "react-hook-form";
+} from '@/components/ui/select';
+import { cn } from '@/libs/utils';
 
 type SelectionFormProps = {
   name: string;
@@ -43,7 +44,7 @@ const SelectForm: React.FC<SelectionFormProps> = ({
           <FormLabel>{lable}</FormLabel>
           <Select
             onValueChange={field.onChange}
-            defaultValue={field.value === "" ? undefined : field.value}
+            defaultValue={field.value === '' ? undefined : field.value}
           >
             <FormControl>
               <SelectTrigger>
@@ -55,7 +56,7 @@ const SelectForm: React.FC<SelectionFormProps> = ({
                 <SelectItem
                   key={key}
                   value={option.value}
-                  className={cn(buttonVariants, "w-full")}
+                  className={cn(buttonVariants, 'w-full')}
                 >
                   {option.text}
                 </SelectItem>

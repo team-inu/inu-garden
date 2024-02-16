@@ -7,48 +7,48 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 
 const invoices = [
   {
-    grade: "A",
-    gradeScore: "82",
-    studentAmount: "10",
+    grade: 'A',
+    gradeScore: '82',
+    studentAmount: '10',
   },
   {
-    grade: "B+",
-    gradeScore: "75",
-    studentAmount: "25",
+    grade: 'B+',
+    gradeScore: '75',
+    studentAmount: '25',
   },
   {
-    grade: "B",
-    gradeScore: "68",
-    studentAmount: "13",
+    grade: 'B',
+    gradeScore: '68',
+    studentAmount: '13',
   },
   {
-    grade: "C+",
-    gradeScore: "61",
-    studentAmount: "17",
+    grade: 'C+',
+    gradeScore: '61',
+    studentAmount: '17',
   },
   {
-    grade: "C",
-    gradeScore: "54",
-    studentAmount: "5",
+    grade: 'C',
+    gradeScore: '54',
+    studentAmount: '5',
   },
   {
-    grade: "D+",
-    gradeScore: "47",
-    studentAmount: "3",
+    grade: 'D+',
+    gradeScore: '47',
+    studentAmount: '3',
   },
   {
-    grade: "D",
-    gradeScore: "40",
-    studentAmount: "2",
+    grade: 'D',
+    gradeScore: '40',
+    studentAmount: '2',
   },
   {
-    grade: "F",
-    gradeScore: "0",
-    studentAmount: "0",
+    grade: 'F',
+    gradeScore: '0',
+    studentAmount: '0',
   },
 ];
 
