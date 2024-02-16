@@ -38,41 +38,65 @@ const PoDialog: React.FC<PoDialogProps> = ({
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Po" : "Add Po"}</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit PO" : "Add PO"}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the po information"
-              : "Fill in the po information"}
+              ? "Edit the PO information"
+              : "Fill in the PO information"}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {Object.keys(form.getValues()).map((key) => {
-              return (
-                <FormField
-                  key={key}
-                  control={form.control}
-                  // TODO: eliminate as
-                  name={key as keyof CreatePoType}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{key}</FormLabel>
-                      <FormControl>
-                        <div className="flex flex-col space-y-3">
-                          <Input {...field} />
-                          <FormMessage />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              )
-            })}
+          <FormField
+              control={form.control}
+              name="id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>id</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} disabled />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="name"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Name</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </form>
         </Form>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline">Cancel</Button>
+            <Button onClick={() => form.reset()} variant="outline">Cancel</Button>
           </DialogClose>
           <Button type='submit' onClick={form.handleSubmit(onSubmit)} >Save</Button>
         </DialogFooter>

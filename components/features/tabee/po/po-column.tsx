@@ -26,7 +26,6 @@ export const columns: ColumnDef<PO>[] = [
       <div className="w-[80px]">{row.getValue("name")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
   },
   {
     accessorKey: "description",
@@ -37,7 +36,6 @@ export const columns: ColumnDef<PO>[] = [
       <div className="w-[80px]">{row.getValue("description")}</div>
     ),
     enableSorting: false,
-    enableHiding: false,
   },
 
   {
