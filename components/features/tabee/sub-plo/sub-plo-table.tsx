@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
+import { SubPloTableToolbar } from '@/components/features/tabee/sub-plo/sub-plo-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 import {
@@ -26,8 +27,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { SubPloTableToolbar } from './sub-plo-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

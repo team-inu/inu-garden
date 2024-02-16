@@ -3,6 +3,13 @@
 import { useState } from 'react';
 import { useFieldArray, useFormContext } from 'react-hook-form';
 
+import CourseFormGrade from '@/components/features/course/course-form/form-grade';
+import CourseFormLink from '@/components/features/course/course-form/form-link';
+import { ploColumns } from '@/components/features/course/course-form/plo-showcase';
+import { subPloColumns } from '@/components/features/course/course-form/subplo-showcase';
+import { ProgramLearningOutcomeDataTable } from '@/components/features/tabee/plo/plo-table';
+import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
+import { mockPLO, mockSubPLO } from '@/components/features/tabee/tabee';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,
@@ -21,14 +28,6 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
-
-import { ProgramLearningOutcomeDataTable } from '../../tabee/plo/plo-table';
-import { SubProgramLearningOutcomeDataTable } from '../../tabee/sub-plo/sub-plo-table';
-import { mockPLO, mockSubPLO } from '../../tabee/tabee';
-import CourseFormGrade from './form-grade';
-import CourseFormLink from './form-link';
-import { ploColumns } from './plo-showcase';
-import { subPloColumns } from './subplo-showcase';
 
 const CourseForm = () => {
   const [selectedRows, setSelectedRows] = useState<string>('');

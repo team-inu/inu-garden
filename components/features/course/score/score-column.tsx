@@ -2,11 +2,10 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
+import { ScoreRowActions } from '@/components/features/course/score/score-row-action';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { Score } from '@/data/schema';
-
-import { ScoreRowActions } from './score-row-action';
 
 export const columns: ColumnDef<Score>[] = [
   {

@@ -6,6 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import SubPloDialog from '@/components/features/tabee/sub-plo/sub-plo-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,8 +24,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { SubPLOSchema } from '@/data/schema';
 import { CreateSubPloType } from '@/types/schema/sub-plo-schema';
-
-import SubPloDialog from './sub-plo-dialog';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

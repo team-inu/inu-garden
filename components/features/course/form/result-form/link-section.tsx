@@ -1,9 +1,8 @@
 import { UseFormReturn, useFieldArray } from 'react-hook-form';
 
+import AssessmentSection from '@/components/features/course/form/result-form/assessment-section';
+import SelectForm from '@/components/features/course/form/selection-form';
 import { Button } from '@/components/ui/button';
-
-import SelectForm from '../selection-form';
-import AssessmentSection from './assessment-section';
 
 type LinkedSectionProps = {
   index: number;

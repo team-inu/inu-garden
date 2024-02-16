@@ -2,14 +2,13 @@
 
 import { useState } from 'react';
 
+import { columns as ploColumns } from '@/components/features/tabee/plo/plo-column';
+import { ProgramLearningOutcomeDataTable } from '@/components/features/tabee/plo/plo-table';
+import { columns as poColumns } from '@/components/features/tabee/po/po-column';
+import { ProgramOutcomeDataTable } from '@/components/features/tabee/po/po-table';
+import { columns as subPloColumns } from '@/components/features/tabee/sub-plo/sub-plo-column';
+import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
 import { PLO, PO, SubPLO } from '@/data/schema';
-
-import { columns as ploColumns } from './plo/plo-column';
-import { ProgramLearningOutcomeDataTable } from './plo/plo-table';
-import { columns as poColumns } from './po/po-column';
-import { ProgramOutcomeDataTable } from './po/po-table';
-import { columns as subPloColumns } from './sub-plo/sub-plo-column';
-import { SubProgramLearningOutcomeDataTable } from './sub-plo/sub-plo-table';
 
 const mockPO: PO[] = [
   {

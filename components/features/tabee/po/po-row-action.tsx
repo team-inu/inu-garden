@@ -6,6 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import PoDialog from '@/components/features/tabee/po/po-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,8 +24,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { POSchema } from '@/data/schema';
 import { CreatePoType } from '@/types/schema/po-schema';
-
-import PoDialog from './po-dialog';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

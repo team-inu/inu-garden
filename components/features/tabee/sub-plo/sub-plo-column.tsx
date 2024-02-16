@@ -2,11 +2,10 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
+import { SubPloRowActions } from '@/components/features/tabee/sub-plo/sub-plo-row-action';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { SubPLO } from '@/data/schema';
-
-import { SubPloRowActions } from './sub-plo-row-action';
 
 export const columns: ColumnDef<SubPLO>[] = [
   {

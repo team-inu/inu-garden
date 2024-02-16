@@ -15,11 +15,9 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import * as React from 'react';
-import { toast } from 'sonner';
-import * as XLSX from 'xlsx';
 
+import { AssignmentTableToolbar } from '@/components/features/course/assignment/assignment-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -28,9 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { tableToObject, worksheetToTables } from '@/libs/excel';
-
-import { AssignmentTableToolbar } from './assignment-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

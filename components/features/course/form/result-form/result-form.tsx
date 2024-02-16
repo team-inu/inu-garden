@@ -4,14 +4,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useFieldArray, useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+import InputForm from '@/components/features/course/form/input-form';
+import MultiSelectionForm from '@/components/features/course/form/multi-selection-form';
+import LinkedSection from '@/components/features/course/form/result-form/link-section';
+import SelectForm from '@/components/features/course/form/selection-form';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { cn } from '@/libs/utils';
-
-import InputForm from '../input-form';
-import MultiSelectionForm from '../multi-selection-form';
-import SelectForm from '../selection-form';
-import LinkedSection from './link-section';
 
 const resultFormSchema = z.object({
   courseId: z.string().nonempty(),

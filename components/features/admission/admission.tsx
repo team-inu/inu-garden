@@ -1,7 +1,7 @@
 'use client';
 
-import { AdmissionDataTable } from './admission-table';
-import { columns } from './admisson-column';
+import { AdmissionDataTable } from '@/components/features/admission/admission-table';
+import { columns } from '@/components/features/admission/admisson-column';
 
 const Admission = () => {
   return (

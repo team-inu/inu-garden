@@ -7,6 +7,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import AssignmentDialog from '@/components/features/course/assignment/assignment-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -20,14 +21,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { AssignmentSchema } from '@/data/schema';
 import { checkMultipleString } from '@/libs/utils';
 import { CreateAssignmentType } from '@/types/schema/assignment-schema';
 
-import AssignmentDialog from './assignment-dialog';
+/* eslint-disable react/no-unescaped-entities */
 
 /* eslint-disable react/no-unescaped-entities */
 

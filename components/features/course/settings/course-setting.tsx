@@ -1,4 +1,4 @@
-import SettingsLayout from './setting-layout';
+import SettingsLayout from '@/components/features/course/settings/setting-layout';
 
 const CourseSetting = () => {
   return (

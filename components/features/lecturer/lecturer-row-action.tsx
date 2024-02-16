@@ -6,6 +6,7 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { useState } from 'react';
 
+import LecturerDialog from '@/components/features/lecturer/lecturer-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -33,7 +34,7 @@ import { LecturerSchema } from '@/data/schema';
 // TODO: make it dynamic
 import { CreateLecturerType } from '@/types/schema/lecturer-schema';
 
-import LecturerDialog from './lecturer-dialog';
+/* eslint-disable react/no-unescaped-entities */
 
 /* eslint-disable react/no-unescaped-entities */
 

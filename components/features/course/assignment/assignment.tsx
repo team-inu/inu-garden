@@ -3,6 +3,10 @@
 import Image from 'next/image';
 import { useMemo, useState } from 'react';
 
+import { columns as assignmentColumns } from '@/components/features/course/assignment/assignment-column';
+import { AssignmentDataTable } from '@/components/features/course/assignment/assignment-table';
+import { columns as scoreColumns } from '@/components/features/course/score/score-column';
+import { ScoreDataTable } from '@/components/features/course/score/score-table';
 import ScatterChartCustom from '@/components/scatter-chart';
 import {
   Card,
@@ -12,11 +16,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Score } from '@/data/schema';
-
-import { columns as scoreColumns } from '../score/score-column';
-import { ScoreDataTable } from '../score/score-table';
-import { columns as assignmentColumns } from './assignment-column';
-import { AssignmentDataTable } from './assignment-table';
 
 type SelectedRowType = {
   name: string;

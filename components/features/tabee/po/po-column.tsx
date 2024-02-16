@@ -2,11 +2,10 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
+import { PoRowActions } from '@/components/features/tabee/po/po-row-action';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { PO } from '@/data/schema';
-
-import { PoRowActions } from './po-row-action';
 
 export const columns: ColumnDef<PO>[] = [
   {

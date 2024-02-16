@@ -29,6 +29,7 @@ import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
+import { StudentTableToolbar } from '@/components/features/course/student/student-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
   DataTableToolbar,
@@ -45,8 +46,6 @@ import {
 } from '@/components/ui/table';
 import { labels } from '@/data/data';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-
-import { StudentTableToolbar } from './student-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

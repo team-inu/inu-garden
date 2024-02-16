@@ -1,6 +1,5 @@
+import { ApiService } from '@/services/api-service';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
-
-import { ApiService } from './api-service';
 
 class CourseService extends ApiService {
   public async createCourse(

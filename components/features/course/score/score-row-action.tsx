@@ -6,6 +6,7 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { useState } from 'react';
 
+import ScoreDialog from '@/components/features/course/score/score-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -24,7 +25,7 @@ import {
 import { ScoreSchema } from '@/data/schema';
 import { CreateScoreType } from '@/types/schema/score-schema';
 
-import ScoreDialog from './score-dialog';
+/* eslint-disable react/no-unescaped-entities */
 
 /* eslint-disable react/no-unescaped-entities */
 

@@ -10,10 +10,9 @@ import { ImportIcon } from 'lucide-react';
 import { ChangeEvent, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Input } from '@/components/ui/input';
-
-import { DataTableFacetedFilter } from './data-table-faceted-filter';
 
 export type Option = {
   value: string;

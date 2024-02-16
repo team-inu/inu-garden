@@ -6,6 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import AdmissionDialog from '@/components/features/admission/admission-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,8 +24,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { AdmissionSchema } from '@/data/schema';
 import { CreateAdmissionType } from '@/types/schema/admission-schema';
-
-import AdmissionDialog from './admission-dialog';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

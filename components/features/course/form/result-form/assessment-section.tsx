@@ -1,8 +1,7 @@
 import { UseFormReturn, useFieldArray } from 'react-hook-form';
 
+import InputForm from '@/components/features/course/form/input-form';
 import { Button } from '@/components/ui/button';
-
-import InputForm from '../input-form';
 
 type AssessmentSectionProps = {
   resultIndex: number;

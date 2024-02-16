@@ -1,7 +1,7 @@
 'use client';
 
-import { columns } from './student-column';
-import { StudentDataTable } from './student-table';
+import { columns } from '@/components/features/course/student/student-column';
+import { StudentDataTable } from '@/components/features/course/student/student-table';
 
 const Student = () => {
   return (

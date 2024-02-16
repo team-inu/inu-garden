@@ -2,12 +2,11 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
+import { AdmissionRowActions } from '@/components/features/admission/admission-row-action';
+import { admissiones } from '@/components/features/admission/admission-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { Admission } from '@/data/schema';
-
-import { AdmissionRowActions } from './admission-row-action';
-import { admissiones } from './admission-table';
 
 export const columns: ColumnDef<Admission>[] = [
   {

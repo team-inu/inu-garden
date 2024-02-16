@@ -18,6 +18,7 @@ import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
+import { ScoreTableToolbar } from '@/components/features/course/score/score-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 import {
@@ -29,8 +30,6 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-
-import { ScoreTableToolbar } from './score-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

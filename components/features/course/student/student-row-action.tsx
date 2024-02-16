@@ -7,6 +7,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import StudentDialog from '@/components/features/course/student/student-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -25,7 +26,7 @@ import {
 import { StudentSchema } from '@/data/schema';
 import { CreateStudentType } from '@/types/schema/studen-schema';
 
-import StudentDialog from './student-dialog';
+/* eslint-disable react/no-unescaped-entities */
 
 /* eslint-disable react/no-unescaped-entities */
 

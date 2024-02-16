@@ -2,11 +2,10 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
+import { AssigmentRowActions } from '@/components/features/course/assignment/assignment-row-action';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { Assignement } from '@/data/schema';
-
-import { AssigmentRowActions } from './assignment-row-action';
 
 export const columns: ColumnDef<Assignement>[] = [
   {

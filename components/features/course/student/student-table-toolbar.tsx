@@ -5,13 +5,12 @@ import { Table } from '@tanstack/react-table';
 import { ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
+import StudentDialog from '@/components/features/course/student/student-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-
-import StudentDialog from './student-dialog';
 
 export type Option = {
   value: string;

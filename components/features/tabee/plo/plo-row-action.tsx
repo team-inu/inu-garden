@@ -6,6 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import PloDialog from '@/components/features/tabee/plo/plo-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,9 +24,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { PLOSchema } from '@/data/schema';
 import { CreatePloType } from '@/types/schema/plo-schema';
-
-import Plodi from './plo-dialog';
-import PloDialog from './plo-dialog';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

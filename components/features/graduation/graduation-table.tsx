@@ -16,6 +16,7 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
+import { GraduationTableToolbar } from '@/components/features/graduation/graduation-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
   DataTableToolbar,
@@ -30,8 +31,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { GraduationTableToolbar } from './graduation-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

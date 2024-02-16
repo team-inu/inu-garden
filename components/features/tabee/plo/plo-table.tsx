@@ -18,6 +18,7 @@ import {
 import { get } from 'http';
 import * as React from 'react';
 
+import { PloTableToolbar } from '@/components/features/tabee/plo/plo-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
   DataTableToolbar,
@@ -32,8 +33,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { PloTableToolbar } from './plo-table-toolbar';
 
 export const ploes: Option[] = [
   {

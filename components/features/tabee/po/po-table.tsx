@@ -17,6 +17,7 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
+import { PoTableToolbar } from '@/components/features/tabee/po/po-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
   DataTableToolbar,
@@ -31,8 +32,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
-import { PoTableToolbar } from './po-table-toolbar';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

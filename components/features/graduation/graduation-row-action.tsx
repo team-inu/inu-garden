@@ -7,6 +7,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import GraduationDialog from '@/components/features/graduation/graduation-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -33,7 +34,7 @@ import { labels } from '@/data/data';
 import { GraduationSchema } from '@/data/schema';
 import { CreateGraduationType } from '@/types/schema/graduation-schema';
 
-import GraduationDialog from './graduation-dialog';
+/* eslint-disable react/no-unescaped-entities */
 
 /* eslint-disable react/no-unescaped-entities */
 
