@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/data-table-toolbar";
 import { CircleIcon, QuestionMarkCircledIcon } from "@radix-ui/react-icons";
 import { get } from "http";
+import { PloTableToolbar } from "./plo-table-toolbar";
 
 export const ploes: Option[] = [
   {
@@ -100,15 +101,39 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const handleUploadPlo = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    // const file = e.target.files?.[0];
+    // if (!file) {
+    //   return toast.error("Can not read file");
+    // }
+
+    // const buffer = await file.arrayBuffer();
+    // const workBook = XLSX.read(buffer, { type: "buffer" });
+
+    // const sheet = workBook.Sheets[workBook.SheetNames[1]];
+
+    // const [studentTable] = await worksheetToTables(sheet);
+
+    // const student = tableToObject(studentTable[0], studentTable.slice(1));
+
+    // TODO: push to backend
+    // console.log(student);
+
+    e.target.value = "";
+  };
+
   return (
     <div className="space-y-4">
       {!disableToolbar && (
-        <DataTableToolbar
-          table={table}
-          selectorOptions={inputs}
-          isCreateEnabled={false}
-          isViewOptions={false}
-        />
+      <PloTableToolbar
+        table={table}
+        selectorOptions={[]}
+        isCreateEnabled={true}
+        isViewOptions={true}
+        handleImport={handleUploadPlo}
+      />
       )}
       <div className="rounded-md border">
         <Table>
