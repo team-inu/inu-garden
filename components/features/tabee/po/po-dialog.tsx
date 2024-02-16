@@ -16,33 +16,33 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useStrictForm } from "@/hooks/form-hook";
-import { CreateAdmissionDefaultValues, CreateAdmissionSchema, CreateAdmissionType } from '@/types/schema/admission-schema';
+import { CreatePoDefaultValues, CreatePoSchema, CreatePoType } from '@/types/schema/po-schema';
 import { DialogClose } from "@radix-ui/react-dialog";
 
-type AdmissionDialogProps = {
-  onSubmit: (values: CreateAdmissionType) => void;
-  defaultValues?: CreateAdmissionType;
+type PoDialogProps = {
+  onSubmit: (values: CreatePoType) => void;
+  defaultValues?: CreatePoType;
   isEdit?: boolean;
 };
 
-const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
+const PoDialog: React.FC<PoDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateAdmissionSchema,
-    defaultValues ?? CreateAdmissionDefaultValues
+    CreatePoSchema,
+    defaultValues ?? CreatePoDefaultValues
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Admission" : "Add Admission"}</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit Po" : "Add Po"}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the admission information"
-              : "Fill in the admission information"}
+              ? "Edit the po information"
+              : "Fill in the po information"}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -53,7 +53,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
                   key={key}
                   control={form.control}
                   // TODO: eliminate as
-                  name={key as keyof CreateAdmissionType}
+                  name={key as keyof CreatePoType}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{key}</FormLabel>
@@ -81,4 +81,4 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
   );
 };
 
-export default AdmissionDialog;
+export default PoDialog;

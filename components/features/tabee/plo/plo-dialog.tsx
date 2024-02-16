@@ -16,33 +16,33 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useStrictForm } from "@/hooks/form-hook";
-import { CreateAdmissionDefaultValues, CreateAdmissionSchema, CreateAdmissionType } from '@/types/schema/admission-schema';
+import { CreatePloDefaultValues, CreatePloSchema, CreatePloType } from '@/types/schema/plo-schema';
 import { DialogClose } from "@radix-ui/react-dialog";
 
-type AdmissionDialogProps = {
-  onSubmit: (values: CreateAdmissionType) => void;
-  defaultValues?: CreateAdmissionType;
+type PloDialogProps = {
+  onSubmit: (values: CreatePloType) => void;
+  defaultValues?: CreatePloType;
   isEdit?: boolean;
 };
 
-const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
+const PloDialog: React.FC<PloDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateAdmissionSchema,
-    defaultValues ?? CreateAdmissionDefaultValues
+    CreatePloSchema,
+    defaultValues ?? CreatePloDefaultValues
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? "Edit Admission" : "Add Admission"}</DialogTitle>
+          <DialogTitle>{isEdit ? "Edit Plo" : "Add Plo"}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? "Edit the admission information"
-              : "Fill in the admission information"}
+              ? "Edit the plo information"
+              : "Fill in the plo information"}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -53,7 +53,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
                   key={key}
                   control={form.control}
                   // TODO: eliminate as
-                  name={key as keyof CreateAdmissionType}
+                  name={key as keyof CreatePloType}
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>{key}</FormLabel>
@@ -81,4 +81,4 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
   );
 };
 
-export default AdmissionDialog;
+export default PloDialog;

@@ -2,9 +2,9 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { Checkbox } from "@/components/ui/checkbox";
-import {   SubPLO } from "@/data/schema";
+import { SubPLO } from "@/data/schema";
 import { DataTableColumnHeader } from "@/components/ui/data-table-column-header";
-import { SubPLORowActions } from "./sub-plo-row-action";
+import { SubPloRowActions } from "./sub-plo-row-action";
 
 
 export const columns: ColumnDef<SubPLO>[] = [
@@ -39,9 +39,9 @@ export const columns: ColumnDef<SubPLO>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  
+
   {
     id: "actions",
-    cell: ({ row }) => <SubPLORowActions row={row} />,
+    cell: ({ row }) => <SubPloRowActions row={row} />,
   },
 ];
