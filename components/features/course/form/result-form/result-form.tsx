@@ -182,7 +182,7 @@ export function ResultForm() {
           name="studentDegree"
           lable={'Student Degree'}
           placeholder={'Please select student degree'}
-          form={form}
+          // form={form} // no more error
           options={[
             {
               value: 'bachelor1',

@@ -2,8 +2,6 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { PLORowActions } from '@/components/features/tabee/plo/plo-row-action';
-import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { PLO } from '@/data/schema';
 

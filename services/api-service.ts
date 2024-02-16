@@ -37,8 +37,10 @@ export abstract class ApiService {
   // in case the root of the error instance is not from the API response.
   protected throwError(error: unknown): never {
     toast.error('Something went wrong', {
-      description: error.message,
+      description: ApiService.isDomainError(error) ? error.message : '',
     });
+
+    throw new Error();
   }
 
   public static isDomainError(error: unknown): error is ApiError {
