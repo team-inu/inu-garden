@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
@@ -24,10 +23,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { ScoreSchema } from '@/data/schema';
 import { CreateScoreType } from '@/types/schema/score-schema';
-
-/* eslint-disable react/no-unescaped-entities */
-
-/* eslint-disable react/no-unescaped-entities */
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -91,7 +86,7 @@ export function ScoreRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-              You can't undo this action. This will permanently delete the.
+              {`You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
 

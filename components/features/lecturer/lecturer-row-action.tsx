@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
@@ -33,10 +32,6 @@ import { labels } from '@/data/data';
 import { LecturerSchema } from '@/data/schema';
 // TODO: make it dynamic
 import { CreateLecturerType } from '@/types/schema/lecturer-schema';
-
-/* eslint-disable react/no-unescaped-entities */
-
-/* eslint-disable react/no-unescaped-entities */
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -101,7 +96,7 @@ export function LecturerRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-              You can't undo this action. This will permanently delete the.
+              {`You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
 
