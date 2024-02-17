@@ -1,14 +1,14 @@
 'use client';
 
-import { ArrowBigLeftDashIcon, PlusCircleIcon } from 'lucide-react';
+import { PlusCircleIcon } from 'lucide-react';
 import { FormProvider, useFieldArray } from 'react-hook-form';
 
 import ArrayInput from '@/components/features/course/course-portfolio/array-input-form';
 import AttachedDocumentCheckbox from '@/components/features/course/course-portfolio/attached-doc-checkbox';
+import CoursePortfolioHeader from '@/components/features/course/course-portfolio/course-portfolio-header';
 import CourseStream from '@/components/features/course/course-portfolio/course-stream';
 import { GradeTable } from '@/components/features/course/course-portfolio/grade-table';
 import Information from '@/components/features/course/course-portfolio/information';
-import OutcomeTable from '@/components/features/course/course-portfolio/outcome-table';
 import { Overview } from '@/components/overview';
 import { Button } from '@/components/ui/button';
 import {
@@ -108,40 +108,37 @@ const CoursePortfolioPage = () => {
   };
 
   return (
-    <div className="hidden flex-col md:flex">
-      <Button
-        variant="secondary"
-        className="absolute mx-10 mt-5 self-start"
-        onClick={() => window.history.back()}
-      >
-        <ArrowBigLeftDashIcon className="h-5 w-5" />
-        Back
-      </Button>
+    <div className="container hidden  flex-col space-y-3 md:flex">
+      <CoursePortfolioHeader />
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="container space-y-7 p-8 pt-6 text-lg shadow-sm shadow-white">
-            {/* button back to before page */}
-            <h2 className="bg-primary py-3   text-center text-3xl font-bold tracking-tight">
-              Course Portfolio
-            </h2>
+          <div className=" space-y-7  pt-6 text-lg ">
+            <div className="space-y-0.5">
+              <h2 className="text-2xl font-bold tracking-tight">
+                Course portfolio
+              </h2>
+              <p className="text-muted-foreground">
+                Edit and submit your course portfolio.
+              </p>
+            </div>
             {/* information */}
             <div className="space-y-2 ">
               <div className="text-xl font-semibold">1. รายละเอียด</div>
-              <Information lable="ภาควิชา" value="วิศวกรรมคอมพิวเตอร์" />
-              <Information lable="หลักสูตร" value="ปกติ" />
+              <Information label="ภาควิชา" value="วิศวกรรมคอมพิวเตอร์" />
+              <Information label="หลักสูตร" value="ปกติ" />
               <div className="w-4/5 space-y-2">
                 <div className="grid grid-cols-3">
-                  <Information lable="รหัสวิชา" value="CPEXXX" />
-                  <Information lable="ชื่อวิชา" value="Computer exploration" />
-                  <Information lable="จำนวนหน่วยกิต" value="3" />
+                  <Information label="รหัสวิชา" value="CPEXXX" />
+                  <Information label="ชื่อวิชา" value="Computer exploration" />
+                  <Information label="จำนวนหน่วยกิต" value="3" />
                 </div>
                 <div className="grid grid-cols-3">
-                  <Information lable="นักศึกษาระดับ" value="ป.ตรี" />
-                  <Information lable="จำนวนนักศึกษา" value="100" />
+                  <Information label="นักศึกษาระดับ" value="ป.ตรี" />
+                  <Information label="จำนวนนักศึกษา" value="100" />
                 </div>
               </div>
               <Information
-                lable="ชื่ออาจารยฺ์ผู้สอน"
+                label="ชื่ออาจารยฺ์ผู้สอน"
                 value="นาย วิศวะ คอมพิวเตอร์"
               />
             </div>

@@ -18,7 +18,11 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
-import { CreateCloDefaultValues, CreateCloSchema, CreateCloType } from '@/types/schema/clo-shema';
+import {
+  CreateCloDefaultValues,
+  CreateCloSchema,
+  CreateCloType,
+} from '@/types/schema/clo-shema';
 
 type PloDialogProps = {
   onSubmit: (values: CreateCloType) => void;
@@ -48,21 +52,23 @@ const CloDialog: React.FC<PloDialogProps> = ({
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-           {isEdit && <FormField
-              control={form.control}
-              name="id"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>id</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} disabled />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />}
+            {isEdit && (
+              <FormField
+                control={form.control}
+                name="id"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>id</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} disabled />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            )}
             <FormField
               control={form.control}
               name="name"

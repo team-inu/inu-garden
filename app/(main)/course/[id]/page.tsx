@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 import Assignment from '@/components/features/course/assignment/assignment';
 import Dashboard from '@/components/features/course/dashboard/dashboard';
-import CourseSetting from '@/components/features/course/settings/course-setting';
+import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 import Student from '@/components/features/course/student/student';
 import { Button } from '@/components/ui/button';
 import {
@@ -13,8 +13,6 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs-api';
-import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
-import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 
 const HomePage = () => {
   const handleCourseExport = async () => {
@@ -33,13 +31,17 @@ const HomePage = () => {
                 <TabsTrigger value="outcome">PO, PLO, CLO</TabsTrigger>
                 <TabsTrigger value="assignment">Assignments</TabsTrigger>
                 <TabsTrigger value="student">Students</TabsTrigger>
-                <TabsTrigger value="setting">Settings</TabsTrigger>
               </TabsList>
-              <Link href="/course/1/portfolio">
-                <Button>Course Portfolio</Button>
-              </Link>
+              <div className="space-x-3">
+                <Link href="/course/1/portfolio">
+                  <Button>Course Portfolio</Button>
+                </Link>
+                <Link href="/course/1/setting">
+                  <Button variant="secondary">Course Setting</Button>
+                </Link>
+              </div>
             </div>
-          <TabsContent value="overview" className="space-y-4">
+            <TabsContent value="overview" className="space-y-4">
               <Dashboard />
             </TabsContent>
             <TabsContent value="outcome" className="space-y-4">
@@ -50,9 +52,6 @@ const HomePage = () => {
             </TabsContent>
             <TabsContent value="student" className="space-y-4">
               <Student />
-            </TabsContent>
-            <TabsContent value="setting" className="space-y-4">
-              <CourseSetting />
             </TabsContent>
           </Tabs>
         </div>
