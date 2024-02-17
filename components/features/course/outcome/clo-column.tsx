@@ -4,18 +4,18 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { PloRowActions } from '@/components/features/tabee/plo/plo-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { PLO } from '@/data/schema';
+import { CLO } from '@/data/schema';
 
-export const columns: ColumnDef<PLO>[] = [
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="id" />
-    ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
+export const columns: ColumnDef<CLO>[] = [
+  // {
+  //   accessorKey: 'id',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="id" />
+  //   ),
+  //   cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: 'name',
     header: ({ column }) => (

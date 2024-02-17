@@ -95,3 +95,11 @@ export const POSchema = z.object({
 });
 
 export type PO = z.infer<typeof POSchema>;
+
+export const CLOSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string(),
+});
+
+export type CLO = z.infer<typeof CLOSchema>;

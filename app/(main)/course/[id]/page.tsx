@@ -14,6 +14,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-api';
 import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
+import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 
 const HomePage = () => {
   const handleCourseExport = async () => {
@@ -38,8 +39,11 @@ const HomePage = () => {
                 <Button>Course Portfolio</Button>
               </Link>
             </div>
-            <TabsContent value="overview" className="space-y-4">
+          <TabsContent value="overview" className="space-y-4">
               <Dashboard />
+            </TabsContent>
+            <TabsContent value="outcome" className="space-y-4">
+              <CourseLearningOutcome />
             </TabsContent>
             <TabsContent value="assignment" className="space-y-4">
               <Assignment />
