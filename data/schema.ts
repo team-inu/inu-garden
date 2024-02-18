@@ -13,7 +13,7 @@ export type Student = z.infer<typeof StudentSchema>;
 
 export const AdmissionSchema = z.object({
   id: z.string(),
-  studentId: z.string(),
+  // studentId: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   admission: z.string(),

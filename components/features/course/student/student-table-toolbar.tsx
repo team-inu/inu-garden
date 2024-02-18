@@ -120,7 +120,7 @@ export function StudentTableToolbar<TData>({
               variant="outline"
               size="sm"
             >
-              <a className="flex items-center" href="/template/test.xlsx">
+              <a className="flex items-center" href="/template/student.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>
