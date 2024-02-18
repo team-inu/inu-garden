@@ -1,12 +1,12 @@
 type InformationProps = {
-  lable: string;
+  label: string;
   value: string;
 };
 
-const Information: React.FC<InformationProps> = ({ lable, value }) => {
+const Information: React.FC<InformationProps> = ({ label, value }) => {
   return (
     <div className="flex space-x-2">
-      <h1 className="">{lable}: </h1>
+      <h1 className="">{label}: </h1>
       <span className="text-zinc-400">{value}</span>
     </div>
   );

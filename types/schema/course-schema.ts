@@ -86,3 +86,25 @@ export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> 
       },
     ],
   };
+
+export const UpdateCourseSchema = z.object({
+  department: z.string(),
+  programme: z.string(),
+  code: z.string(),
+  name: z.string(),
+  credit: z.string(),
+  education: z.string(),
+  lecturer: z.string(),
+});
+
+export type UpdateCourseFormValues = z.infer<typeof UpdateCourseSchema>;
+
+export const UpdateCourseDefaultValues: UpdateCourseFormValues = {
+  department: '',
+  programme: '',
+  code: '',
+  name: '',
+  credit: '',
+  education: '',
+  lecturer: '',
+};
