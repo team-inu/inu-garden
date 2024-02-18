@@ -2,7 +2,7 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { ImportIcon } from 'lucide-react';
+import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 import StudentDialog from '@/components/features/course/student/student-dialog';
@@ -114,6 +114,16 @@ export function StudentTableToolbar<TData>({
             >
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
+            </Button>
+            <Button
+              className="ml-auto hidden h-8 lg:flex"
+              variant="outline"
+              size="sm"
+            >
+              <a className="flex items-center" href="/template/test.xlsx">
+                <FolderDotIcon className="mr-2 h-4 w-4" />
+                Template
+              </a>
             </Button>
           </div>
         )}

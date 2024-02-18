@@ -26,6 +26,7 @@ const CourseFormHeader = () => {
     const sheet1 = workBook.Sheets[workBook.SheetNames[0]];
 
     const [infoTable, CLOTable] = await worksheetToTables(sheet1);
+    console.log(infoTable);
 
     const [info] = tableToObject(infoTable[0], infoTable.slice(1));
     const clo = tableToObject(CLOTable[0], CLOTable.slice(1));

@@ -4,6 +4,7 @@ import Link from 'next/link';
 
 import Assignment from '@/components/features/course/assignment/assignment';
 import Dashboard from '@/components/features/course/dashboard/dashboard';
+import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 import CourseSetting from '@/components/features/course/settings/course-setting';
 import Student from '@/components/features/course/student/student';
 import { Button } from '@/components/ui/button';
@@ -13,8 +14,6 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs-api';
-import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
-import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 
 const HomePage = () => {
   const handleCourseExport = async () => {

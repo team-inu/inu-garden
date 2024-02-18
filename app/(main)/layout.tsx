@@ -16,4 +16,4 @@ function RootLayout({ children }: { children: React.ReactNode }) {
   );
 }
 
-export default withAuth(RootLayout);
+export default RootLayout;
