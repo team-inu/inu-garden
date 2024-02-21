@@ -2,11 +2,11 @@
 
 import { AdmissionDataTable } from '@/components/features/admission/admission-table';
 import { columns } from '@/components/features/admission/admisson-column';
+import Loading from '@/components/features/loading-screen';
 import { useGetStudentList } from '@/hooks/student-hook';
 
 const Admission = () => {
   const { data: students, isLoading } = useGetStudentList();
-  console.log('this is students', students);
   return (
     <>
       <div>
@@ -14,9 +14,9 @@ const Admission = () => {
       </div>
       <div className="">
         {isLoading ? (
-          <div>Loading...</div>
+          <Loading />
         ) : (
-          <AdmissionDataTable columns={columns} data={students} />
+          <AdmissionDataTable columns={columns} data={students ?? []} />
         )}
       </div>
     </>

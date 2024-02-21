@@ -1,7 +1,7 @@
 import * as z from 'zod';
 
 export const CreateAdmissionSchema = z.object({
-  admissionId: z
+  kmuttId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   firstName: z
@@ -34,12 +34,22 @@ export const CreateAdmissionSchema = z.object({
   city: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
+  year: z
+    .string({ required_error: 'required' })
+    .min(1, { message: 'required' }),
+  programmeId: z
+    .string({ required_error: 'required' })
+    .min(1, { message: 'required' }),
+  departmentName: z
+    .string({ required_error: 'required' })
+    .min(1, { message: 'required' }),
+  remark: z.string().optional(),
 });
 
 export type CreateAdmissionType = z.infer<typeof CreateAdmissionSchema>;
 
 export const CreateAdmissionDefaultValues: CreateAdmissionType = {
-  admissionId: '',
+  kmuttId: '',
   firstName: '',
   lastName: '',
   admission: '',
@@ -50,4 +60,8 @@ export const CreateAdmissionDefaultValues: CreateAdmissionType = {
   gpaSci: '',
   school: '',
   city: '',
+  year: '',
+  programmeId: '',
+  departmentName: '',
+  remark: undefined,
 };

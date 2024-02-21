@@ -6,11 +6,14 @@ import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 import AdmissionDialog from '@/components/features/admission/admission-dialog';
+import MultipleFileUploader from '@/components/features/admission/multiple-files-uploader';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreateStudent } from '@/hooks/student-hook';
+import { CreateAdmissionType } from '@/types/schema/admission-schema';
 
 export type Option = {
   value: string;
@@ -41,9 +44,17 @@ export function AdmissionTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
+  const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
+  const { mutate, isPending: isSubmitting } = useCreateStudent();
+  const onSubmit = (value: CreateAdmissionType) => {
+    mutate(value);
+    // if (!isSubmitting) {
+    //   setIsOpen(false);
+    // }
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -97,24 +108,22 @@ export function AdmissionTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <AdmissionDialog onSubmit={() => {}} />
+              <AdmissionDialog onSubmit={onSubmit} />
             </Dialog>
 
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
-              onClick={() => fileImportRef.current?.click()}
+              onClick={() => setIsImportOpen(true)}
             >
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
             </Button>
+
+            <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
+              <MultipleFileUploader />
+            </Dialog>
 
             <Button
               className="ml-auto hidden h-8 lg:flex"

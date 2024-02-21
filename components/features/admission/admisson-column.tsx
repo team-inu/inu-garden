@@ -42,17 +42,17 @@ export const columns: ColumnDef<Admission>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: 'admissionId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Admission ID" />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue('admissionId')}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   accessorKey: 'admissionId',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Admission ID" />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <div className="w-[80px]">{row.getValue('admissionId')}</div>
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: 'firstName',
     header: ({ column }) => (
@@ -60,11 +60,9 @@ export const columns: ColumnDef<Admission>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('firstName')}
-          </span>
-        </div>
+        <span className="truncate font-medium">
+          {row.getValue('firstName')}
+        </span>
       );
     },
   },
@@ -75,12 +73,54 @@ export const columns: ColumnDef<Admission>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('lastName')}
-          </span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('lastName')}</span>
       );
+    },
+  },
+  {
+    accessorKey: 'email',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Email" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <span className="truncate font-medium">{row.getValue('email')}</span>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: 'departmentName',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Department" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <span className="truncate font-medium">
+          {row.getValue('departmentName')}
+        </span>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: 'programmeId',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Programme" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <span className="truncate font-medium">
+          {row.getValue('programmeId')}
+        </span>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {
@@ -108,22 +148,6 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: 'email',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('email')}</span>
-        </div>
-      );
-    },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id));
-    },
-  },
-  {
     accessorKey: 'GPAX',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="GPAX" />
@@ -142,15 +166,11 @@ export const columns: ColumnDef<Admission>[] = [
   {
     accessorKey: 'mathGPA',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="GPA Math" />
+      <DataTableColumnHeader column={column} title="Math GPA" />
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('mathGPA')}
-          </span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('mathGPA')}</span>
       );
     },
     filterFn: (row, id, value) => {
@@ -158,17 +178,13 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: 'englishGPA',
+    accessorKey: 'engGPA',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Eng GPA" />
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('englishGPA')}
-          </span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('engGPA')}</span>
       );
     },
     filterFn: (row, id, value) => {
@@ -176,17 +192,13 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: 'scienceGPA',
+    accessorKey: 'sciGPA',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="GPA Sci" />
+      <DataTableColumnHeader column={column} title="Sci GPA" />
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('scienceGPA')}
-          </span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('sciGPA')}</span>
       );
     },
     filterFn: (row, id, value) => {
@@ -200,9 +212,7 @@ export const columns: ColumnDef<Admission>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('school')}</span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('school')}</span>
       );
     },
     filterFn: (row, id, value) => {
@@ -216,9 +226,21 @@ export const columns: ColumnDef<Admission>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('city')}</span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('city')}</span>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: 'remark',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Remarks" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <span className="truncate font-medium">{row.getValue('remark')}</span>
       );
     },
     filterFn: (row, id, value) => {

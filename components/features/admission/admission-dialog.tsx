@@ -41,7 +41,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
   );
   return (
     <div>
-      <DialogContent>
+      <DialogContent className="min-w-max">
         <DialogHeader>
           <DialogTitle>
             {isEdit ? 'Edit Admission' : 'Add Admission'}
@@ -54,27 +54,29 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {Object.keys(form.getValues()).map((key) => {
-              return (
-                <FormField
-                  key={key}
-                  control={form.control}
-                  // TODO: eliminate as
-                  name={key as keyof CreateAdmissionType}
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>{key}</FormLabel>
-                      <FormControl>
-                        <div className="flex flex-col space-y-3">
-                          <Input {...field} />
-                          <FormMessage />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              );
-            })}
+            <div className="grid grid-cols-3 gap-3">
+              {Object.keys(form.getValues()).map((key) => {
+                return (
+                  <FormField
+                    key={key}
+                    control={form.control}
+                    // TODO: eliminate as
+                    name={key as keyof CreateAdmissionType}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{key}</FormLabel>
+                        <FormControl>
+                          <div className="flex flex-col space-y-3">
+                            <Input {...field} />
+                            <FormMessage />
+                          </div>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
+                );
+              })}
+            </div>
           </form>
         </Form>
         <DialogFooter>

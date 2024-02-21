@@ -27,6 +27,14 @@ class CourseService extends ApiService {
       .then(() => course)
       .catch(this.throwError);
   }
+  public async getStudentEnrollList(): Promise<any> {
+    const url = '/students';
+    return this.get(url)
+      .then((response) => {
+        return response.data;
+      })
+      .catch(this.throwError);
+  }
 }
 
 export const courseService = new CourseService();

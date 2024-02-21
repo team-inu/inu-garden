@@ -9,6 +9,7 @@ import CoursePortfolioHeader from '@/components/features/course/course-portfolio
 import CourseStream from '@/components/features/course/course-portfolio/course-stream';
 import { GradeTable } from '@/components/features/course/course-portfolio/grade-table';
 import Information from '@/components/features/course/course-portfolio/information';
+import OutcomeTable from '@/components/features/course/course-portfolio/outcome-table';
 import { Overview } from '@/components/overview';
 import { Button } from '@/components/ui/button';
 import {
@@ -215,7 +216,9 @@ const CoursePortfolioPage = () => {
                 </Label>
                 <Input type="string" />
               </div>
-              <div className="">{/* <OutcomeTable /> */}</div>
+              <div className="">
+                <OutcomeTable />
+              </div>
             </div>
             {/* Development */}
             <div className="space-y-2">

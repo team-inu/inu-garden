@@ -32,6 +32,7 @@ interface DataTableRowActionsProps<TData> {
 export function AdmissionRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
+  console.log(row.original);
   const admission = AdmissionSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -75,17 +76,21 @@ export function AdmissionRowActions<TData>({
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            admissionId: admission.id,
+            kmuttId: admission.id,
             firstName: admission.firstName,
             lastName: admission.lastName,
             email: admission.email,
             admission: admission.admission,
             city: admission.city,
-            gpaEng: String(admission.englishGPA),
+            gpaEng: String(admission.engGPA),
             gpaMath: String(admission.mathGPA),
-            gpaSci: String(admission.scienceGPA),
+            gpaSci: String(admission.sciGPA),
             gpax: String(admission.GPAX),
             school: admission.school,
+            departmentName: admission.departmentName,
+            programmeId: admission.programmeId,
+            year: admission.year,
+            remark: admission.remark,
           }}
         />
       )}

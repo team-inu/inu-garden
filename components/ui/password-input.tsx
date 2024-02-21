@@ -2,13 +2,11 @@ import * as React from 'react';
 
 import { cn } from '@/libs/utils';
 
-export interface InputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
-  suffix?: React.ReactNode;
-}
+export interface PassowrdInputProps
+  extends React.InputHTMLAttributes<HTMLInputElement> {}
 
-const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ suffix, className, type, ...props }, ref) => {
+const PassowrdInput = React.forwardRef<HTMLInputElement, PassowrdInputProps>(
+  ({ className, type, ...props }, ref) => {
     return (
       <div className="flex items-center gap-2">
         <input
@@ -24,6 +22,6 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   },
 );
-Input.displayName = 'Input';
+PassowrdInput.displayName = 'Input';
 
-export { Input };
+export { PassowrdInput };
