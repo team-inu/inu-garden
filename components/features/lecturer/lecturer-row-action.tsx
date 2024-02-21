@@ -19,16 +19,8 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { labels } from '@/data/data';
 import { LecturerSchema } from '@/data/schema';
 // TODO: make it dynamic
 import { CreateLecturerType } from '@/types/schema/lecturer-schema';
@@ -83,7 +75,6 @@ export function LecturerRowActions<TData>({
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            id: lecturer.id,
             firstName: lecturer.firstName,
             lastName: lecturer.lastName,
             email: lecturer.email,

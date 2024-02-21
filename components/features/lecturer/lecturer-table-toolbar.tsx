@@ -11,6 +11,8 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreateLecturer } from '@/hooks/lecturer-hook';
+import { CreateLecturerType } from '@/types/schema/lecturer-schema';
 
 export type Option = {
   value: string;
@@ -44,6 +46,14 @@ export function LecturerTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
+  const { mutate, isError } = useCreateLecturer();
+
+  const onSubmit = (value: CreateLecturerType) => {
+    mutate(value);
+    if (!isError) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -97,7 +107,7 @@ export function LecturerTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <LecturerDialog onSubmit={() => {}} />
+              <LecturerDialog onSubmit={onSubmit} />
             </Dialog>
 
             <Input

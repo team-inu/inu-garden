@@ -32,15 +32,7 @@ export const columns: ColumnDef<Lecturer>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="id" />
-    ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
+
   {
     accessorKey: 'firstName',
     header: ({ column }) => (
