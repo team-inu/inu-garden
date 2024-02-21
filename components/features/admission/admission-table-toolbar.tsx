@@ -3,7 +3,7 @@
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import AdmissionDialog from '@/components/features/admission/admission-dialog';
 import MultipleFileUploader from '@/components/features/admission/multiple-files-uploader';
@@ -40,20 +40,18 @@ export function AdmissionTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
-  handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate, isPending: isSubmitting } = useCreateStudent();
+  const { mutate, isSuccess } = useCreateStudent();
   const onSubmit = (value: CreateAdmissionType) => {
     mutate(value);
-    // if (!isSubmitting) {
-    //   setIsOpen(false);
-    // }
+    if (isSuccess) {
+      setIsOpen(false);
+    }
   };
 
   return (

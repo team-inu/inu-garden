@@ -16,18 +16,22 @@ export const CreateAdmissionSchema = z.object({
   email: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  gpax: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  gpaMath: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  gpaEng: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  gpaSci: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  gpax: z.coerce
+    .number({ required_error: 'required' })
+    .min(0, { message: 'value could more that 0' })
+    .max(4, { message: 'value could less than 4' }),
+  gpaMath: z.coerce
+    .number({ required_error: 'required' })
+    .min(0, { message: 'value could more that 0' })
+    .max(4, { message: 'value could less than 4' }),
+  gpaEng: z.coerce
+    .number({ required_error: 'required' })
+    .min(0, { message: 'value could more that 0' })
+    .max(4, { message: 'value could less than 4' }),
+  gpaSci: z.coerce
+    .number({ required_error: 'required' })
+    .min(0, { message: 'value could more that 0' })
+    .max(4, { message: 'value could less than 4' }),
   school: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -54,10 +58,10 @@ export const CreateAdmissionDefaultValues: CreateAdmissionType = {
   lastName: '',
   admission: '',
   email: '',
-  gpax: '',
-  gpaMath: '',
-  gpaEng: '',
-  gpaSci: '',
+  gpax: 0,
+  gpaMath: 0,
+  gpaEng: 0,
+  gpaSci: 0,
   school: '',
   city: '',
   year: '',

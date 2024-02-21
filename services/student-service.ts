@@ -16,23 +16,8 @@ class StudentService extends ApiService {
     student: CreateAdmissionType,
   ): Promise<CreateAdmissionType> {
     const url = '/students';
-    const formData = new FormData();
-    formData.append('kmuttId', student.kmuttId);
-    formData.append('firstName', student.firstName);
-    formData.append('lastName', student.lastName);
-    formData.append('gpax', student.gpax);
-    formData.append('mathGpa', student.gpaMath);
-    formData.append('engGpa', student.gpaEng);
-    formData.append('sciGpa', student.gpaSci);
-    formData.append('school', student.school);
-    formData.append('city', student.city);
-    formData.append('year', student.year);
-    formData.append('admission', student.admission);
-    formData.append('programmeId', student.programmeId);
-    formData.append('departmentName', student.departmentName);
-    formData.append('email', student.email);
 
-    return this.post(url, formData)
+    return this.post(url, student)
       .then(() => student)
       .catch(this.throwError);
   }
@@ -41,26 +26,8 @@ class StudentService extends ApiService {
     students: CreateAdmissionType[],
   ): Promise<CreateAdmissionType[]> {
     const url = '/students/bulk';
-    const formData = new FormData();
 
-    students.forEach((student) => {
-      formData.append('kmuttId', student.kmuttId);
-      formData.append('firstName', student.firstName);
-      formData.append('lastName', student.lastName);
-      formData.append('gpax', student.gpax);
-      formData.append('mathGpa', student.gpaMath);
-      formData.append('engGpa', student.gpaEng);
-      formData.append('sciGpa', student.gpaSci);
-      formData.append('school', student.school);
-      formData.append('city', student.city);
-      formData.append('year', student.year);
-      formData.append('admission', student.admission);
-      formData.append('programmeId', student.programmeId);
-      formData.append('departmentName', student.departmentName);
-      formData.append('email', student.email);
-    });
-
-    return this.post(url, formData)
+    return this.post(url, students)
       .then(() => students)
       .catch(this.throwError);
   }

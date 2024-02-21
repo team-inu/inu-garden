@@ -67,7 +67,13 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
                         <FormLabel>{key}</FormLabel>
                         <FormControl>
                           <div className="flex flex-col space-y-3">
-                            <Input {...field} />
+                            {['gpax', 'gpaMath', 'gpaEng', 'gpaSci'].includes(
+                              key,
+                            ) ? (
+                              <Input type="number" step="0.01" {...field} />
+                            ) : (
+                              <Input {...field} />
+                            )}
                             <FormMessage />
                           </div>
                         </FormControl>
