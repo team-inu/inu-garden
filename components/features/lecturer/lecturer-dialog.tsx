@@ -1,5 +1,4 @@
 import { DialogClose } from '@radix-ui/react-dialog';
-import { EyeNoneIcon } from '@radix-ui/react-icons';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -18,6 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateLecturerDefaultValues,
@@ -106,7 +106,7 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
                   <FormLabel>Password</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input {...field} type="password" />
+                      <PassowrdInput {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>
@@ -121,11 +121,7 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
                   <FormLabel>Confirmed Password</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input
-                        {...field}
-                        type="password"
-                        suffix={<EyeNoneIcon />}
-                      />
+                      <PassowrdInput {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>

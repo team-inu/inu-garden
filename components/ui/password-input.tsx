@@ -1,5 +1,7 @@
+import { EyeIcon, EyeOffIcon } from 'lucide-react';
 import * as React from 'react';
 
+import { Input } from '@/components/ui/input';
 import { cn } from '@/libs/utils';
 
 export interface PassowrdInputProps
@@ -7,21 +9,24 @@ export interface PassowrdInputProps
 
 const PassowrdInput = React.forwardRef<HTMLInputElement, PassowrdInputProps>(
   ({ className, type, ...props }, ref) => {
+    const [showPassword, setShowPassword] = React.useState(false);
     return (
-      <div className="flex items-center gap-2">
-        <input
-          type={type}
-          className={cn(
-            'flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-            className,
-          )}
-          ref={ref}
-          {...props}
-        />
-      </div>
+      <Input
+        type={showPassword ? 'text' : 'password'}
+        className={cn('file:rounded-md', className)}
+        ref={ref}
+        {...props}
+        suffix={
+          showPassword ? (
+            <EyeIcon onClick={() => setShowPassword((prev) => !prev)} />
+          ) : (
+            <EyeOffIcon onClick={() => setShowPassword((prev) => !prev)} />
+          )
+        }
+      />
     );
   },
 );
-PassowrdInput.displayName = 'Input';
+PassowrdInput.displayName = 'PassowrdInput';
 
 export { PassowrdInput };
