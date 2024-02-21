@@ -18,6 +18,7 @@ class LecturerService extends ApiService {
     formData.append('firstName', lecturer.firstName);
     formData.append('lastName', lecturer.lastName);
     formData.append('email', lecturer.email);
+    formData.append('password', lecturer.password);
     return this.post(url, formData)
       .then(() => lecturer)
       .catch(this.throwError);

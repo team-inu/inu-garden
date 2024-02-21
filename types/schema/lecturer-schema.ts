@@ -18,13 +18,9 @@ export const CreateLecturerSchema = z
       .string({ required_error: 'required' })
       .min(1, { message: 'required' }),
   })
-  .superRefine(({ confirmPassword, password }, ctx) => {
-    if (confirmPassword !== password) {
-      ctx.addIssue({
-        code: 'custom',
-        message: 'The passwords did not match',
-      });
-    }
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Password doesn't match",
+    path: ['confirmPassword'],
   });
 
 export type CreateLecturerType = z.infer<typeof CreateLecturerSchema>;
