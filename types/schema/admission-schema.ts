@@ -20,15 +20,15 @@ export const CreateAdmissionSchema = z.object({
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
     .max(4, { message: 'value could less than 4' }),
-  gpaMath: z.coerce
+  mathGPA: z.coerce
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
     .max(4, { message: 'value could less than 4' }),
-  gpaEng: z.coerce
+  engGPA: z.coerce
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
     .max(4, { message: 'value could less than 4' }),
-  gpaSci: z.coerce
+  sciGPA: z.coerce
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
     .max(4, { message: 'value could less than 4' }),
@@ -52,6 +52,8 @@ export const CreateAdmissionSchema = z.object({
 
 export type CreateAdmissionType = z.infer<typeof CreateAdmissionSchema>;
 
+export type ImportedAdmissionType = Partial<CreateAdmissionType>;
+
 export const CreateAdmissionDefaultValues: CreateAdmissionType = {
   kmuttId: '',
   firstName: '',
@@ -59,9 +61,9 @@ export const CreateAdmissionDefaultValues: CreateAdmissionType = {
   admission: '',
   email: '',
   gpax: 0,
-  gpaMath: 0,
-  gpaEng: 0,
-  gpaSci: 0,
+  mathGPA: 0,
+  engGPA: 0,
+  sciGPA: 0,
   school: '',
   city: '',
   year: '',

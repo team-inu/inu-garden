@@ -21,59 +21,7 @@ import {
   FirstDataHeaderRow,
 } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
-import { CreateAdmissionType } from '@/types/schema/admission-schema';
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
+import { ImportedAdmissionType } from '@/types/schema/admission-schema';
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -249,23 +197,31 @@ const MultipleFileUploader = () => {
     const extendedEligibleWithApplicantToPyaoResult = (
       e: ExtendedEligibleWithPartialyApplicant,
       programmeId: string,
-    ): CreateAdmissionType => {
+    ): ImportedAdmissionType => {
+      console.log('gpaMath' + e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์']);
+      console.log(
+        'newgpaMath' +
+          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '0'),
+      );
       return {
         kmuttId: e['รหัสนักศึกษา'],
-        firstName: e['ชื่อ(ไทย)'] ?? e['ชื่อ(อังกฤษ)'] ?? '',
-        lastName: e['นามสกุล(ไทย)'] ?? e['นามสกุล(อังกฤษ)'] ?? '',
+        firstName: e['ชื่อ(ไทย)'] ?? e['ชื่อ(อังกฤษ)'],
+        lastName: e['นามสกุล(ไทย)'] ?? e['นามสกุล(อังกฤษ)'],
         admission: e['ประเภทการเข้า'],
-        email: e['อีเมล์'] ?? '',
-        gpax: e['GPAX'] ?? '',
-        gpaMath: e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '',
-        gpaEng: e['รายการคะแนนกลุ่มสาระวิชา_ภาษาต่างประเทศ'] ?? '',
-        gpaSci: e['รายการคะแนนกลุ่มสาระวิชา_วิทยาศาสตร์'] ?? '',
-        school: e['ชื่อสถานศึกษา'] ?? '',
-        city: e['จังหวัด'] ?? '',
+        email: e['อีเมล์'] ?? undefined,
+        gpax: parseFloat(e['GPAX'] ?? '0') ?? 0,
+        mathGPA:
+          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '0') ?? 0,
+        engGPA:
+          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_ภาษาต่างประเทศ'] ?? '0') ?? 0,
+        sciGPA:
+          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_วิทยาศาสตร์'] ?? '0') ?? 0,
+        school: e['ชื่อสถานศึกษา'],
+        city: e['จังหวัด'],
         year: e.year,
         programmeId: programmeId,
-        departmentName: e['สาขาวิชาที่สมัคร'] ?? '',
-        remark: e['หมายเหตุ'] ?? '',
+        departmentName: 'computer engineer',
+        remark: e['หมายเหตุ'],
       };
     };
 

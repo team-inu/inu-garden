@@ -32,7 +32,6 @@ interface DataTableRowActionsProps<TData> {
 export function AdmissionRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  console.log(row.original);
   const admission = AdmissionSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -82,10 +81,10 @@ export function AdmissionRowActions<TData>({
             email: admission.email,
             admission: admission.admission,
             city: admission.city,
-            gpaEng: String(admission.engGPA),
-            gpaMath: String(admission.mathGPA),
-            gpaSci: String(admission.sciGPA),
-            gpax: String(admission.GPAX),
+            engGPA: admission.engGPA,
+            mathGPA: admission.mathGPA,
+            sciGPA: admission.sciGPA,
+            gpax: admission.GPAX,
             school: admission.school,
             departmentName: admission.departmentName,
             programmeId: admission.programmeId,

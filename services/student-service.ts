@@ -1,6 +1,9 @@
 import { Admission } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
-import { CreateAdmissionType } from '@/types/schema/admission-schema';
+import {
+  CreateAdmissionType,
+  ImportedAdmissionType,
+} from '@/types/schema/admission-schema';
 
 class StudentService extends ApiService {
   public async getStudentList(): Promise<any> {
@@ -23,11 +26,13 @@ class StudentService extends ApiService {
   }
 
   public async createStudentBulk(
-    students: CreateAdmissionType[],
-  ): Promise<CreateAdmissionType[]> {
+    students: ImportedAdmissionType[],
+  ): Promise<ImportedAdmissionType[]> {
     const url = '/students/bulk';
-
-    return this.post(url, students)
+    const result = {
+      students: students,
+    };
+    return this.post(url, result)
       .then(() => students)
       .catch(this.throwError);
   }
