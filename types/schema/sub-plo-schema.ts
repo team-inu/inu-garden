@@ -6,8 +6,7 @@ export const CreateSubPloSchema = z.object({
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   descriptionEng: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+    .string(),
   programLearningOutcomeId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
