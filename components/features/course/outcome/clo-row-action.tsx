@@ -23,18 +23,18 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { CLOSchema } from '@/data/schema';
-import { CreatePloType } from '@/types/schema/plo-schema';
+import { CreateCloType } from '@/types/schema/clo-shema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
+export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const clo = CLOSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreatePloType) => {
+  const onSubmit = (values: CreateCloType) => {
     console.log(values);
   };
 

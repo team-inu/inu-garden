@@ -29,18 +29,24 @@ const mockCLO = [
 export const mockSubPLO: SubPLO[] = [
   {
     id: '01HG65WNM2DZATRKR411FN3MXW',
+    code: '1.1',
     descriptionThai: 'Sub PLO1 description',
-    descriptionEnglish: 'Sub PLO1 description',
+    descriptionEng: 'Sub PLO1 description',
+    programLearningOutcomeId: 'Sub PLO1 description',
   },
   {
-    id: '01HG65WNM2FNF5AEKKHBSV7WV7',
-    descriptionThai: 'Sub PLO1 description',
-    descriptionEnglish: 'Sub PLO1 description',
+    id: '01HG65WNM2DZATRKR411FN3MXW',
+    code: '2.2',
+    descriptionThai: 'Sub PLO2 description',
+    descriptionEng: 'Sub PLO2 description',
+    programLearningOutcomeId: 'Sub PLO2 description',
   },
   {
-    id: '01HG65WNM275BMAJSTWJEN2TPP',
-    descriptionThai: 'Sub PLO1 description',
-    descriptionEnglish: 'Sub PLO1 description',
+    id: '01HG65WNM2DZATRKR411FN3MXW',
+    code: '3.1',
+    descriptionThai: 'Sub PLO3 description',
+    descriptionEng: 'Sub PLO3 description',
+    programLearningOutcomeId: 'Sub PLO3 description',
   },
 ];
 

@@ -32,7 +32,6 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   disableToolbar?: boolean;
   disablePagination?: boolean;
-  currentPlo: string;
 }
 
 export function SubProgramLearningOutcomeDataTable<TData, TValue>({
@@ -40,7 +39,6 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
   data,
   disableToolbar = false,
   disablePagination = false,
-  currentPlo,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -126,7 +124,7 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.filter((row) => row.getValue('programLearningOutcomeId') === currentPlo).map((row) => (
+              table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
