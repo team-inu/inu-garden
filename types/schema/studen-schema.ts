@@ -4,6 +4,18 @@ export const CreateStudentSchema = z.object({
   studentId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
+});
+
+export type CreateStudentType = z.infer<typeof CreateStudentSchema>;
+
+export const CreateStudentDefaultValues: CreateStudentType = {
+  studentId: '',
+};
+
+export const EditStudentSchema = z.object({
+  studentId: z
+    .string({ required_error: 'required' })
+    .min(1, { message: 'required' }),
   firstName: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -15,9 +27,9 @@ export const CreateStudentSchema = z.object({
     .min(1, { message: 'required' }),
 });
 
-export type CreateStudentType = z.infer<typeof CreateStudentSchema>;
+export type EditStudentType = z.infer<typeof EditStudentSchema>;
 
-export const CreateStudentDefaultValues: CreateStudentType = {
+export const EditStudentDefaultValues: EditStudentType = {
   studentId: '',
   firstName: '',
   lastName: '',

@@ -19,37 +19,31 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateStudentDefaultValues,
-  CreateStudentSchema,
   CreateStudentType,
+  EditStudentDefaultValues,
+  EditStudentSchema,
 } from '@/types/schema/studen-schema';
 
 type StudentDialogProps = {
   onSubmit: (values: CreateStudentType) => void;
   defaultValues?: CreateStudentType;
-  isEdit?: boolean;
 };
 
 const StudentDialog: React.FC<StudentDialogProps> = ({
   onSubmit,
   defaultValues,
-  isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateStudentSchema,
-    defaultValues ?? CreateStudentDefaultValues,
+    EditStudentSchema,
+    defaultValues ?? EditStudentDefaultValues,
   );
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Student' : 'Add Student'}</DialogTitle>
-          <DialogDescription>
-            {isEdit
-              ? 'Edit the student information'
-              : 'Fill in the student information'}
-          </DialogDescription>
+          <DialogTitle>Edit Student</DialogTitle>
+          <DialogDescription>Edit the student information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form>
@@ -122,7 +116,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
             </Button>
           </DialogClose>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-            {isEdit ? 'Edit' : 'Add'}
+            Edit
           </Button>
         </DialogFooter>
       </DialogContent>

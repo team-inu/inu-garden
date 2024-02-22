@@ -5,7 +5,7 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
-import StudentDialog from '@/components/features/course/student/student-dialog';
+import StudentAddDialog from '@/components/features/course/student/student-add-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -97,7 +97,7 @@ export function StudentTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <StudentDialog onSubmit={() => {}} />
+              <StudentAddDialog onSubmit={() => {}} />
             </Dialog>
 
             <Input
