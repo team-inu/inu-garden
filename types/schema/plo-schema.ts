@@ -8,8 +8,7 @@ export const CreatePloSchema = z.object({
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   descriptionEng: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+    .string(),
   programYear: z.coerce
     .number({ required_error: 'required' })
     .min(1, { message: 'required' }),

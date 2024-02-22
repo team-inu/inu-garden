@@ -9,33 +9,17 @@ import { columns as poColumns } from '@/components/features/tabee/po/po-column';
 import { ProgramOutcomeDataTable } from '@/components/features/tabee/po/po-table';
 import { columns as subPloColumns } from '@/components/features/tabee/sub-plo/sub-plo-column';
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
-import { PO, SubPLO } from '@/data/schema';
+import { SubPLO } from '@/data/schema';
 import { useGetPloList } from '@/hooks/plo-hook';
+import { useGetPoList } from '@/hooks/po-hook';
 import { useGetSubPloList } from '@/hooks/sub-plo-hook';
-
-const mockPO: PO[] = [
-  {
-    id: '01HG65WNM1S9FSG1710P9E25BM',
-    name: 'PO1',
-    description: 'PO1 description',
-  },
-  {
-    id: '01HG65WNM2SFQ2EB05BQQCJN0A',
-    name: 'PO2',
-    description: 'PO2 description',
-  },
-  {
-    id: '01HG65WNM21C1YQMMEY5DAVKG7',
-    name: 'PO3',
-    description: 'PO3 description',
-  },
-];
 
 const TABEE = () => {
   const [selectedRows, setSelectedRows] = useState<string>('');
   const [selectedCode, setSelectedCode] = useState<string>('');
   const { data: plos, isLoading: isPloLoading } = useGetPloList();
   const { data: splos, isLoading: isSubPloLoading } = useGetSubPloList();
+  const { data: pos, isLoading: isPoLoading } = useGetPoList();
 
   const getVales = (id: string, code: string) => {
     setSelectedRows(id);
@@ -52,7 +36,11 @@ const TABEE = () => {
       <div className="grid-row-2 grid gap-3 ">
         <div>
           <h1 className="mb-5 text-2xl font-bold">Program Outcome</h1>
-          <ProgramOutcomeDataTable columns={poColumns} data={mockPO} />
+          {isPoLoading ? (
+            <Loading />
+          ) : (
+            <ProgramOutcomeDataTable columns={poColumns} data={pos} />
+          )}
         </div>
         <div className="my-2 border"></div>
         <div className="">
