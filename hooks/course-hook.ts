@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { courseService } from '@/services/course-service';
@@ -22,3 +22,9 @@ export const useCreateCourse = () => {
     },
   });
 };
+
+export const useCourseListByLecturer = (lecturerId: string) =>
+  useQuery({
+    queryKey: ['courses', lecturerId],
+    queryFn: () => courseService.getCourseListByLecturer(lecturerId),
+  });
