@@ -17,40 +17,32 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateLecturerDefaultValues,
-  CreateLecturerSchema,
-  CreateLecturerType,
+  EditLecturerDefaultValues,
+  EditLecturerSchema,
   EditLecturerType,
 } from '@/types/schema/lecturer-schema';
 
 type LecturerDialogProps = {
-  onSubmit: (values: CreateLecturerType) => void;
-  defaultValues?: EditLecturerType | CreateLecturerType;
-  isEdit?: boolean;
+  onSubmit: (values: EditLecturerType) => void;
+  defaultValues?: EditLecturerType;
 };
 
-const LecturerDialog: React.FC<LecturerDialogProps> = ({
+const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
   onSubmit,
   defaultValues,
-  isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateLecturerSchema,
-    defaultValues ?? CreateLecturerDefaultValues,
+    EditLecturerSchema,
+    defaultValues ?? EditLecturerDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Lecturer' : 'Add Lecturer'}</DialogTitle>
-          <DialogDescription>
-            {isEdit
-              ? 'Edit the lecturer information'
-              : 'Fill in the lecturer information'}
-          </DialogDescription>
+          <DialogTitle>Edit Lecturer</DialogTitle>
+          <DialogDescription>Edit the lecturer information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -99,40 +91,6 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
                 </FormItem>
               )}
             />
-            {!isEdit && (
-              <>
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Password</FormLabel>
-                      <FormControl>
-                        <div className="flex flex-col space-y-3">
-                          <PassowrdInput {...field} />
-                          <FormMessage />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="confirmPassword"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Confirm password</FormLabel>
-                      <FormControl>
-                        <div className="flex flex-col space-y-3">
-                          <PassowrdInput {...field} />
-                          <FormMessage />
-                        </div>
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </>
-            )}
           </form>
         </Form>
         <DialogFooter>
@@ -148,4 +106,4 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
   );
 };
 
-export default LecturerDialog;
+export default LecturerEditDialog;

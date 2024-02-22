@@ -15,15 +15,15 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { UserCircle } from 'lucide-react';
 import * as React from 'react';
 
 import { LecturerTableToolbar } from '@/components/features/lecturer/lecturer-table-toolbar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from '@/components/ui/data-table-toolbar';
+import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -32,6 +32,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Lecturer } from '@/data/schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -59,10 +60,17 @@ const inputs: SelectorOption[] = [
   },
 ];
 
-export function LecturerDataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function LecturerDataTable<
+  TData extends {
+    id: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    collapsibleContent: string;
+  },
+  TValue,
+>({ columns, data }: DataTableProps<TData, TValue>) {
+  const [isOpen, setIsOpen] = React.useState(false);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});
@@ -116,6 +124,52 @@ export function LecturerDataTable<TData, TValue>({
     e.target.value = '';
   };
 
+  const mockData = [
+    {
+      code: 'CPE 100',
+      name: 'Computer Concepts and Programming',
+      student: 40,
+      task: 2,
+    },
+    {
+      code: 'CPE 101',
+      name: 'Introduction to Computer Engineering and Information Technology',
+      student: 41,
+      task: 2,
+    },
+  ];
+
+  var CollapsibleRowContent = ({ row }: { row: Lecturer }) => (
+    <td colSpan={6} className="space-y-3 divide-y-2 divide-orange-400">
+      {mockData.map((data, key) => (
+        <div className="container" key={key}>
+          <div className="flex w-full items-center p-5">
+            <div className="w-3/4  space-y-2">
+              <div className="">
+                {data.code}: {data.name}
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <UserCircle className="h-5 w-5" />
+                <div>{data.student}</div>
+                <div>
+                  <Badge variant={'green'}>Task {data.task}</Badge>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex w-1/4 justify-end space-x-3">
+              <Button size={'sm'}>Export file</Button>
+              <Button size={'sm'} variant={'secondary'}>
+                View Course
+              </Button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </td>
+  );
+
   return (
     <div className="space-y-4">
       <LecturerTableToolbar
@@ -146,19 +200,28 @@ export function LecturerDataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Collapsible key={row.id} asChild>
+                  <>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <CollapsibleContent asChild className="bg-black">
+                      <tr>
+                        <CollapsibleRowContent row={row.original} />
+                      </tr>
+                    </CollapsibleContent>
+                  </>
+                </Collapsible>
               ))
             ) : (
               <TableRow>

@@ -1,9 +1,12 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
+import { ChevronDown } from 'lucide-react';
 
 import { LecturerRowActions } from '@/components/features/lecturer/lecturer-row-action';
+import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
+import { CollapsibleTrigger } from '@/components/ui/collapsible';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { Lecturer } from '@/data/schema';
 
@@ -72,6 +75,27 @@ export const columns: ColumnDef<Lecturer>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">{row.getValue('email')}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
+    accessorKey: 'course',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Courses" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <div> 7 courses</div>
+          <CollapsibleTrigger>
+            <Button variant="ghost" size={'smIcon'}>
+              <ChevronDown className="h-4 w-4" />
+            </Button>
+          </CollapsibleTrigger>
         </div>
       );
     },

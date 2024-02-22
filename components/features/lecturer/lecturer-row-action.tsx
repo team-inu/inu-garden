@@ -5,7 +5,9 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { useState } from 'react';
 
-import LecturerDialog from '@/components/features/lecturer/lecturer-dialog';
+// TODO: make it dynamic
+import ChangePasswordDialog from '@/components/features/lecturer/change-password-dialog';
+import LecturerEditDialog from '@/components/features/lecturer/lecturer-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,8 +24,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { LecturerSchema } from '@/data/schema';
-// TODO: make it dynamic
-import { CreateLecturerType } from '@/types/schema/lecturer-schema';
+import { EditLecturerType } from '@/types/schema/lecturer-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -32,11 +33,15 @@ interface DataTableRowActionsProps<TData> {
 export function LecturerRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const lecturer = LecturerSchema.parse(row.original);
+  const lecturer = LecturerSchema.omit({ collapsibleContent: true }).parse(
+    row.original,
+  );
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
+    useState(false);
 
-  const onSubmit = (values: CreateLecturerType) => {
+  const onSubmit = (values: EditLecturerType) => {
     console.log(values);
   };
 
@@ -46,10 +51,16 @@ export function LecturerRowActions<TData>({
 
   return (
     <Dialog
-      open={isEditDialogOpen || isDeleteDialogOpen}
-      onOpenChange={
-        isEditDialogOpen ? setIsEditDialogOpen : setIsDeleteDialogOpen
+      open={
+        isEditDialogOpen || isDeleteDialogOpen || isChangePasswordDialogOpen
       }
+      onOpenChange={(isOpen) => {
+        if (!isOpen) {
+          setIsEditDialogOpen(false);
+          setIsDeleteDialogOpen(false);
+          setIsChangePasswordDialogOpen(false);
+        }
+      }}
     >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
@@ -65,14 +76,19 @@ export function LecturerRowActions<TData>({
           <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
             Edit
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsChangePasswordDialogOpen(true)}>
+            Change password
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+      {isChangePasswordDialogOpen && (
+        <ChangePasswordDialog onSubmit={() => {}} />
+      )}
       {isEditDialogOpen && (
-        <LecturerDialog
-          isEdit
+        <LecturerEditDialog
           onSubmit={onSubmit}
           defaultValues={{
             firstName: lecturer.firstName,
