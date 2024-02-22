@@ -8,6 +8,14 @@ import CourseCard, {
 } from '@/components/features/course/course-card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const courseCardProps: CourseCardProps[] = [
   {
@@ -39,12 +47,33 @@ const CoursePage = () => {
         <h1 className="mb-5 text-4xl font-bold">Course</h1>
       </div>
       <div className="mb-16 flex w-full items-center justify-between  ">
-        <Input
-          type="search"
-          placeholder="Search..."
-          className="w-10/12 dark:bg-input"
-          onChange={(e) => setSearchValue(e.target.value)}
-        />
+        <div className="flex w-10/12">
+          <Input
+            type="search"
+            placeholder="Search..."
+            className="w-10/12 "
+            onChange={(e) => setSearchValue(e.target.value)}
+          />
+          <div>
+            <Select>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue
+                  placeholder="Select a year"
+                  defaultValue={'2022'}
+                />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="2022">2022</SelectItem>
+                  <SelectItem value="2023">2023</SelectItem>
+                  <SelectItem value="2024">2024</SelectItem>
+                  <SelectItem value="2025">2025</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+
         <Link href="/course/create" className="flex w-2/12 justify-end">
           <Button
             variant={'default'}
