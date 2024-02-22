@@ -17,14 +17,14 @@ export const columns: ColumnDef<PLO>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'name',
+    accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="name" />
+      <DataTableColumnHeader column={column} title="code" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('name')}</span>
+          <span className="truncate font-medium">{row.getValue('code')}</span>
         </div>
       );
     },
@@ -33,15 +33,60 @@ export const columns: ColumnDef<PLO>[] = [
     },
   },
   {
-    accessorKey: 'description',
+    accessorKey: 'descriptionThai',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="description" />
+      <DataTableColumnHeader column={column} title="descriptionThai" />
     ),
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue('description')}
+            {row.getValue('descriptionThai')}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'descriptionEng',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="descriptionEng" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="truncate font-medium">
+            {row.getValue('descriptionEng')}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'programYear',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="programYear" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="truncate font-medium">
+            {row.getValue('programYear')}
+          </span>
+        </div>
+      );
+    },
+  },
+  {
+    accessorKey: 'programmeId',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="programmeId" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="truncate font-medium">
+            {row.getValue('programmeId')}
           </span>
         </div>
       );

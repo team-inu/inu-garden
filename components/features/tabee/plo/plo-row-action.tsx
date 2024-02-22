@@ -73,9 +73,11 @@ export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            id: plo.id,
-            name: plo.name,
-            description: plo.description,
+            code: plo.code,
+            descriptionThai: plo.descriptionThai,
+            descriptionEng: plo.descriptionEng,
+            programYear: plo.programYear,
+            programmeId: plo.programmeId,
           }}
         />
       )}

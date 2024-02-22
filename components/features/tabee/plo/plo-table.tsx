@@ -15,15 +15,13 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
-import { get } from 'http';
 import * as React from 'react';
 
 import { PloTableToolbar } from '@/components/features/tabee/plo/plo-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
-  DataTableToolbar,
   Option,
-  SelectorOption,
+  SelectorOption
 } from '@/components/ui/data-table-toolbar';
 import {
   Table,
@@ -60,7 +58,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   disableToolbar?: boolean;
   disablePagination?: boolean;
-  getValues: (id: string) => void;
+  getValues: (id: string, code: string) => void;
 }
 
 export function ProgramLearningOutcomeDataTable<TData, TValue>({
@@ -158,7 +156,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  onClick={() => getValues(row.getValue('name'))}
+                  onClick={() => getValues(row.getValue('id'), row.getValue('code'))}
                   className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
