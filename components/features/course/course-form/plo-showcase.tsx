@@ -7,15 +7,22 @@ import { PLO } from '@/data/schema';
 
 export const ploColumns: ColumnDef<PLO>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'id',
+    header: ({ column }) => <DataTableColumnHeader column={column} title="" />,
+    cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
+    enableSorting: false,
+    enableHiding: true,
+  },
+  {
+    accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="name" />
+      <DataTableColumnHeader column={column} title="code" />
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('name')}</span>
-        </div>
+        <>
+          <div>{row.getValue('code')}</div>
+        </>
       );
     },
     filterFn: (row, id, value) => {
@@ -23,18 +30,12 @@ export const ploColumns: ColumnDef<PLO>[] = [
     },
   },
   {
-    accessorKey: 'description',
+    accessorKey: 'descriptionThai',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="description" />
+      <DataTableColumnHeader column={column} title="descriptionThai" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('description')}
-          </span>
-        </div>
-      );
+      return <div>{row.getValue('descriptionThai')}</div>;
     },
   },
 ];

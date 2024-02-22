@@ -8,7 +8,6 @@ import CourseFormHeader from '@/components/features/course/course-form/form-head
 import { Button } from '@/components/ui/button';
 import { useCreateCourse } from '@/hooks/course-hook';
 import { useStrictForm } from '@/hooks/form-hook';
-import { cn } from '@/libs/utils';
 import {
   CreateCourseSchema,
   CreateCourseSchemaDefaultValues,

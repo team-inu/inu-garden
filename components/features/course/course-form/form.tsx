@@ -9,7 +9,6 @@ import { ploColumns } from '@/components/features/course/course-form/plo-showcas
 import { subPloColumns } from '@/components/features/course/course-form/subplo-showcase';
 import { ProgramLearningOutcomeDataTable } from '@/components/features/tabee/plo/plo-table';
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
-import { mockPLO, mockSubPLO } from '@/components/features/tabee/tabee';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,
@@ -27,14 +26,20 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { SubPLO } from '@/data/schema';
+import { useGetPloList } from '@/hooks/plo-hook';
+import { useGetSubPloList } from '@/hooks/sub-plo-hook';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseForm = () => {
   const [selectedRows, setSelectedRows] = useState<string>('');
-  const getVales = (id: string) => {
+  const [selectedCode, setSelectedCode] = useState<string>('');
+  const { data: plos, isLoading: isPloLoading } = useGetPloList();
+  const { data: splos, isLoading: isSubPloLoading } = useGetSubPloList();
+  const getVales = (id: string, code: string) => {
     setSelectedRows(id);
+    setSelectedCode(code);
   };
-
   const form = useFormContext<CreateCourseSchemaValues>();
 
   const { fields, append, remove } = useFieldArray({
@@ -205,13 +210,17 @@ const CourseForm = () => {
       <div className="grid grid-cols-2 gap-5 ">
         <div className="space-y-3">
           <h1 className="">Program Learning Outcome</h1>
-          <ProgramLearningOutcomeDataTable
-            columns={ploColumns}
-            data={mockPLO}
-            getValues={getVales}
-            disableToolbar
-            disablePagination
-          />
+          {isPloLoading ? (
+            <div>Loading...</div>
+          ) : (
+            <ProgramLearningOutcomeDataTable
+              columns={ploColumns}
+              data={plos ?? []}
+              getValues={getVales}
+              disableToolbar
+              disablePagination
+            />
+          )}
         </div>
 
         {selectedRows && (
@@ -219,12 +228,21 @@ const CourseForm = () => {
             <h1 className=" ">
               Sub program learning outcome of {selectedRows}
             </h1>
-            <SubProgramLearningOutcomeDataTable
-              columns={subPloColumns}
-              data={mockSubPLO}
-              disableToolbar
-              disablePagination
-            />
+            {isSubPloLoading ? (
+              <div>Loading...</div>
+            ) : (
+              <SubProgramLearningOutcomeDataTable
+                columns={subPloColumns}
+                data={
+                  splos.filter(
+                    (splo: SubPLO) =>
+                      splo.programLearningOutcomeId === selectedRows,
+                  ) ?? []
+                }
+                disableToolbar
+                disablePagination
+              />
+            )}
           </div>
         )}
       </div>

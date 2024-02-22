@@ -17,15 +17,4 @@ export const subPloColumns: ColumnDef<SubPLO>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: 'descriptionEnglish',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="descriptionEnglish" />
-    ),
-    cell: ({ row }) => (
-      <div className="">{row.getValue('descriptionEnglish')}</div>
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
 ];

@@ -40,6 +40,11 @@ const courseCardProps: CourseCardProps[] = [
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [year, setYear] = useState('2023');
+
+  const handleYearChange = (e: string) => {
+    setYear(e);
+  };
 
   return (
     <div className="container py-8">
@@ -55,12 +60,9 @@ const CoursePage = () => {
             onChange={(e) => setSearchValue(e.target.value)}
           />
           <div>
-            <Select>
+            <Select value={year} onValueChange={handleYearChange}>
               <SelectTrigger className="w-[180px]">
-                <SelectValue
-                  placeholder="Select a year"
-                  defaultValue={'2022'}
-                />
+                <SelectValue placeholder="Select a year" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>

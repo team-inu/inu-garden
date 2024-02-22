@@ -12,9 +12,7 @@ class PloService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createPlo(
-    plo: CreatePloType,
-  ): Promise<CreatePloType> {
+  public async createPlo(plo: CreatePloType): Promise<CreatePloType> {
     const url = '/plos';
 
     return this.post(url, plo)
