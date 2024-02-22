@@ -2,7 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { PloRowActions } from '@/components/features/tabee/plo/plo-row-action';
+import { CloRowActions } from '@/components/features/course/outcome/clo-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { CLO } from '@/data/schema';
 
@@ -50,6 +50,6 @@ export const columns: ColumnDef<CLO>[] = [
 
   {
     id: 'actions',
-    cell: ({ row }) => <PloRowActions row={row} />,
+    cell: ({ row }) => <CloRowActions row={row} />,
   },
 ];
