@@ -47,6 +47,14 @@ import { ImportedAdmissionType } from '@/types/schema/admission-schema';
 
 /* eslint-disable @next/next/no-img-element */
 
+/* eslint-disable @next/next/no-img-element */
+
+/* eslint-disable @next/next/no-img-element */
+
+/* eslint-disable @next/next/no-img-element */
+
+/* eslint-disable @next/next/no-img-element */
+
 const parseNumber = (value: any): number | null => {
   const parsed = parseFloat(value);
 
@@ -198,15 +206,22 @@ const MultipleFileUploader = () => {
       e: ExtendedEligibleWithPartialyApplicant,
       programmeId: string,
     ): ImportedAdmissionType => {
-      console.log('gpaMath' + e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์']);
-      console.log(
-        'newgpaMath' +
-          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '0'),
-      );
+      let firstName;
+      let lastName;
+      if (e['ชื่อ(ไทย)'] !== undefined && e['ชื่อ(ไทย)'] !== '') {
+        firstName = e['ชื่อ(ไทย)'];
+        lastName = e['นามสกุล(ไทย)'];
+      } else if (e['ชื่อ(อังกฤษ)'] !== undefined && e['ชื่อ(อังกฤษ)'] !== '') {
+        firstName = e['ชื่อ(อังกฤษ)'];
+        lastName = e['นามสกุล(อังกฤษ)'];
+      } else {
+        firstName = undefined;
+        lastName = undefined;
+      }
       return {
         kmuttId: e['รหัสนักศึกษา'],
-        firstName: e['ชื่อ(ไทย)'] ?? e['ชื่อ(อังกฤษ)'],
-        lastName: e['นามสกุล(ไทย)'] ?? e['นามสกุล(อังกฤษ)'],
+        firstName: firstName,
+        lastName: lastName,
         admission: e['ประเภทการเข้า'],
         email: e['อีเมล์'] ?? undefined,
         gpax: parseFloat(e['GPAX'] ?? '0') ?? 0,

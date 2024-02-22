@@ -1,5 +1,8 @@
 import { ApiService } from '@/services/api-service';
-import { CreateLecturerType } from '@/types/schema/lecturer-schema';
+import {
+  CreateLecturerType,
+  EditLecturerType,
+} from '@/types/schema/lecturer-schema';
 
 class LecturerService extends ApiService {
   public async getLecturerList(): Promise<any> {
@@ -10,6 +13,7 @@ class LecturerService extends ApiService {
       })
       .catch(this.throwError);
   }
+
   public async createLecturer(
     lecturer: CreateLecturerType,
   ): Promise<CreateLecturerType> {
@@ -20,6 +24,20 @@ class LecturerService extends ApiService {
     formData.append('email', lecturer.email);
     formData.append('password', lecturer.password);
     return this.post(url, formData)
+      .then(() => lecturer)
+      .catch(this.throwError);
+  }
+
+  public async updateLecturer(
+    lecturer: EditLecturerType,
+    lecturerId: string,
+  ): Promise<EditLecturerType> {
+    const url = `/lecturers/${lecturerId}`;
+    const formData = new FormData();
+    formData.append('firstName', lecturer.firstName);
+    formData.append('lastName', lecturer.lastName);
+    formData.append('email', lecturer.email);
+    return this.put(url, formData)
       .then(() => lecturer)
       .catch(this.throwError);
   }
