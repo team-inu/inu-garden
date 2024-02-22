@@ -70,7 +70,6 @@ export function LecturerDataTable<
   },
   TValue,
 >({ columns, data }: DataTableProps<TData, TValue>) {
-  const [isOpen, setIsOpen] = React.useState(false);
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});

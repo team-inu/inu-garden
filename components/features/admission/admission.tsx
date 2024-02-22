@@ -7,6 +7,7 @@ import { useGetStudentList } from '@/hooks/student-hook';
 
 const Admission = () => {
   const { data: students, isLoading } = useGetStudentList();
+
   return (
     <>
       <div>

@@ -6,7 +6,7 @@ import { CreateLecturerType } from '@/types/schema/lecturer-schema';
 
 export const useGetLecturerList = () =>
   useQuery({
-    queryKey: ['students'],
+    queryKey: ['lectuers'],
     queryFn: () => lecturerService.getLecturerList(),
   });
 

@@ -4,7 +4,6 @@ import { ColumnDef } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
 
 import { LecturerRowActions } from '@/components/features/lecturer/lecturer-row-action';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CollapsibleTrigger } from '@/components/ui/collapsible';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
@@ -92,9 +91,7 @@ export const columns: ColumnDef<Lecturer>[] = [
         <div className="flex items-center">
           <div> 7 courses</div>
           <CollapsibleTrigger>
-            <Button variant="ghost" size={'smIcon'}>
-              <ChevronDown className="h-4 w-4" />
-            </Button>
+            <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
         </div>
       );
