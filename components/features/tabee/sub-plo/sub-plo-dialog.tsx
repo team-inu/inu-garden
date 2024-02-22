@@ -54,13 +54,13 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="id"
+              name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>id</FormLabel>
+                  <FormLabel>Code</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input {...field} disabled />
+                      <Input {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>
@@ -84,10 +84,25 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
             />
             <FormField
               control={form.control}
-              name="descriptionEnglish"
+              name="descriptionEng"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description English</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="programLearningOutcomeId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Program Learning Outcome Id</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />

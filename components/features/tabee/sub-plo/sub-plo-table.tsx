@@ -18,7 +18,6 @@ import * as React from 'react';
 
 import { SubPloTableToolbar } from '@/components/features/tabee/sub-plo/sub-plo-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import { DataTableToolbar } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -33,6 +32,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   disableToolbar?: boolean;
   disablePagination?: boolean;
+  currentPlo: string;
 }
 
 export function SubProgramLearningOutcomeDataTable<TData, TValue>({
@@ -40,6 +40,7 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
   data,
   disableToolbar = false,
   disablePagination = false,
+  currentPlo,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -125,7 +126,7 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.filter((row) => row.getValue('programLearningOutcomeId') === currentPlo).map((row) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
