@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import Loading from '@/components/features/loading-screen';
 import { columns as ploColumns } from '@/components/features/tabee/plo/plo-column';
@@ -42,6 +42,11 @@ const TABEE = () => {
     setSelectedCode(code);
   };
 
+  useEffect(() => {
+    console.log(selectedCode);
+    console.log(selectedRows);
+  }, [selectedCode, selectedRows]);
+
   return (
     <div className="">
       <div className="grid-row-2 grid gap-3 ">
@@ -54,7 +59,7 @@ const TABEE = () => {
           <h1 className="mb-5 text-2xl font-bold ">Program Learning Outcome</h1>
           {isPloLoading ? (
             <Loading />
-            ) : (
+          ) : (
             <ProgramLearningOutcomeDataTable
               columns={ploColumns}
               data={plos ?? []}
@@ -71,11 +76,16 @@ const TABEE = () => {
             </h1>
             {isSubPloLoading ? (
               <Loading />
-              ) : (
+            ) : (
               <SubProgramLearningOutcomeDataTable
                 columns={subPloColumns}
-                data={splos.filter((splo: SubPLO) => splo.programLearningOutcomeId === selectedRows) ?? []}
-                currentPlo={selectedRows}
+                data={
+                  splos.filter(
+                    (splo: SubPLO) =>
+                      splo.programLearningOutcomeId === selectedRows,
+                  ) ?? []
+                }
+                // currentPlo={selectedRows}
               />
             )}
           </div>

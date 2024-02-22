@@ -9,12 +9,10 @@ import { PLO } from '@/data/schema';
 export const columns: ColumnDef<PLO>[] = [
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="id" />
-    ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="" />,
+    cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
   {
     accessorKey: 'code',
@@ -23,9 +21,9 @@ export const columns: ColumnDef<PLO>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('code')}</span>
-        </div>
+        <>
+          <div>{row.getValue('code')}</div>
+        </>
       );
     },
     filterFn: (row, id, value) => {
@@ -38,13 +36,7 @@ export const columns: ColumnDef<PLO>[] = [
       <DataTableColumnHeader column={column} title="descriptionThai" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('descriptionThai')}
-          </span>
-        </div>
-      );
+      return <div>{row.getValue('descriptionThai')}</div>;
     },
   },
   {
@@ -53,13 +45,7 @@ export const columns: ColumnDef<PLO>[] = [
       <DataTableColumnHeader column={column} title="descriptionEng" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('descriptionEng')}
-          </span>
-        </div>
-      );
+      return <div>{row.getValue('descriptionEng')}</div>;
     },
   },
   {
@@ -68,13 +54,7 @@ export const columns: ColumnDef<PLO>[] = [
       <DataTableColumnHeader column={column} title="programYear" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('programYear')}
-          </span>
-        </div>
-      );
+      return <div>{row.getValue('programYear')}</div>;
     },
   },
   {
@@ -83,13 +63,7 @@ export const columns: ColumnDef<PLO>[] = [
       <DataTableColumnHeader column={column} title="programmeId" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('programmeId')}
-          </span>
-        </div>
-      );
+      return <div>{row.getValue('programmeId')}</div>;
     },
   },
 

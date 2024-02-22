@@ -7,15 +7,15 @@ import { DataTableColumnHeader } from '@/components/ui/data-table-column-header'
 import { SubPLO } from '@/data/schema';
 
 export const columns: ColumnDef<SubPLO>[] = [
-  {
-    accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="id" />
-    ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   accessorKey: 'id',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="id" />
+  //   ),
+  //   cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: 'code',
     header: ({ column }) => (
@@ -41,15 +41,15 @@ export const columns: ColumnDef<SubPLO>[] = [
     cell: ({ row }) => <div>{row.getValue('descriptionEng')}</div>,
     enableSorting: false,
   },
-  {
-    accessorKey: 'programLearningOutcomeId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="programLearningOutcomeId" />
-    ),
-    cell: ({ row }) => <div className="">{row.getValue('programLearningOutcomeId')}</div>,
-    enableSorting: false,
-    enableHiding: false,
-  },
+  // {
+  //   accessorKey: 'programLearningOutcomeId',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="programLearningOutcomeId" />
+  //   ),
+  //   cell: ({ row }) => <div className="">{row.getValue('programLearningOutcomeId')}</div>,
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
 
   {
     id: 'actions',
