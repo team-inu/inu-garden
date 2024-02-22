@@ -49,6 +49,7 @@ export const LecturerSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
+  collapsibleContent: z.string(),
 });
 
 export type Lecturer = z.infer<typeof LecturerSchema>;

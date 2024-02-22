@@ -23,11 +23,12 @@ import {
   CreateLecturerDefaultValues,
   CreateLecturerSchema,
   CreateLecturerType,
+  EditLecturerType,
 } from '@/types/schema/lecturer-schema';
 
 type LecturerDialogProps = {
   onSubmit: (values: CreateLecturerType) => void;
-  defaultValues?: CreateLecturerType;
+  defaultValues?: EditLecturerType | CreateLecturerType;
   isEdit?: boolean;
 };
 
@@ -98,36 +99,40 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <PassowrdInput {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Confirmed Password</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <PassowrdInput {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            {!isEdit && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <div className="flex flex-col space-y-3">
+                          <PassowrdInput {...field} />
+                          <FormMessage />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm password</FormLabel>
+                      <FormControl>
+                        <div className="flex flex-col space-y-3">
+                          <PassowrdInput {...field} />
+                          <FormMessage />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </form>
         </Form>
         <DialogFooter>
