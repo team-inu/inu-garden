@@ -11,6 +11,8 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreatePlo } from '@/hooks/plo-hook';
+import { CreatePloType } from '@/types/schema/plo-schema';
 
 export type Option = {
   value: string;
@@ -44,6 +46,14 @@ export function PloTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
+  const { mutate, isError } = useCreatePlo();
+
+  const onSubmit = (value: CreatePloType) => {
+    mutate(value);
+    if (!isError) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -97,7 +107,7 @@ export function PloTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <PloDialog onSubmit={() => {}} />
+              <PloDialog onSubmit={onSubmit} />
             </Dialog>
 
             <Input

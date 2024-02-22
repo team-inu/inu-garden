@@ -78,16 +78,21 @@ export type Score = z.infer<typeof ScoreSchema>;
 
 export const PLOSchema = z.object({
   id: z.string(),
-  name: z.string(),
-  description: z.string(),
+  code: z.string(),
+  descriptionThai: z.string(),
+  descriptionEng: z.string(),
+  programYear: z.number(),
+  programmeId: z.string(),
 });
 
 export type PLO = z.infer<typeof PLOSchema>;
 
 export const SubPLOSchema = z.object({
   id: z.string(),
+  code: z.string(),
   descriptionThai: z.string(),
-  descriptionEnglish: z.string(),
+  descriptionEng: z.string(),
+  programLearningOutcomeId: z.string(),
 });
 
 export type SubPLO = z.infer<typeof SubPLOSchema>;

@@ -54,25 +54,10 @@ const PloDialog: React.FC<PloDialogProps> = ({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="id"
+              name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>id</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} disabled />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Code</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -84,10 +69,55 @@ const PloDialog: React.FC<PloDialogProps> = ({
             />
             <FormField
               control={form.control}
-              name="description"
+              name="descriptionThai"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Description Thai</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="descriptionEng"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description English</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="programYear"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Program Year</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input type="number" {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="programmeId"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Programme</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />

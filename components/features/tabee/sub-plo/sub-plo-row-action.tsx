@@ -75,9 +75,10 @@ export function SubPloRowActions<TData>({
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            id: subPlo.id,
+            code: subPlo.code,
             descriptionThai: subPlo.descriptionThai,
-            descriptionEnglish: subPlo.descriptionEnglish,
+            descriptionEng: subPlo.descriptionEng,
+            programLearningOutcomeId: subPlo.programLearningOutcomeId,
           }}
         />
       )}
