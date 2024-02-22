@@ -2,9 +2,8 @@
 
 // Error components must be Client Components
 import Image from 'next/image';
+import Link from 'next/link';
 import { useEffect } from 'react';
-
-import { Button } from '@/components/ui/button';
 
 export default function Error({
   error,
@@ -22,14 +21,7 @@ export default function Error({
     <div className="flex h-screen w-full items-center justify-center">
       <div className="flex flex-col items-center space-y-3">
         <h2 className="text-xl font-bold">Something went wrong! </h2>
-        <Button
-          onClick={
-            // Attempt to recover by trying to re-render the segment
-            () => reset()
-          }
-        >
-          Try again
-        </Button>
+        <Link href="/course">Try again</Link>
         <Image
           className=""
           src="https://media.tenor.com/O_x4UCmt5p0AAAAi/among-us-twerk.gif"
