@@ -73,7 +73,7 @@ export function PoRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            id: po.id,
+            code: po.code,
             name: po.name,
             description: po.description,
           }}

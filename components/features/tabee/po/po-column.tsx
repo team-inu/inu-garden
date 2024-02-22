@@ -15,6 +15,14 @@ export const columns: ColumnDef<PO>[] = [
     enableHiding: true,
   },
   {
+    accessorKey: 'code',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="code" />
+    ),
+    cell: ({ row }) => <div>{row.getValue('code')}</div>,
+    enableSorting: false,
+  },
+  {
     accessorKey: 'name',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="name" />

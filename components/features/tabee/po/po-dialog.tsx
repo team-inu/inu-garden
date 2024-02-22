@@ -52,13 +52,13 @@ const PoDialog: React.FC<PoDialogProps> = ({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="id"
+              name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>id</FormLabel>
+                  <FormLabel>Code</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input {...field} disabled />
+                      <Input {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>

@@ -99,6 +99,7 @@ export type SubPLO = z.infer<typeof SubPLOSchema>;
 
 export const POSchema = z.object({
   id: z.string(),
+  code: z.string(),
   name: z.string(),
   description: z.string(),
 });
