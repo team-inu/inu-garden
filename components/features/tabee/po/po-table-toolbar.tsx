@@ -2,8 +2,7 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { ImportIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import PoDialog from '@/components/features/tabee/po/po-dialog';
 import { Button } from '@/components/ui/button';
@@ -31,7 +30,6 @@ interface DataTableToolbarProps<TData> {
   selectorOptions: SelectorOption[];
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
-  handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function PoTableToolbar<TData>({
@@ -39,13 +37,11 @@ export function PoTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
-  handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const fileImportRef = useRef<HTMLInputElement>(null);
   const { mutate, isError } = useCreatePo();
 
   const onSubmit = (value: CreatePoType) => {
@@ -109,22 +105,6 @@ export function PoTableToolbar<TData>({
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <PoDialog onSubmit={onSubmit} />
             </Dialog>
-
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-              onClick={() => fileImportRef.current?.click()}
-            >
-              <ImportIcon className="mr-2 h-4 w-4" />
-              Import
-            </Button>
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}

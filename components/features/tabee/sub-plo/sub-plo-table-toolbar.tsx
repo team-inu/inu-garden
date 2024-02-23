@@ -2,7 +2,6 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 import SubPloDialog from '@/components/features/tabee/sub-plo/sub-plo-dialog';
@@ -31,7 +30,6 @@ interface DataTableToolbarProps<TData> {
   selectorOptions: SelectorOption[];
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
-  handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function SubPloTableToolbar<TData>({
@@ -39,7 +37,6 @@ export function SubPloTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
-  handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
@@ -109,22 +106,6 @@ export function SubPloTableToolbar<TData>({
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <SubPloDialog onSubmit={onSubmit} />
             </Dialog>
-
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-              onClick={() => fileImportRef.current?.click()}
-            >
-              <ImportIcon className="mr-2 h-4 w-4" />
-              Import
-            </Button>
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}

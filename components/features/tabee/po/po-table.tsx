@@ -1,6 +1,5 @@
 'use client';
 
-import { CircleIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -19,11 +18,6 @@ import * as React from 'react';
 
 import { PoTableToolbar } from '@/components/features/tabee/po/po-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -72,34 +66,9 @@ export function ProgramOutcomeDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadPo = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const file = e.target.files?.[0];
-    // if (!file) {
-    //   return toast.error("Can not read file");
-    // }
-
-    // const buffer = await file.arrayBuffer();
-    // const workBook = XLSX.read(buffer, { type: "buffer" });
-
-    // const sheet = workBook.Sheets[workBook.SheetNames[1]];
-
-    // const [studentTable] = await worksheetToTables(sheet);
-
-    // const student = tableToObject(studentTable[0], studentTable.slice(1));
-
-    // TODO: push to backend
-    // console.log(student);
-
-    e.target.value = '';
-  };
-
   return (
     <div className="space-y-4">
-      <PoTableToolbar
-        table={table}
-        selectorOptions={[]}
-        handleImport={handleUploadPo}
-      />
+      <PoTableToolbar table={table} selectorOptions={[]} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
