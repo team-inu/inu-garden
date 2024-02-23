@@ -17,6 +17,8 @@ import {
 } from '@tanstack/react-table';
 import { UserCircle } from 'lucide-react';
 import * as React from 'react';
+import { toast } from 'sonner';
+import * as XLSX from 'xlsx';
 
 import { LecturerTableToolbar } from '@/components/features/lecturer/lecturer-table-toolbar';
 import { Badge } from '@/components/ui/badge';
@@ -33,6 +35,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Lecturer } from '@/data/schema';
+import { tableToObject, worksheetToTables } from '@/libs/excel';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -100,25 +103,33 @@ export function LecturerDataTable<
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadStudent = async (
+  const handleUploadLecturer = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    // const file = e.target.files?.[0];
-    // if (!file) {
-    //   return toast.error("Can not read file");
-    // }
+    const file = e.target.files?.[0];
+    if (!file) {
+      return toast.error('Can not read file');
+    }
 
-    // const buffer = await file.arrayBuffer();
-    // const workBook = XLSX.read(buffer, { type: "buffer" });
+    const buffer = await file.arrayBuffer();
+    const workBook = XLSX.read(buffer, { type: 'buffer' });
 
-    // const sheet = workBook.Sheets[workBook.SheetNames[1]];
+    const lecturerSheet = workBook.Sheets[workBook.SheetNames[0]];
 
-    // const [studentTable] = await worksheetToTables(sheet);
+    const [lecturerTable] = await worksheetToTables(lecturerSheet);
 
-    // const student = tableToObject(studentTable[0], studentTable.slice(1));
+    const lecturers = tableToObject(lecturerTable[0], lecturerTable.slice(1));
 
-    // TODO: push to backend
-    // console.log(student);
+    const payload = lecturers.map((e) => {
+      return {
+        firstName: e._firstname,
+        lastName: e.lastname,
+        email: e.email,
+        role: e.role,
+      };
+    });
+
+    console.log(payload);
 
     e.target.value = '';
   };
@@ -174,7 +185,7 @@ export function LecturerDataTable<
       <LecturerTableToolbar
         table={table}
         selectorOptions={[]}
-        handleImport={handleUploadStudent}
+        handleImport={handleUploadLecturer}
       />
       <div className="rounded-md border">
         <Table>
