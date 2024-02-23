@@ -8,7 +8,7 @@ import { columns as subPloColumns } from '@/components/features/tabee/sub-plo/su
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
 import { SubPLO } from '@/data/schema';
 
-const mockCLO = [
+export const mockCLO = [
   {
     id: '01HG65WNM26ZY60SC0CYC4V4TK',
     name: 'CLO1',

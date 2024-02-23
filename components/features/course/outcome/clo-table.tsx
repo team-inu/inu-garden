@@ -55,7 +55,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   disableToolbar?: boolean;
   disablePagination?: boolean;
-  getValues: (id: string) => void;
+  getValues?: (id: string) => void;
 }
 
 export function CourseLearningOutcomeDataTable<TData, TValue>({
@@ -153,7 +153,11 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  onClick={() => getValues(row.getValue('name'))}
+                  onClick={() => {
+                    if (getValues) {
+                      getValues(row.id);
+                    }
+                  }}
                   className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (

@@ -23,9 +23,7 @@ export const columns: ColumnDef<CLO>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('name')}</span>
-        </div>
+        <span className="truncate font-medium">{row.getValue('name')}</span>
       );
     },
     filterFn: (row, id, value) => {
@@ -39,11 +37,9 @@ export const columns: ColumnDef<CLO>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('description')}
-          </span>
-        </div>
+        <span className="truncate font-medium">
+          {row.getValue('description')}
+        </span>
       );
     },
   },
