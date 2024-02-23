@@ -1,6 +1,7 @@
 'use client';
 
 import { ImportIcon, TimerIcon } from 'lucide-react';
+import Link from 'next/link';
 import { ChangeEvent, useRef } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -63,10 +64,12 @@ const CourseFormHeader = () => {
         <ImportIcon className="h-5 w-5" />
         <div className="">Import</div>
       </Button>
-      <Button variant={'secondary'} className="space-x-3">
-        <TimerIcon className="h-5 w-5" />
-        <div className="">History</div>
-      </Button>
+      <Link href="/course/history">
+        <Button type="button" variant={'secondary'} className="space-x-3">
+          <TimerIcon className="h-5 w-5" />
+          <div className="">History</div>
+        </Button>
+      </Link>
     </div>
   );
 };

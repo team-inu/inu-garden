@@ -1,8 +1,8 @@
 'use client';
 
-import { ArrowBigLeftDashIcon } from 'lucide-react';
 import { FormProvider } from 'react-hook-form';
 
+import CreateCourseHeader from '@/components/features/course/course-form/create-course-header';
 import CourseForm from '@/components/features/course/course-form/form';
 import CourseFormHeader from '@/components/features/course/course-form/form-header';
 import { Button } from '@/components/ui/button';
@@ -51,36 +51,32 @@ const CreateCoursePage = () => {
     }
   };
   return (
-    <FormProvider {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        <Button
-          className="absolute mx-10 mt-5 self-start"
-          onClick={() => window.history.back()}
-        >
-          <ArrowBigLeftDashIcon className="h-5 w-5" />
-          Back
-        </Button>
-        <div className="container py-8 shadow-sm shadow-white">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="mb-5">
-              <h1 className="text-4xl font-bold ">Create Course</h1>
-              <span className="text-gray-400">define your course</span>
+    <div>
+      <FormProvider {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+          <div className="container space-y-5 ">
+            <CreateCourseHeader />
+            {/* Header */}
+            <div className="flex items-center justify-between">
+              <div className="mb-5">
+                <h1 className="text-4xl font-bold ">Create Course</h1>
+                <span className="text-gray-400">define your course</span>
+              </div>
+              <div>
+                <CourseFormHeader />
+              </div>
             </div>
-            <div>
-              <CourseFormHeader />
+            {/* Form */}
+            <div className="space-y-5">
+              <CourseForm />
+              <Button type="submit" className={'w-full'}>
+                Create Course
+              </Button>
             </div>
           </div>
-          {/* Form */}
-          <div className="space-y-5">
-            <CourseForm />
-            <Button type="submit" className={'w-full'}>
-              Create Course
-            </Button>
-          </div>
-        </div>
-      </form>
-    </FormProvider>
+        </form>
+      </FormProvider>
+    </div>
   );
 };
 
