@@ -72,13 +72,9 @@ export function StudentRowActions<TData>({
       </DropdownMenu>
       {isEditDialogOpen && (
         <StudentDialog
-          isEdit
           onSubmit={onSubmit}
           defaultValues={{
             studentId: student.id,
-            firstName: student.firstName,
-            lastName: student.lastName,
-            email: student.email,
           }}
         />
       )}

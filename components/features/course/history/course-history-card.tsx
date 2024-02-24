@@ -1,12 +1,11 @@
 'use client';
 
-import { CollapsibleTrigger } from '@radix-ui/react-collapsible';
 import { UserCircle } from 'lucide-react';
 
 import CourseHistoryCardDetail from '@/components/features/course/history/course-history-card-detail';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Collapsible } from '@/components/ui/collapsible';
+import { Collapsible, CollapsibleTrigger } from '@/components/ui/collapsible';
 
 type CourseHistoryCardProps = {
   courseId: string;
