@@ -1,15 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { useFieldArray, useFormContext } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 
 import CourseFormGrade from '@/components/features/course/course-form/form-grade';
-import CourseFormLink from '@/components/features/course/course-form/form-link';
-import { ploColumns } from '@/components/features/course/course-form/plo-showcase';
-import { subPloColumns } from '@/components/features/course/course-form/subplo-showcase';
-import { ProgramLearningOutcomeDataTable } from '@/components/features/tabee/plo/plo-table';
-import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
-import { Button } from '@/components/ui/button';
 import {
   FormControl,
   FormField,
@@ -26,26 +19,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { SubPLO } from '@/data/schema';
-import { useGetPloList } from '@/hooks/plo-hook';
-import { useGetSubPloList } from '@/hooks/sub-plo-hook';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseForm = () => {
-  const [selectedRows, setSelectedRows] = useState<string>('');
-  const [selectedCode, setSelectedCode] = useState<string>('');
-  const { data: plos, isLoading: isPloLoading } = useGetPloList();
-  const { data: splos, isLoading: isSubPloLoading } = useGetSubPloList();
-  const getVales = (id: string, code: string) => {
-    setSelectedRows(id);
-    setSelectedCode(code);
-  };
   const form = useFormContext<CreateCourseSchemaValues>();
-
-  const { fields, append, remove } = useFieldArray({
-    control: form.control,
-    name: 'courseLearningOutcome',
-  });
 
   return (
     <div>
@@ -175,77 +152,6 @@ const CourseForm = () => {
       />
       <div className="pt-5">Define your course grade</div>
       <CourseFormGrade />
-
-      <div className="pt-5">Course Learning Outcome</div>
-      <div className="grid grid-cols-3 items-center  gap-y-8">
-        {fields.map((item, index) => {
-          return (
-            <div key={item.id}>
-              <CourseFormLink
-                index={index}
-                remove={remove}
-                courseFormLinkLength={fields.length}
-              />
-            </div>
-          );
-        })}
-        <Button
-          variant={'ghost'}
-          type="button"
-          className="h-96 w-80 border-2 border-dashed"
-          onClick={() => {
-            append({
-              code: '',
-              weight: '',
-              description: '',
-              subProgramLearningOutcome: '',
-              programOutcome: '',
-            });
-          }}
-        >
-          Add section
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-2 gap-5 ">
-        <div className="space-y-3">
-          <h1 className="">Program Learning Outcome</h1>
-          {isPloLoading ? (
-            <div>Loading...</div>
-          ) : (
-            <ProgramLearningOutcomeDataTable
-              columns={ploColumns}
-              data={plos ?? []}
-              getValues={getVales}
-              disableToolbar
-              disablePagination
-            />
-          )}
-        </div>
-
-        {selectedRows && (
-          <div className="space-y-3">
-            <h1 className=" ">
-              Sub program learning outcome of {selectedRows}
-            </h1>
-            {isSubPloLoading ? (
-              <div>Loading...</div>
-            ) : (
-              <SubProgramLearningOutcomeDataTable
-                columns={subPloColumns}
-                data={
-                  splos.filter(
-                    (splo: SubPLO) =>
-                      splo.programLearningOutcomeId === selectedRows,
-                  ) ?? []
-                }
-                disableToolbar
-                disablePagination
-              />
-            )}
-          </div>
-        )}
-      </div>
     </div>
   );
 };
