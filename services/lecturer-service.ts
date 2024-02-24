@@ -1,6 +1,7 @@
 import { ApiService } from '@/services/api-service';
 import {
   CreateLecturerType,
+  CreateManyLecturerType,
   EditLecturerType,
   GetLecturerList,
 } from '@/types/schema/lecturer-schema';
@@ -26,6 +27,17 @@ class LecturerService extends ApiService {
     formData.append('password', lecturer.password);
     return this.post(url, formData)
       .then(() => lecturer)
+      .catch(this.throwError);
+  }
+
+  public async createManyLecturer(
+    lecturers: CreateManyLecturerType,
+  ): Promise<CreateManyLecturerType> {
+    const url = '/lecturers/bulk';
+
+    console.log(lecturers);
+    return this.post(url, lecturers)
+      .then(() => lecturers)
       .catch(this.throwError);
   }
 
