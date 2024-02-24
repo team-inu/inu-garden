@@ -26,28 +26,27 @@ const CreateCoursePage = () => {
   };
 
   const checkGrade = (values: CreateCourseSchemaValues) => {
-    if (
-      values.grade.a < values.grade.b ||
-      values.grade.a < values.grade.c ||
-      values.grade.a < values.grade.d ||
-      values.grade.b < values.grade.c ||
-      values.grade.b < values.grade.d ||
-      values.grade.c < values.grade.d
-    ) {
-      console.log('A must be greater than B,C,D');
-    } else if (
-      values.grade.b < values.grade.c ||
-      values.grade.b < values.grade.d ||
-      values.grade.b < values.grade.f
-    ) {
-      console.log('B must be greater than C,D,F');
-    } else if (
-      values.grade.c < values.grade.d ||
-      values.grade.c < values.grade.f
-    ) {
-      console.log('C must be greater than D,F');
-    } else if (values.grade.d < values.grade.f) {
-      console.log('D must be greater than F');
+    const grade = values.criteriaGrade;
+    if (grade.criteriaGradeA < grade.criteriaGradeBP) {
+      throw new Error('A grade must be greater than B+ grade');
+    }
+    if (grade.criteriaGradeBP < grade.criteriaGradeB) {
+      throw new Error('B+ grade must be greater than B grade');
+    }
+    if (grade.criteriaGradeB < grade.criteriaGradeCP) {
+      throw new Error('B grade must be greater than C+ grade');
+    }
+    if (grade.criteriaGradeCP < grade.criteriaGradeC) {
+      throw new Error('C+ grade must be greater than C grade');
+    }
+    if (grade.criteriaGradeC < grade.criteriaGradeDP) {
+      throw new Error('C grade must be greater than D+ grade');
+    }
+    if (grade.criteriaGradeDP < grade.criteriaGradeD) {
+      throw new Error('D+ grade must be greater than D grade');
+    }
+    if (grade.criteriaGradeD < grade.criteriaGradeF) {
+      throw new Error('D grade must be greater than F grade');
     }
   };
   return (
