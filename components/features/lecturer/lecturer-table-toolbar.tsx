@@ -3,7 +3,7 @@
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
 import LecturerDialog from '@/components/features/lecturer/lecturer-dialog';
 import LecturerImportDialog from '@/components/features/lecturer/lecturer-import-dialog';
@@ -12,8 +12,14 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreateLecturer } from '@/hooks/lecturer-hook';
-import { CreateLecturerType } from '@/types/schema/lecturer-schema';
+import {
+  useCreateLecturer,
+  useCreateManyLecturers,
+} from '@/hooks/lecturer-hook';
+import {
+  CreateLecturerType,
+  CreateManyLecturerType,
+} from '@/types/schema/lecturer-schema';
 
 export type Option = {
   value: string;
@@ -47,13 +53,22 @@ export function LecturerTableToolbar<TData>({
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate, isError } = useCreateLecturer();
+  const { mutate: createLecturer, isError: isCreateLecturerError } =
+    useCreateLecturer();
+  const { mutate: createManyLecturers, isError: isCreateManyLecturerError } =
+    useCreateManyLecturers();
 
-  const onSubmit = (value: CreateLecturerType) => {
-    mutate(value);
-    if (!isError) {
+  const onSubmitAddLecturer = (value: CreateLecturerType) => {
+    createLecturer(value);
+    if (!isCreateLecturerError) {
       setIsAddLecturerOpen(false);
+    }
+  };
+
+  const onSubmitImport = (value: CreateManyLecturerType) => {
+    createManyLecturers(value);
+    if (!isCreateManyLecturerError) {
+      setIsImportOpen(false);
     }
   };
 
@@ -112,7 +127,7 @@ export function LecturerTableToolbar<TData>({
               open={isAddLecturerOpen}
               onOpenChange={setIsAddLecturerOpen}
             >
-              <LecturerDialog onSubmit={onSubmit} />
+              <LecturerDialog onSubmit={onSubmitAddLecturer} />
             </Dialog>
 
             <Button
@@ -137,7 +152,7 @@ export function LecturerTableToolbar<TData>({
             <LecturerImportDialog
               open={isImportOpen}
               isOnOpenChange={setIsImportOpen}
-              onSubmit={() => {}}
+              onSubmit={onSubmitImport}
             />
           </div>
         )}
