@@ -3,6 +3,7 @@
 import { useFormContext } from 'react-hook-form';
 
 import CourseFormGrade from '@/components/features/course/course-form/form-grade';
+import Loading from '@/components/features/loading-screen';
 import {
   FormControl,
   FormField,
@@ -19,10 +20,22 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useGetLecturerList } from '@/hooks/lecturer-hook';
+import { useGetProgrammeList } from '@/hooks/programme-hook';
+import { useGetSemesterList } from '@/hooks/semester-hook';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseForm = () => {
   const form = useFormContext<CreateCourseSchemaValues>();
+  const { data: lecturers, isLoading: isLectuerLoading } = useGetLecturerList();
+  const { data: semesters, isLoading: isSemesterLoading } =
+    useGetSemesterList();
+  const { data: programmes, isLoading: isProgrammeLoading } =
+    useGetProgrammeList();
+
+  if (isLectuerLoading || isSemesterLoading || isProgrammeLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -55,7 +68,7 @@ const CourseForm = () => {
         />
         <FormField
           control={form.control}
-          name="lecturer"
+          name="lecturerId"
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel>Lecturer</FormLabel>
@@ -66,9 +79,11 @@ const CourseForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={'a'}>นายเอ ไม่รู้ลืม</SelectItem>
-                  <SelectItem value={'b'}>นายบี สีข้าวสาร</SelectItem>
-                  <SelectItem value={'c'}>นายซี สี่ไม่ยั้ง</SelectItem>
+                  {lecturers?.map((lecturer) => (
+                    <SelectItem key={lecturer.id} value={lecturer.id}>
+                      {lecturer.firstName} {lecturer.lastName}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -77,7 +92,7 @@ const CourseForm = () => {
         />
         <FormField
           control={form.control}
-          name="semester"
+          name="semesterId"
           render={({ field }) => (
             <FormItem className="w-full">
               <FormLabel>Semester</FormLabel>
@@ -88,8 +103,11 @@ const CourseForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  <SelectItem value={'1'}>1</SelectItem>
-                  <SelectItem value={'2'}>2</SelectItem>
+                  {semesters?.map((semester) => (
+                    <SelectItem key={semester.id} value={semester.id}>
+                      {semester.semesterSequence}/{semester.year}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
               <FormMessage />
@@ -127,11 +145,22 @@ const CourseForm = () => {
           control={form.control}
           name="curriculum"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormLabel>Curriculum</FormLabel>
-              <FormControl>
-                <Input {...field} type="text" />
-              </FormControl>
+              <Select onValueChange={field.onChange} value={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a curriculum" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  {programmes?.map((programme, index) => (
+                    <SelectItem key={index} value={programme.name}>
+                      {programme.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <FormMessage />
             </FormItem>
           )}
