@@ -3,9 +3,8 @@
 import Link from 'next/link';
 import { useState } from 'react';
 
-import CourseCard, {
-  CourseCardProps,
-} from '@/components/features/course/course-card';
+import CourseCard from '@/components/features/course/course-card';
+import Loading from '@/components/features/loading-screen';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
@@ -16,31 +15,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-
-const courseCardProps: CourseCardProps[] = [
-  {
-    courseId: 'cpe100',
-    courseName: 'Fundamental of Programming in C',
-    href: '/course/1',
-    studentAmount: 49,
-    teacherAmount: 2,
-    finishedTask: 3,
-    totalTask: 55,
-  },
-  {
-    courseId: 'cpe101',
-    courseName: 'Intro into com eng',
-    href: '/course/2',
-    studentAmount: 111,
-    teacherAmount: 4,
-    finishedTask: 12,
-    totalTask: 33,
-  },
-];
+import { useCourseList } from '@/hooks/course-hook';
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [year, setYear] = useState('2023');
+  const { data: courses, isLoading: isCourseLoading } = useCourseList();
 
   const handleYearChange = (e: string) => {
     setYear(e);
@@ -86,33 +66,39 @@ const CoursePage = () => {
           </Button>
         </Link>
       </div>
+      {isCourseLoading && (
+        <div className="items-center">
+          <Loading />
+        </div>
+      )}
       <div className="grid grid-cols-3 gap-5">
-        {courseCardProps
-          .filter((e) => {
-            const lowerCaseSearchValue = searchValue.toLocaleLowerCase();
+        {courses &&
+          courses
+            .filter((e) => {
+              const lowerCaseSearchValue = searchValue.toLocaleLowerCase();
 
-            const lowerCaseCourseName = e.courseName.toLowerCase();
-            const lowerCaseCourseId = e.courseId.toLowerCase();
+              const lowerCaseCourseName = e.name.toLowerCase();
+              const lowerCaseCourseId = e.code.toLowerCase();
 
-            return (
-              lowerCaseCourseName.includes(lowerCaseSearchValue) ||
-              lowerCaseCourseId.includes(lowerCaseSearchValue)
-            );
-          })
-          .map((e, i) => {
-            return (
-              <CourseCard
-                key={i}
-                courseId={e.courseId}
-                courseName={e.courseName}
-                href={e.href}
-                studentAmount={e.studentAmount}
-                finishedTask={e.finishedTask}
-                totalTask={e.totalTask}
-                teacherAmount={e.teacherAmount}
-              />
-            );
-          })}
+              return (
+                lowerCaseCourseName.includes(lowerCaseSearchValue) ||
+                lowerCaseCourseId.includes(lowerCaseSearchValue)
+              );
+            })
+            .map((e, i) => {
+              return (
+                <CourseCard
+                  key={i}
+                  courseId={e.code}
+                  courseName={e.name}
+                  href={e.id}
+                  studentAmount={0}
+                  finishedTask={0}
+                  totalTask={0}
+                  teacherAmount={0}
+                />
+              );
+            })}
       </div>
     </div>
   );
