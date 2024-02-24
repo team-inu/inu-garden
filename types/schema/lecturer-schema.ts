@@ -46,7 +46,25 @@ export const CreateLecturerDefaultValues: CreateLecturerType = {
 };
 
 export const CreateManyLecturerSchema = z.object({
-  lecturers: z.array(CreateLecturerSchema),
+  lecturers: z.array(
+    z.object({
+      firstName: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+      lastName: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+      email: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+      role: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+      password: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+    }),
+  ),
 });
 
 export type CreateManyLecturerType = z.infer<typeof CreateManyLecturerSchema>;
