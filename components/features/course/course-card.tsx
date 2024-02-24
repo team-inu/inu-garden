@@ -7,7 +7,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
@@ -24,7 +23,7 @@ export type CourseCardProps = {
 
 const CourseCard: React.FC<CourseCardProps> = (props) => {
   return (
-    <Link href={props.href}>
+    <Link href={`/course/${props.href}`}>
       <div className="rounded-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
         <Card className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-70 ">
           <CardHeader>
