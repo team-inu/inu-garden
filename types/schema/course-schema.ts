@@ -1,5 +1,25 @@
 import * as z from 'zod';
 
+export type GetCourseList = {
+  id: string;
+  name: string;
+  code: string;
+  curriculum: string;
+  description: string;
+  semesterId: string;
+  lecturerId: string;
+  criteriaGrade: {
+    criteriaGradeA: number;
+    criteriaGradeBP: number;
+    criteriaGradeB: number;
+    criteriaGradeCP: number;
+    criteriaGradeC: number;
+    criteriaGradeDP: number;
+    criteriaGradeD: number;
+    criteriaGradeF: number;
+  };
+};
+
 export const CreateCourseSchema = z.object({
   name: z
     .string({ required_error: 'required' })
@@ -10,13 +30,13 @@ export const CreateCourseSchema = z.object({
   code: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  lecturer: z
+  lecturerId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   curriculum: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  semester: z
+  semesterId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   academicYear: z
@@ -25,43 +45,22 @@ export const CreateCourseSchema = z.object({
   graduateYear: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  courseLearningOutcome: z
-    .array(
-      z.object({
-        code: z.string({ required_error: 'required' }).min(1, {
-          message: 'required',
-        }),
-        weight: z
-          .string({ required_error: 'required' })
-          .min(1, { message: 'required' }),
-        description: z
-          .string({ required_error: 'required' })
-          .min(1, { message: 'required' }),
-        subProgramLearningOutcome: z
-          .string({ required_error: 'required' })
-          .min(1, { message: 'required' }),
-        programOutcome: z
-          .string({ required_error: 'required' })
-          .min(1, { message: 'required' }),
-      }),
-    )
-    .min(1, { message: 'Please enter at least one course learning outcome' }),
-  grade: z.object({
-    a: z
-      .string({ required_error: 'Please enter A grade' })
-      .min(1, { message: 'Please enter A grade' }),
-    b: z
-      .string({ required_error: 'Please enter B grade' })
-      .min(1, { message: 'Please enter B grade' }),
-    c: z
-      .string({ required_error: 'Please enter C grade' })
-      .min(1, { message: 'Please enter C grade' }),
-    d: z
-      .string({ required_error: 'Please enter D grade' })
-      .min(1, { message: 'Please enter D grade' }),
-    f: z
-      .string({ required_error: 'Please enter F grade' })
-      .min(1, { message: 'Please enter F grade' }),
+
+  criteriaGrade: z.object({
+    criteriaGradeA: z.coerce.number({ required_error: 'Please enter A grade' }),
+    criteriaGradeBP: z.coerce.number({
+      required_error: 'Please enter BP grade',
+    }),
+    criteriaGradeB: z.coerce.number({ required_error: 'Please enter B grade' }),
+    criteriaGradeCP: z.coerce.number({
+      required_error: 'Please enter CP grade',
+    }),
+    criteriaGradeC: z.coerce.number({ required_error: 'Please enter C grade' }),
+    criteriaGradeDP: z.coerce.number({
+      required_error: 'Please enter DP grade',
+    }),
+    criteriaGradeD: z.coerce.number({ required_error: 'Please enter D grade' }),
+    criteriaGradeF: z.coerce.number({ required_error: 'Please enter F grade' }),
   }),
 });
 
@@ -69,22 +68,16 @@ export type CreateCourseSchemaValues = z.infer<typeof CreateCourseSchema>;
 
 export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> =
   {
-    grade: {
-      a: '80',
-      b: '75',
-      c: '70',
-      d: '65',
-      f: '60',
+    criteriaGrade: {
+      criteriaGradeA: 80,
+      criteriaGradeBP: 75,
+      criteriaGradeB: 70,
+      criteriaGradeCP: 65,
+      criteriaGradeC: 60,
+      criteriaGradeDP: 55,
+      criteriaGradeD: 50,
+      criteriaGradeF: 45,
     },
-    courseLearningOutcome: [
-      {
-        code: '',
-        weight: '',
-        description: '',
-        subProgramLearningOutcome: '',
-        programOutcome: '',
-      },
-    ],
   };
 
 export const UpdateCourseSchema = z.object({

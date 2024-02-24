@@ -11,7 +11,7 @@ const CourseFormGrade = () => {
   return (
     <div className="grid grid-cols-5 gap-5">
       <FormField
-        name="grade.a"
+        name="criteriaGrade.criteriaGradeA"
         render={({ field }) => (
           <FormItem>
             <FormLabel>A</FormLabel>
@@ -23,7 +23,19 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="grade.b"
+        name="criteriaGrade.criteriaGradeBP"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>B+</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" min="0" max="100" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="criteriaGrade.criteriaGradeB"
         render={({ field }) => (
           <FormItem>
             <FormLabel>B</FormLabel>
@@ -35,7 +47,19 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="grade.c"
+        name="criteriaGrade.criteriaGradeCP"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>C+</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" min="0" max="100" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="criteriaGrade.criteriaGradeC"
         render={({ field }) => (
           <FormItem>
             <FormLabel>C</FormLabel>
@@ -47,7 +71,19 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="grade.d"
+        name="criteriaGrade.criteriaGradeDP"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>D+</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" min="0" max="100" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name="criteriaGrade.criteriaGradeD"
         render={({ field }) => (
           <FormItem>
             <FormLabel>D</FormLabel>
@@ -59,7 +95,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="grade.f"
+        name="criteriaGrade.criteriaGradeF"
         render={({ field }) => (
           <FormItem>
             <FormLabel>F</FormLabel>
