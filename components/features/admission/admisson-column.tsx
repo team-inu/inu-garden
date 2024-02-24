@@ -108,14 +108,14 @@ export const columns: ColumnDef<Admission>[] = [
     },
   },
   {
-    accessorKey: 'programmeId',
+    accessorKey: 'programmeName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Programme" />
     ),
     cell: ({ row }) => {
       return (
         <span className="truncate font-medium">
-          {row.getValue('programmeId')}
+          {row.getValue('programmeName')}
         </span>
       );
     },

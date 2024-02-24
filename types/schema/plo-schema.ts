@@ -7,12 +7,11 @@ export const CreatePloSchema = z.object({
   descriptionThai: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  descriptionEng: z
-    .string(),
+  descriptionEng: z.string(),
   programYear: z.coerce
     .number({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  programmeId: z
+  programmeName: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
 });
@@ -26,5 +25,5 @@ export const CreatePloDefaultValues: CreatePloType = {
   descriptionThai: '',
   descriptionEng: '',
   programYear: 0,
-  programmeId: '',
+  programmeName: '',
 };

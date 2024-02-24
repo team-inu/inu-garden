@@ -77,7 +77,7 @@ export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
             descriptionThai: plo.descriptionThai,
             descriptionEng: plo.descriptionEng,
             programYear: plo.programYear,
-            programmeId: plo.programmeId,
+            programmeName: plo.programmeName,
           }}
         />
       )}

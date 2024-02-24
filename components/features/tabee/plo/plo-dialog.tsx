@@ -114,7 +114,7 @@ const PloDialog: React.FC<PloDialogProps> = ({
             />
             <FormField
               control={form.control}
-              name="programmeId"
+              name="programmeName"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Programme</FormLabel>

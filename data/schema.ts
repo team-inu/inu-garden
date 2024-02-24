@@ -16,7 +16,7 @@ export const AdmissionSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
-  programmeId: z.string(),
+  programmeName: z.string(),
   departmentName: z.string(),
   GPAX: z.number(),
   mathGPA: z.number(),
@@ -82,7 +82,7 @@ export const PLOSchema = z.object({
   descriptionThai: z.string(),
   descriptionEng: z.string(),
   programYear: z.number(),
-  programmeId: z.string(),
+  programmeName: z.string(),
 });
 
 export type PLO = z.infer<typeof PLOSchema>;
