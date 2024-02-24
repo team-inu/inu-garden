@@ -4,6 +4,7 @@ import { toast } from 'sonner';
 import { lecturerService } from '@/services/lecturer-service';
 import {
   CreateLecturerType,
+  CreateManyLecturerType,
   EditLecturerType,
 } from '@/types/schema/lecturer-schema';
 
@@ -24,6 +25,23 @@ export const useCreateLecturer = () => {
     },
     onError: (error) => {
       toast.error('Failed to create student', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useCreateManyLecturers = () => {
+  return useMutation({
+    mutationFn: (lecturers: CreateManyLecturerType) =>
+      lecturerService.createManyLecturer(lecturers),
+    onSuccess: () => {
+      toast.success('Students has been created', {
+        description: 'You can now add questions to the students.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to create students', {
         description: error.message,
       });
     },
