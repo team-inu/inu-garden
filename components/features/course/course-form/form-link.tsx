@@ -1,6 +1,5 @@
 'use client';
 
-import { Select } from '@radix-ui/react-select';
 import { XIcon } from 'lucide-react';
 import { UseFieldArrayRemove } from 'react-hook-form';
 
@@ -12,12 +11,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/libs/utils';
 
@@ -34,7 +27,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
 }) => {
   const disableRemove = courseFormLinkLength === 1;
   return (
-    <div className="relative min-h-fit w-96 space-y-2 border p-5 pb-7">
+    <div className="relative  space-y-2 border p-5 pb-7">
       <XIcon
         className={cn('absolute right-1 top-2 h-5 w-5 cursor-pointer ', {
           hidden: disableRemove,
@@ -43,7 +36,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
       />
       <div className="flex justify-between ">
         <FormField
-          name={`courseLearningOutcome[${index}].code`}
+          name={`clo[${index}].code`}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Code</FormLabel>
@@ -55,7 +48,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
           )}
         />
         <FormField
-          name={`courseLearningOutcome[${index}].weight`}
+          name={`clo[${index}].weight`}
           render={({ field }) => (
             <FormItem>
               <FormLabel>Weight</FormLabel>
@@ -68,7 +61,7 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
         />
       </div>
       <FormField
-        name={`courseLearningOutcome[${index}].description`}
+        name={`clo[${index}].description`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Description</FormLabel>
@@ -80,45 +73,60 @@ const CourseFormLink: React.FC<CourseFormLinkProps> = ({
         )}
       />
       <FormField
-        name={`courseLearningOutcome[${index}].subProgramLearningOutcome`}
+        name={`clo[${index}].expectedPassingAssignmentPercentage`}
         render={({ field }) => (
           <FormItem>
-            <FormLabel>Link sub PLO</FormLabel>
+            <FormLabel>Expected passing assigment percentage</FormLabel>
             <FormControl>
-              <Select value={field.value} onValueChange={field.onChange}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a semester" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value={'1'}>PLO1</SelectItem>
-                  <SelectItem value={'2'}>PLO2</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input {...field} type="number" min="0" max="100" />
             </FormControl>
             <FormMessage />
           </FormItem>
         )}
       />
       <FormField
-        name={`courseLearningOutcome[${index}].programOutcome`}
+        name={`clo[${index}].expectedScorePercentage`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Expected score percentage</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" min="0" max="100" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name={`clo[${index}].expectedPassingStudentPercentage`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Expected passing student percentage</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" min="0" max="100" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name={`clo[${index}].subProgramLearningOutcomeId`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Link sub PLO</FormLabel>
+            <FormControl>
+              <Input {...field} disabled />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        name={`clo[${index}].programLearningOutcomeId`}
         render={({ field }) => (
           <FormItem>
             <FormLabel>Link PLO</FormLabel>
             <FormControl>
-              <Select value={field.value} onValueChange={field.onChange}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a semester" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value={'1A'}>1A</SelectItem>
-                  <SelectItem value={'1B'}>1B</SelectItem>
-                  <SelectItem value={'1C'}>1C</SelectItem>
-                </SelectContent>
-              </Select>
+              <Input {...field} disabled />
             </FormControl>
             <FormMessage />
           </FormItem>

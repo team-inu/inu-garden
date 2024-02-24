@@ -2,10 +2,11 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { ImportIcon } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { FolderDotIcon } from 'lucide-react';
+import { useState } from 'react';
 
 import CloDialog from '@/components/features/course/outcome/clo-dialog';
+import CloImportDialog from '@/components/features/course/outcome/clo-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -29,7 +30,6 @@ interface DataTableToolbarProps<TData> {
   selectorOptions: SelectorOption[];
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
-  handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 export function CloTableToolbar<TData>({
@@ -37,13 +37,12 @@ export function CloTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
-  handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isAddOpen, setIsAddOpen] = useState(false);
+  const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const fileImportRef = useRef<HTMLInputElement>(null);
 
   return (
     <div className="flex items-center justify-between">
@@ -90,31 +89,41 @@ export function CloTableToolbar<TData>({
               variant="outline"
               size="sm"
               className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsAddOpen(true)}
             >
               <PlusCircledIcon className="mr-2 h-4 w-4" />
               Add
             </Button>
 
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
               <CloDialog onSubmit={() => {}} />
             </Dialog>
 
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
+            <Button
+              variant="outline"
+              size="sm"
+              className="ml-auto hidden h-8 lg:flex"
+              onClick={() => setIsImportOpen(true)}
+            >
+              <PlusCircledIcon className="mr-2 h-4 w-4" />
+              Import
+            </Button>
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
-              onClick={() => fileImportRef.current?.click()}
             >
-              <ImportIcon className="mr-2 h-4 w-4" />
-              Import
+              <a className="flex items-center" href="/template/score.xlsx">
+                <FolderDotIcon className="mr-2 h-4 w-4" />
+                Template
+              </a>
             </Button>
+
+            <CloImportDialog
+              onSubmit={() => {}}
+              open={isImportOpen}
+              isOnOpenChange={setIsImportOpen}
+            />
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}
