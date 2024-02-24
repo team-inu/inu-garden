@@ -10,7 +10,7 @@ class LecturerService extends ApiService {
     const url = '/lecturers';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetLecturerList[];
+        return response.data.data as unknown as GetLecturerList[];
       })
       .catch(this.throwError);
   }
