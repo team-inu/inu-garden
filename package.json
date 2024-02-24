@@ -38,6 +38,7 @@
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
     "docx": "^8.5.0",
+    "embla-carousel-react": "^8.0.0",
     "eslint": "8.47.0",
     "eslint-config-next": "13.4.19",
     "framer-motion": "^10.16.0",
