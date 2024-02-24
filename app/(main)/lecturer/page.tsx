@@ -7,6 +7,7 @@ import { useGetLecturerList } from '@/hooks/lecturer-hook';
 
 const LecturerPage = () => {
   const { data: lecturers, isLoading } = useGetLecturerList();
+
   return (
     <div className="mx-auto w-10/12 py-8">
       <div>
@@ -16,7 +17,15 @@ const LecturerPage = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <LecturerDataTable columns={columns} data={lecturers ?? []} />
+          <LecturerDataTable
+            columns={columns}
+            data={
+              lecturers?.map((lecturer) => ({
+                ...lecturer,
+                collapsibleContent: 'test',
+              })) ?? []
+            }
+          />
         )}
       </div>
     </div>
