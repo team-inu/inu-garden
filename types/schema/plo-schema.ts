@@ -27,3 +27,13 @@ export const CreatePloDefaultValues: CreatePloType = {
   programYear: 0,
   programmeName: '',
 };
+
+export const CreateManyPloSchema = z.object({
+  plo: z.array(CreatePloSchema),
+});
+
+export type CreateManyPloType = z.infer<typeof CreateManyPloSchema>;
+
+export const CreateManyPloDefaultValues: CreateManyPloType = {
+  plo: [],
+};

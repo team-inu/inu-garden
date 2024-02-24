@@ -21,3 +21,13 @@ export const CreatePoDefaultValues: CreatePoType = {
   name: '',
   description: '',
 };
+
+export const CreateManyPoSchema = z.object({
+  po: z.array(CreatePoSchema),
+});
+
+export type CreateManyPoType = z.infer<typeof CreateManyPoSchema>;
+
+export const CreateManyPoDefaultValues: CreateManyPoType = {
+  po: [],
+};
