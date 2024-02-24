@@ -18,6 +18,10 @@ export const CreateLecturerSchema = z
     email: z
       .string({ required_error: 'required' })
       .min(1, { message: 'required' }),
+    role: z
+      .string({ required_error: 'required' })
+      .min(1, { message: 'required' }),
+
     password: z
       .string({ required_error: 'required' })
       .min(1, { message: 'required' }),
@@ -36,8 +40,19 @@ export const CreateLecturerDefaultValues: CreateLecturerType = {
   firstName: '',
   lastName: '',
   email: '',
+  role: '',
   password: '',
   confirmPassword: '',
+};
+
+export const CreateManyLecturerSchema = z.object({
+  lecturers: z.array(CreateLecturerSchema),
+});
+
+export type CreateManyLecturerType = z.infer<typeof CreateManyLecturerSchema>;
+
+export const CreateManyLecturerDefaultValues: CreateManyLecturerType = {
+  lecturers: [],
 };
 
 export const EditLecturerSchema = z.object({

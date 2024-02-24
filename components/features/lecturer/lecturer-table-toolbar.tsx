@@ -6,6 +6,7 @@ import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 import LecturerDialog from '@/components/features/lecturer/lecturer-dialog';
+import LecturerImportDialog from '@/components/features/lecturer/lecturer-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -42,7 +43,8 @@ export function LecturerTableToolbar<TData>({
   handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isAddLecturerOpen, setIsAddLecturerOpen] = useState(false);
+  const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
@@ -51,7 +53,7 @@ export function LecturerTableToolbar<TData>({
   const onSubmit = (value: CreateLecturerType) => {
     mutate(value);
     if (!isError) {
-      setIsOpen(false);
+      setIsAddLecturerOpen(false);
     }
   };
 
@@ -100,27 +102,24 @@ export function LecturerTableToolbar<TData>({
               variant="outline"
               size="sm"
               className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsAddLecturerOpen(true)}
             >
               <PlusCircledIcon className="mr-2 h-4 w-4" />
               Add
             </Button>
 
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <Dialog
+              open={isAddLecturerOpen}
+              onOpenChange={setIsAddLecturerOpen}
+            >
               <LecturerDialog onSubmit={onSubmit} />
             </Dialog>
 
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
-              onClick={() => fileImportRef.current?.click()}
+              onClick={() => setIsImportOpen(true)}
             >
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
@@ -135,6 +134,11 @@ export function LecturerTableToolbar<TData>({
                 Template
               </a>
             </Button>
+            <LecturerImportDialog
+              open={isImportOpen}
+              isOnOpenChange={setIsImportOpen}
+              onSubmit={() => {}}
+            />
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}
