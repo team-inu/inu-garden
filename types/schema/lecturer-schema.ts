@@ -1,5 +1,12 @@
 import * as z from 'zod';
 
+export type GetLecturerList = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+};
+
 export const CreateLecturerSchema = z
   .object({
     firstName: z

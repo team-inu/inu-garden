@@ -2,14 +2,15 @@ import { ApiService } from '@/services/api-service';
 import {
   CreateLecturerType,
   EditLecturerType,
+  GetLecturerList,
 } from '@/types/schema/lecturer-schema';
 
 class LecturerService extends ApiService {
-  public async getLecturerList(): Promise<any> {
+  public async getLecturerList(): Promise<GetLecturerList[]> {
     const url = '/lecturers';
     return this.get(url)
       .then((response) => {
-        return response.data;
+        return response.data as unknown as GetLecturerList[];
       })
       .catch(this.throwError);
   }
