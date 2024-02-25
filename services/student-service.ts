@@ -1,23 +1,23 @@
-import { Admission } from '@/data/schema';
+import { Student } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
 import {
-  CreateAdmissionType,
-  ImportedAdmissionType,
-} from '@/types/schema/admission-schema';
+  CreateStudentType,
+  ImportedStudentType,
+} from '@/types/schema/student-schema';
 
 class StudentService extends ApiService {
   public async getStudentList(): Promise<any> {
     const url = '/students';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as Admission[];
+        return response.data as unknown as Student[];
       })
       .catch(this.throwError);
   }
 
   public async createStudent(
-    student: CreateAdmissionType,
-  ): Promise<CreateAdmissionType> {
+    student: CreateStudentType,
+  ): Promise<CreateStudentType> {
     const url = '/students';
 
     return this.post(url, student)
@@ -26,8 +26,8 @@ class StudentService extends ApiService {
   }
 
   public async createStudentBulk(
-    students: ImportedAdmissionType[],
-  ): Promise<ImportedAdmissionType[]> {
+    students: ImportedStudentType[],
+  ): Promise<ImportedStudentType[]> {
     const url = '/students/bulk';
     const result = {
       students: students,

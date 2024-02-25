@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-export const CreateAdmissionSchema = z.object({
+export const CreateStudentSchema = z.object({
   kmuttId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -50,11 +50,11 @@ export const CreateAdmissionSchema = z.object({
   remark: z.string().optional(),
 });
 
-export type CreateAdmissionType = z.infer<typeof CreateAdmissionSchema>;
+export type CreateStudentType = z.infer<typeof CreateStudentSchema>;
 
-export type ImportedAdmissionType = Partial<CreateAdmissionType>;
+export type ImportedStudentType = Partial<CreateStudentType>;
 
-export const CreateAdmissionDefaultValues: CreateAdmissionType = {
+export const CreateStudentDefaultValues: CreateStudentType = {
   kmuttId: '',
   firstName: '',
   lastName: '',

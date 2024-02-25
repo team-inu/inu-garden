@@ -6,7 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
-import AdmissionDialog from '@/components/features/admission/admission-dialog';
+import StudentDialog from '@/components/features/student/student-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,21 +22,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { AdmissionSchema } from '@/data/schema';
-import { CreateAdmissionType } from '@/types/schema/admission-schema';
+import { StudentSchema } from '@/data/schema';
+import { CreateStudentType } from '@/types/schema/student-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function AdmissionRowActions<TData>({
+export function StudentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const admission = AdmissionSchema.parse(row.original);
+  const student = StudentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateAdmissionType) => {
+  const onSubmit = (values: CreateStudentType) => {
     console.log(values);
   };
 
@@ -71,25 +71,25 @@ export function AdmissionRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <AdmissionDialog
+        <StudentDialog
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            kmuttId: admission.id,
-            firstName: admission.firstName,
-            lastName: admission.lastName,
-            email: admission.email,
-            admission: admission.admission,
-            city: admission.city,
-            engGPA: admission.engGPA,
-            mathGPA: admission.mathGPA,
-            sciGPA: admission.sciGPA,
-            gpax: admission.GPAX,
-            school: admission.school,
-            departmentName: admission.departmentName,
-            programmeId: admission.programmeName,
-            year: admission.year,
-            remark: admission.remark,
+            kmuttId: student.id,
+            firstName: student.firstName,
+            lastName: student.lastName,
+            email: student.email,
+            admission: student.admission,
+            city: student.city,
+            engGPA: student.engGPA,
+            mathGPA: student.mathGPA,
+            sciGPA: student.sciGPA,
+            gpax: student.GPAX,
+            school: student.school,
+            departmentName: student.departmentName,
+            programmeId: student.programmeName,
+            year: student.year,
+            remark: student.remark,
           }}
         />
       )}

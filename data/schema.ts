@@ -11,7 +11,7 @@ export const EnrollmentSchema = z.object({
 
 export type Enrollment = z.infer<typeof EnrollmentSchema>;
 
-export const AdmissionSchema = z.object({
+export const StudentSchema = z.object({
   id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
@@ -29,7 +29,7 @@ export const AdmissionSchema = z.object({
   remark: z.string(),
 });
 
-export type Admission = z.infer<typeof AdmissionSchema>;
+export type Student = z.infer<typeof StudentSchema>;
 
 export const AssignmentSchema = z.object({
   id: z.string(),

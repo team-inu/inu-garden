@@ -21,33 +21,7 @@ import {
   FirstDataHeaderRow,
 } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
-import { ImportedAdmissionType } from '@/types/schema/admission-schema';
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
+import { ImportedStudentType } from '@/types/schema/student-schema';
 
 /* eslint-disable @next/next/no-img-element */
 
@@ -205,7 +179,7 @@ const MultipleFileUploader = () => {
     const extendedEligibleWithApplicantToPyaoResult = (
       e: ExtendedEligibleWithPartialyApplicant,
       programmeId: string,
-    ): ImportedAdmissionType => {
+    ): ImportedStudentType => {
       let firstName;
       let lastName;
       if (e['ชื่อ(ไทย)'] !== undefined && e['ชื่อ(ไทย)'] !== '') {
@@ -344,9 +318,9 @@ const MultipleFileUploader = () => {
   return (
     <DialogContent className="min-w-fit">
       <DialogHeader>
-        <DialogTitle>Import admission students</DialogTitle>
+        <DialogTitle>Import students</DialogTitle>
         <DialogDescription>
-          Import admission students from spreadsheet files.
+          Import students from spreadsheet files.
         </DialogDescription>
       </DialogHeader>
       <div className="container relative mx-auto space-y-3  bg-white/20 px-5 py-5 shadow-xl">

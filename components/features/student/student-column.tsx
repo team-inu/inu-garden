@@ -2,13 +2,13 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { AdmissionRowActions } from '@/components/features/admission/admission-row-action';
-import { admissiones } from '@/components/features/admission/admission-table';
+import { StudentRowActions } from '@/components/features/student/student-row-action';
+import { students } from '@/components/features/student/student-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { Admission } from '@/data/schema';
+import { Student } from '@/data/schema';
 
-export const columns: ColumnDef<Admission>[] = [
+export const columns: ColumnDef<Student>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -129,7 +129,7 @@ export const columns: ColumnDef<Admission>[] = [
       <DataTableColumnHeader column={column} title="Admission" />
     ),
     cell: ({ row }) => {
-      const admission = admissiones.find(
+      const admission = students.find(
         (label) => label.value === row.getValue('admission'),
       );
 
@@ -249,6 +249,6 @@ export const columns: ColumnDef<Admission>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <AdmissionRowActions row={row} />,
+    cell: ({ row }) => <StudentRowActions row={row} />,
   },
 ];

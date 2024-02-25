@@ -19,37 +19,35 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateAdmissionDefaultValues,
-  CreateAdmissionSchema,
-  CreateAdmissionType,
-} from '@/types/schema/admission-schema';
+  CreateStudentDefaultValues,
+  CreateStudentSchema,
+  CreateStudentType,
+} from '@/types/schema/student-schema';
 
-type AdmissionDialogProps = {
-  onSubmit: (values: CreateAdmissionType) => void;
-  defaultValues?: CreateAdmissionType;
+type StudentDialogProps = {
+  onSubmit: (values: CreateStudentType) => void;
+  defaultValues?: CreateStudentType;
   isEdit?: boolean;
 };
 
-const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
+const StudentDialog: React.FC<StudentDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateAdmissionSchema,
-    defaultValues ?? CreateAdmissionDefaultValues,
+    CreateStudentSchema,
+    defaultValues ?? CreateStudentDefaultValues,
   );
   return (
     <div>
       <DialogContent className="min-w-max">
         <DialogHeader>
-          <DialogTitle>
-            {isEdit ? 'Edit Admission' : 'Add Admission'}
-          </DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Student' : 'Add Student'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? 'Edit the admission information'
-              : 'Fill in the admission information'}
+              ? 'Edit the student information'
+              : 'Fill in the student information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -61,7 +59,7 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
                     key={key}
                     control={form.control}
                     // TODO: eliminate as
-                    name={key as keyof CreateAdmissionType}
+                    name={key as keyof CreateStudentType}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>{key}</FormLabel>
@@ -98,4 +96,4 @@ const AdmissionDialog: React.FC<AdmissionDialogProps> = ({
   );
 };
 
-export default AdmissionDialog;
+export default StudentDialog;
