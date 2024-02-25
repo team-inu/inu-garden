@@ -16,6 +16,12 @@ export const useGetCloByCourseId = (courseId: string) =>
     queryFn: () => cloService.getCloByCourseId(courseId),
   });
 
+export const useGetCloById = (cloId: string) =>
+  useQuery({
+    queryKey: ['clo', cloId],
+    queryFn: () => cloService.getCloById(cloId),
+  });
+
 export const useCreateClo = () => {
   return useMutation({
     mutationFn: async ({
