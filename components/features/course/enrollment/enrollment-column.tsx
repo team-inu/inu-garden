@@ -36,9 +36,20 @@ export const columns: ColumnDef<Enrollment>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader column={column} title="EnrollmentId" />
     ),
     cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: 'studentId',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="kmutt id" />
+    ),
+    cell: ({ row }) => (
+      <div className="w-[80px]">{row.getValue('studentId')}</div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -73,13 +84,13 @@ export const columns: ColumnDef<Enrollment>[] = [
     },
   },
   {
-    accessorKey: 'label',
+    accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Label" />
+      <DataTableColumnHeader column={column} title="status" />
     ),
     cell: ({ row }) => {
       const label = labels.find(
-        (label) => label.value === row.getValue('label'),
+        (label) => label.value === row.getValue('status'),
       );
 
       if (!label) {

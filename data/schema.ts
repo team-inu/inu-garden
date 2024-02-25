@@ -2,16 +2,17 @@ import { z } from 'zod';
 
 export const EnrollmentSchema = z.object({
   id: z.string(),
-  name: z.string(),
+  courseId: z.string(),
+  studentId: z.string(),
+  status: z.string(),
+  email: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string(),
-  label: z.string(),
 });
 
 export type Enrollment = z.infer<typeof EnrollmentSchema>;
 
-export const AdmissionSchema = z.object({
+export const StudentSchema = z.object({
   id: z.string(),
   firstName: z.string(),
   lastName: z.string(),
@@ -29,7 +30,7 @@ export const AdmissionSchema = z.object({
   remark: z.string(),
 });
 
-export type Admission = z.infer<typeof AdmissionSchema>;
+export type Student = z.infer<typeof StudentSchema>;
 
 export const AssignmentSchema = z.object({
   id: z.string(),

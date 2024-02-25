@@ -18,10 +18,10 @@ export function MainNav({
         Course
       </Link>
       <Link
-        href="/admission"
+        href="/student"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Admission
+        Student
       </Link>
       <Link
         href="/graduation"

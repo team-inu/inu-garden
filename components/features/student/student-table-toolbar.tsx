@@ -5,15 +5,15 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useState } from 'react';
 
-import AdmissionDialog from '@/components/features/admission/admission-dialog';
-import MultipleFileUploader from '@/components/features/admission/multiple-files-uploader';
+import MultipleFileUploader from '@/components/features/student/multiple-files-uploader';
+import StudentDialog from '@/components/features/student/student-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateStudent } from '@/hooks/student-hook';
-import { CreateAdmissionType } from '@/types/schema/admission-schema';
+import { CreateStudentType } from '@/types/schema/student-schema';
 
 export type Option = {
   value: string;
@@ -35,7 +35,7 @@ interface DataTableToolbarProps<TData> {
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function AdmissionTableToolbar<TData>({
+export function StudentTableToolbar<TData>({
   table,
   selectorOptions: something,
   isViewOptions = true,
@@ -47,7 +47,7 @@ export function AdmissionTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isSuccess } = useCreateStudent();
-  const onSubmit = (value: CreateAdmissionType) => {
+  const onSubmit = (value: CreateStudentType) => {
     mutate(value);
     if (isSuccess) {
       setIsOpen(false);
@@ -106,7 +106,7 @@ export function AdmissionTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <AdmissionDialog onSubmit={onSubmit} />
+              <StudentDialog onSubmit={onSubmit} />
             </Dialog>
 
             <Button
@@ -128,7 +128,7 @@ export function AdmissionTableToolbar<TData>({
               variant="outline"
               size="sm"
             >
-              <a className="flex items-center" href="/template/admission.xlsx">
+              <a className="flex items-center" href="/template/student.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>

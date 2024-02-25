@@ -17,13 +17,9 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
-import { AdmissionTableToolbar } from '@/components/features/admission/admission-table-toolbar';
+import { StudentTableToolbar } from '@/components/features/student/student-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from '@/components/ui/data-table-toolbar';
+import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -38,7 +34,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export const admissiones: Option[] = [
+export const students: Option[] = [
   {
     value: 'โครงการ 2B',
     label: 'โครงการ 2B',
@@ -53,13 +49,13 @@ export const admissiones: Option[] = [
 
 const inputs: SelectorOption[] = [
   {
-    options: admissiones,
+    options: students,
     title: 'Admission',
     columnName: 'admission',
   },
 ];
 
-export function AdmissionDataTable<TData, TValue>({
+export function StudentDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -95,7 +91,7 @@ export function AdmissionDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <AdmissionTableToolbar table={table} selectorOptions={inputs} />
+      <StudentTableToolbar table={table} selectorOptions={inputs} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

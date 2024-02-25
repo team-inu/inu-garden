@@ -30,7 +30,7 @@ const HomePage = () => {
                 <TabsTrigger value="overview">Overview</TabsTrigger>
                 <TabsTrigger value="outcome">PO, PLO, CLO</TabsTrigger>
                 <TabsTrigger value="assignment">Assignments</TabsTrigger>
-                <TabsTrigger value="student">Students</TabsTrigger>
+                <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
               </TabsList>
               <div className="space-x-3">
                 <Link href="/course/1/portfolio">
@@ -50,7 +50,7 @@ const HomePage = () => {
             <TabsContent value="assignment" className="space-y-4">
               <Assignment />
             </TabsContent>
-            <TabsContent value="student" className="space-y-4">
+            <TabsContent value="enrollment" className="space-y-4">
               <Enrollment />
             </TabsContent>
           </Tabs>
