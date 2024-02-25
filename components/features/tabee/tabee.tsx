@@ -68,7 +68,7 @@ const TABEE = () => {
           {isPoLoading ? (
             <Loading />
           ) : (
-            <ProgramOutcomeDataTable columns={poColumns} data={pos} />
+            <ProgramOutcomeDataTable columns={poColumns} data={pos ?? []} />
           )}
         </div>
         <div className="my-2 border"></div>

@@ -74,8 +74,6 @@ export function ScoreRowActions<TData>({
           onSubmit={onSubmit}
           defaultValues={{
             studentId: scoreData.studentId,
-            firstName: scoreData.firstName,
-            lastName: scoreData.lastName,
             score: scoreData.score,
           }}
         />

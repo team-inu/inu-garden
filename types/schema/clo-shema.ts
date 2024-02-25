@@ -46,9 +46,6 @@ export const CreateCloSchema = z.object({
   subProgramLearningOutcomeId: z
     .array(optionSchema)
     .min(1, { message: 'required' }),
-  programLearningOutcomeId: z.string({ required_error: 'required' }).min(1, {
-    message: 'required',
-  }),
   programOutcomeId: z.string({ required_error: 'required' }).min(1, {
     message: 'required',
   }),
@@ -64,7 +61,6 @@ export const CreateCloDefaultValues: CreateCloType = {
   expectedPassingStudentPercentage: 0,
   status: '',
   subProgramLearningOutcomeId: [],
-  programLearningOutcomeId: '',
   programOutcomeId: '',
 };
 
