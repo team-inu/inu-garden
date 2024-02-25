@@ -53,28 +53,29 @@ const CloDialog: React.FC<PloDialogProps> = ({
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             {isEdit && (
-              <FormField
-                control={form.control}
-                name="id"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>id</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} disabled />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
+              // <FormField
+              //   control={form.control}
+              //   name="id"
+              //   render={({ field }) => (
+              //     <FormItem>
+              //       <FormLabel>id</FormLabel>
+              //       <FormControl>
+              //         <div className="flex flex-col space-y-3">
+              //           <Input {...field} disabled />
+              //           <FormMessage />
+              //         </div>
+              //       </FormControl>
+              //     </FormItem>
+              //   )}
+              // />
+              <div></div>
             )}
             <FormField
               control={form.control}
-              name="name"
+              name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Code</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -90,6 +91,21 @@ const CloDialog: React.FC<PloDialogProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="expectedPassingAssignmentPercentage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>expectedPassingAssignmentPercentage</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />

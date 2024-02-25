@@ -7,13 +7,13 @@ import { CLO } from '@/data/schema';
 
 const columns: ColumnDef<CLO>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="name" />
+      <DataTableColumnHeader column={column} title="code" />
     ),
     cell: ({ row }) => {
       return (
-        <span className="truncate font-medium">{row.getValue('name')}</span>
+        <span className="truncate font-medium">{row.getValue('code')}</span>
       );
     },
     filterFn: (row, id, value) => {

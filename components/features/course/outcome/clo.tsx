@@ -10,19 +10,17 @@ import { SubPLO } from '@/data/schema';
 
 export const mockCLO = [
   {
-    id: '01HG65WNM26ZY60SC0CYC4V4TK',
-    name: 'CLO1',
-    description: 'CLO1 description',
-  },
-  {
     id: '01HG65WNM2H6NET91P8N61MQ8Z',
-    name: 'CLO2',
-    description: 'CLO2 description',
-  },
-  {
-    id: '01HG65WNM2A6PP0PY1EV3CWST1',
-    name: 'CLO3',
-    description: 'CLO3 description',
+    name: 'what',
+    code: 'CLO1',
+    description: 'string',
+    weight: 0,
+    expectedPassingAssignmentPercentage: 0,
+    expectedScorePercentage: 0,
+    expectedPassingStudentPercentage: 0,
+    courseId: '1',
+    subProgramLearningOutcomeId: '1',
+    programLearningOutcomeId: '1',
   },
 ];
 

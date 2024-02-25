@@ -87,7 +87,7 @@ export function AdmissionRowActions<TData>({
             gpax: admission.GPAX,
             school: admission.school,
             departmentName: admission.departmentName,
-            programmeId: admission.programmeId,
+            programmeId: admission.programmeName,
             year: admission.year,
             remark: admission.remark,
           }}

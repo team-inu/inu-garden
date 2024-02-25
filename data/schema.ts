@@ -109,7 +109,15 @@ export type PO = z.infer<typeof POSchema>;
 export const CLOSchema = z.object({
   id: z.string(),
   name: z.string(),
+  code: z.string(),
   description: z.string(),
+  weight: z.number(),
+  expectedPassingAssignmentPercentage: z.number(),
+  expectedScorePercentage: z.number(),
+  expectedPassingStudentPercentage: z.number(),
+  courseId: z.string(),
+  subProgramLearningOutcomeId: z.string(),
+  programLearningOutcomeId: z.string(),
 });
 
 export type CLO = z.infer<typeof CLOSchema>;

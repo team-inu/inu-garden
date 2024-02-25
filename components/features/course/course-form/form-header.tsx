@@ -32,19 +32,13 @@ const CourseFormHeader = () => {
     const [info] = tableToObject(infoTable[0], infoTable.slice(1));
     const clo = tableToObject(CLOTable[0], CLOTable.slice(1));
 
+    // TODO: i think this will be boommmm
     formCtx.reset({
       name: info['CourseTitle'],
       code: info['_CourseID'],
-      semester: info['Semester'],
-      lecturer: 'a',
+      semesterId: info['Semester'],
+      lecturerId: 'a',
       description: '',
-      courseLearningOutcome: clo.map((c) => ({
-        code: c['_No.'],
-        description: c['Course Learning Outcomes (CLOs)'],
-        programOutcome: c['KMUTT PLO'],
-        subProgramLearningOutcome: '',
-        weight: '',
-      })),
     });
   };
 

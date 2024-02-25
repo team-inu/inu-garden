@@ -73,9 +73,17 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
-            id: clo.id,
-            name: clo.name,
+            code: clo.code,
+            courseId: clo.courseId,
             description: clo.description,
+            expectedPassingAssignmentPercentage:
+              clo.expectedPassingAssignmentPercentage,
+            expectedPassingStudentPercentage:
+              clo.expectedPassingStudentPercentage,
+            expectedScorePercentage: clo.expectedScorePercentage,
+            programLearningOutcomeId: clo.programLearningOutcomeId,
+            subProgramLearningOutcomeId: clo.subProgramLearningOutcomeId,
+            weight: clo.weight,
           }}
         />
       )}
