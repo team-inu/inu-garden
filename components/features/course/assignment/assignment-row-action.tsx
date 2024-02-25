@@ -6,7 +6,6 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
-import AssignmentDialog from '@/components/features/course/assignment/assignment-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,8 +21,6 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { AssignmentSchema } from '@/data/schema';
-import { checkMultipleString } from '@/libs/utils';
 import { CreateAssignmentType } from '@/types/schema/assignment-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -33,14 +30,12 @@ interface DataTableRowActionsProps<TData> {
 export function AssigmentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const assignmentData = AssignmentSchema.parse(row.original);
+  // const assignmentData = AssignmentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const clo = checkMultipleString(assignmentData.clo);
-  const po = checkMultipleString(assignmentData.po);
-  const plo = checkMultipleString(assignmentData.plo);
-
-  console.log(clo);
+  // const clo = checkMultipleString(assignmentData.courseLearningOutcomeId);
+  // const po = checkMultipleString(assignmentData.po);
+  // const plo = checkMultipleString(assignmentData.plo);
 
   const onSubmit = (values: CreateAssignmentType) => {
     console.log(values);
@@ -76,19 +71,18 @@ export function AssigmentRowActions<TData>({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
+      {/*
       {isEditDialogOpen && (
-        <AssignmentDialog
+        <AssignmentEditDialog
           isEdit
           onSubmit={onSubmit}
           defaultValues={{
             ...assignmentData,
-            clo,
-            plo,
-            po,
+            clo: [{ label: 'clo', value: 'clo', disable: false }],
+            description: '',
           }}
         />
-      )}
+      )} */}
 
       {isDeleteDialogOpen && (
         <DialogContent>

@@ -11,6 +11,8 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreateAssignment } from '@/hooks/assignment-hook';
+import { CreateAssignmentType } from '@/types/schema/assignment-schema';
 
 export type Option = {
   value: string;
@@ -44,6 +46,15 @@ export function AssignmentTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
+  const { mutate, isSuccess } = useCreateAssignment();
+
+  const HandleSubmitAssigment = (values: CreateAssignmentType) => {
+    mutate(values);
+
+    if (isSuccess) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -97,7 +108,7 @@ export function AssignmentTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <AssignmentDialog onSubmit={() => {}} />
+              <AssignmentDialog onSubmit={HandleSubmitAssigment} />
             </Dialog>
 
             <Input

@@ -3,114 +3,90 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { AssigmentRowActions } from '@/components/features/course/assignment/assignment-row-action';
-import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { Assignement } from '@/data/schema';
+import { GetAssignmentListType } from '@/types/schema/assignment-schema';
 
-export const columns: ColumnDef<Assignement>[] = [
+export const columns: ColumnDef<GetAssignmentListType>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Task" />
+      <DataTableColumnHeader
+        column={column}
+        className="hidden"
+        hidden
+        title="Task"
+      />
     ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="name" />
+      <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('name')}</span>
-        </div>
-      );
+      return <span>{row.getValue('name')}</span>;
     },
   },
   {
-    accessorKey: 'clo',
+    accessorKey: 'description',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Description" />
+    ),
+    cell: ({ row }) => {
+      return <span>{row.getValue('description')}</span>;
+    },
+  },
+  {
+    accessorKey: 'maxScore',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Max Score" />
+    ),
+    cell: ({ row }) => {
+      return <span>{row.getValue('maxScore')}</span>;
+    },
+  },
+  {
+    accessorKey: 'courseLearningOutcomesId',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="clo" />
     ),
     cell: ({ row }) => {
+      //TODO: get clo name from id
+      return <span></span>;
+    },
+  },
+  {
+    accessorKey: 'weight',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Weight" />
+    ),
+    cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('clo')}</span>
+        <div>
+          <span>{row.getValue('weight')}</span>
         </div>
       );
     },
   },
   {
-    accessorKey: 'plo',
+    accessorKey: 'expectedPassingStudentPercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="plo" />
+      <DataTableColumnHeader column={column} title="ExpectedPassingStudent%" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('plo')}</span>
-        </div>
-      );
+      return <span>{row.getValue('expectedPassingStudentPercentage')}</span>;
     },
   },
   {
-    accessorKey: 'po',
+    accessorKey: 'expectedScorePercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="po" />
+      <DataTableColumnHeader column={column} title="ExpecteScore%" />
     ),
     cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('po')}</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'weigth',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="weigth" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('weigth')}</span>
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: 'dueDate',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="dueDate" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {(row.getValue('dueDate') as Date).toDateString()}
-          </span>
-        </div>
-      );
-    },
-  },
-
-  {
-    accessorKey: 'percentage',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="percentage" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('percentage')}
-          </span>
-        </div>
-      );
+      return <span>{row.getValue('expectedScorePercentage')}</span>;
     },
   },
   {

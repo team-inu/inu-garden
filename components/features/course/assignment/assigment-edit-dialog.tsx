@@ -19,7 +19,6 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import MultipleSelector from '@/components/ui/muti-select';
-import { Textarea } from '@/components/ui/textarea';
 import { useGetCloByCourseId } from '@/hooks/clo-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
@@ -33,7 +32,7 @@ type StudentDialogProps = {
   defaultValues?: CreateAssignmentType;
 };
 
-const AssignmentDialog: React.FC<StudentDialogProps> = ({
+const AssignmentEditDialog: React.FC<StudentDialogProps> = ({
   onSubmit,
   defaultValues,
 }) => {
@@ -48,10 +47,8 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Assignment</DialogTitle>
-          <DialogDescription>
-            Fill in the assignment information
-          </DialogDescription>
+          <DialogTitle>Edit Assignment</DialogTitle>
+          <DialogDescription>Edit the assignment information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
@@ -70,26 +67,13 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
             <div className="grid grid-cols-2 gap-3">
               <FormField
                 control={form.control}
                 name="weight"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Weight</FormLabel>
+                    <FormLabel>Weigth</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} type="number" min={0} max={100} />
@@ -176,11 +160,11 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
           <DialogClose asChild>
             <Button variant="outline">Cancel</Button>
           </DialogClose>
-          <Button onClick={form.handleSubmit(onSubmit)}>Save</Button>
+          <Button>Save</Button>
         </DialogFooter>
       </DialogContent>
     </div>
   );
 };
 
-export default AssignmentDialog;
+export default AssignmentEditDialog;
