@@ -38,7 +38,6 @@ export const AssignmentSchema = z.object({
   plo: z.string(),
   po: z.string(),
   weigth: z.string(),
-  dueDate: z.date(),
   percentage: z.string(),
 });
 
@@ -118,6 +117,7 @@ export const CLOSchema = z.object({
   courseId: z.string(),
   subProgramLearningOutcomeId: z.string(),
   programLearningOutcomeId: z.string(),
+  programOutcomeId: z.string(),
 });
 
 export type CLO = z.infer<typeof CLOSchema>;

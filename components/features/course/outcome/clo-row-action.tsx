@@ -74,7 +74,6 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           onSubmit={onSubmit}
           defaultValues={{
             code: clo.code,
-            courseId: clo.courseId,
             description: clo.description,
             expectedPassingAssignmentPercentage:
               clo.expectedPassingAssignmentPercentage,
@@ -82,8 +81,9 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
               clo.expectedPassingStudentPercentage,
             expectedScorePercentage: clo.expectedScorePercentage,
             programLearningOutcomeId: clo.programLearningOutcomeId,
-            subProgramLearningOutcomeId: clo.subProgramLearningOutcomeId,
-            weight: clo.weight,
+            subProgramLearningOutcomeId: [],
+            status: 'old',
+            programOutcomeId: 'to do add this to excel edit form',
           }}
         />
       )}

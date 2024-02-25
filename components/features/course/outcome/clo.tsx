@@ -58,7 +58,7 @@ const CourseLearningOutcome = () => {
       <h1 className="mb-5 text-2xl font-bold">Course learning outcome</h1>{' '}
       <CourseLearningOutcomeDataTable
         columns={columns}
-        data={mockCLO}
+        data={[]}
         getValues={getVales}
       />
       <div>

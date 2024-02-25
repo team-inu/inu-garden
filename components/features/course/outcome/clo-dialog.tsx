@@ -17,12 +17,24 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import MultipleSelector from '@/components/ui/muti-select';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useGetPloList } from '@/hooks/plo-hook';
+import { useGetPoList } from '@/hooks/po-hook';
 import {
   CreateCloDefaultValues,
   CreateCloSchema,
   CreateCloType,
+  OptionaType,
 } from '@/types/schema/clo-shema';
+import { GetProgramLearningOutcomeList } from '@/types/schema/plo-schema';
 
 type PloDialogProps = {
   onSubmit: (values: CreateCloType) => void;
@@ -30,61 +42,89 @@ type PloDialogProps = {
   isEdit?: boolean;
 };
 
+const getSubPloOptions = (
+  ploList: GetProgramLearningOutcomeList[] | undefined,
+  ploId: string,
+) =>
+  ploList
+    ?.find((plo) => plo.id === ploId)
+    ?.subProgramLearningOutcomes.map(
+      (subPlo): OptionaType => ({
+        label: subPlo.descriptionThai,
+        value: subPlo.id,
+      }),
+    ) as OptionaType[];
+
 const CloDialog: React.FC<PloDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
+  const { data: plolist } = useGetPloList();
+  const { data: polist } = useGetPoList();
+
   const form = useStrictForm(
     CreateCloSchema,
     defaultValues ?? CreateCloDefaultValues,
   );
+
+  const updatePlo = (ploId: string) => {
+    form.setValue('programLearningOutcomeId', ploId);
+    form.setValue(
+      'subProgramLearningOutcomeId',
+      getSubPloOptions(plolist, ploId),
+    );
+  };
+
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Clo' : 'Add Clo'}</DialogTitle>
+          <DialogTitle>
+            {isEdit
+              ? 'Edit Course learning outcome'
+              : 'Add Course learning outcome'}
+          </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? 'Edit the clo information'
-              : 'Fill in the clo information'}
+              ? 'Edit the course learning outcome information'
+              : 'Fill in the course learning outcome information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            {isEdit && (
-              // <FormField
-              //   control={form.control}
-              //   name="id"
-              //   render={({ field }) => (
-              //     <FormItem>
-              //       <FormLabel>id</FormLabel>
-              //       <FormControl>
-              //         <div className="flex flex-col space-y-3">
-              //           <Input {...field} disabled />
-              //           <FormMessage />
-              //         </div>
-              //       </FormControl>
-              //     </FormItem>
-              //   )}
-              // />
-              <div></div>
-            )}
-            <FormField
-              control={form.control}
-              name="code"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Code</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-3">
+              <FormField
+                control={form.control}
+                name="code"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Code</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
               name="description"
@@ -100,17 +140,127 @@ const CloDialog: React.FC<PloDialogProps> = ({
                 </FormItem>
               )}
             />
+
+            <div className="grid grid-cols-3 gap-3">
+              <FormField
+                control={form.control}
+                name="expectedPassingStudentPercentage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Passing Student %</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} type="number" min={0} max={100} />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="expectedScorePercentage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Passing Score %</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} type="number" min={0} max={100} />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="expectedPassingAssignmentPercentage"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Passing Assignment %</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
             <FormField
               control={form.control}
-              name="expectedPassingAssignmentPercentage"
+              name="programOutcomeId"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Program Learning Outcome</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select Program  outcome" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {polist &&
+                        polist.map((po) => (
+                          <SelectItem key={po.id} value={po.id}>
+                            {po.code}-{po.name}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="programLearningOutcomeId"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Program Learning Outcome</FormLabel>
+                  <Select onValueChange={updatePlo} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="h-24">
+                        <SelectValue
+                          className="h-24"
+                          placeholder="Select Program learning outcome"
+                        />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {plolist &&
+                        plolist.map((plo) => (
+                          <SelectItem key={plo.id} value={plo.id}>
+                            {plo.code} - {plo.descriptionThai}
+                          </SelectItem>
+                        ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="subProgramLearningOutcomeId"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>expectedPassingAssignmentPercentage</FormLabel>
+                  <FormLabel>Sub Program Learning Outcome</FormLabel>
                   <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
+                    <MultipleSelector
+                      value={field.value}
+                      onChange={field.onChange}
+                      options={getSubPloOptions(
+                        plolist,
+                        form.getValues('programLearningOutcomeId'),
+                      )}
+                      emptyIndicator={
+                        <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
+                          no results found.
+                        </p>
+                      }
+                    />
                   </FormControl>
                 </FormItem>
               )}

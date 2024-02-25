@@ -3,6 +3,7 @@
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
 import CloDialog from '@/components/features/course/outcome/clo-dialog';
@@ -12,6 +13,8 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreateClo } from '@/hooks/clo-hook';
+import { CreateCloType } from '@/types/schema/clo-shema';
 
 export type Option = {
   value: string;
@@ -38,11 +41,17 @@ export function CloTableToolbar<TData>({
   isViewOptions = true,
   isCreateEnabled = true,
 }: DataTableToolbarProps<TData>) {
+  const { id: courseId } = useParams();
   const hasOption = something.length > 0;
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
+  const { mutate } = useCreateClo();
+
+  const handleSubmitClo = (values: CreateCloType) => {
+    mutate({ clo: values, courseId });
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -96,7 +105,7 @@ export function CloTableToolbar<TData>({
             </Button>
 
             <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-              <CloDialog onSubmit={() => {}} />
+              <CloDialog onSubmit={handleSubmitClo} />
             </Dialog>
 
             <Button
