@@ -35,11 +35,13 @@ export type Student = z.infer<typeof StudentSchema>;
 export const AssignmentSchema = z.object({
   id: z.string(),
   name: z.string(),
-  clo: z.string(),
-  plo: z.string(),
-  po: z.string(),
-  weigth: z.string(),
-  percentage: z.string(),
+  description: z.string(),
+  maxScore: z.number(),
+  courseLearningOutcomeId: z.string(),
+  weight: z.number(),
+  expectedScorePercentage: z.number(),
+  expectedPassingStudentPercentage: z.number(),
+  courseId: z.string(),
 });
 
 export type Assignement = z.infer<typeof AssignmentSchema>;

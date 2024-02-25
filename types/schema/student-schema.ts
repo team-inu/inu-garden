@@ -1,5 +1,23 @@
 import * as z from 'zod';
 
+export type GetStudentList = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  admission: string;
+  email: string;
+  GPAX: number;
+  mathGPA: number;
+  engGPA: number;
+  sciGPA: number;
+  school: string;
+  city: string;
+  year: string;
+  programmeName: string;
+  departmentName: string;
+  remark: string | null;
+};
+
 export const CreateStudentSchema = z.object({
   kmuttId: z
     .string({ required_error: 'required' })
