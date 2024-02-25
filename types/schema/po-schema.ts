@@ -21,8 +21,6 @@ export const CreatePoSchema = z.object({
 
 export type CreatePoType = z.infer<typeof CreatePoSchema>;
 
-export type ImportedPoType = Partial<CreatePoType>;
-
 export const CreatePoDefaultValues: CreatePoType = {
   code: '',
   name: '',

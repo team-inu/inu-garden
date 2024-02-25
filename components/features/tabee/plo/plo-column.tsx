@@ -17,7 +17,7 @@ export const columns: ColumnDef<PLO>[] = [
   {
     accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="code" />
+      <DataTableColumnHeader column={column} title="Code" />
     ),
     cell: ({ row }) => {
       return (
@@ -33,7 +33,7 @@ export const columns: ColumnDef<PLO>[] = [
   {
     accessorKey: 'descriptionThai',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="descriptionThai" />
+      <DataTableColumnHeader column={column} title="Thai Description" />
     ),
     cell: ({ row }) => {
       return <div>{row.getValue('descriptionThai')}</div>;
@@ -42,7 +42,7 @@ export const columns: ColumnDef<PLO>[] = [
   {
     accessorKey: 'descriptionEng',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="descriptionEng" />
+      <DataTableColumnHeader column={column} title="English Description" />
     ),
     cell: ({ row }) => {
       return <div>{row.getValue('descriptionEng')}</div>;
@@ -51,7 +51,7 @@ export const columns: ColumnDef<PLO>[] = [
   {
     accessorKey: 'programYear',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="programYear" />
+      <DataTableColumnHeader column={column} title="Program Year" />
     ),
     cell: ({ row }) => {
       return <div>{row.getValue('programYear')}</div>;
@@ -60,7 +60,7 @@ export const columns: ColumnDef<PLO>[] = [
   {
     accessorKey: 'programmeName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="programmeName" />
+      <DataTableColumnHeader column={column} title="Curriculum" />
     ),
     cell: ({ row }) => {
       return <div>{row.getValue('programmeName')}</div>;

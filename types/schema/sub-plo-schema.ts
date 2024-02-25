@@ -23,8 +23,6 @@ export const CreateSubPloSchema = z.object({
 
 export type CreateSubPloType = z.infer<typeof CreateSubPloSchema>;
 
-export type ImportedSubPloType = Partial<CreateSubPloType>;
-
 export const CreateSubPloDefaultValues: CreateSubPloType = {
   code: '',
   descriptionThai: '',
@@ -33,7 +31,17 @@ export const CreateSubPloDefaultValues: CreateSubPloType = {
 };
 
 export const CreateManySubPloSchema = z.object({
-  splo: z.array(CreateSubPloSchema),
+  splo: z.array(
+    z.object({
+      code: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+      descriptionThai: z
+        .string({ required_error: 'required' })
+        .min(1, { message: 'required' }),
+      descriptionEng: z.string(),
+    }),
+  ),
 });
 
 export type CreateManySubPloType = z.infer<typeof CreateManySubPloSchema>;
