@@ -2,14 +2,13 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { StudentRowActions } from '@/components/features/course/student/student-row-action';
-import { Badge } from '@/components/ui/badge';
+import { EnrollmentRowActions } from '@/components/features/course/enrollment/enrollment-row-action';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { labels, priorities, statuses } from '@/data/data';
-import { Student } from '@/data/schema';
+import { labels } from '@/data/data';
+import { Enrollment } from '@/data/schema';
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<Enrollment>[] = [
   {
     id: 'select',
     header: ({ table }) => (
@@ -115,6 +114,6 @@ export const columns: ColumnDef<Student>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <StudentRowActions row={row} />,
+    cell: ({ row }) => <EnrollmentRowActions row={row} />,
   },
 ];

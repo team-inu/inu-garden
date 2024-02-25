@@ -1,13 +1,13 @@
 'use client';
 
-import { columns } from '@/components/features/course/student/student-column';
-import { StudentDataTable } from '@/components/features/course/student/student-table';
+import { columns } from '@/components/features/course/enrollment/enrollment-column';
+import { EnrollmentDataTable } from '@/components/features/course/enrollment/enrollment-table';
 
-const Student = () => {
+const Enrollment = () => {
   return (
     <>
-      <h1 className="mb-5 text-2xl font-bold">Students</h1>{' '}
-      <StudentDataTable
+      <h1 className="mb-5 text-2xl font-bold">Enrollments</h1>{' '}
+      <EnrollmentDataTable
         columns={columns}
         data={[
           {
@@ -40,4 +40,4 @@ const Student = () => {
   );
 };
 
-export default Student;
+export default Enrollment;

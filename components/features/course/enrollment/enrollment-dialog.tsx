@@ -19,31 +19,31 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateStudentType,
-  EditStudentDefaultValues,
-  EditStudentSchema,
-} from '@/types/schema/studen-schema';
+  CreateEnrollmentType,
+  EditEnrollmentDefaultValues,
+  EditEnrollmentSchema,
+} from '@/types/schema/enrollment-schema';
 
-type StudentDialogProps = {
-  onSubmit: (values: CreateStudentType) => void;
-  defaultValues?: CreateStudentType;
+type EnrollmentDialogProps = {
+  onSubmit: (values: CreateEnrollmentType) => void;
+  defaultValues?: CreateEnrollmentType;
 };
 
-const StudentDialog: React.FC<StudentDialogProps> = ({
+const EnrollmentDialog: React.FC<EnrollmentDialogProps> = ({
   onSubmit,
   defaultValues,
 }) => {
   const form = useStrictForm(
-    EditStudentSchema,
-    defaultValues ?? EditStudentDefaultValues,
+    EditEnrollmentSchema,
+    defaultValues ?? EditEnrollmentDefaultValues,
   );
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Student</DialogTitle>
-          <DialogDescription>Edit the student information</DialogDescription>
+          <DialogTitle>Edit Enrollment</DialogTitle>
+          <DialogDescription>Edit the enrollment information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form>
@@ -124,4 +124,4 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
   );
 };
 
-export default StudentDialog;
+export default EnrollmentDialog;

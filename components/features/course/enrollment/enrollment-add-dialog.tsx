@@ -19,36 +19,38 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateStudentDefaultValues,
-  CreateStudentSchema,
-  CreateStudentType,
-} from '@/types/schema/studen-schema';
+  CreateEnrollmentDefaultValues,
+  CreateEnrollmentSchema,
+  CreateEnrollmentType,
+} from '@/types/schema/enrollment-schema';
 
-type StudentDialogProps = {
-  onSubmit: (values: CreateStudentType) => void;
-  defaultValues?: CreateStudentType;
+type EnrollmentDialogProps = {
+  onSubmit: (values: CreateEnrollmentType) => void;
+  defaultValues?: CreateEnrollmentType;
   isEdit?: boolean;
 };
 
-const StudentAddDialog: React.FC<StudentDialogProps> = ({
+const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateStudentSchema,
-    defaultValues ?? CreateStudentDefaultValues,
+    CreateEnrollmentSchema,
+    defaultValues ?? CreateEnrollmentDefaultValues,
   );
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Student' : 'Add Student'}</DialogTitle>
+          <DialogTitle>
+            {isEdit ? 'Edit Enrollment' : 'Add Enrollment'}
+          </DialogTitle>
           <DialogDescription>
             {isEdit
-              ? 'Edit the student information'
-              : 'Fill in the student information'}
+              ? 'Edit the enrollment information'
+              : 'Fill in the enrollment information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -85,4 +87,4 @@ const StudentAddDialog: React.FC<StudentDialogProps> = ({
   );
 };
 
-export default StudentAddDialog;
+export default EnrollmentAddDialog;

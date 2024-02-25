@@ -1,18 +1,18 @@
 import * as z from 'zod';
 
-export const CreateStudentSchema = z.object({
+export const CreateEnrollmentSchema = z.object({
   studentId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
 });
 
-export type CreateStudentType = z.infer<typeof CreateStudentSchema>;
+export type CreateEnrollmentType = z.infer<typeof CreateEnrollmentSchema>;
 
-export const CreateStudentDefaultValues: CreateStudentType = {
+export const CreateEnrollmentDefaultValues: CreateEnrollmentType = {
   studentId: '',
 };
 
-export const EditStudentSchema = z.object({
+export const EditEnrollmentSchema = z.object({
   studentId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -27,9 +27,9 @@ export const EditStudentSchema = z.object({
     .min(1, { message: 'required' }),
 });
 
-export type EditStudentType = z.infer<typeof EditStudentSchema>;
+export type EditEnrollmentType = z.infer<typeof EditEnrollmentSchema>;
 
-export const EditStudentDefaultValues: EditStudentType = {
+export const EditEnrollmentDefaultValues: EditEnrollmentType = {
   studentId: '',
   firstName: '',
   lastName: '',

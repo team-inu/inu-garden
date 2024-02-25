@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const StudentSchema = z.object({
+export const EnrollmentSchema = z.object({
   id: z.string(),
   name: z.string(),
   firstName: z.string(),
@@ -9,7 +9,7 @@ export const StudentSchema = z.object({
   label: z.string(),
 });
 
-export type Student = z.infer<typeof StudentSchema>;
+export type Enrollment = z.infer<typeof EnrollmentSchema>;
 
 export const AdmissionSchema = z.object({
   id: z.string(),

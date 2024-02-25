@@ -6,7 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
-import StudentDialog from '@/components/features/course/student/student-dialog';
+import EnrollmentDialog from '@/components/features/course/enrollment/enrollment-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,21 +22,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { StudentSchema } from '@/data/schema';
-import { CreateStudentType } from '@/types/schema/studen-schema';
+import { EnrollmentSchema } from '@/data/schema';
+import { CreateEnrollmentType } from '@/types/schema/enrollment-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function StudentRowActions<TData>({
+export function EnrollmentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const student = StudentSchema.parse(row.original);
+  const enrollment = EnrollmentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateStudentType) => {
+  const onSubmit = (values: CreateEnrollmentType) => {
     console.log(values);
   };
 
@@ -71,10 +71,10 @@ export function StudentRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <StudentDialog
+        <EnrollmentDialog
           onSubmit={onSubmit}
           defaultValues={{
-            studentId: student.id,
+            studentId: enrollment.id,
           }}
         />
       )}

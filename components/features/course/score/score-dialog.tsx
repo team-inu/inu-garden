@@ -23,11 +23,6 @@ import {
   CreateScoreSchema,
   CreateScoreType,
 } from '@/types/schema/score-schema';
-import {
-  CreateStudentDefaultValues,
-  CreateStudentSchema,
-  CreateStudentType,
-} from '@/types/schema/studen-schema';
 
 type ScoreDialogProps = {
   onSubmit: (values: CreateScoreType) => void;

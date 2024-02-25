@@ -6,7 +6,6 @@ import {
   ArrowUpIcon,
   CheckCircledIcon,
   CircleIcon,
-  Cross2Icon,
   CrossCircledIcon,
   QuestionMarkCircledIcon,
   StopwatchIcon,
@@ -29,13 +28,9 @@ import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
-import { StudentTableToolbar } from '@/components/features/course/student/student-table-toolbar';
+import { EnrollmentTableToolbar } from '@/components/features/course/enrollment/enrollment-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from '@/components/ui/data-table-toolbar';
+import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -106,7 +101,7 @@ const inputs: SelectorOption[] = [
   },
 ];
 
-export function StudentDataTable<TData, TValue>({
+export function EnrollmentDataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -140,7 +135,7 @@ export function StudentDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadStudent = async (
+  const handleUploadEnrollment = async (
     e: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const file = e.target.files?.[0];
@@ -169,10 +164,10 @@ export function StudentDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <StudentTableToolbar
+      <EnrollmentTableToolbar
         table={table}
         selectorOptions={inputs}
-        handleImport={handleUploadStudent}
+        handleImport={handleUploadEnrollment}
       />
       <div className="rounded-md border">
         <Table>

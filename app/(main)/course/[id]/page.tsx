@@ -4,8 +4,8 @@ import Link from 'next/link';
 
 import Assignment from '@/components/features/course/assignment/assignment';
 import Dashboard from '@/components/features/course/dashboard/dashboard';
+import Enrollment from '@/components/features/course/enrollment/enrollment';
 import CourseLearningOutcome from '@/components/features/course/outcome/clo';
-import Student from '@/components/features/course/student/student';
 import { Button } from '@/components/ui/button';
 import {
   Tabs,
@@ -51,7 +51,7 @@ const HomePage = () => {
               <Assignment />
             </TabsContent>
             <TabsContent value="student" className="space-y-4">
-              <Student />
+              <Enrollment />
             </TabsContent>
           </Tabs>
         </div>

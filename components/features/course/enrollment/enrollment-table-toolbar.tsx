@@ -5,7 +5,7 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
-import StudentAddDialog from '@/components/features/course/student/student-add-dialog';
+import EnrollmentAddDialog from '@/components/features/course/enrollment/enrollment-add-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -32,7 +32,7 @@ interface DataTableToolbarProps<TData> {
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function StudentTableToolbar<TData>({
+export function EnrollmentTableToolbar<TData>({
   table,
   selectorOptions: something,
   isViewOptions = true,
@@ -97,7 +97,7 @@ export function StudentTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <StudentAddDialog onSubmit={() => {}} />
+              <EnrollmentAddDialog onSubmit={() => {}} />
             </Dialog>
 
             <Input
@@ -120,7 +120,7 @@ export function StudentTableToolbar<TData>({
               variant="outline"
               size="sm"
             >
-              <a className="flex items-center" href="/template/student.xlsx">
+              <a className="flex items-center" href="/template/enrollment.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>
