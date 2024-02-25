@@ -1,15 +1,20 @@
 import * as z from 'zod';
 
 export const CreateEnrollmentSchema = z.object({
-  studentId: z
+  courseId: z.string(),
+  status: z.string(),
+  studentIds: z
     .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+    .min(1, { message: 'required' })
+    .array(),
 });
 
 export type CreateEnrollmentType = z.infer<typeof CreateEnrollmentSchema>;
 
 export const CreateEnrollmentDefaultValues: CreateEnrollmentType = {
-  studentId: '',
+  courseId: '',
+  status: '',
+  studentIds: [],
 };
 
 export const EditEnrollmentSchema = z.object({

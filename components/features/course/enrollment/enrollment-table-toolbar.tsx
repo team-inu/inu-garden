@@ -6,11 +6,14 @@ import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
 import EnrollmentAddDialog from '@/components/features/course/enrollment/enrollment-add-dialog';
+import EnrollmentImportDialog from '@/components/features/course/enrollment/enrollment-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreateEnrollment } from '@/hooks/enrollment-hook';
+import { CreateEnrollmentType } from '@/types/schema/enrollment-schema';
 
 export type Option = {
   value: string;
@@ -40,10 +43,27 @@ export function EnrollmentTableToolbar<TData>({
   handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
-  const [isOpen, setIsOpen] = useState(false);
+  const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
+  const [isImportDialogOpen, setIsImportDialogOpen] = useState(false);
+
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
+  const { mutate, isSuccess } = useCreateEnrollment();
+
+  const onSubmit = (value: CreateEnrollmentType) => {
+    mutate(value);
+    if (isSuccess) {
+      setIsAddDialogOpen(false);
+    }
+  };
+
+  const onSubmitImport = (value: CreateEnrollmentType) => {
+    mutate(value);
+    if (isSuccess) {
+      setIsImportDialogOpen(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -90,14 +110,14 @@ export function EnrollmentTableToolbar<TData>({
               variant="outline"
               size="sm"
               className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsAddDialogOpen(true)}
             >
               <PlusCircledIcon className="mr-2 h-4 w-4" />
               Add
             </Button>
 
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <EnrollmentAddDialog onSubmit={() => {}} />
+            <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
+              <EnrollmentAddDialog onSubmit={onSubmit} />
             </Dialog>
 
             <Input
@@ -110,11 +130,21 @@ export function EnrollmentTableToolbar<TData>({
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
-              onClick={() => fileImportRef.current?.click()}
+              onClick={() => setIsImportDialogOpen(true)}
             >
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
             </Button>
+            <Dialog
+              open={isImportDialogOpen}
+              onOpenChange={setIsImportDialogOpen}
+            >
+              <EnrollmentImportDialog
+                open={isImportDialogOpen}
+                setIsOnOpenChange={setIsImportDialogOpen}
+                onSubmit={onSubmitImport}
+              />
+            </Dialog>
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"

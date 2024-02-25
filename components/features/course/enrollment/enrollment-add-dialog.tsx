@@ -57,7 +57,7 @@ const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
           <form>
             <FormField
               control={form.control}
-              name="studentId"
+              name="studentIds"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>StudentId</FormLabel>

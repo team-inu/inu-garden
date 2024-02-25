@@ -3,7 +3,6 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
-// TODO: make it dynamic
 import { useState } from 'react';
 
 import EnrollmentDialog from '@/components/features/course/enrollment/enrollment-dialog';
@@ -74,7 +73,9 @@ export function EnrollmentRowActions<TData>({
         <EnrollmentDialog
           onSubmit={onSubmit}
           defaultValues={{
-            studentId: enrollment.id,
+            studentIds: [enrollment.studentId],
+            courseId: enrollment.courseId,
+            status: enrollment.status,
           }}
         />
       )}

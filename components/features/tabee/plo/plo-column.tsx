@@ -58,12 +58,12 @@ export const columns: ColumnDef<PLO>[] = [
     },
   },
   {
-    accessorKey: 'programmeId',
+    accessorKey: 'programmeName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="programmeId" />
+      <DataTableColumnHeader column={column} title="programmeName" />
     ),
     cell: ({ row }) => {
-      return <div>{row.getValue('programmeId')}</div>;
+      return <div>{row.getValue('programmeName')}</div>;
     },
   },
 

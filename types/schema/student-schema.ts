@@ -41,7 +41,7 @@ export const CreateStudentSchema = z.object({
   year: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  programmeId: z
+  programmeName: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   departmentName: z
@@ -67,7 +67,7 @@ export const CreateStudentDefaultValues: CreateStudentType = {
   school: '',
   city: '',
   year: '',
-  programmeId: '',
+  programmeName: '',
   departmentName: '',
   remark: undefined,
 };
