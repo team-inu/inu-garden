@@ -15,6 +15,7 @@ export const mockCLO = [
     code: 'CLO1',
     description: 'string',
     weight: 0,
+    programOutcomeId: '-',
     expectedPassingAssignmentPercentage: 0,
     expectedScorePercentage: 0,
     expectedPassingStudentPercentage: 0,
@@ -58,7 +59,7 @@ const CourseLearningOutcome = () => {
       <h1 className="mb-5 text-2xl font-bold">Course learning outcome</h1>{' '}
       <CourseLearningOutcomeDataTable
         columns={columns}
-        data={[]}
+        data={mockCLO}
         getValues={getVales}
       />
       <div>
