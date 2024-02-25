@@ -1,8 +1,8 @@
 import { ApiService } from '@/services/api-service';
 import {
+  CreateManyPoType,
   CreatePoType,
   GetPoList,
-  ImportedPoType,
 } from '@/types/schema/po-schema';
 
 class PoService extends ApiService {
@@ -23,12 +23,9 @@ class PoService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createPoBulk(pos: ImportedPoType[]): Promise<ImportedPoType[]> {
-    const url = '/pos/bulk';
-    const result = {
-      pos: pos,
-    };
-    return this.post(url, result)
+  public async createManyPos(pos: CreateManyPoType): Promise<CreateManyPoType> {
+    const url = '/pos';
+    return this.post(url, pos)
       .then(() => pos)
       .catch(this.throwError);
   }
