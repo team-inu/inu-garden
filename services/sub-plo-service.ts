@@ -1,6 +1,9 @@
 import { SubPLO } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
-import { CreateSubPloType, ImportedSubPloType } from '@/types/schema/sub-plo-schema';
+import {
+  CreateSubPloType,
+  ImportedSubPloType,
+} from '@/types/schema/sub-plo-schema';
 
 class SubPloService extends ApiService {
   public async getSubPloList(): Promise<any> {
@@ -12,9 +15,7 @@ class SubPloService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createSubPlo(
-    splo: CreateSubPloType,
-  ): Promise<CreateSubPloType> {
+  public async createSubPlo(splo: CreateSubPloType): Promise<CreateSubPloType> {
     const url = '/splos';
 
     return this.post(url, splo)

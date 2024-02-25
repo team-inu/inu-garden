@@ -12,8 +12,7 @@ export const useGetPloList = () =>
 
 export const useCreatePlo = () => {
   return useMutation({
-    mutationFn: (plo: CreatePloType) =>
-      ploService.createPlo(plo),
+    mutationFn: (plo: CreatePloType) => ploService.createPlo(plo),
     onSuccess: () => {
       toast.success('PLO has been created', {
         description: 'You can now add questions to the PLO.',
@@ -29,8 +28,7 @@ export const useCreatePlo = () => {
 
 export const useCreatePloBulk = () => {
   return useMutation({
-    mutationFn: (plos: ImportedPloType[]) =>
-    ploService.createPloBulk(plos),
+    mutationFn: (plos: ImportedPloType[]) => ploService.createPloBulk(plos),
     onSuccess: () => {
       toast.success('PLOs have been created', {
         description: 'You can now see the PLOs in the list.',

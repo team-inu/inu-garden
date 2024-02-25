@@ -2,7 +2,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { subPloService } from '@/services/sub-plo-service';
-import { CreateSubPloType, ImportedSubPloType } from '@/types/schema/sub-plo-schema';
+import {
+  CreateSubPloType,
+  ImportedSubPloType,
+} from '@/types/schema/sub-plo-schema';
 
 export const useGetSubPloList = () =>
   useQuery({
@@ -12,8 +15,7 @@ export const useGetSubPloList = () =>
 
 export const useCreateSubPlo = () => {
   return useMutation({
-    mutationFn: (splo: CreateSubPloType) =>
-    subPloService.createSubPlo(splo),
+    mutationFn: (splo: CreateSubPloType) => subPloService.createSubPlo(splo),
     onSuccess: () => {
       toast.success('Sub PLO has been created', {
         description: 'You can now add questions to the Sub PLO.',
@@ -30,7 +32,7 @@ export const useCreateSubPlo = () => {
 export const useCreateSubPloBulk = () => {
   return useMutation({
     mutationFn: (splos: ImportedSubPloType[]) =>
-    subPloService.createSubPloBulk(splos),
+      subPloService.createSubPloBulk(splos),
     onSuccess: () => {
       toast.success('Sub PLOs have been created', {
         description: 'You can now see the Sub PLOs in the list.',
