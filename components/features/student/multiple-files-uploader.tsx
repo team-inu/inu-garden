@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
@@ -22,22 +21,6 @@ import {
 } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
 import { ImportedStudentType } from '@/types/schema/student-schema';
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-/* eslint-disable @next/next/no-img-element */
-
-const parseNumber = (value: any): number | null => {
-  const parsed = parseFloat(value);
-
-  if (isNaN(parsed)) {
-    return null;
-  } else {
-    return parsed;
-  }
-};
 
 const MultipleFileUploader = () => {
   const [applicantFiles, setApplicantFiles] = useState<File[]>([]);
@@ -178,7 +161,7 @@ const MultipleFileUploader = () => {
 
     const extendedEligibleWithApplicantToPyaoResult = (
       e: ExtendedEligibleWithPartialyApplicant,
-      programmeId: string,
+      programmeName: string,
     ): ImportedStudentType => {
       let firstName;
       let lastName;
@@ -208,7 +191,7 @@ const MultipleFileUploader = () => {
         school: e['ชื่อสถานศึกษา'],
         city: e['จังหวัด'],
         year: e.year,
-        programmeId: programmeId,
+        programmeName: programmeName,
         departmentName: 'computer engineer',
         remark: e['หมายเหตุ'],
       };
