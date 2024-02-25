@@ -1,5 +1,17 @@
 import * as z from 'zod';
 
+import { GetSubProgramLearningOutcomeList } from '@/types/schema/sub-plo-schema';
+
+export type GetProgramLearningOutcomeList = {
+  id: string;
+  code: string;
+  descriptionThai: string;
+  descriptionEng: string;
+  programYear: number;
+  programmeName: string;
+  subProgramLearningOutcomes: GetSubProgramLearningOutcomeList[];
+};
+
 export const CreatePloSchema = z.object({
   code: z
     .string({ required_error: 'required' })

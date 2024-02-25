@@ -1,5 +1,12 @@
 import * as z from 'zod';
 
+export type GetPoList = {
+  id: string;
+  code: string;
+  description: string;
+  name: string;
+};
+
 export const CreatePoSchema = z.object({
   code: z
     .string({ required_error: 'required' })

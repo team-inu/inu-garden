@@ -1,5 +1,13 @@
 import * as z from 'zod';
 
+export type GetSubProgramLearningOutcomeList = {
+  id: string;
+  code: string;
+  descriptionThai: string;
+  descriptionEng: string;
+  programLearningOutcomeId: string;
+};
+
 export const CreateSubPloSchema = z.object({
   code: z
     .string({ required_error: 'required' })

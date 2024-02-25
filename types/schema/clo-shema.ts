@@ -1,10 +1,27 @@
 import * as z from 'zod';
 
+const optionSchema = z.object({
+  label: z.string(),
+  value: z.string(),
+  disable: z.boolean().optional(),
+});
+
+export type OptionaType = z.infer<typeof optionSchema>;
+
+export type GetCourseLearningOutcomeList = {
+  id: string;
+  code: string;
+  description: string;
+  expectedPassingAssignmentPercentage: number;
+  expectedScorePercentage: number;
+  expectedPassingStudentPercentage: number;
+  status: string;
+  programOutcomeId: string;
+  courseId: string;
+};
+
 export const CreateCloSchema = z.object({
   code: z.string(),
-  weight: z.coerce.number({
-    required_error: 'required',
-  }),
   description: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -17,13 +34,16 @@ export const CreateCloSchema = z.object({
   expectedPassingStudentPercentage: z.coerce.number({
     required_error: 'required',
   }),
-  courseId: z.string({ required_error: 'required' }).min(1, {
+  status: z.string({ required_error: 'required' }).min(1, {
     message: 'required',
   }),
-  subProgramLearningOutcomeId: z.string({ required_error: 'required' }).min(1, {
-    message: 'required',
-  }),
+  subProgramLearningOutcomeId: z
+    .array(optionSchema)
+    .min(1, { message: 'required' }),
   programLearningOutcomeId: z.string({ required_error: 'required' }).min(1, {
+    message: 'required',
+  }),
+  programOutcomeId: z.string({ required_error: 'required' }).min(1, {
     message: 'required',
   }),
 });
@@ -33,13 +53,13 @@ export type CreateCloType = z.infer<typeof CreateCloSchema>;
 export const CreateCloDefaultValues: CreateCloType = {
   code: '',
   description: '',
-  weight: 0,
   expectedPassingAssignmentPercentage: 0,
   expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
-  courseId: '',
-  subProgramLearningOutcomeId: '',
+  status: '',
+  subProgramLearningOutcomeId: [],
   programLearningOutcomeId: '',
+  programOutcomeId: '',
 };
 
 export const CreateManyCloSchema = z.object({
