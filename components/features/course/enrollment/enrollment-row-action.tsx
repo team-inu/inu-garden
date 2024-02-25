@@ -5,7 +5,7 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 import { useState } from 'react';
 
-import EnrollmentDialog from '@/components/features/course/enrollment/enrollment-dialog';
+import EnrollmentEditDialog from '@/components/features/course/enrollment/enrollment-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -21,8 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { EnrollmentSchema } from '@/data/schema';
-import { CreateEnrollmentType } from '@/types/schema/enrollment-schema';
+import { EditEnrollmentType } from '@/types/schema/enrollment-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -31,11 +30,11 @@ interface DataTableRowActionsProps<TData> {
 export function EnrollmentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const enrollment = EnrollmentSchema.parse(row.original);
+  // const enrollment = EnrollmentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateEnrollmentType) => {
+  const onSubmit = (values: EditEnrollmentType) => {
     console.log(values);
   };
 
@@ -70,12 +69,13 @@ export function EnrollmentRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <EnrollmentDialog
+        <EnrollmentEditDialog
           onSubmit={onSubmit}
           defaultValues={{
-            studentIds: [enrollment.studentId],
-            courseId: enrollment.courseId,
-            status: enrollment.status,
+            studentId: '',
+            email: '',
+            firstName: '',
+            lastName: '',
           }}
         />
       )}

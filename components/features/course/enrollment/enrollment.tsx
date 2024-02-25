@@ -7,7 +7,7 @@ import { useGetEnrollmentList } from '@/hooks/enrollment-hook';
 
 const Enrollment = () => {
   const { data: enrollments, isLoading } = useGetEnrollmentList();
-  console.log(enrollments);
+
   return (
     <>
       <div>

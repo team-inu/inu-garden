@@ -3,36 +3,35 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { EnrollmentRowActions } from '@/components/features/course/enrollment/enrollment-row-action';
-import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { labels } from '@/data/data';
-import { Enrollment } from '@/data/schema';
+import { GetEnrollmentList } from '@/types/schema/enrollment-schema';
 
-export const columns: ColumnDef<Enrollment>[] = [
-  {
-    id: 'select',
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
+export const columns: ColumnDef<GetEnrollmentList>[] = [
+  // {
+  //   id: 'select',
+  //   header: ({ table }) => (
+  //     <Checkbox
+  //       checked={
+  //         table.getIsAllPageRowsSelected() ||
+  //         (table.getIsSomePageRowsSelected() && 'indeterminate')
+  //       }
+  //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+  //       aria-label="Select all"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   cell: ({ row }) => (
+  //     <Checkbox
+  //       checked={row.getIsSelected()}
+  //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+  //       aria-label="Select row"
+  //       className="translate-y-[2px]"
+  //     />
+  //   ),
+  //   enableSorting: false,
+  //   enableHiding: false,
+  // },
   {
     accessorKey: 'id',
     header: ({ column }) => (
@@ -54,7 +53,7 @@ export const columns: ColumnDef<Enrollment>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'firstName',
+    accessorKey: 'student.firstName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="First Name" />
     ),
@@ -69,7 +68,7 @@ export const columns: ColumnDef<Enrollment>[] = [
     },
   },
   {
-    accessorKey: 'lastName',
+    accessorKey: 'student.lastName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Last Name" />
     ),
@@ -108,7 +107,7 @@ export const columns: ColumnDef<Enrollment>[] = [
     },
   },
   {
-    accessorKey: 'email',
+    accessorKey: 'student.email',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Email" />
     ),

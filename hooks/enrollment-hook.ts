@@ -2,7 +2,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { enrollmentService } from '@/services/enrollment-service';
-import { CreateEnrollmentType } from '@/types/schema/enrollment-schema';
+import {
+  CreateEnrollmentType,
+  CreateManyEnrollmentType,
+} from '@/types/schema/enrollment-schema';
 
 export const useGetEnrollmentList = () =>
   useQuery({
@@ -12,7 +15,7 @@ export const useGetEnrollmentList = () =>
 
 export const useCreateEnrollment = () => {
   return useMutation({
-    mutationFn: (enrollment: CreateEnrollmentType) =>
+    mutationFn: (enrollment: CreateManyEnrollmentType | CreateEnrollmentType) =>
       enrollmentService.createEnrollment(enrollment),
     onSuccess: () => {
       toast.success('Enrollment has been created', {

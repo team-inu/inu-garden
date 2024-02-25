@@ -1,6 +1,9 @@
 import { Enrollment } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
-import { CreateEnrollmentType } from '@/types/schema/enrollment-schema';
+import {
+  CreateEnrollmentType,
+  CreateManyEnrollmentType,
+} from '@/types/schema/enrollment-schema';
 
 class EnrollmentService extends ApiService {
   public async getEnrollmentList(): Promise<any> {
@@ -13,13 +16,32 @@ class EnrollmentService extends ApiService {
   }
 
   public async createEnrollment(
-    enrollment: CreateEnrollmentType,
-  ): Promise<CreateEnrollmentType> {
+    enrollment: CreateManyEnrollmentType | CreateEnrollmentType,
+  ): Promise<CreateManyEnrollmentType | CreateEnrollmentType> {
     const url = '/enrollments';
 
-    return this.post(url, enrollment)
+    if (this.isCreateManyEnrollment(enrollment)) {
+      return this.post(url, enrollment)
+        .then(() => enrollment)
+        .catch(this.throwError);
+    }
+
+    const result = {
+      ...enrollment,
+      studentIds: [enrollment.studentId],
+    };
+
+    console.log(result);
+
+    return this.post(url, result)
       .then(() => enrollment)
       .catch(this.throwError);
+  }
+
+  private isCreateManyEnrollment(
+    enrollment: CreateManyEnrollmentType | CreateEnrollmentType,
+  ): enrollment is CreateManyEnrollmentType {
+    return 'studentIds' in enrollment;
   }
 }
 

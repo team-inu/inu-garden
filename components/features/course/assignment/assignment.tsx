@@ -16,6 +16,7 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Score } from '@/data/schema';
+import { useGetAssignment } from '@/hooks/assignment-hook';
 
 type SelectedRowType = {
   name: string;
@@ -27,6 +28,7 @@ const Assignment = () => {
   const getVales = (id: string, name: string) => {
     setSelectedRows({ name: name, id: id });
   };
+  const { data: assignmentData } = useGetAssignment();
 
   const ScoreTable = useMemo(() => {
     let data: Score[] = [];
@@ -71,6 +73,7 @@ const Assignment = () => {
       default:
         break;
     }
+    console.log(selectedRows?.id);
     return (
       <ScoreDataTable
         columns={scoreColumns}
@@ -88,38 +91,7 @@ const Assignment = () => {
         <AssignmentDataTable
           columns={assignmentColumns}
           getValues={getVales}
-          data={[
-            {
-              id: '1',
-              name: 'Lomuto',
-              clo: 'CLO1, CLO2',
-              plo: 'PLO1',
-              po: 'PO1',
-              dueDate: new Date('2022-03-25'),
-              percentage: '20%',
-              weigth: '20%',
-            },
-            {
-              id: '2',
-              name: 'Assignment 2',
-              clo: 'CLO2',
-              plo: 'PLO2',
-              po: 'PO2',
-              dueDate: new Date('2022-03-25'),
-              percentage: '20%',
-              weigth: '20%',
-            },
-            {
-              id: '3',
-              name: 'Assignment 3',
-              clo: 'CLO3',
-              plo: 'PLO3',
-              po: 'PO3',
-              dueDate: new Date('2022-03-25'),
-              percentage: '20%',
-              weigth: '20%',
-            },
-          ]}
+          data={assignmentData ?? []}
         />
       </div>
       {selectedRows ? (

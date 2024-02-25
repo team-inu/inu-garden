@@ -1,6 +1,32 @@
 import * as z from 'zod';
 
+import { GetCourseList } from '@/types/schema/course-schema';
+import { GetStudentList } from '@/types/schema/student-schema';
+
+export type GetEnrollmentList = {
+  course: GetCourseList;
+  student: GetStudentList;
+  courseId: string;
+  id: string;
+  status: string;
+  studentId: string;
+};
+
 export const CreateEnrollmentSchema = z.object({
+  courseId: z.string(),
+  studentId: z.string(),
+  status: z.string(),
+});
+
+export type CreateEnrollmentType = z.infer<typeof CreateEnrollmentSchema>;
+
+export const CreateEnrollmentDefaultValues: CreateEnrollmentType = {
+  courseId: '',
+  studentId: '',
+  status: '',
+};
+
+export const CreateManyEnrollmentSchema = z.object({
   courseId: z.string(),
   status: z.string(),
   studentIds: z
@@ -9,9 +35,11 @@ export const CreateEnrollmentSchema = z.object({
     .array(),
 });
 
-export type CreateEnrollmentType = z.infer<typeof CreateEnrollmentSchema>;
+export type CreateManyEnrollmentType = z.infer<
+  typeof CreateManyEnrollmentSchema
+>;
 
-export const CreateEnrollmentDefaultValues: CreateEnrollmentType = {
+export const CreateManyEnrollmentDefaultValues: CreateManyEnrollmentType = {
   courseId: '',
   status: '',
   studentIds: [],

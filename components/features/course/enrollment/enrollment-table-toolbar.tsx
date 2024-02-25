@@ -3,6 +3,7 @@
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 
 import EnrollmentAddDialog from '@/components/features/course/enrollment/enrollment-add-dialog';
@@ -13,7 +14,10 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateEnrollment } from '@/hooks/enrollment-hook';
-import { CreateEnrollmentType } from '@/types/schema/enrollment-schema';
+import {
+  CreateEnrollmentType,
+  CreateManyEnrollmentType,
+} from '@/types/schema/enrollment-schema';
 
 export type Option = {
   value: string;
@@ -50,6 +54,7 @@ export function EnrollmentTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { mutate, isSuccess } = useCreateEnrollment();
+  const { id: courseId } = useParams<{ id: string }>();
 
   const onSubmit = (value: CreateEnrollmentType) => {
     mutate(value);
@@ -58,7 +63,7 @@ export function EnrollmentTableToolbar<TData>({
     }
   };
 
-  const onSubmitImport = (value: CreateEnrollmentType) => {
+  const onSubmitImport = (value: CreateManyEnrollmentType) => {
     mutate(value);
     if (isSuccess) {
       setIsImportDialogOpen(false);
@@ -117,7 +122,14 @@ export function EnrollmentTableToolbar<TData>({
             </Button>
 
             <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
-              <EnrollmentAddDialog onSubmit={onSubmit} />
+              <EnrollmentAddDialog
+                onSubmit={onSubmit}
+                defaultValues={{
+                  status: 'ENROLL',
+                  courseId: courseId,
+                  studentId: '',
+                }}
+              />
             </Dialog>
 
             <Input

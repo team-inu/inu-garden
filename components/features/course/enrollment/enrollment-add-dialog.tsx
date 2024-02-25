@@ -27,13 +27,11 @@ import {
 type EnrollmentDialogProps = {
   onSubmit: (values: CreateEnrollmentType) => void;
   defaultValues?: CreateEnrollmentType;
-  isEdit?: boolean;
 };
 
 const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
   onSubmit,
   defaultValues,
-  isEdit = false,
 }) => {
   const form = useStrictForm(
     CreateEnrollmentSchema,
@@ -44,20 +42,16 @@ const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {isEdit ? 'Edit Enrollment' : 'Add Enrollment'}
-          </DialogTitle>
+          <DialogTitle>Add Enrollment</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the enrollment information'
-              : 'Fill in the enrollment information'}
+            Fill in the enrollment information
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form>
             <FormField
               control={form.control}
-              name="studentIds"
+              name="studentId"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>StudentId</FormLabel>
@@ -79,7 +73,7 @@ const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
             </Button>
           </DialogClose>
           <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
-            {isEdit ? 'Edit' : 'Add'}
+            Add
           </Button>
         </DialogFooter>
       </DialogContent>
