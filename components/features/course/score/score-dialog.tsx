@@ -61,36 +61,6 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
                   <FormLabel>StudentId</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input {...field} disabled />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Firstname</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Lastname</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
                       <Input {...field} />
                       <FormMessage />
                     </div>
@@ -106,7 +76,7 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
                   <FormLabel>Scores</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input {...field} />
+                      <Input {...field} type="number" min={0} max={100} />
                       <FormMessage />
                     </div>
                   </FormControl>

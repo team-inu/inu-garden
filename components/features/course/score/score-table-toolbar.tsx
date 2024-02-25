@@ -11,6 +11,8 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useCreateScore } from '@/hooks/score-hook';
+import { CreateScoreType } from '@/types/schema/score-schema';
 
 export type Option = {
   value: string;
@@ -30,6 +32,7 @@ interface DataTableToolbarProps<TData> {
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  assignmentId?: string;
 }
 
 export function ScoreTableToolbar<TData>({
@@ -38,13 +41,20 @@ export function ScoreTableToolbar<TData>({
   isViewOptions = true,
   isCreateEnabled = true,
   handleImport,
+  assignmentId,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
+  const { mutate } = useCreateScore();
 
+  const handleScoreSubmit = (values: CreateScoreType) => {
+    if (assignmentId) {
+      mutate({ score: values, assignmentId });
+    }
+  };
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -97,7 +107,7 @@ export function ScoreTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <ScoreDialog onSubmit={() => {}} />
+              <ScoreDialog onSubmit={handleScoreSubmit} />
             </Dialog>
 
             <Input
