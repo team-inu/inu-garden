@@ -2,40 +2,24 @@
 
 import { columns } from '@/components/features/course/enrollment/enrollment-column';
 import { EnrollmentDataTable } from '@/components/features/course/enrollment/enrollment-table';
+import Loading from '@/components/features/loading-screen';
+import { useGetEnrollmentList } from '@/hooks/enrollment-hook';
 
 const Enrollment = () => {
+  const { data: enrollments, isLoading } = useGetEnrollmentList();
+  console.log(enrollments);
   return (
     <>
-      <h1 className="mb-5 text-2xl font-bold">Enrollments</h1>{' '}
-      <EnrollmentDataTable
-        columns={columns}
-        data={[
-          {
-            id: '1',
-            firstName: 'John',
-            lastName: 'eiei',
-            email: 'a',
-            name: 'a',
-            label: 'passed',
-          },
-          {
-            id: '2',
-            firstName: 'Por',
-            lastName: 'Doe',
-            email: 'a',
-            name: 'a',
-            label: 'passed',
-          },
-          {
-            id: '3',
-            firstName: 'Annt',
-            lastName: 'Doe',
-            email: 'a',
-            name: 'a',
-            label: 'failed',
-          },
-        ]}
-      />
+      <div>
+        <h1 className="mb-5 text-4xl font-bold">Student</h1>
+      </div>
+      <div className="">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <EnrollmentDataTable columns={columns} data={enrollments ?? []} />
+        )}
+      </div>
     </>
   );
 };

@@ -2,11 +2,12 @@ import { z } from 'zod';
 
 export const EnrollmentSchema = z.object({
   id: z.string(),
-  name: z.string(),
+  courseId: z.string(),
+  studentId: z.string(),
+  status: z.string(),
+  email: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  email: z.string(),
-  label: z.string(),
 });
 
 export type Enrollment = z.infer<typeof EnrollmentSchema>;
