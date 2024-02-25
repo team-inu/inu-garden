@@ -1,13 +1,16 @@
-import { PLO } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
-import { CreatePloType, ImportedPloType } from '@/types/schema/plo-schema';
+import {
+  CreatePloType,
+  GetProgramLearningOutcomeList,
+  ImportedPloType,
+} from '@/types/schema/plo-schema';
 
 class PloService extends ApiService {
-  public async getPloList(): Promise<any> {
+  public async getPloList(): Promise<GetProgramLearningOutcomeList[]> {
     const url = '/plos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as PLO[];
+        return response.data as unknown as GetProgramLearningOutcomeList[];
       })
       .catch(this.throwError);
   }

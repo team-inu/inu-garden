@@ -7,31 +7,29 @@ const optionSchema = z.object({
 });
 
 export const CreateAssignmentSchema = z.object({
-  id: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   name: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
+  description: z
+    .string({ required_error: 'required' })
+    .min(1, { message: 'required' }),
   clo: z.array(optionSchema).min(1, { message: 'required' }),
-  plo: z.array(optionSchema).min(1, { message: 'required' }),
-  po: z.array(optionSchema).min(1, { message: 'required' }),
-  weigth: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  dueDate: z.date({ required_error: 'required' }),
-  percentage: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  weigth: z.coerce.number({ required_error: 'required' }),
+  maxScore: z.coerce.number({ required_error: 'required' }),
+  expectedScorePercentage: z.coerce.number({ required_error: 'required' }),
+  expectedPassingStudentPercentage: z.coerce.number({
+    required_error: 'required',
+  }),
 });
 
 export type CreateAssignmentType = z.infer<typeof CreateAssignmentSchema>;
 
 export const CreateAssignmentDefaultValues: CreateAssignmentType = {
-  id: '',
   name: '',
+  description: '',
   clo: [],
-  plo: [],
-  po: [],
-  weigth: '',
-  dueDate: new Date(),
-  percentage: '',
+  weigth: 0,
+  maxScore: 0,
+  expectedScorePercentage: 0,
+  expectedPassingStudentPercentage: 0,
 };

@@ -1,20 +1,21 @@
-import { PO } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
-import { CreatePoType, ImportedPoType } from '@/types/schema/po-schema';
+import {
+  CreatePoType,
+  GetPoList,
+  ImportedPoType,
+} from '@/types/schema/po-schema';
 
 class PoService extends ApiService {
-  public async getPoList(): Promise<any> {
+  public async getPoList(): Promise<GetPoList[]> {
     const url = '/pos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as PO[];
+        return response.data as unknown as GetPoList[];
       })
       .catch(this.throwError);
   }
 
-  public async createPo(
-    po: CreatePoType,
-  ): Promise<CreatePoType> {
+  public async createPo(po: CreatePoType): Promise<CreatePoType> {
     const url = '/pos';
 
     return this.post(url, po)
@@ -22,9 +23,7 @@ class PoService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createPoBulk(
-    pos: ImportedPoType[],
-  ): Promise<ImportedPoType[]> {
+  public async createPoBulk(pos: ImportedPoType[]): Promise<ImportedPoType[]> {
     const url = '/pos/bulk';
     const result = {
       pos: pos,

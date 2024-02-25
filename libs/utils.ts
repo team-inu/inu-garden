@@ -52,3 +52,18 @@ export const checkMultipleString = (value: string) => {
   }
   return [{ label: value, value: value }];
 };
+
+export function getValuesByKey(
+  arr: { [key: string]: any }[][],
+  key: string,
+): any[] {
+  const values: any[] = [];
+  arr.forEach((innerArray) => {
+    innerArray.forEach((obj) => {
+      if (obj.hasOwnProperty(key)) {
+        values.push(obj[key]);
+      }
+    });
+  });
+  return values;
+}
