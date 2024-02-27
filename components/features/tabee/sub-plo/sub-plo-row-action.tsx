@@ -22,6 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useDeleteSubPlo, useUpdateSubPlo } from '@/hooks/sub-plo-hook';
 import { CreateSubPloType, SubPLOSchema } from '@/types/schema/sub-plo-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -34,13 +35,21 @@ export function SubPloRowActions<TData>({
   const subPlo = SubPLOSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { mutate: updateSubPlo, isError: isUpdateError } = useUpdateSubPlo();
+  const { mutate: deleteSubPlo, isError: isDeleteError } = useDeleteSubPlo();
 
   const onSubmit = (values: CreateSubPloType) => {
-    console.log(values);
+    updateSubPlo({ splo: values, id: subPlo.id });
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   const onDelete = () => {
-    console.log('delete');
+    deleteSubPlo(subPlo.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
+    }
   };
 
   return (

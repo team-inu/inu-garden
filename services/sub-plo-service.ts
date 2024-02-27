@@ -21,6 +21,23 @@ class SubPloService extends ApiService {
       .then(() => splo)
       .catch(this.throwError);
   }
+
+  public async updateSubPlo(
+    splo: CreateSubPloType,
+    id: string,
+  ): Promise<CreateSubPloType> {
+    const url = `/splos/${id}`;
+    return this.patch(url, { subProgramLearningOutcomes: [splo] })
+      .then(() => splo)
+      .catch(this.throwError);
+  }
+
+  public async deleteSubPlo(id: string) {
+    const url = `/splos/${id}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
 }
 
 export const subPloService = new SubPloService();

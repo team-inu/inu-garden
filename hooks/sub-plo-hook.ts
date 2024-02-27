@@ -25,3 +25,36 @@ export const useCreateSubPlo = () => {
     },
   });
 };
+
+export const useUpdateSubPlo = () => {
+  return useMutation({
+    mutationFn: ({ splo, id }: { splo: CreateSubPloType; id: string }) =>
+      subPloService.updateSubPlo(splo, id),
+    onSuccess: () => {
+      toast.success('Sub-PLO has been updated', {
+        description: 'You can now add questions to the Sub-PLO.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to update Sub-PLO', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useDeleteSubPlo = () => {
+  return useMutation({
+    mutationFn: (id: string) => subPloService.deleteSubPlo(id),
+    onSuccess: () => {
+      toast.success('Sub-PLO has been deleted', {
+        description: 'You can now add questions to the Sub-PLO.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to delete Sub-PLO', {
+        description: error.message,
+      });
+    },
+  });
+};
