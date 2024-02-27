@@ -6,8 +6,8 @@ import {
 } from '@/types/schema/enrollment-schema';
 
 class EnrollmentService extends ApiService {
-  public async getEnrollmentList(): Promise<any> {
-    const url = '/enrollments';
+  public async getEnrollmentsByCourseId(courseId: string): Promise<any> {
+    const url = `/courses/${courseId}/enrollments`;
     return this.get(url)
       .then((response) => {
         return response.data as unknown as GetEnrollmentResponse[];

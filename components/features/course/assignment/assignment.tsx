@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { useParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import { columns as assignmentColumns } from '@/components/features/course/assignment/assignment-column';
@@ -15,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { useGetAssignment } from '@/hooks/assignment-hook';
+import { useGetAssignmentByCourseId } from '@/hooks/assignment-hook';
 import { Score } from '@/types/schema/score-schema';
 
 type SelectedRowType = {
@@ -28,7 +29,8 @@ const Assignment = () => {
   const getVales = (id: string, name: string) => {
     setSelectedRows({ name: name, id: id });
   };
-  const { data: assignmentData } = useGetAssignment();
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data: assignmentData } = useGetAssignmentByCourseId(courseId);
 
   const ScoreTable = useMemo(() => {
     let data: Score[] = [];
