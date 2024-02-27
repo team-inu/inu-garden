@@ -12,6 +12,8 @@ export const EnrollmentSchema = z.object({
   lastName: z.string(),
 });
 
+export type Enrollment = z.infer<typeof EnrollmentSchema>;
+
 // response
 
 export type GetEnrollmentResponse = z.infer<typeof EnrollmentSchema>;
@@ -34,8 +36,12 @@ export const CreateEnrollmentFormSchema = z.object({
     .min(1, { message: 'required' }),
 });
 
-export const EditEnrollmentFormSchema = CreateEnrollmentFormSchema.pick({
+export const EditEnrollmentFormSchema = EnrollmentSchema.pick({
   studentId: true,
+  firstName: true,
+  lastName: true,
+  id: true,
+  status: true,
 });
 
 export type CreateEnrollmentForm = z.infer<typeof CreateEnrollmentFormSchema>;
@@ -52,9 +58,16 @@ export const CreateEnrollmentPayloadSchema = CreateEnrollmentFormSchema.omit({
     .array(),
 });
 
+export const EditEnrollmentPayloadSchema = EditEnrollmentFormSchema.pick({
+  id: true,
+  status: true,
+});
+
 export type CreateEnrollmentPayload = z.infer<
   typeof CreateEnrollmentPayloadSchema
 >;
+
+export type EditEnrollmentPayload = z.infer<typeof EditEnrollmentPayloadSchema>;
 
 // default values
 
@@ -65,7 +78,11 @@ export const CreateEnrollmentFormDefaultValues: CreateEnrollmentForm = {
 };
 
 export const EditEnrollmentDefaultValues: EditEnrollmentForm = {
+  id: '',
+  firstName: '',
+  lastName: '',
   studentId: '',
+  status: '',
 };
 
 export const CreateEnrollmentPayloadDefaultValues: CreateEnrollmentPayload = {

@@ -5,6 +5,7 @@ import { enrollmentService } from '@/services/enrollment-service';
 import {
   CreateEnrollmentForm,
   CreateEnrollmentPayload,
+  EditEnrollmentForm,
 } from '@/types/schema/enrollment-schema';
 
 export const useGetEnrollmentsByCourseId = (courseId: string) =>
@@ -24,6 +25,21 @@ export const useCreateEnrollment = () => {
     },
     onError: (error) => {
       toast.error('Failed to create enrollment', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useUpdateEnrollment = () => {
+  return useMutation({
+    mutationFn: (enrollment: EditEnrollmentForm) =>
+      enrollmentService.editEnrollment(enrollment),
+    onSuccess: () => {
+      toast.success('Enrollment status has been updated');
+    },
+    onError: (error) => {
+      toast.error('Failed to update enrollment', {
         description: error.message,
       });
     },

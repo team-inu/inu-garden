@@ -2,6 +2,7 @@ import { ApiService } from '@/services/api-service';
 import {
   CreateEnrollmentForm,
   CreateEnrollmentPayload,
+  EditEnrollmentPayload,
   GetEnrollmentResponse,
 } from '@/types/schema/enrollment-schema';
 
@@ -34,6 +35,16 @@ class EnrollmentService extends ApiService {
     };
 
     return this.post(url, result)
+      .then(() => enrollment)
+      .catch(this.throwError);
+  }
+
+  public async editEnrollment(
+    enrollment: EditEnrollmentPayload,
+  ): Promise<EditEnrollmentPayload> {
+    const url = `/enrollments/${enrollment.id}`;
+
+    return this.patch(url, enrollment)
       .then(() => enrollment)
       .catch(this.throwError);
   }
