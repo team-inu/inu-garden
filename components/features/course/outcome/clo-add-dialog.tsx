@@ -32,8 +32,8 @@ import {
   CreateCloDefaultValues,
   CreateCloSchema,
   CreateCloType,
-  OptionaType,
 } from '@/types/schema/clo-shema';
+import { OptionaType } from '@/types/schema/form-schema';
 import { GetProgramLearningOutcomeList } from '@/types/schema/plo-schema';
 
 type PloDialogProps = {

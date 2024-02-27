@@ -115,10 +115,8 @@ const TABEE = () => {
                 <SubProgramLearningOutcomeDataTable
                   columns={subPloColumns}
                   data={
-                    splos.filter(
-                      (splo: SubPLO) =>
-                        splo.programLearningOutcomeId === selectedRows,
-                    ) ?? []
+                    splos?.filter((splo: SubPLO) => splo.id === selectedRows) ??
+                    []
                   }
                   // currentPlo={selectedRows}
                 />
