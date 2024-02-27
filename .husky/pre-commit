@@ -1,1 +1,1 @@
-pnpm build
+tsc --noEmit
