@@ -1,5 +1,7 @@
 import * as z from 'zod';
 
+// base
+
 export const StudentSchema = z.object({
   id: z.string(),
   firstName: z.string(),
@@ -18,13 +20,17 @@ export const StudentSchema = z.object({
   remark: z.string(),
 });
 
-type Student = z.infer<typeof StudentSchema>;
+// response
 
-export type StudentColumn = Student;
+export type GetStudentResponse = z.infer<typeof StudentSchema>;
 
-export type GetStudentResponse = Student;
+// column
 
-export const CreateStudentSchema = z.object({
+export type StudentColumn = z.infer<typeof StudentSchema>;
+
+// form
+
+export const CreateStudentFormSchema = z.object({
   kmuttId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -74,9 +80,13 @@ export const CreateStudentSchema = z.object({
   remark: z.string().optional(),
 });
 
-export type CreateStudentPayload = z.infer<typeof CreateStudentSchema>;
+export type CreateStudentForm = z.infer<typeof CreateStudentFormSchema>;
 
-export const CreateStudentDefaultValues: CreateStudentPayload = {
+// payload
+
+// default values
+
+export const CreateStudentFormDefaultValues: CreateStudentForm = {
   kmuttId: '',
   firstName: '',
   lastName: '',

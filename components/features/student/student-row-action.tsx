@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  CreateStudentPayload,
+  CreateStudentForm,
   StudentSchema,
 } from '@/types/schema/student-schema';
 
@@ -38,7 +38,7 @@ export function StudentRowActions<TData>({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateStudentPayload) => {
+  const onSubmit = (values: CreateStudentForm) => {
     console.log(values);
   };
 

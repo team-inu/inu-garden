@@ -20,7 +20,7 @@ import {
   FirstDataHeaderRow,
 } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
-import { CreateStudentPayload } from '@/types/schema/student-schema';
+import { CreateStudentForm } from '@/types/schema/student-schema';
 
 const MultipleFileUploader = () => {
   const [applicantFiles, setApplicantFiles] = useState<File[]>([]);
@@ -162,7 +162,7 @@ const MultipleFileUploader = () => {
     const extendedEligibleWithApplicantToPyaoResult = (
       e: ExtendedEligibleWithPartialyApplicant,
       programmeName: string,
-    ): CreateStudentPayload => {
+    ): CreateStudentForm => {
       let firstName;
       let lastName;
       if (e['ชื่อ(ไทย)'] !== undefined && e['ชื่อ(ไทย)'] !== '') {
