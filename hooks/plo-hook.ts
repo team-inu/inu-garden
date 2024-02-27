@@ -45,3 +45,36 @@ export const useCreateManyPlos = () => {
     },
   });
 };
+
+export const useUpdatePlo = () => {
+  return useMutation({
+    mutationFn: ({ plo, id }: { plo: CreatePloForm; id: string }) =>
+      ploService.updatePlo(plo, id),
+    onSuccess: () => {
+      toast.success('PLO has been updated', {
+        description: 'You can now add questions to the PLO.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to update PLO', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useDeletePlo = () => {
+  return useMutation({
+    mutationFn: (id: string) => ploService.deletePlo(id),
+    onSuccess: () => {
+      toast.success('PLO has been deleted', {
+        description: 'You can now add questions to the PLO.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to delete PLO', {
+        description: error.message,
+      });
+    },
+  });
+};

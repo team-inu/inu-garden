@@ -41,6 +41,23 @@ class PloService extends ApiService {
       .then(() => plos)
       .catch(this.throwError);
   }
+
+  public async updatePlo(
+    plo: CreatePloForm,
+    id: string,
+  ): Promise<CreatePloForm> {
+    const url = `/plos/${id}`;
+    return this.patch(url, { programLearningOutcomes: [plo] })
+      .then(() => plo)
+      .catch(this.throwError);
+  }
+
+  public async deletePlo(id: string) {
+    const url = `/plos/${id}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
 }
 
 export const ploService = new PloService();
