@@ -37,8 +37,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
-  CreateManyPloDefaultValues,
-  CreateManyPloSchema,
+  CreateManyPloFormDefaultValues,
+  CreateManyPloFormSchema,
 } from '@/types/schema/plo-schema';
 import {
   CreateManyPoForm,
@@ -62,8 +62,8 @@ const TabeeImportDialog: React.FC<TabeeImportDialogProps> = ({
   isOnOpenChange,
 }) => {
   const ploForm = useStrictForm(
-    CreateManyPloSchema,
-    CreateManyPloDefaultValues,
+    CreateManyPloFormSchema,
+    CreateManyPloFormDefaultValues,
   );
 
   const sploForm = useStrictForm(

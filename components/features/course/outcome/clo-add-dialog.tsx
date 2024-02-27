@@ -34,7 +34,7 @@ import {
   CreateCloType,
 } from '@/types/schema/clo-shema';
 import { OptionaType } from '@/types/schema/form-schema';
-import { GetProgramLearningOutcomeList } from '@/types/schema/plo-schema';
+import { GetProgramLearningOutcomeResponse } from '@/types/schema/plo-schema';
 
 type PloDialogProps = {
   onSubmit: (values: CreateCloType) => void;
@@ -42,7 +42,7 @@ type PloDialogProps = {
 };
 
 const getSubPloOptions = (
-  ploList: GetProgramLearningOutcomeList[] | undefined,
+  ploList: GetProgramLearningOutcomeResponse[] | undefined,
   ploId: string,
 ) =>
   ploList

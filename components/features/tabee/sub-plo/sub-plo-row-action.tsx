@@ -22,8 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { SubPLOSchema } from '@/data/schema';
-import { CreateSubPloType } from '@/types/schema/sub-plo-schema';
+import { CreateSubPloType, SubPLOSchema } from '@/types/schema/sub-plo-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

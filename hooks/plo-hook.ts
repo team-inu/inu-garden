@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { ploService } from '@/services/plo-service';
-import { CreateManyPloType, CreatePloType } from '@/types/schema/plo-schema';
+import { CreateManyPloForm, CreatePloForm } from '@/types/schema/plo-schema';
 import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
 
 export const useGetPloList = () =>
@@ -13,7 +13,7 @@ export const useGetPloList = () =>
 
 export const useCreatePlo = () => {
   return useMutation({
-    mutationFn: (plo: CreatePloType) => ploService.createPlo(plo),
+    mutationFn: (plo: CreatePloForm) => ploService.createPlo(plo),
     onSuccess: () => {
       toast.success('PLO has been created', {
         description: 'You can now add questions to the PLO.',
@@ -30,7 +30,7 @@ export const useCreatePlo = () => {
 export const useCreateManyPlos = () => {
   return useMutation({
     mutationFn: (outcomes: {
-      plos: CreateManyPloType;
+      plos: CreateManyPloForm;
       splos: CreateManySubPloType;
     }) => ploService.createManyPlos(outcomes.plos, outcomes.splos),
     onSuccess: () => {

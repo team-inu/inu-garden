@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { PloRowActions } from '@/components/features/tabee/plo/plo-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { PLO } from '@/data/schema';
+import { PloColumn } from '@/types/schema/plo-schema';
 
-export const columns: ColumnDef<PLO>[] = [
+export const columns: ColumnDef<PloColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <DataTableColumnHeader column={column} title="" />,

@@ -1,22 +1,22 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateManyPloType,
-  CreatePloType,
-  GetProgramLearningOutcomeList,
+  CreateManyPloForm,
+  CreatePloForm,
+  GetProgramLearningOutcomeResponse,
 } from '@/types/schema/plo-schema';
 import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
 
 class PloService extends ApiService {
-  public async getPloList(): Promise<GetProgramLearningOutcomeList[]> {
+  public async getPloList(): Promise<GetProgramLearningOutcomeResponse[]> {
     const url = '/plos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetProgramLearningOutcomeList[];
+        return response.data as unknown as GetProgramLearningOutcomeResponse[];
       })
       .catch(this.throwError);
   }
 
-  public async createPlo(plo: CreatePloType): Promise<CreatePloType> {
+  public async createPlo(plo: CreatePloForm): Promise<CreatePloForm> {
     const url = '/plos';
 
     return this.post(url, { programLearningOutcomes: [plo] })
@@ -25,9 +25,9 @@ class PloService extends ApiService {
   }
 
   public async createManyPlos(
-    plos: CreateManyPloType,
+    plos: CreateManyPloForm,
     splos: CreateManySubPloType,
-  ): Promise<CreateManyPloType> {
+  ): Promise<CreateManyPloForm> {
     const url = '/plos';
 
     let payload: any = [...plos.plo];

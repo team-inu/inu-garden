@@ -11,7 +11,7 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreatePlo } from '@/hooks/plo-hook';
-import { CreatePloType } from '@/types/schema/plo-schema';
+import { CreatePloForm } from '@/types/schema/plo-schema';
 
 export type Option = {
   value: string;
@@ -44,7 +44,7 @@ export function PloTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isError } = useCreatePlo();
 
-  const onSubmit = (value: CreatePloType) => {
+  const onSubmit = (value: CreatePloForm) => {
     mutate(value);
     if (!isError) {
       setIsOpen(false);

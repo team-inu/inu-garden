@@ -2,6 +2,16 @@ import * as z from 'zod';
 
 import { optionSchema } from '@/types/schema/form-schema';
 
+export const SubPLOSchema = z.object({
+  id: z.string(),
+  code: z.string(),
+  descriptionThai: z.string(),
+  descriptionEng: z.string(),
+  programLearningOutcomeId: z.string(),
+});
+
+export type SubPLO = z.infer<typeof SubPLOSchema>;
+
 export const SubPloSchema = z.object({
   id: z.string(),
   code: z.string(),

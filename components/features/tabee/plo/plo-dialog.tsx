@@ -19,14 +19,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreatePloDefaultValues,
-  CreatePloSchema,
-  CreatePloType,
+  CreatePloForm,
+  CreatePloFormDefaultValues,
+  CreatePloFormSchema,
 } from '@/types/schema/plo-schema';
 
 type PloDialogProps = {
-  onSubmit: (values: CreatePloType) => void;
-  defaultValues?: CreatePloType;
+  onSubmit: (values: CreatePloForm) => void;
+  defaultValues?: CreatePloForm;
   isEdit?: boolean;
 };
 
@@ -36,8 +36,8 @@ const PloDialog: React.FC<PloDialogProps> = ({
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreatePloSchema,
-    defaultValues ?? CreatePloDefaultValues,
+    CreatePloFormSchema,
+    defaultValues ?? CreatePloFormDefaultValues,
   );
   return (
     <div>
