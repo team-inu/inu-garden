@@ -7,10 +7,10 @@ import {
   CreateEnrollmentPayload,
 } from '@/types/schema/enrollment-schema';
 
-export const useGetEnrollmentList = () =>
+export const useGetEnrollmentsByCourseId = (courseId: string) =>
   useQuery({
     queryKey: ['enrollments'],
-    queryFn: () => enrollmentService.getEnrollmentList(),
+    queryFn: () => enrollmentService.getEnrollmentsByCourseId(courseId),
   });
 
 export const useCreateEnrollment = () => {

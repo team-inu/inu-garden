@@ -4,10 +4,10 @@ import { toast } from 'sonner';
 import { assignmentService } from '@/services/assignment-service';
 import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
 
-export const useGetAssignment = () =>
+export const useGetAssignmentByCourseId = (courseId: string) =>
   useQuery({
     queryKey: ['assignments'],
-    queryFn: () => assignmentService.getAssignments(),
+    queryFn: () => assignmentService.getAssignmentsByCourseId(courseId),
   });
 
 export const useCreateAssignment = () => {

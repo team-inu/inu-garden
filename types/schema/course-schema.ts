@@ -1,24 +1,28 @@
 import * as z from 'zod';
 
-export type GetCourseList = {
-  id: string;
-  name: string;
-  code: string;
-  curriculum: string;
-  description: string;
-  semesterId: string;
-  lecturerId: string;
-  criteriaGrade: {
-    criteriaGradeA: number;
-    criteriaGradeBP: number;
-    criteriaGradeB: number;
-    criteriaGradeCP: number;
-    criteriaGradeC: number;
-    criteriaGradeDP: number;
-    criteriaGradeD: number;
-    criteriaGradeF: number;
-  };
-};
+const CourseSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  code: z.string(),
+  curriculum: z.string(),
+  description: z.string(),
+  semesterId: z.string(),
+  lecturerId: z.string(),
+  criteriaGrade: z.object({
+    criteriaGradeA: z.number(),
+    criteriaGradeBP: z.number(),
+    criteriaGradeB: z.number(),
+    criteriaGradeCP: z.number(),
+    criteriaGradeC: z.number(),
+    criteriaGradeDP: z.number(),
+    criteriaGradeD: z.number(),
+    criteriaGradeF: z.number(),
+  }),
+});
+
+type Course = z.infer<typeof CourseSchema>;
+
+export type GetCourseList = Course;
 
 export const CreateCourseSchema = z.object({
   name: z

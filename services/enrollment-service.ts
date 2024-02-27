@@ -6,8 +6,10 @@ import {
 } from '@/types/schema/enrollment-schema';
 
 class EnrollmentService extends ApiService {
-  public async getEnrollmentList(): Promise<any> {
-    const url = '/enrollments';
+  public async getEnrollmentsByCourseId(
+    courseId: string,
+  ): Promise<GetEnrollmentResponse[]> {
+    const url = `/courses/${courseId}/enrollments`;
     return this.get(url)
       .then((response) => {
         return response.data as unknown as GetEnrollmentResponse[];
@@ -30,8 +32,6 @@ class EnrollmentService extends ApiService {
       ...enrollment,
       studentIds: [enrollment.studentId],
     };
-
-    console.log(result);
 
     return this.post(url, result)
       .then(() => enrollment)

@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import { useParams } from 'next/navigation';
 
 import Assignment from '@/components/features/course/assignment/assignment';
 import Dashboard from '@/components/features/course/dashboard/dashboard';
@@ -13,8 +14,11 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs-api';
+import { useGetCourseById } from '@/hooks/course-hook';
 
 const HomePage = () => {
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data: courseData } = useGetCourseById(courseId);
   const handleCourseExport = async () => {
     // exportToWord(coursePortfolio);
   };
@@ -23,12 +27,20 @@ const HomePage = () => {
     <>
       <div className="hidden flex-col md:flex">
         <div className="flex-1 space-y-4 p-8 pt-6">
-          <h2 className="text-3xl font-bold tracking-tight">CPE 100</h2>
+          <div className="text-3xl font-bold tracking-tight">
+            {courseData?.code} - {courseData?.name}
+          </div>
+          <div className="text-xl font-bold tracking-tight">
+            {courseData?.curriculum}
+          </div>
+
           <Tabs defaultValue="overview" className="space-y-4">
             <div className="flex justify-between">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="outcome">PO, PLO, CLO</TabsTrigger>
+                <TabsTrigger value="outcome">
+                  Course Learning Outcome
+                </TabsTrigger>
                 <TabsTrigger value="assignment">Assignments</TabsTrigger>
                 <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
               </TabsList>
