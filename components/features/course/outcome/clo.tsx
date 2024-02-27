@@ -11,15 +11,18 @@ import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/
 import { useGetCloByCourseId, useGetCloById } from '@/hooks/clo-hook';
 
 const CourseLearningOutcome = () => {
-  const [selectedRows, setSelectedRows] = useState<string>('');
-  const getVales = (id: string) => {
-    setSelectedRows(id);
+  const [selectedRows, setSelectedRows] = useState({
+    id: '',
+    code: '',
+  });
+  const getVales = (id: string, code: string) => {
+    setSelectedRows({ id, code });
   };
 
   const { id: courseId } = useParams<{ id: string }>();
 
   const { data: clos, isLoading } = useGetCloByCourseId(courseId);
-  const { data: clo, isLoading: isCloLoading } = useGetCloById(selectedRows);
+  const { data: clo, isLoading: isCloLoading } = useGetCloById(selectedRows.id);
 
   return (
     <>
@@ -39,7 +42,7 @@ const CourseLearningOutcome = () => {
         {selectedRows && (
           <div>
             <h1 className="mb-5 text-2xl font-bold ">
-              Sub program learning outcome of {selectedRows}
+              Sub program learning outcome of CLO:{selectedRows.code}
             </h1>
             {isCloLoading ? (
               <Loading />
