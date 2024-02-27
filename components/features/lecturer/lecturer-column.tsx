@@ -7,9 +7,9 @@ import { LecturerRowActions } from '@/components/features/lecturer/lecturer-row-
 import { Checkbox } from '@/components/ui/checkbox';
 import { CollapsibleTrigger } from '@/components/ui/collapsible';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { Lecturer } from '@/data/schema';
+import { LecturerColumn } from '@/types/schema/lecturer-schema';
 
-export const columns: ColumnDef<Lecturer>[] = [
+export const columns: ColumnDef<LecturerColumn>[] = [
   {
     id: 'select',
     header: ({ table }) => (

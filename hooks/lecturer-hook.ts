@@ -3,8 +3,8 @@ import { toast } from 'sonner';
 
 import { lecturerService } from '@/services/lecturer-service';
 import {
-  CreateLecturerType,
-  CreateManyLecturerType,
+  CreateLecturerFormSchema,
+  CreateManyLecturerForm,
   EditLecturerType,
 } from '@/types/schema/lecturer-schema';
 
@@ -16,7 +16,7 @@ export const useGetLecturerList = () =>
 
 export const useCreateLecturer = () => {
   return useMutation({
-    mutationFn: (lecturer: CreateLecturerType) =>
+    mutationFn: (lecturer: CreateLecturerFormSchema) =>
       lecturerService.createLecturer(lecturer),
     onSuccess: () => {
       toast.success('Student has been created', {
@@ -33,7 +33,7 @@ export const useCreateLecturer = () => {
 
 export const useCreateManyLecturers = () => {
   return useMutation({
-    mutationFn: (lecturers: CreateManyLecturerType) =>
+    mutationFn: (lecturers: CreateManyLecturerForm) =>
       lecturerService.createManyLecturer(lecturers),
     onSuccess: () => {
       toast.success('Students has been created', {

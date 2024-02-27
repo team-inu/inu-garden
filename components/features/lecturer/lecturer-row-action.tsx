@@ -23,8 +23,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { LecturerSchema } from '@/data/schema';
-import { EditLecturerType } from '@/types/schema/lecturer-schema';
+import {
+  EditLecturerType,
+  LecturerColumnSchema,
+} from '@/types/schema/lecturer-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -33,9 +35,9 @@ interface DataTableRowActionsProps<TData> {
 export function LecturerRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const lecturer = LecturerSchema.omit({ collapsibleContent: true }).parse(
-    row.original,
-  );
+  const lecturer = LecturerColumnSchema.omit({
+    collapsibleContent: true,
+  }).parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =

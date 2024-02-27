@@ -1,15 +1,5 @@
 import { z } from 'zod';
 
-export const LecturerSchema = z.object({
-  id: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string(),
-  collapsibleContent: z.string(),
-});
-
-export type Lecturer = z.infer<typeof LecturerSchema>;
-
 export const GraduationSchema = z.object({
   id: z.string(),
   studentId: z.string(),

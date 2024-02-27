@@ -1,24 +1,24 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateLecturerType,
-  CreateManyLecturerType,
+  CreateLecturerFormSchema,
+  CreateManyLecturerForm,
   EditLecturerType,
-  GetLecturerList,
+  GetLecturerResponse,
 } from '@/types/schema/lecturer-schema';
 
 class LecturerService extends ApiService {
-  public async getLecturerList(): Promise<GetLecturerList[]> {
+  public async getLecturerList(): Promise<GetLecturerResponse[]> {
     const url = '/lecturers';
     return this.get(url)
       .then((response) => {
-        return response.data.data as unknown as GetLecturerList[];
+        return response.data.data as unknown as GetLecturerResponse[];
       })
       .catch(this.throwError);
   }
 
   public async createLecturer(
-    lecturer: CreateLecturerType,
-  ): Promise<CreateLecturerType> {
+    lecturer: CreateLecturerFormSchema,
+  ): Promise<CreateLecturerFormSchema> {
     const url = '/lecturers';
     const formData = new FormData();
     formData.append('firstName', lecturer.firstName);
@@ -31,8 +31,8 @@ class LecturerService extends ApiService {
   }
 
   public async createManyLecturer(
-    lecturers: CreateManyLecturerType,
-  ): Promise<CreateManyLecturerType> {
+    lecturers: CreateManyLecturerForm,
+  ): Promise<CreateManyLecturerForm> {
     const url = '/lecturers/bulk';
 
     console.log(lecturers);
