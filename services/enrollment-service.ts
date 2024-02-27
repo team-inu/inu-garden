@@ -1,8 +1,8 @@
-import { Enrollment } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
 import {
-  CreateEnrollmentType,
-  CreateManyEnrollmentType,
+  CreateEnrollmentForm,
+  CreateEnrollmentPayload,
+  GetEnrollmentResponse,
 } from '@/types/schema/enrollment-schema';
 
 class EnrollmentService extends ApiService {
@@ -10,14 +10,14 @@ class EnrollmentService extends ApiService {
     const url = '/enrollments';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as Enrollment[];
+        return response.data as unknown as GetEnrollmentResponse[];
       })
       .catch(this.throwError);
   }
 
   public async createEnrollment(
-    enrollment: CreateManyEnrollmentType | CreateEnrollmentType,
-  ): Promise<CreateManyEnrollmentType | CreateEnrollmentType> {
+    enrollment: CreateEnrollmentPayload | CreateEnrollmentForm,
+  ): Promise<CreateEnrollmentPayload | CreateEnrollmentForm> {
     const url = '/enrollments';
 
     if (this.isCreateManyEnrollment(enrollment)) {
@@ -39,8 +39,8 @@ class EnrollmentService extends ApiService {
   }
 
   private isCreateManyEnrollment(
-    enrollment: CreateManyEnrollmentType | CreateEnrollmentType,
-  ): enrollment is CreateManyEnrollmentType {
+    enrollment: CreateEnrollmentPayload | CreateEnrollmentForm,
+  ): enrollment is CreateEnrollmentPayload {
     return 'studentIds' in enrollment;
   }
 }

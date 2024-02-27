@@ -3,8 +3,8 @@ import { toast } from 'sonner';
 
 import { enrollmentService } from '@/services/enrollment-service';
 import {
-  CreateEnrollmentType,
-  CreateManyEnrollmentType,
+  CreateEnrollmentForm,
+  CreateEnrollmentPayload,
 } from '@/types/schema/enrollment-schema';
 
 export const useGetEnrollmentList = () =>
@@ -15,7 +15,7 @@ export const useGetEnrollmentList = () =>
 
 export const useCreateEnrollment = () => {
   return useMutation({
-    mutationFn: (enrollment: CreateManyEnrollmentType | CreateEnrollmentType) =>
+    mutationFn: (enrollment: CreateEnrollmentPayload | CreateEnrollmentForm) =>
       enrollmentService.createEnrollment(enrollment),
     onSuccess: () => {
       toast.success('Enrollment has been created', {

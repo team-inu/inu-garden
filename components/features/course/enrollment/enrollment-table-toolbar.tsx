@@ -15,8 +15,8 @@ import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateEnrollment } from '@/hooks/enrollment-hook';
 import {
-  CreateEnrollmentType,
-  CreateManyEnrollmentType,
+  CreateEnrollmentForm,
+  CreateEnrollmentPayload,
 } from '@/types/schema/enrollment-schema';
 
 export type Option = {
@@ -56,14 +56,14 @@ export function EnrollmentTableToolbar<TData>({
   const { mutate, isSuccess } = useCreateEnrollment();
   const { id: courseId } = useParams<{ id: string }>();
 
-  const onSubmit = (value: CreateEnrollmentType) => {
+  const onSubmit = (value: CreateEnrollmentForm) => {
     mutate(value);
     if (isSuccess) {
       setIsAddDialogOpen(false);
     }
   };
 
-  const onSubmitImport = (value: CreateManyEnrollmentType) => {
+  const onSubmitImport = (value: CreateEnrollmentPayload) => {
     mutate(value);
     if (isSuccess) {
       setIsImportDialogOpen(false);

@@ -5,9 +5,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { EnrollmentRowActions } from '@/components/features/course/enrollment/enrollment-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { labels } from '@/data/data';
-import { GetEnrollmentList } from '@/types/schema/enrollment-schema';
+import { EnrollmentColumn } from '@/types/schema/enrollment-schema';
 
-export const columns: ColumnDef<GetEnrollmentList>[] = [
+export const columns: ColumnDef<EnrollmentColumn>[] = [
   // {
   //   id: 'select',
   //   header: ({ table }) => (
@@ -53,7 +53,7 @@ export const columns: ColumnDef<GetEnrollmentList>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: 'student.firstName',
+    accessorKey: 'firstName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="First Name" />
     ),
@@ -68,7 +68,7 @@ export const columns: ColumnDef<GetEnrollmentList>[] = [
     },
   },
   {
-    accessorKey: 'student.lastName',
+    accessorKey: 'lastName',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Last Name" />
     ),
@@ -107,7 +107,7 @@ export const columns: ColumnDef<GetEnrollmentList>[] = [
     },
   },
   {
-    accessorKey: 'student.email',
+    accessorKey: 'email',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Email" />
     ),
