@@ -1,11 +1,11 @@
 import * as z from 'zod';
 
 import { GetCourseList } from '@/types/schema/course-schema';
-import { GetStudentList } from '@/types/schema/student-schema';
+import { GetStudentResponse } from '@/types/schema/student-schema';
 
 export type GetEnrollmentList = {
   course: GetCourseList;
-  student: GetStudentList;
+  student: GetStudentResponse;
   courseId: string;
   id: string;
   status: string;

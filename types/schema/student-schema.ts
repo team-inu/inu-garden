@@ -1,22 +1,28 @@
 import * as z from 'zod';
 
-export type GetStudentList = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  admission: string;
-  email: string;
-  GPAX: number;
-  mathGPA: number;
-  engGPA: number;
-  sciGPA: number;
-  school: string;
-  city: string;
-  year: string;
-  programmeName: string;
-  departmentName: string;
-  remark: string | null;
-};
+export const StudentSchema = z.object({
+  id: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  email: z.string(),
+  programmeName: z.string(),
+  departmentName: z.string(),
+  GPAX: z.number(),
+  mathGPA: z.number(),
+  engGPA: z.number(),
+  sciGPA: z.number(),
+  school: z.string(),
+  city: z.string(),
+  year: z.string(),
+  admission: z.string(),
+  remark: z.string(),
+});
+
+type Student = z.infer<typeof StudentSchema>;
+
+export type StudentColumn = Student;
+
+export type GetStudentResponse = Student;
 
 export const CreateStudentSchema = z.object({
   kmuttId: z
@@ -68,11 +74,9 @@ export const CreateStudentSchema = z.object({
   remark: z.string().optional(),
 });
 
-export type CreateStudentType = z.infer<typeof CreateStudentSchema>;
+export type CreateStudentPayload = z.infer<typeof CreateStudentSchema>;
 
-export type ImportedStudentType = Partial<CreateStudentType>;
-
-export const CreateStudentDefaultValues: CreateStudentType = {
+export const CreateStudentDefaultValues: CreateStudentPayload = {
   kmuttId: '',
   firstName: '',
   lastName: '',

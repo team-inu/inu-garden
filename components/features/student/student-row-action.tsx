@@ -22,8 +22,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { StudentSchema } from '@/data/schema';
-import { CreateStudentType } from '@/types/schema/student-schema';
+import {
+  CreateStudentPayload,
+  StudentSchema,
+} from '@/types/schema/student-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -36,7 +38,7 @@ export function StudentRowActions<TData>({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateStudentType) => {
+  const onSubmit = (values: CreateStudentPayload) => {
     console.log(values);
   };
 

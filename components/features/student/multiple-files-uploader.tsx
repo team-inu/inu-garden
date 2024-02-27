@@ -20,7 +20,7 @@ import {
   FirstDataHeaderRow,
 } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
-import { ImportedStudentType } from '@/types/schema/student-schema';
+import { CreateStudentPayload } from '@/types/schema/student-schema';
 
 const MultipleFileUploader = () => {
   const [applicantFiles, setApplicantFiles] = useState<File[]>([]);
@@ -162,7 +162,7 @@ const MultipleFileUploader = () => {
     const extendedEligibleWithApplicantToPyaoResult = (
       e: ExtendedEligibleWithPartialyApplicant,
       programmeName: string,
-    ): ImportedStudentType => {
+    ): CreateStudentPayload => {
       let firstName;
       let lastName;
       if (e['ชื่อ(ไทย)'] !== undefined && e['ชื่อ(ไทย)'] !== '') {
@@ -175,12 +175,14 @@ const MultipleFileUploader = () => {
         firstName = undefined;
         lastName = undefined;
       }
+
+      // TODO: no allow undefined value
       return {
         kmuttId: e['รหัสนักศึกษา'],
-        firstName: firstName,
-        lastName: lastName,
+        firstName: firstName ?? '-',
+        lastName: lastName ?? '-',
         admission: e['ประเภทการเข้า'],
-        email: e['อีเมล์'] ?? undefined,
+        email: e['อีเมล์'] ?? '-',
         gpax: parseFloat(e['GPAX'] ?? '0') ?? 0,
         mathGPA:
           parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '0') ?? 0,
@@ -188,8 +190,8 @@ const MultipleFileUploader = () => {
           parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_ภาษาต่างประเทศ'] ?? '0') ?? 0,
         sciGPA:
           parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_วิทยาศาสตร์'] ?? '0') ?? 0,
-        school: e['ชื่อสถานศึกษา'],
-        city: e['จังหวัด'],
+        school: e['ชื่อสถานศึกษา'] ?? '-',
+        city: e['จังหวัด'] ?? '-',
         year: e.year,
         programmeName: programmeName,
         departmentName: 'computer engineer',

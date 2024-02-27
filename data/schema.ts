@@ -12,26 +12,6 @@ export const EnrollmentSchema = z.object({
 
 export type Enrollment = z.infer<typeof EnrollmentSchema>;
 
-export const StudentSchema = z.object({
-  id: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string(),
-  programmeName: z.string(),
-  departmentName: z.string(),
-  GPAX: z.number(),
-  mathGPA: z.number(),
-  engGPA: z.number(),
-  sciGPA: z.number(),
-  school: z.string(),
-  city: z.string(),
-  year: z.string(),
-  admission: z.string(),
-  remark: z.string(),
-});
-
-export type Student = z.infer<typeof StudentSchema>;
-
 export const AssignmentSchema = z.object({
   id: z.string(),
   name: z.string(),
