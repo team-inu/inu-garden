@@ -22,19 +22,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { POSchema } from '@/data/schema';
-import { CreatePoType } from '@/types/schema/po-schema';
+import { CreatePoForm, PoSchema } from '@/types/schema/po-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
 export function PoRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  const po = POSchema.parse(row.original);
+  const po = PoSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreatePoType) => {
+  const onSubmit = (values: CreatePoForm) => {
     console.log(values);
   };
 

@@ -1,8 +1,28 @@
 import * as z from 'zod';
 
-export type GetScoreListType = {};
+// base
 
-export const CreateScoreSchema = z.object({
+export const ScoreSchema = z.object({
+  id: z.string(),
+  studentId: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  score: z.number(),
+});
+
+export type Score = z.infer<typeof ScoreSchema>;
+
+// response
+
+export type GetScoreResponse = z.infer<typeof ScoreSchema>;
+
+// column
+
+export type ScoreColumn = z.infer<typeof ScoreSchema>;
+
+// form
+
+export const CreateScoreFormSchema = z.object({
   studentId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -11,9 +31,13 @@ export const CreateScoreSchema = z.object({
     .min(0, { message: 'required' }),
 });
 
-export type CreateScoreType = z.infer<typeof CreateScoreSchema>;
+export type CreateScoreForm = z.infer<typeof CreateScoreFormSchema>;
 
-export const CreateScoreDefaultValues: CreateScoreType = {
+// payload
+
+// default values
+
+export const CreateScoreFormDefaultValues: CreateScoreForm = {
   studentId: '',
   score: 0,
 };

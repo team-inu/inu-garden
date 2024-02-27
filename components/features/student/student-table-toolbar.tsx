@@ -13,7 +13,7 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateStudent } from '@/hooks/student-hook';
-import { CreateStudentPayload } from '@/types/schema/student-schema';
+import { CreateStudentForm } from '@/types/schema/student-schema';
 
 export type Option = {
   value: string;
@@ -47,7 +47,7 @@ export function StudentTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isSuccess } = useCreateStudent();
-  const onSubmit = (value: CreateStudentPayload) => {
+  const onSubmit = (value: CreateStudentForm) => {
     mutate(value);
     if (isSuccess) {
       setIsOpen(false);

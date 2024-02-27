@@ -21,8 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { ScoreSchema } from '@/data/schema';
-import { CreateScoreType } from '@/types/schema/score-schema';
+import { CreateScoreForm, ScoreSchema } from '@/types/schema/score-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -35,7 +34,7 @@ export function ScoreRowActions<TData>({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateScoreType) => {
+  const onSubmit = (values: CreateScoreForm) => {
     console.log(values);
   };
 

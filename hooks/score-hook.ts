@@ -2,7 +2,7 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { scoreService } from '@/services/score-service';
-import { CreateScoreType } from '@/types/schema/score-schema';
+import { CreateScoreForm } from '@/types/schema/score-schema';
 
 export const useCreateScore = () => {
   return useMutation({
@@ -10,7 +10,7 @@ export const useCreateScore = () => {
       score,
       assignmentId,
     }: {
-      score: CreateScoreType;
+      score: CreateScoreForm;
       assignmentId: string;
     }) => scoreService.createScore(score, assignmentId),
     onSuccess: () => {

@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { studentService } from '@/services/student-service';
-import { CreateStudentPayload } from '@/types/schema/student-schema';
+import { CreateStudentForm } from '@/types/schema/student-schema';
 
 export const useGetStudentList = () =>
   useQuery({
@@ -12,7 +12,7 @@ export const useGetStudentList = () =>
 
 export const useCreateStudent = () => {
   return useMutation({
-    mutationFn: (student: CreateStudentPayload) =>
+    mutationFn: (student: CreateStudentForm) =>
       studentService.createStudent(student),
     onSuccess: () => {
       toast.success('Student has been created', {
@@ -29,7 +29,7 @@ export const useCreateStudent = () => {
 
 export const useCreateStudentBulk = () => {
   return useMutation({
-    mutationFn: (students: CreateStudentPayload[]) =>
+    mutationFn: (students: CreateStudentForm[]) =>
       studentService.createStudentBulk(students),
     onSuccess: () => {
       toast.success('Students have been created', {

@@ -37,13 +37,13 @@ import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
-  CreateManyLecturerDefaultValues,
-  CreateManyLecturerSchema,
-  CreateManyLecturerType,
+  CreateManyLecturerForm,
+  CreateManyLecturerFormDefaultValues,
+  CreateManyLecturerFormSchema,
 } from '@/types/schema/lecturer-schema';
 
 type LecturerImportDialogProps = {
-  onSubmit: (values: CreateManyLecturerType) => void;
+  onSubmit: (values: CreateManyLecturerForm) => void;
   open: boolean;
   isOnOpenChange: (open: boolean) => void;
 };
@@ -54,8 +54,8 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
   isOnOpenChange,
 }) => {
   const form = useStrictForm(
-    CreateManyLecturerSchema,
-    CreateManyLecturerDefaultValues,
+    CreateManyLecturerFormSchema,
+    CreateManyLecturerFormDefaultValues,
   );
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
@@ -233,7 +233,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                form.reset(CreateManyLecturerDefaultValues);
+                form.reset(CreateManyLecturerFormDefaultValues);
               }}
               variant="outline"
             >

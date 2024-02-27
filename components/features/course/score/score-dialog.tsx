@@ -19,14 +19,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateScoreDefaultValues,
-  CreateScoreSchema,
-  CreateScoreType,
+  CreateScoreForm,
+  CreateScoreFormDefaultValues,
+  CreateScoreFormSchema,
 } from '@/types/schema/score-schema';
 
 type ScoreDialogProps = {
-  onSubmit: (values: CreateScoreType) => void;
-  defaultValues?: CreateScoreType;
+  onSubmit: (values: CreateScoreForm) => void;
+  defaultValues?: CreateScoreForm;
   isEdit?: boolean;
 };
 
@@ -36,8 +36,8 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateScoreSchema,
-    defaultValues ?? CreateScoreDefaultValues,
+    CreateScoreFormSchema,
+    defaultValues ?? CreateScoreFormDefaultValues,
   );
 
   return (

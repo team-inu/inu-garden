@@ -1,13 +1,25 @@
 import * as z from 'zod';
 
-export type GetPoList = {
-  id: string;
-  code: string;
-  description: string;
-  name: string;
-};
+// base
 
-export const CreatePoSchema = z.object({
+export const PoSchema = z.object({
+  id: z.string(),
+  code: z.string(),
+  name: z.string(),
+  description: z.string(),
+});
+
+// response
+
+export type GetPoResponse = z.infer<typeof PoSchema>;
+
+// column
+
+export type PoColumn = z.infer<typeof PoSchema>;
+
+// form
+
+export const CreatePoFormSchema = z.object({
   code: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -19,20 +31,23 @@ export const CreatePoSchema = z.object({
     .min(1, { message: 'required' }),
 });
 
-export type CreatePoType = z.infer<typeof CreatePoSchema>;
+export const CreateManyPoSchema = z.object({
+  po: z.array(CreatePoFormSchema),
+});
 
-export const CreatePoDefaultValues: CreatePoType = {
+export type CreatePoForm = z.infer<typeof CreatePoFormSchema>;
+export type CreateManyPoForm = z.infer<typeof CreateManyPoSchema>;
+
+// payload
+
+// default values
+
+export const CreatePoFormDefaultValues: CreatePoForm = {
   code: '',
   name: '',
   description: '',
 };
 
-export const CreateManyPoSchema = z.object({
-  po: z.array(CreatePoSchema),
-});
-
-export type CreateManyPoType = z.infer<typeof CreateManyPoSchema>;
-
-export const CreateManyPoDefaultValues: CreateManyPoType = {
+export const CreateManyPoFormDefaultValues: CreateManyPoForm = {
   po: [],
 };

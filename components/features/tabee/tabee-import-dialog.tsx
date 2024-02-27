@@ -41,9 +41,9 @@ import {
   CreateManyPloSchema,
 } from '@/types/schema/plo-schema';
 import {
-  CreateManyPoDefaultValues,
+  CreateManyPoForm,
+  CreateManyPoFormDefaultValues,
   CreateManyPoSchema,
-  CreateManyPoType,
 } from '@/types/schema/po-schema';
 import {
   CreateManySubPloDefaultValues,
@@ -51,7 +51,7 @@ import {
 } from '@/types/schema/sub-plo-schema';
 
 type TabeeImportDialogProps = {
-  onSubmit: (values: CreateManyPoType) => void;
+  onSubmit: (values: CreateManyPoForm) => void;
   open: boolean;
   isOnOpenChange: (open: boolean) => void;
 };
@@ -70,7 +70,7 @@ const TabeeImportDialog: React.FC<TabeeImportDialogProps> = ({
     CreateManySubPloSchema,
     CreateManySubPloDefaultValues,
   );
-  const form = useStrictForm(CreateManyPoSchema, CreateManyPoDefaultValues);
+  const form = useStrictForm(CreateManyPoSchema, CreateManyPoFormDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const {
     fields: poFields,
@@ -214,7 +214,7 @@ const TabeeImportDialog: React.FC<TabeeImportDialogProps> = ({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                form.reset(CreateManyPoDefaultValues);
+                form.reset(CreateManyPoFormDefaultValues);
                 setApi(undefined);
                 setCurrent(0);
                 setCount(0);

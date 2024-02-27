@@ -1,6 +1,6 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateStudentPayload,
+  CreateStudentForm,
   GetStudentResponse,
 } from '@/types/schema/student-schema';
 
@@ -15,8 +15,8 @@ class StudentService extends ApiService {
   }
 
   public async createStudent(
-    student: CreateStudentPayload,
-  ): Promise<CreateStudentPayload> {
+    student: CreateStudentForm,
+  ): Promise<CreateStudentForm> {
     const url = '/students';
 
     return this.post(url, student)
@@ -25,8 +25,8 @@ class StudentService extends ApiService {
   }
 
   public async createStudentBulk(
-    students: CreateStudentPayload[],
-  ): Promise<CreateStudentPayload[]> {
+    students: CreateStudentForm[],
+  ): Promise<CreateStudentForm[]> {
     const url = '/students/bulk';
     const result = {
       students: students,

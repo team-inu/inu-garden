@@ -12,7 +12,7 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateAssignment } from '@/hooks/assignment-hook';
-import { CreateAssignmentType } from '@/types/schema/assignment-schema';
+import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
 
 export type Option = {
   value: string;
@@ -48,7 +48,7 @@ export function AssignmentTableToolbar<TData>({
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { mutate, isSuccess } = useCreateAssignment();
 
-  const HandleSubmitAssigment = (values: CreateAssignmentType) => {
+  const HandleSubmitAssigment = (values: CreateAssignmentForm) => {
     mutate(values);
 
     if (isSuccess) {

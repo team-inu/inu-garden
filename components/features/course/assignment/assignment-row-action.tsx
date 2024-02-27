@@ -21,7 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { CreateAssignmentType } from '@/types/schema/assignment-schema';
+import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -37,7 +37,7 @@ export function AssigmentRowActions<TData>({
   // const po = checkMultipleString(assignmentData.po);
   // const plo = checkMultipleString(assignmentData.plo);
 
-  const onSubmit = (values: CreateAssignmentType) => {
+  const onSubmit = (values: CreateAssignmentForm) => {
     console.log(values);
   };
 

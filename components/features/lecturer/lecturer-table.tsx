@@ -34,8 +34,8 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { Lecturer } from '@/data/schema';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
+import { LecturerColumn } from '@/types/schema/lecturer-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -149,7 +149,7 @@ export function LecturerDataTable<
     },
   ];
 
-  var CollapsibleRowContent = ({ row }: { row: Lecturer }) => (
+  var CollapsibleRowContent = ({ row }: { row: LecturerColumn }) => (
     <td colSpan={6} className="space-y-3 divide-y-2 divide-orange-400">
       {mockData.map((data, key) => (
         <div className="container" key={key}>

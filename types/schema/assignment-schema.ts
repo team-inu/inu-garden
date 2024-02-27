@@ -1,24 +1,36 @@
 import * as z from 'zod';
 
-export type GetAssignmentListType = {
-  id: string;
-  name: string;
-  description: string;
-  maxScore: number;
-  weight: number;
-  expectedScorePercentage: number;
-  expectedPassingStudentPercentage: number;
-  courseId: string;
-  CourseLearningOutcomes: string;
-};
+// base
 
-export const optionSchema = z.object({
+export const AssignmentSchema = z.object({
+  id: z.string(),
+  name: z.string(),
+  description: z.string(),
+  maxScore: z.number(),
+  weight: z.number(),
+  expectedScorePercentage: z.number(),
+  expectedPassingStudentPercentage: z.number(),
+  courseId: z.string(),
+  CourseLearningOutcomes: z.string(),
+});
+
+// response
+
+export type GetAssignmentResponse = z.infer<typeof AssignmentSchema>;
+
+// column
+
+export type AssignmentColumn = z.infer<typeof AssignmentSchema>;
+
+// form
+
+const optionSchema = z.object({
   label: z.string(),
   value: z.string(),
   disable: z.boolean().optional(),
 });
 
-export const CreateAssignmentSchema = z.object({
+export const CreateAssignmentFormSchema = z.object({
   name: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -34,9 +46,13 @@ export const CreateAssignmentSchema = z.object({
   }),
 });
 
-export type CreateAssignmentType = z.infer<typeof CreateAssignmentSchema>;
+export type CreateAssignmentForm = z.infer<typeof CreateAssignmentFormSchema>;
 
-export const CreateAssignmentDefaultValues: CreateAssignmentType = {
+// payload
+
+// default values
+
+export const CreateAssignmentFormDefaultValues: CreateAssignmentForm = {
   name: '',
   description: '',
   clo: [],

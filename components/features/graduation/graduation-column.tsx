@@ -3,12 +3,11 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { GraduationRowActions } from '@/components/features/graduation/graduation-row-action';
-import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { Graduation } from '@/data/schema';
+import { GraduationColumn } from '@/types/schema/graduation-schema';
 
-export const columns: ColumnDef<Graduation>[] = [
+export const columns: ColumnDef<GraduationColumn>[] = [
   {
     id: 'select',
     header: ({ table }) => (

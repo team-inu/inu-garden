@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { PoRowActions } from '@/components/features/tabee/po/po-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { PO } from '@/data/schema';
+import { PoColumn } from '@/types/schema/po-schema';
 
-export const columns: ColumnDef<PO>[] = [
+export const columns: ColumnDef<PoColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => <DataTableColumnHeader column={column} title="" />,

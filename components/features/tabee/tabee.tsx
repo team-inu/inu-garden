@@ -19,7 +19,7 @@ import { useCreateManyPlos, useGetPloList } from '@/hooks/plo-hook';
 import { useCreateManyPos, useGetPoList } from '@/hooks/po-hook';
 import { useGetSubPloList } from '@/hooks/sub-plo-hook';
 import { CreateManyPloType } from '@/types/schema/plo-schema';
-import { CreateManyPoType } from '@/types/schema/po-schema';
+import { CreateManyPoForm } from '@/types/schema/po-schema';
 import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
 
 const TABEE = () => {
@@ -53,7 +53,7 @@ const TABEE = () => {
     setSploValues(value);
   };
 
-  const onSubmitPoImport = (value: CreateManyPoType) => {
+  const onSubmitPoImport = (value: CreateManyPoForm) => {
     createManyPos(value);
     if (!isCreateManyPosError) {
       setIsTabeeImportOpen(false);

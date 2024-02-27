@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { assignmentService } from '@/services/assignment-service';
-import { CreateAssignmentType } from '@/types/schema/assignment-schema';
+import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
 
 export const useGetAssignment = () =>
   useQuery({
@@ -12,7 +12,7 @@ export const useGetAssignment = () =>
 
 export const useCreateAssignment = () => {
   return useMutation({
-    mutationFn: (assignment: CreateAssignmentType) =>
+    mutationFn: (assignment: CreateAssignmentForm) =>
       assignmentService.createAssignment(assignment),
     onSuccess: () => {
       toast.success('Assignment has been created', {

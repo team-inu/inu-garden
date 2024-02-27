@@ -15,8 +15,8 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import { Score } from '@/data/schema';
 import { useGetAssignment } from '@/hooks/assignment-hook';
+import { Score } from '@/types/schema/score-schema';
 
 type SelectedRowType = {
   name: string;

@@ -19,14 +19,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateStudentDefaultValues,
-  CreateStudentPayload,
-  CreateStudentSchema,
+  CreateStudentForm,
+  CreateStudentFormDefaultValues,
+  CreateStudentFormSchema,
 } from '@/types/schema/student-schema';
 
 type StudentDialogProps = {
-  onSubmit: (values: CreateStudentPayload) => void;
-  defaultValues?: CreateStudentPayload;
+  onSubmit: (values: CreateStudentForm) => void;
+  defaultValues?: CreateStudentForm;
   isEdit?: boolean;
 };
 
@@ -36,8 +36,8 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateStudentSchema,
-    defaultValues ?? CreateStudentDefaultValues,
+    CreateStudentFormSchema,
+    defaultValues ?? CreateStudentFormDefaultValues,
   );
   return (
     <div>
@@ -59,7 +59,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                     key={key}
                     control={form.control}
                     // TODO: eliminate as
-                    name={key as keyof CreateStudentPayload}
+                    name={key as keyof CreateStudentForm}
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>{key}</FormLabel>
