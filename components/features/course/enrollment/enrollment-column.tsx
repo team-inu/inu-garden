@@ -3,6 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { EnrollmentRowActions } from '@/components/features/course/enrollment/enrollment-row-action';
+import { studentStatus } from '@/components/features/course/enrollment/enrollment-table';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { EnrollmentColumn } from '@/types/schema/enrollment-schema';
 
@@ -63,11 +64,21 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
       <DataTableColumnHeader column={column} title="status" />
     ),
     cell: ({ row }) => {
+      const status = studentStatus.find(
+        (status) => status.value === row.getValue('status'),
+      );
+
+      if (!status) {
+        return null;
+      }
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('status')}</span>
+          <span className="truncate font-medium">{status.value}</span>
         </div>
       );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
   {

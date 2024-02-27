@@ -1,16 +1,6 @@
 'use client';
 
 import {
-  ArrowDownIcon,
-  ArrowRightIcon,
-  ArrowUpIcon,
-  CheckCircledIcon,
-  CircleIcon,
-  CrossCircledIcon,
-  QuestionMarkCircledIcon,
-  StopwatchIcon,
-} from '@radix-ui/react-icons';
-import {
   ColumnDef,
   ColumnFiltersState,
   SortingState,
@@ -24,6 +14,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { PlusCircleIcon, XIcon } from 'lucide-react';
 import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
@@ -39,7 +30,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { labels } from '@/data/data';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 
 interface DataTableProps<TData, TValue> {
@@ -47,57 +37,24 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export const statuses: Option[] = [
+export const studentStatus: Option[] = [
   {
-    value: 'backlog',
-    label: 'Backlog',
-    icon: QuestionMarkCircledIcon,
+    label: 'ENROLL',
+    value: 'ENROLL',
+    icon: PlusCircleIcon,
   },
   {
-    value: 'todo',
-    label: 'Todo',
-    icon: CircleIcon,
-  },
-  {
-    value: 'in progress',
-    label: 'In Progress',
-    icon: StopwatchIcon,
-  },
-  {
-    value: 'done',
-    label: 'Done',
-    icon: CheckCircledIcon,
-  },
-  {
-    value: 'canceled',
-    label: 'Canceled',
-    icon: CrossCircledIcon,
-  },
-];
-
-export const priorities: Option[] = [
-  {
-    label: 'Low',
-    value: 'low',
-    icon: ArrowDownIcon,
-  },
-  {
-    label: 'Medium',
-    value: 'medium',
-    icon: ArrowRightIcon,
-  },
-  {
-    label: 'High',
-    value: 'high',
-    icon: ArrowUpIcon,
+    label: 'WITHDRAW',
+    value: 'WITHDRAW',
+    icon: XIcon,
   },
 ];
 
 const inputs: SelectorOption[] = [
   {
-    options: labels,
-    title: 'label',
-    columnName: 'label',
+    options: studentStatus,
+    title: 'Status',
+    columnName: 'status',
   },
 ];
 
@@ -191,6 +148,7 @@ export function EnrollmentDataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
+              (console.log(table.getRowModel().rows),
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -205,7 +163,7 @@ export function EnrollmentDataTable<TData, TValue>({
                     </TableCell>
                   ))}
                 </TableRow>
-              ))
+              )))
             ) : (
               <TableRow>
                 <TableCell
