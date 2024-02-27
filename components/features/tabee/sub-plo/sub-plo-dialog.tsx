@@ -1,4 +1,5 @@
 import { DialogClose } from '@radix-ui/react-dialog';
+import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -39,6 +40,11 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
     CreateSubPloSchema,
     defaultValues ?? CreateSubPloDefaultValues,
   );
+
+  useEffect(() => {
+    form.reset(defaultValues);
+  }, [defaultValues]);
+
   return (
     <div>
       <DialogContent>
@@ -60,7 +66,7 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
                   <FormLabel>Code</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Input {...field} />
+                      <Input {...field} placeholder="ex: 1.1" />
                       <FormMessage />
                     </div>
                   </FormControl>

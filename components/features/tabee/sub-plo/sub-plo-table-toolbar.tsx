@@ -4,13 +4,18 @@ import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { useState } from 'react';
 
+import SubPloDialog from '@/components/features/tabee/sub-plo/sub-plo-dialog';
 import SubPloLinkCloDialog from '@/components/features/tabee/sub-plo/sub-plo-link-clo-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { CreateSubPloLinkCloType } from '@/types/schema/sub-plo-schema';
+import { useCreateSubPlo } from '@/hooks/sub-plo-hook';
+import {
+  CreateSubPloLinkCloType,
+  CreateSubPloType,
+} from '@/types/schema/sub-plo-schema';
 
 export type Option = {
   value: string;
@@ -30,6 +35,8 @@ interface DataTableToolbarProps<TData> {
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
   subPloId?: string[];
+  currentPlo: string;
+  isTabee: boolean;
 }
 
 export function SubPloTableToolbar<TData>({
@@ -38,13 +45,23 @@ export function SubPloTableToolbar<TData>({
   isViewOptions = true,
   isCreateEnabled = true,
   subPloId,
+  currentPlo,
+  isTabee,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
+  const { mutate, isError } = useCreateSubPlo();
 
   const onSubmit = (value: CreateSubPloLinkCloType) => {};
+
+  const onTabeeSubmit = (value: CreateSubPloType) => {
+    mutate(value);
+    if (!isError) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <div className="flex items-center justify-between">
@@ -98,7 +115,19 @@ export function SubPloTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <SubPloLinkCloDialog onSubmit={onSubmit} subPloId={subPloId} />
+              {!isTabee ? (
+                <SubPloLinkCloDialog onSubmit={onSubmit} subPloId={subPloId} />
+              ) : (
+                <SubPloDialog
+                  defaultValues={{
+                    code: '',
+                    descriptionThai: '',
+                    descriptionEng: '',
+                    programLearningOutcomeId: currentPlo,
+                  }}
+                  onSubmit={onTabeeSubmit}
+                />
+              )}
             </Dialog>
           </div>
         )}

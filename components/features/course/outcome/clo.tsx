@@ -47,6 +47,7 @@ const CourseLearningOutcome = () => {
                   clo?.subProgramLearningOutcomes.map((subPlo) => subPlo.id) ??
                   []
                 }
+                isTabee={false}
               />
             )}
           </div>

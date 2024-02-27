@@ -2,7 +2,7 @@
 
 import { FilePlusIcon } from '@radix-ui/react-icons';
 import { FolderDotIcon } from 'lucide-react';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import Loading from '@/components/features/loading-screen';
 import PloImportDialog from '@/components/features/tabee/plo-import-dialog';
@@ -60,10 +60,10 @@ const TABEE = () => {
     }
   };
 
-  useEffect(() => {
-    console.log(selectedCode);
-    console.log(selectedRows);
-  }, [selectedCode, selectedRows]);
+  // useEffect(() => {
+  //   console.log(selectedCode);
+  //   console.log(selectedRows);
+  // }, [selectedCode, selectedRows]);
 
   return (
     <div className="">
@@ -113,11 +113,15 @@ const TABEE = () => {
                 <Loading />
               ) : (
                 <SubProgramLearningOutcomeDataTable
+                  currentPlo={selectedRows}
                   columns={subPloColumns}
                   data={
-                    splos?.filter((splo: SubPLO) => splo.id === selectedRows) ??
-                    []
+                    splos?.filter(
+                      (splo: SubPLO) =>
+                        splo.programLearningOutcomeId === selectedRows,
+                    ) ?? []
                   }
+                  isTabee={true}
                   // currentPlo={selectedRows}
                 />
               )}
