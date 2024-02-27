@@ -3,7 +3,7 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { SubPLO } from '@/data/schema';
+import { SubPLO } from '@/types/schema/sub-plo-schema';
 
 export const subPloColumns: ColumnDef<SubPLO>[] = [
   {

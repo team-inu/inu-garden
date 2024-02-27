@@ -2,17 +2,32 @@ import * as z from 'zod';
 
 import { GetSubPloResponse } from '@/types/schema/sub-plo-schema';
 
-export type GetProgramLearningOutcomeList = {
-  id: string;
-  code: string;
-  descriptionThai: string;
-  descriptionEng: string;
-  programYear: number;
-  programmeName: string;
+// base
+
+export const PloSchema = z.object({
+  id: z.string(),
+  code: z.string(),
+  descriptionThai: z.string(),
+  descriptionEng: z.string(),
+  programYear: z.number(),
+  programmeName: z.string(),
+});
+
+export type Plo = z.infer<typeof PloSchema>;
+
+// response
+
+export type GetProgramLearningOutcomeResponse = Plo & {
   subProgramLearningOutcomes: GetSubPloResponse[];
 };
 
-export const CreatePloSchema = z.object({
+// column
+
+export type PloColumn = Plo;
+
+// form
+
+export const CreatePloFormSchema = z.object({
   code: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -28,9 +43,18 @@ export const CreatePloSchema = z.object({
     .min(1, { message: 'required' }),
 });
 
-export type CreatePloType = z.infer<typeof CreatePloSchema>;
+export const CreateManyPloFormSchema = z.object({
+  plo: z.array(CreatePloFormSchema),
+});
 
-export const CreatePloDefaultValues: CreatePloType = {
+export type CreatePloForm = z.infer<typeof CreatePloFormSchema>;
+export type CreateManyPloForm = z.infer<typeof CreateManyPloFormSchema>;
+
+// payload
+
+// default values
+
+export const CreatePloFormDefaultValues: CreatePloForm = {
   code: '',
   descriptionThai: '',
   descriptionEng: '',
@@ -38,12 +62,6 @@ export const CreatePloDefaultValues: CreatePloType = {
   programmeName: '',
 };
 
-export const CreateManyPloSchema = z.object({
-  plo: z.array(CreatePloSchema),
-});
-
-export type CreateManyPloType = z.infer<typeof CreateManyPloSchema>;
-
-export const CreateManyPloDefaultValues: CreateManyPloType = {
+export const CreateManyPloFormDefaultValues: CreateManyPloForm = {
   plo: [],
 };

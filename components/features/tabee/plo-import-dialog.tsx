@@ -43,9 +43,9 @@ import { Textarea } from '@/components/ui/textarea';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
-  CreateManyPloDefaultValues,
-  CreateManyPloSchema,
-  CreateManyPloType,
+  CreateManyPloForm,
+  CreateManyPloFormDefaultValues,
+  CreateManyPloFormSchema,
 } from '@/types/schema/plo-schema';
 import {
   CreateManySubPloDefaultValues,
@@ -54,7 +54,7 @@ import {
 } from '@/types/schema/sub-plo-schema';
 
 type PloImportDialogProps = {
-  onPloSubmit: (values: CreateManyPloType) => void;
+  onPloSubmit: (values: CreateManyPloForm) => void;
   onSubPloSubmit: (values: CreateManySubPloType) => void;
   open: boolean;
   isOnOpenChange: (open: boolean) => void;
@@ -67,8 +67,8 @@ const PloImportDialog: React.FC<PloImportDialogProps> = ({
   isOnOpenChange,
 }) => {
   const ploForm = useStrictForm(
-    CreateManyPloSchema,
-    CreateManyPloDefaultValues,
+    CreateManyPloFormSchema,
+    CreateManyPloFormDefaultValues,
   );
 
   const sploForm = useStrictForm(
@@ -343,7 +343,7 @@ const PloImportDialog: React.FC<PloImportDialogProps> = ({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                ploForm.reset(CreateManyPloDefaultValues);
+                ploForm.reset(CreateManyPloFormDefaultValues);
                 sploForm.reset(CreateManySubPloDefaultValues);
                 setApi(undefined);
                 setCurrent(0);

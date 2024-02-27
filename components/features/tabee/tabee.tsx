@@ -14,13 +14,12 @@ import { columns as subPloColumns } from '@/components/features/tabee/sub-plo/su
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
 import TabeeImportDialog from '@/components/features/tabee/tabee-import-dialog';
 import { Button } from '@/components/ui/button';
-import { SubPLO } from '@/data/schema';
 import { useCreateManyPlos, useGetPloList } from '@/hooks/plo-hook';
 import { useCreateManyPos, useGetPoList } from '@/hooks/po-hook';
 import { useGetSubPloList } from '@/hooks/sub-plo-hook';
-import { CreateManyPloType } from '@/types/schema/plo-schema';
+import { CreateManyPloForm } from '@/types/schema/plo-schema';
 import { CreateManyPoForm } from '@/types/schema/po-schema';
-import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
+import { CreateManySubPloType, SubPLO } from '@/types/schema/sub-plo-schema';
 
 const TABEE = () => {
   const [selectedRows, setSelectedRows] = useState<string>('');
@@ -42,7 +41,7 @@ const TABEE = () => {
     setSelectedCode(code);
   };
 
-  const onSubmitPloImport = (value: CreateManyPloType) => {
+  const onSubmitPloImport = (value: CreateManyPloForm) => {
     createManyPlos({ plos: value, splos: sploValues! });
     if (!isCreateManyPlosError) {
       setIsPloImportOpen(false);
