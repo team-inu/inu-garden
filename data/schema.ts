@@ -1,17 +1,5 @@
 import { z } from 'zod';
 
-export const GraduationSchema = z.object({
-  id: z.string(),
-  studentId: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  year: z.number(),
-  workPlace: z.string(),
-  remarks: z.string(),
-});
-
-export type Graduation = z.infer<typeof GraduationSchema>;
-
 export const ScoreSchema = z.object({
   id: z.string(),
   studentId: z.string(),

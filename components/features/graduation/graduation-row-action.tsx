@@ -20,18 +20,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { labels } from '@/data/data';
-import { GraduationSchema } from '@/data/schema';
-import { CreateGraduationType } from '@/types/schema/graduation-schema';
+import {
+  CreateGraduationType,
+  GraduationSchema,
+} from '@/types/schema/graduation-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

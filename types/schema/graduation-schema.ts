@@ -1,5 +1,25 @@
 import * as z from 'zod';
 
+// base
+
+export const GraduationSchema = z.object({
+  id: z.string(),
+  studentId: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  year: z.number(),
+  workPlace: z.string(),
+  remarks: z.string(),
+});
+
+// response
+
+// column
+
+export type GraduationColumn = z.infer<typeof GraduationSchema>;
+
+// form
+
 export const CreateGraduationSchema = z.object({
   id: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   studentId: z
@@ -23,6 +43,10 @@ export const CreateGraduationSchema = z.object({
 });
 
 export type CreateGraduationType = z.infer<typeof CreateGraduationSchema>;
+
+// payload
+
+// default values
 
 export const CreateGraduationDefaultValues: CreateGraduationType = {
   id: '',
