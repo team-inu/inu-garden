@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import { optionSchema } from '@/types/schema/assignment-schema';
+import { optionSchema } from '@/types/schema/form-schema';
 import { GetSubPloResponse } from '@/types/schema/sub-plo-schema';
 
 export const CloSchema = z.object({

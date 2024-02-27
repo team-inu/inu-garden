@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import { optionSchema } from '@/types/schema/assignment-schema';
+import { optionSchema } from '@/types/schema/form-schema';
 
 export const SubPloSchema = z.object({
   id: z.string(),
