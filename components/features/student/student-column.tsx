@@ -6,9 +6,9 @@ import { StudentRowActions } from '@/components/features/student/student-row-act
 import { students } from '@/components/features/student/student-table';
 import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { Student } from '@/data/schema';
+import { StudentColumn } from '@/types/schema/student-schema';
 
-export const columns: ColumnDef<Student>[] = [
+export const columns: ColumnDef<StudentColumn>[] = [
   {
     id: 'select',
     header: ({ table }) => (

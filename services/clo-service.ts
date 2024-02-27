@@ -1,7 +1,8 @@
 import { ApiService } from '@/services/api-service';
 import {
   CreateCloType,
-  GetCourseLearningOutcomeList,
+  GetCourseLearningOutcome,
+  GetCourseLearningOutcomeWithSubPlo,
 } from '@/types/schema/clo-shema';
 
 class CourseLearningOutcomeService extends ApiService {
@@ -32,22 +33,35 @@ class CourseLearningOutcomeService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getCloList(): Promise<GetCourseLearningOutcomeList[]> {
+  public async getCloList(): Promise<GetCourseLearningOutcome[]> {
     const url = '/clos';
     return this.get(url)
       .then((response) => {
-        return response.data.data as unknown as GetCourseLearningOutcomeList[];
+        return response.data.data as unknown as GetCourseLearningOutcome[];
+      })
+      .catch(this.throwError);
+  }
+
+  public async getCloById(
+    cloId: string,
+  ): Promise<GetCourseLearningOutcomeWithSubPlo> {
+    const url = `/clos/${cloId}`;
+
+    return this.get(url)
+      .then((response) => {
+        return response.data
+          .data as unknown as GetCourseLearningOutcomeWithSubPlo;
       })
       .catch(this.throwError);
   }
 
   public async getCloByCourseId(
     courseId: string,
-  ): Promise<GetCourseLearningOutcomeList[]> {
+  ): Promise<GetCourseLearningOutcome[]> {
     const url = `/courses/${courseId}/clos`;
     return this.get(url)
       .then((response) => {
-        return response.data.data as unknown as GetCourseLearningOutcomeList[];
+        return response.data.data as unknown as GetCourseLearningOutcome[];
       })
       .catch(this.throwError);
   }

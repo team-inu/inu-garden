@@ -30,8 +30,6 @@ export const CreatePloSchema = z.object({
 
 export type CreatePloType = z.infer<typeof CreatePloSchema>;
 
-export type ImportedPloType = Partial<CreatePloType>;
-
 export const CreatePloDefaultValues: CreatePloType = {
   code: '',
   descriptionThai: '',

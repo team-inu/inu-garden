@@ -80,7 +80,6 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
             expectedPassingStudentPercentage:
               clo.expectedPassingStudentPercentage,
             expectedScorePercentage: clo.expectedScorePercentage,
-            programLearningOutcomeId: clo.programLearningOutcomeId,
             subProgramLearningOutcomeId: [],
             status: 'old',
             programOutcomeId: 'to do add this to excel edit form',

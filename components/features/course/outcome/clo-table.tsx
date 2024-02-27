@@ -133,7 +133,7 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
                     if (getValues) {
-                      getValues(row.id);
+                      getValues(row.getValue('id'));
                     }
                   }}
                   className="cursor-pointer"

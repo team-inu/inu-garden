@@ -17,7 +17,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import MultipleSelector from '@/components/ui/muti-select';
 import {
   Select,
   SelectContent,
@@ -69,7 +68,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
   );
 
   const updatePlo = (ploId: string) => {
-    form.setValue('programLearningOutcomeId', ploId);
+    // form.setValue('programLearningOutcomeId', ploId);
     form.setValue(
       'subProgramLearningOutcomeId',
       getSubPloOptions(plolist, ploId),
@@ -213,7 +212,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
                 </FormItem>
               )}
             />
-            <FormField
+            {/* <FormField
               control={form.control}
               name="programLearningOutcomeId"
               render={({ field }) => (
@@ -240,8 +239,8 @@ const CloDialog: React.FC<PloDialogProps> = ({
                   <FormMessage />
                 </FormItem>
               )}
-            />
-            <FormField
+            /> */}
+            {/* <FormField
               control={form.control}
               name="subProgramLearningOutcomeId"
               render={({ field }) => (
@@ -264,7 +263,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
                   </FormControl>
                 </FormItem>
               )}
-            />
+            /> */}
           </form>
         </Form>
         <DialogFooter>

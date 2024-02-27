@@ -1,17 +1,18 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { columns } from '@/components/features/course/outcome/clo-column';
 import { CourseLearningOutcomeDataTable } from '@/components/features/course/outcome/clo-table';
+import Loading from '@/components/features/loading-screen';
 import { columns as subPloColumns } from '@/components/features/tabee/sub-plo/sub-plo-column';
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
 import { SubPLO } from '@/data/schema';
+import { useGetCloById, useGetCloList } from '@/hooks/clo-hook';
 
 export const mockCLO = [
   {
     id: '01HG65WNM2H6NET91P8N61MQ8Z',
-    name: 'what',
     code: 'CLO1',
     description: 'string',
     weight: 0,
@@ -20,7 +21,6 @@ export const mockCLO = [
     expectedScorePercentage: 0,
     expectedPassingStudentPercentage: 0,
     courseId: '1',
-    subProgramLearningOutcomeId: '1',
     programLearningOutcomeId: '1',
   },
 ];
@@ -54,24 +54,41 @@ const CourseLearningOutcome = () => {
   const getVales = (id: string) => {
     setSelectedRows(id);
   };
+  const { data: clos, isLoading } = useGetCloList();
+  const { data: clo, isLoading: isLoading2 } = useGetCloById(selectedRows);
+
+  useEffect(() => {
+    console.log(selectedRows);
+  }, [selectedRows]);
+
   return (
     <>
-      <h1 className="mb-5 text-2xl font-bold">Course learning outcome</h1>{' '}
-      <CourseLearningOutcomeDataTable
-        columns={columns}
-        data={mockCLO}
-        getValues={getVales}
-      />
+      <h1 className="font- mb-5 text-2xl ">Course learning outcome</h1>{' '}
+      <div className="">
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <CourseLearningOutcomeDataTable
+            columns={columns}
+            data={clos ?? []}
+            getValues={getVales}
+          />
+        )}
+      </div>
       <div>
         {selectedRows && (
           <div>
             <h1 className="mb-5 text-2xl font-bold ">
               Sub program learning outcome of {selectedRows}
             </h1>
-            <SubProgramLearningOutcomeDataTable
-              columns={subPloColumns}
-              data={mockSubPLO}
-            />
+            {isLoading2 ? (
+              <Loading />
+            ) : (
+              <SubProgramLearningOutcomeDataTable
+                columns={subPloColumns}
+                data={clo?.subProgramLearningOutcomes ?? []}
+              />
+            )}
           </div>
         )}
       </div>

@@ -1,5 +1,7 @@
 import * as z from 'zod';
 
+import { GetSubProgramLearningOutcomeList } from '@/types/schema/sub-plo-schema';
+
 const optionSchema = z.object({
   label: z.string(),
   value: z.string(),
@@ -8,7 +10,7 @@ const optionSchema = z.object({
 
 export type OptionaType = z.infer<typeof optionSchema>;
 
-export type GetCourseLearningOutcomeList = {
+export type GetCourseLearningOutcome = {
   id: string;
   code: string;
   description: string;
@@ -18,6 +20,10 @@ export type GetCourseLearningOutcomeList = {
   status: string;
   programOutcomeId: string;
   courseId: string;
+};
+
+export type GetCourseLearningOutcomeWithSubPlo = GetCourseLearningOutcome & {
+  subProgramLearningOutcomes: GetSubProgramLearningOutcomeList[];
 };
 
 export const CreateCloSchema = z.object({
@@ -40,9 +46,6 @@ export const CreateCloSchema = z.object({
   subProgramLearningOutcomeId: z
     .array(optionSchema)
     .min(1, { message: 'required' }),
-  programLearningOutcomeId: z.string({ required_error: 'required' }).min(1, {
-    message: 'required',
-  }),
   programOutcomeId: z.string({ required_error: 'required' }).min(1, {
     message: 'required',
   }),
@@ -58,7 +61,6 @@ export const CreateCloDefaultValues: CreateCloType = {
   expectedPassingStudentPercentage: 0,
   status: '',
   subProgramLearningOutcomeId: [],
-  programLearningOutcomeId: '',
   programOutcomeId: '',
 };
 

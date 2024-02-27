@@ -2,7 +2,8 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { ploService } from '@/services/plo-service';
-import { CreatePloType, ImportedPloType } from '@/types/schema/plo-schema';
+import { CreateManyPloType, CreatePloType } from '@/types/schema/plo-schema';
+import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
 
 export const useGetPloList = () =>
   useQuery({
@@ -26,9 +27,12 @@ export const useCreatePlo = () => {
   });
 };
 
-export const useCreatePloBulk = () => {
+export const useCreateManyPlos = () => {
   return useMutation({
-    mutationFn: (plos: ImportedPloType[]) => ploService.createPloBulk(plos),
+    mutationFn: (outcomes: {
+      plos: CreateManyPloType;
+      splos: CreateManySubPloType;
+    }) => ploService.createManyPlos(outcomes.plos, outcomes.splos),
     onSuccess: () => {
       toast.success('PLOs have been created', {
         description: 'You can now see the PLOs in the list.',
