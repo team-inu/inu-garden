@@ -1,6 +1,15 @@
 import { DialogClose } from '@radix-ui/react-dialog';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command';
 import {
   DialogContent,
   DialogDescription,
@@ -11,13 +20,21 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
+import { useGetEnrollmentsByCourseId } from '@/hooks/enrollment-hook';
 import { useStrictForm } from '@/hooks/form-hook';
+import { cn } from '@/libs/utils';
 import {
   CreateScoreForm,
   CreateScoreFormDefaultValues,
@@ -35,10 +52,18 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
   defaultValues,
   isEdit = false,
 }) => {
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data: enrollments, isLoading } =
+    useGetEnrollmentsByCourseId(courseId);
   const form = useStrictForm(
     CreateScoreFormSchema,
     defaultValues ?? CreateScoreFormDefaultValues,
   );
+
+  const enrollmentsOptions = enrollments?.map((enrollment) => ({
+    label: enrollment.studentId,
+    value: enrollment.studentId,
+  }));
 
   return (
     <div>
@@ -57,14 +82,61 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
               control={form.control}
               name="studentId"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>StudentId</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
+                <FormItem className="flex flex-col">
+                  <FormLabel>Student Id</FormLabel>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <FormControl>
+                        <Button
+                          variant="outline"
+                          role="combobox"
+                          className={cn(
+                            'w-[200px] justify-between',
+                            !field.value && 'text-muted-foreground',
+                          )}
+                        >
+                          {field.value && enrollmentsOptions
+                            ? enrollmentsOptions.find(
+                                (student) => student.value === field.value,
+                              )?.label
+                            : 'Select StudentId'}
+                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                        </Button>
+                      </FormControl>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-[200px] p-0">
+                      <Command>
+                        <CommandInput placeholder="Search language..." />
+                        <CommandEmpty>No language found.</CommandEmpty>
+                        <CommandGroup>
+                          {enrollmentsOptions &&
+                            enrollmentsOptions.map((student) => (
+                              <CommandItem
+                                value={student.label}
+                                key={student.value}
+                                onSelect={() => {
+                                  form.setValue('studentId', student.value);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    'mr-2 h-4 w-4',
+                                    student.value === field.value
+                                      ? 'opacity-100'
+                                      : 'opacity-0',
+                                  )}
+                                />
+                                {student.label}
+                              </CommandItem>
+                            ))}
+                        </CommandGroup>
+                      </Command>
+                    </PopoverContent>
+                  </Popover>
+                  <FormDescription>
+                    This is the language that will be used in the dashboard.
+                  </FormDescription>
+                  <FormMessage />
                 </FormItem>
               )}
             />

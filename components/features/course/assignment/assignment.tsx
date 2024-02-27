@@ -17,7 +17,6 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { useGetAssignmentByCourseId } from '@/hooks/assignment-hook';
-import { Score } from '@/types/schema/score-schema';
 
 type SelectedRowType = {
   name: string;
@@ -33,53 +32,10 @@ const Assignment = () => {
   const { data: assignmentData } = useGetAssignmentByCourseId(courseId);
 
   const ScoreTable = useMemo(() => {
-    let data: Score[] = [];
-    switch (selectedRows?.id) {
-      case '1':
-        data = [
-          {
-            id: '1',
-            studentId: '600612345',
-            firstName: 'John',
-            lastName: 'Doe',
-            score: 100,
-          },
-          {
-            id: '2',
-            studentId: '600612345',
-            firstName: 'Por',
-            lastName: 'Ping',
-            score: 100,
-          },
-        ];
-        break;
-      case '2':
-        data = [
-          {
-            id: '1',
-            studentId: '600612345',
-            firstName: 'Annie',
-            lastName: 'Rose',
-            score: 85,
-          },
-          {
-            id: '2',
-            studentId: '600612344',
-            firstName: 'Ling',
-            lastName: 'Ping',
-            score: 84,
-          },
-        ];
-        break;
-
-      default:
-        break;
-    }
-    console.log(selectedRows?.id);
     return (
       <ScoreDataTable
         columns={scoreColumns}
-        data={data}
+        data={[]}
         assignmentName={selectedRows?.name}
         assignmentId={selectedRows?.id}
       />
