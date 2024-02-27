@@ -22,6 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useDeletePlo, useUpdatePlo } from '@/hooks/plo-hook';
 import { CreatePloForm, PloSchema } from '@/types/schema/plo-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -32,13 +33,21 @@ export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const plo = PloSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { mutate: updatePlo, isError: isUpdateError } = useUpdatePlo();
+  const { mutate: deletePlo, isError: isDeleteError } = useDeletePlo();
 
   const onSubmit = (values: CreatePloForm) => {
-    console.log(values);
+    updatePlo({ plo: values, id: plo.id });
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   const onDelete = () => {
-    console.log('delete');
+    deletePlo(plo.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
+    }
   };
 
   return (
