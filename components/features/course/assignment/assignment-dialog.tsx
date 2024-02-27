@@ -23,14 +23,14 @@ import { Textarea } from '@/components/ui/textarea';
 import { useGetCloByCourseId } from '@/hooks/clo-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateAssignmentDefaultValues,
-  CreateAssignmentSchema,
-  CreateAssignmentType,
+  CreateAssignmentForm,
+  CreateAssignmentFormDefaultValues,
+  CreateAssignmentFormSchema,
 } from '@/types/schema/assignment-schema';
 
 type StudentDialogProps = {
-  onSubmit: (values: CreateAssignmentType) => void;
-  defaultValues?: CreateAssignmentType;
+  onSubmit: (values: CreateAssignmentForm) => void;
+  defaultValues?: CreateAssignmentForm;
 };
 
 const AssignmentDialog: React.FC<StudentDialogProps> = ({
@@ -39,8 +39,8 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
 }) => {
   const { id: courseId } = useParams();
   const form = useStrictForm(
-    CreateAssignmentSchema,
-    defaultValues ?? CreateAssignmentDefaultValues,
+    CreateAssignmentFormSchema,
+    defaultValues ?? CreateAssignmentFormDefaultValues,
   );
   const { data: cloList } = useGetCloByCourseId(courseId as string);
 

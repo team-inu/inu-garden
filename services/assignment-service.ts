@@ -1,13 +1,13 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateAssignmentType,
-  GetAssignmentListType,
+  CreateAssignmentForm,
+  GetAssignmentResponse,
 } from '@/types/schema/assignment-schema';
 
 class AssignmentService extends ApiService {
   public async createAssignment(
-    assignment: CreateAssignmentType,
-  ): Promise<CreateAssignmentType> {
+    assignment: CreateAssignmentForm,
+  ): Promise<CreateAssignmentForm> {
     const url = '/assignments';
     const result = {
       name: assignment.name,
@@ -24,11 +24,11 @@ class AssignmentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getAssignments(): Promise<GetAssignmentListType[]> {
+  public async getAssignments(): Promise<GetAssignmentResponse[]> {
     const url = '/assignments';
     return this.get(url)
       .then(
-        (response) => response.data.data as unknown as GetAssignmentListType[],
+        (response) => response.data.data as unknown as GetAssignmentResponse[],
       )
       .catch(this.throwError);
   }

@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { AssigmentRowActions } from '@/components/features/course/assignment/assignment-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { GetAssignmentListType } from '@/types/schema/assignment-schema';
+import { AssignmentColumn } from '@/types/schema/assignment-schema';
 
-export const columns: ColumnDef<GetAssignmentListType>[] = [
+export const columns: ColumnDef<AssignmentColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
