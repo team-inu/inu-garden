@@ -1,5 +1,6 @@
 'use client';
 
+import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
 import { columns } from '@/components/features/course/outcome/clo-column';
@@ -7,15 +8,18 @@ import { CourseLearningOutcomeDataTable } from '@/components/features/course/out
 import Loading from '@/components/features/loading-screen';
 import { subPloStaticColumn } from '@/components/features/tabee/sub-plo/sub-plo-static-column';
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
-import { useGetCloById, useGetCloList } from '@/hooks/clo-hook';
+import { useGetCloByCourseId, useGetCloById } from '@/hooks/clo-hook';
 
 const CourseLearningOutcome = () => {
   const [selectedRows, setSelectedRows] = useState<string>('');
   const getVales = (id: string) => {
     setSelectedRows(id);
   };
-  const { data: clos, isLoading } = useGetCloList();
-  const { data: clo, isLoading: isLoading2 } = useGetCloById(selectedRows);
+
+  const { id: courseId } = useParams<{ id: string }>();
+
+  const { data: clos, isLoading } = useGetCloByCourseId(courseId);
+  const { data: clo, isLoading: isCloLoading } = useGetCloById(selectedRows);
 
   return (
     <>
@@ -37,7 +41,7 @@ const CourseLearningOutcome = () => {
             <h1 className="mb-5 text-2xl font-bold ">
               Sub program learning outcome of {selectedRows}
             </h1>
-            {isLoading2 ? (
+            {isCloLoading ? (
               <Loading />
             ) : (
               <SubProgramLearningOutcomeDataTable
