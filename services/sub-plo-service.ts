@@ -17,7 +17,7 @@ class SubPloService extends ApiService {
   public async createSubPlo(splo: CreateSubPloType): Promise<CreateSubPloType> {
     const url = '/splos';
 
-    return this.post(url, splo)
+    return this.post(url, { subProgramLearningOutcomes: [splo] })
       .then(() => splo)
       .catch(this.throwError);
   }

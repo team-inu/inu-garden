@@ -18,14 +18,14 @@ class PoService extends ApiService {
   public async createPo(po: CreatePoForm): Promise<CreatePoForm> {
     const url = '/pos';
 
-    return this.post(url, po)
+    return this.post(url, { programOutcomes: [po] })
       .then(() => po)
       .catch(this.throwError);
   }
 
   public async createManyPos(pos: CreateManyPoForm): Promise<CreateManyPoForm> {
     const url = '/pos';
-    return this.post(url, pos)
+    return this.post(url, { programOutcomes: pos.po })
       .then(() => pos)
       .catch(this.throwError);
   }
