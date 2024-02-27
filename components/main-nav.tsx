@@ -15,6 +15,7 @@ export function MainNav({
         href="/course"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
+        <img />
         Course
       </Link>
       <Link
