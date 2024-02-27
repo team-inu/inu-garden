@@ -39,7 +39,7 @@ const CourseLearningOutcome = () => {
         )}
       </div>
       <div>
-        {selectedRows && (
+        {selectedRows.id && (
           <div>
             <h1 className="mb-5 text-2xl font-bold ">
               Sub program learning outcome of CLO:{selectedRows.code}
