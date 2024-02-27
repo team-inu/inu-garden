@@ -3,9 +3,9 @@ import { ColumnDef } from '@tanstack/react-table';
 import { mockCLO } from '@/components/features/course/outcome/clo';
 import { CourseLearningOutcomeDataTable } from '@/components/features/course/outcome/clo-table';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { CLO } from '@/data/schema';
+import { CloColumn } from '@/types/schema/clo-shema';
 
-const columns: ColumnDef<CLO>[] = [
+const columns: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'code',
     header: ({ column }) => (

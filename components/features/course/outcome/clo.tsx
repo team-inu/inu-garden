@@ -21,6 +21,7 @@ export const mockCLO = [
     expectedScorePercentage: 0,
     expectedPassingStudentPercentage: 0,
     courseId: '1',
+    status: 'string',
     programLearningOutcomeId: '1',
   },
 ];
