@@ -6,7 +6,7 @@ import { FolderDotIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
-import CloDialog from '@/components/features/course/outcome/clo-dialog';
+import CloAddDialog from '@/components/features/course/outcome/clo-add-dialog';
 import CloImportDialog from '@/components/features/course/outcome/clo-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
@@ -105,7 +105,7 @@ export function CloTableToolbar<TData>({
             </Button>
 
             <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-              <CloDialog onSubmit={handleSubmitClo} />
+              <CloAddDialog onSubmit={handleSubmitClo} />
             </Dialog>
 
             <Button

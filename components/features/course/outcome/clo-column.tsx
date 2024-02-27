@@ -4,9 +4,9 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { CloRowActions } from '@/components/features/course/outcome/clo-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { CLO } from '@/data/schema';
+import { CloColumn } from '@/types/schema/clo-shema';
 
-export const columns: ColumnDef<CLO>[] = [
+export const columns: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
@@ -49,7 +49,7 @@ export const columns: ColumnDef<CLO>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="expectedPassingAssignmentPercentage"
+        title="PassingAssignmentPercentage"
       />
     ),
     cell: ({ row }) => {
@@ -64,10 +64,7 @@ export const columns: ColumnDef<CLO>[] = [
   {
     accessorKey: 'expectedPassingStudentPercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="expectedPassingStudentPercentage"
-      />
+      <DataTableColumnHeader column={column} title="PassingStudentPercentage" />
     ),
     cell: ({ row }) => {
       return (
@@ -81,14 +78,21 @@ export const columns: ColumnDef<CLO>[] = [
   {
     accessorKey: 'expectedScorePercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="expectedScorePercentage" />
+      <DataTableColumnHeader column={column} title="ScorePercentage" />
     ),
     cell: ({ row }) => {
       return (
-        <span className="truncate font-medium">
-          {row.getValue('expectedScorePercentage')}
-        </span>
+        <span className="">{row.getValue('expectedScorePercentage')}</span>
       );
+    },
+  },
+  {
+    accessorKey: 'status',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Status" />
+    ),
+    cell: ({ row }) => {
+      return <span className="">{row.getValue('status')}</span>;
     },
   },
 

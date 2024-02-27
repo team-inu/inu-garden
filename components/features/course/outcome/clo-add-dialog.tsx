@@ -17,6 +17,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import MultipleSelector from '@/components/ui/muti-select';
 import {
   Select,
   SelectContent,
@@ -38,7 +39,6 @@ import { GetProgramLearningOutcomeList } from '@/types/schema/plo-schema';
 type PloDialogProps = {
   onSubmit: (values: CreateCloType) => void;
   defaultValues?: CreateCloType;
-  isEdit?: boolean;
 };
 
 const getSubPloOptions = (
@@ -54,10 +54,9 @@ const getSubPloOptions = (
       }),
     ) as OptionaType[];
 
-const CloDialog: React.FC<PloDialogProps> = ({
+const CloAddDialog: React.FC<PloDialogProps> = ({
   onSubmit,
   defaultValues,
-  isEdit = false,
 }) => {
   const { data: plolist } = useGetPloList();
   const { data: polist } = useGetPoList();
@@ -68,7 +67,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
   );
 
   const updatePlo = (ploId: string) => {
-    // form.setValue('programLearningOutcomeId', ploId);
+    form.setValue('programLearningOutcomeId', ploId);
     form.setValue(
       'subProgramLearningOutcomeId',
       getSubPloOptions(plolist, ploId),
@@ -79,15 +78,9 @@ const CloDialog: React.FC<PloDialogProps> = ({
     <div>
       <DialogContent className="min-w-[75%]">
         <DialogHeader>
-          <DialogTitle>
-            {isEdit
-              ? 'Edit Course learning outcome'
-              : 'Add Course learning outcome'}
-          </DialogTitle>
+          <DialogTitle>Add Course learning outcome</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the course learning outcome information'
-              : 'Fill in the course learning outcome information'}
+            Fill in the course learning outcome information
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -212,7 +205,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
                 </FormItem>
               )}
             />
-            {/* <FormField
+            <FormField
               control={form.control}
               name="programLearningOutcomeId"
               render={({ field }) => (
@@ -239,8 +232,8 @@ const CloDialog: React.FC<PloDialogProps> = ({
                   <FormMessage />
                 </FormItem>
               )}
-            /> */}
-            {/* <FormField
+            />
+            <FormField
               control={form.control}
               name="subProgramLearningOutcomeId"
               render={({ field }) => (
@@ -263,7 +256,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
                   </FormControl>
                 </FormItem>
               )}
-            /> */}
+            />
           </form>
         </Form>
         <DialogFooter>
@@ -281,4 +274,4 @@ const CloDialog: React.FC<PloDialogProps> = ({
   );
 };
 
-export default CloDialog;
+export default CloAddDialog;

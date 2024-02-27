@@ -6,7 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
-import CloDialog from '@/components/features/course/outcome/clo-dialog';
+import CloEditDialog from '@/components/features/course/outcome/clo-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,19 +22,18 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { CLOSchema } from '@/data/schema';
-import { CreateCloType } from '@/types/schema/clo-shema';
+import { CloSchema, EditCloType } from '@/types/schema/clo-shema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
 export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
-  const clo = CLOSchema.parse(row.original);
+  const clo = CloSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: CreateCloType) => {
+  const onSubmit = (values: EditCloType) => {
     console.log(values);
   };
 
@@ -69,10 +68,10 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <CloDialog
-          isEdit
+        <CloEditDialog
           onSubmit={onSubmit}
           defaultValues={{
+            id: clo.id,
             code: clo.code,
             description: clo.description,
             expectedPassingAssignmentPercentage:
@@ -80,9 +79,8 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
             expectedPassingStudentPercentage:
               clo.expectedPassingStudentPercentage,
             expectedScorePercentage: clo.expectedScorePercentage,
-            subProgramLearningOutcomeId: [],
             status: 'old',
-            programOutcomeId: 'to do add this to excel edit form',
+            programOutcomeId: clo.programOutcomeId,
           }}
         />
       )}
