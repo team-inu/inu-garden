@@ -19,14 +19,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreatePoDefaultValues,
-  CreatePoSchema,
-  CreatePoType,
+  CreatePoForm,
+  CreatePoFormDefaultValues,
+  CreatePoFormSchema,
 } from '@/types/schema/po-schema';
 
 type PoDialogProps = {
-  onSubmit: (values: CreatePoType) => void;
-  defaultValues?: CreatePoType;
+  onSubmit: (values: CreatePoForm) => void;
+  defaultValues?: CreatePoForm;
   isEdit?: boolean;
 };
 
@@ -36,8 +36,8 @@ const PoDialog: React.FC<PoDialogProps> = ({
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreatePoSchema,
-    defaultValues ?? CreatePoDefaultValues,
+    CreatePoFormSchema,
+    defaultValues ?? CreatePoFormDefaultValues,
   );
   return (
     <div>

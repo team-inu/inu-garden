@@ -1,21 +1,21 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateManyPoType,
-  CreatePoType,
-  GetPoList,
+  CreateManyPoForm,
+  CreatePoForm,
+  GetPoResponse,
 } from '@/types/schema/po-schema';
 
 class PoService extends ApiService {
-  public async getPoList(): Promise<GetPoList[]> {
+  public async getPoList(): Promise<GetPoResponse[]> {
     const url = '/pos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetPoList[];
+        return response.data as unknown as GetPoResponse[];
       })
       .catch(this.throwError);
   }
 
-  public async createPo(po: CreatePoType): Promise<CreatePoType> {
+  public async createPo(po: CreatePoForm): Promise<CreatePoForm> {
     const url = '/pos';
 
     return this.post(url, po)
@@ -23,7 +23,7 @@ class PoService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createManyPos(pos: CreateManyPoType): Promise<CreateManyPoType> {
+  public async createManyPos(pos: CreateManyPoForm): Promise<CreateManyPoForm> {
     const url = '/pos';
     return this.post(url, pos)
       .then(() => pos)

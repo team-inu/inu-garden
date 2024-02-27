@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { poService } from '@/services/po-service';
-import { CreateManyPoType, CreatePoType } from '@/types/schema/po-schema';
+import { CreateManyPoForm, CreatePoForm } from '@/types/schema/po-schema';
 
 export const useGetPoList = () =>
   useQuery({
@@ -12,7 +12,7 @@ export const useGetPoList = () =>
 
 export const useCreatePo = () => {
   return useMutation({
-    mutationFn: (po: CreatePoType) => poService.createPo(po),
+    mutationFn: (po: CreatePoForm) => poService.createPo(po),
     onSuccess: () => {
       toast.success('PO has been created', {
         description: 'You can now add questions to the PO.',
@@ -28,7 +28,7 @@ export const useCreatePo = () => {
 
 export const useCreateManyPos = () => {
   return useMutation({
-    mutationFn: (pos: CreateManyPoType) => poService.createManyPos(pos),
+    mutationFn: (pos: CreateManyPoForm) => poService.createManyPos(pos),
     onSuccess: () => {
       toast.success('POs have been created', {
         description: 'You can now see the POs in the list.',

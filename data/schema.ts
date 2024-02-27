@@ -20,12 +20,3 @@ export const SubPLOSchema = z.object({
 });
 
 export type SubPLO = z.infer<typeof SubPLOSchema>;
-
-export const POSchema = z.object({
-  id: z.string(),
-  code: z.string(),
-  name: z.string(),
-  description: z.string(),
-});
-
-export type PO = z.infer<typeof POSchema>;

@@ -11,7 +11,7 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreatePo } from '@/hooks/po-hook';
-import { CreatePoType } from '@/types/schema/po-schema';
+import { CreatePoForm } from '@/types/schema/po-schema';
 
 export type Option = {
   value: string;
@@ -44,7 +44,7 @@ export function PoTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isError } = useCreatePo();
 
-  const onSubmit = (value: CreatePoType) => {
+  const onSubmit = (value: CreatePoForm) => {
     mutate(value);
     if (!isError) {
       setIsOpen(false);
