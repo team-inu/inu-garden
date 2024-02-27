@@ -1,12 +1,12 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
+import { Trash2Icon } from 'lucide-react';
 
-import { SubPloRowActions } from '@/components/features/tabee/sub-plo/sub-plo-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { SubPloColumn } from '@/types/schema/sub-plo-schema';
 
-export const columns: ColumnDef<SubPloColumn>[] = [
+export const subPloStaticColumn: ColumnDef<SubPloColumn>[] = [
   // {
   //   accessorKey: 'id',
   //   header: ({ column }) => (
@@ -41,19 +41,14 @@ export const columns: ColumnDef<SubPloColumn>[] = [
     cell: ({ row }) => <div>{row.getValue('descriptionEng')}</div>,
     enableSorting: false,
   },
-  // {
-  //   accessorKey: 'programLearningOutcomeId',
-  //   header: ({ column }) => (
-  //     <DataTableColumnHeader column={column} title="programLearningOutcomeId" />
-  //   ),
-  //   cell: ({ row }) => <div className="">{row.getValue('programLearningOutcomeId')}</div>,
-  //   enableSorting: false,
-  //   enableHiding: false,
-  // },
 
   {
     id: 'actions',
-    cell: ({ row }) => <SubPloRowActions row={row} />,
+    cell: ({ row }) => (
+      <div>
+        <Trash2Icon className="cursor-pointer hover:text-destructive  " />
+      </div>
+    ),
   },
 ];
 

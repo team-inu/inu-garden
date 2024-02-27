@@ -2,16 +2,15 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 
-import SubPloDialog from '@/components/features/tabee/sub-plo/sub-plo-dialog';
+import SubPloLinkCloDialog from '@/components/features/tabee/sub-plo/sub-plo-link-clo-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreateSubPlo } from '@/hooks/sub-plo-hook';
-import { CreateSubPloType } from '@/types/schema/sub-plo-schema';
+import { CreateSubPloLinkCloType } from '@/types/schema/sub-plo-schema';
 
 export type Option = {
   value: string;
@@ -30,6 +29,7 @@ interface DataTableToolbarProps<TData> {
   selectorOptions: SelectorOption[];
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
+  subPloId?: string[];
 }
 
 export function SubPloTableToolbar<TData>({
@@ -37,20 +37,14 @@ export function SubPloTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
+  subPloId,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate, isError } = useCreateSubPlo();
 
-  const onSubmit = (value: CreateSubPloType) => {
-    mutate(value);
-    if (!isError) {
-      setIsOpen(false);
-    }
-  };
+  const onSubmit = (value: CreateSubPloLinkCloType) => {};
 
   return (
     <div className="flex items-center justify-between">
@@ -104,7 +98,7 @@ export function SubPloTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <SubPloDialog onSubmit={onSubmit} />
+              <SubPloLinkCloDialog onSubmit={onSubmit} subPloId={subPloId} />
             </Dialog>
           </div>
         )}

@@ -32,6 +32,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   disableToolbar?: boolean;
   disablePagination?: boolean;
+  subPloId?: string[];
 }
 
 export function SubProgramLearningOutcomeDataTable<TData, TValue>({
@@ -39,6 +40,7 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
   data,
   disableToolbar = false,
   disablePagination = false,
+  subPloId,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -78,6 +80,7 @@ export function SubProgramLearningOutcomeDataTable<TData, TValue>({
           selectorOptions={[]}
           isCreateEnabled={true}
           isViewOptions={true}
+          subPloId={subPloId}
         />
       )}
       <div className="rounded-md border">

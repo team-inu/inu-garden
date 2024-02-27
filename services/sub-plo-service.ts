@@ -1,13 +1,15 @@
-import { SubPLO } from '@/data/schema';
 import { ApiService } from '@/services/api-service';
-import { CreateSubPloType } from '@/types/schema/sub-plo-schema';
+import {
+  CreateSubPloType,
+  GetSubPloResponse,
+} from '@/types/schema/sub-plo-schema';
 
 class SubPloService extends ApiService {
-  public async getSubPloList(): Promise<any> {
+  public async getSubPloList(): Promise<GetSubPloResponse[]> {
     const url = '/splos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as SubPLO[];
+        return response.data as unknown as GetSubPloResponse[];
       })
       .catch(this.throwError);
   }
