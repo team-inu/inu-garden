@@ -28,7 +28,9 @@ const HomePage = () => {
             <div className="flex justify-between">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="outcome">PO, PLO, CLO</TabsTrigger>
+                <TabsTrigger value="outcome">
+                  Course Learning Outcome
+                </TabsTrigger>
                 <TabsTrigger value="assignment">Assignments</TabsTrigger>
                 <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
               </TabsList>
