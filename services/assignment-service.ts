@@ -24,8 +24,10 @@ class AssignmentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getAssignments(): Promise<GetAssignmentResponse[]> {
-    const url = '/assignments';
+  public async getAssignmentsByCourseId(
+    courseId: string,
+  ): Promise<GetAssignmentResponse[]> {
+    const url = `/courses/${courseId}/assignments`;
     return this.get(url)
       .then(
         (response) => response.data.data as unknown as GetAssignmentResponse[],
