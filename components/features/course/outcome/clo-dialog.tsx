@@ -78,7 +78,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
 
   return (
     <div>
-      <DialogContent>
+      <DialogContent className="min-w-[75%]">
         <DialogHeader>
           <DialogTitle>
             {isEdit
@@ -193,7 +193,7 @@ const CloDialog: React.FC<PloDialogProps> = ({
               name="programOutcomeId"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>Program Learning Outcome</FormLabel>
+                  <FormLabel>Program Outcome</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>
