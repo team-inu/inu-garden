@@ -1,12 +1,17 @@
 'use client';
 
+import { useParams } from 'next/navigation';
+
 import { columns } from '@/components/features/course/enrollment/enrollment-column';
 import { EnrollmentDataTable } from '@/components/features/course/enrollment/enrollment-table';
 import Loading from '@/components/features/loading-screen';
-import { useGetEnrollmentList } from '@/hooks/enrollment-hook';
+import { useGetEnrollmentsByCourseId } from '@/hooks/enrollment-hook';
 
 const Enrollment = () => {
-  const { data: enrollments, isLoading } = useGetEnrollmentList();
+  const { id: courseId } = useParams<{ id: string }>();
+
+  const { data: enrollments, isLoading } =
+    useGetEnrollmentsByCourseId(courseId);
 
   return (
     <>
