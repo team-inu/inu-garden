@@ -1,18 +1,18 @@
 import { ApiService } from '@/services/api-service';
-import { CreateScoreType, GetScoreListType } from '@/types/schema/score-schema';
+import { CreateScoreForm, GetScoreResponse } from '@/types/schema/score-schema';
 
 class ScoreService extends ApiService {
-  public async getScores(): Promise<GetScoreListType[]> {
+  public async getScores(): Promise<GetScoreResponse[]> {
     const url = '/scores';
     return this.get(url)
-      .then((response) => response.data.data as unknown as GetScoreListType[])
+      .then((response) => response.data.data as unknown as GetScoreResponse[])
       .catch(this.throwError);
   }
 
   public async createScore(
-    data: CreateScoreType,
+    data: CreateScoreForm,
     assignmentId: string,
-  ): Promise<CreateScoreType> {
+  ): Promise<CreateScoreForm> {
     const url = '/scores';
     const result = {
       studentScores: [data],

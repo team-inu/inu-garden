@@ -1,15 +1,5 @@
 import { z } from 'zod';
 
-export const ScoreSchema = z.object({
-  id: z.string(),
-  studentId: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  score: z.number(),
-});
-
-export type Score = z.infer<typeof ScoreSchema>;
-
 export const PLOSchema = z.object({
   id: z.string(),
   code: z.string(),

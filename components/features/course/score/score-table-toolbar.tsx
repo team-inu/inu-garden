@@ -12,7 +12,7 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateScore } from '@/hooks/score-hook';
-import { CreateScoreType } from '@/types/schema/score-schema';
+import { CreateScoreForm } from '@/types/schema/score-schema';
 
 export type Option = {
   value: string;
@@ -50,7 +50,7 @@ export function ScoreTableToolbar<TData>({
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { mutate } = useCreateScore();
 
-  const handleScoreSubmit = (values: CreateScoreType) => {
+  const handleScoreSubmit = (values: CreateScoreForm) => {
     if (assignmentId) {
       mutate({ score: values, assignmentId });
     }

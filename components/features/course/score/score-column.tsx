@@ -3,11 +3,10 @@
 import { ColumnDef } from '@tanstack/react-table';
 
 import { ScoreRowActions } from '@/components/features/course/score/score-row-action';
-import { Checkbox } from '@/components/ui/checkbox';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { Score } from '@/data/schema';
+import { ScoreColumn } from '@/types/schema/score-schema';
 
-export const columns: ColumnDef<Score>[] = [
+export const columns: ColumnDef<ScoreColumn>[] = [
   {
     accessorKey: 'studentId',
     header: ({ column }) => (
