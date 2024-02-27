@@ -20,13 +20,13 @@ import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
   EditEnrollmentDefaultValues,
-  EditEnrollmentSchema,
-  EditEnrollmentType,
+  EditEnrollmentForm,
+  EditEnrollmentFormSchema,
 } from '@/types/schema/enrollment-schema';
 
 type EnrollmentDialogProps = {
-  onSubmit: (values: EditEnrollmentType) => void;
-  defaultValues?: EditEnrollmentType;
+  onSubmit: (values: EditEnrollmentForm) => void;
+  defaultValues?: EditEnrollmentForm;
 };
 
 const EnrollmentEditDialog: React.FC<EnrollmentDialogProps> = ({
@@ -34,7 +34,7 @@ const EnrollmentEditDialog: React.FC<EnrollmentDialogProps> = ({
   defaultValues,
 }) => {
   const form = useStrictForm(
-    EditEnrollmentSchema,
+    EditEnrollmentFormSchema,
     defaultValues ?? EditEnrollmentDefaultValues,
   );
 
@@ -56,51 +56,6 @@ const EnrollmentEditDialog: React.FC<EnrollmentDialogProps> = ({
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} disabled />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="firstName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Firstname</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Lastname</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Email</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>

@@ -19,14 +19,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateEnrollmentDefaultValues,
-  CreateEnrollmentSchema,
-  CreateEnrollmentType,
+  CreateEnrollmentForm,
+  CreateEnrollmentFormDefaultValues,
+  CreateEnrollmentFormSchema,
 } from '@/types/schema/enrollment-schema';
 
 type EnrollmentDialogProps = {
-  onSubmit: (values: CreateEnrollmentType) => void;
-  defaultValues?: CreateEnrollmentType;
+  onSubmit: (values: CreateEnrollmentForm) => void;
+  defaultValues?: CreateEnrollmentForm;
 };
 
 const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
@@ -34,8 +34,8 @@ const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
   defaultValues,
 }) => {
   const form = useStrictForm(
-    CreateEnrollmentSchema,
-    defaultValues ?? CreateEnrollmentDefaultValues,
+    CreateEnrollmentFormSchema,
+    defaultValues ?? CreateEnrollmentFormDefaultValues,
   );
 
   return (

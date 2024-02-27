@@ -21,7 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { EditEnrollmentType } from '@/types/schema/enrollment-schema';
+import { EditEnrollmentForm } from '@/types/schema/enrollment-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -34,7 +34,7 @@ export function EnrollmentRowActions<TData>({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: EditEnrollmentType) => {
+  const onSubmit = (values: EditEnrollmentForm) => {
     console.log(values);
   };
 
@@ -73,9 +73,6 @@ export function EnrollmentRowActions<TData>({
           onSubmit={onSubmit}
           defaultValues={{
             studentId: '',
-            email: '',
-            firstName: '',
-            lastName: '',
           }}
         />
       )}

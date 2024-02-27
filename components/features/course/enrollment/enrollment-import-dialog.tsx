@@ -22,13 +22,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
-  CreateManyEnrollmentDefaultValues,
-  CreateManyEnrollmentSchema,
-  CreateManyEnrollmentType,
+  CreateEnrollmentPayload,
+  CreateEnrollmentPayloadDefaultValues,
+  CreateEnrollmentPayloadSchema,
 } from '@/types/schema/enrollment-schema';
 
 type EnrollmentImportDialogProps = {
-  onSubmit: (values: CreateManyEnrollmentType) => void;
+  onSubmit: (values: CreateEnrollmentPayload) => void;
   open: boolean;
   setIsOnOpenChange: (open: boolean) => void;
 };
@@ -39,8 +39,8 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
   setIsOnOpenChange: isOnOpenChange,
 }) => {
   const form = useStrictForm(
-    CreateManyEnrollmentSchema,
-    CreateManyEnrollmentDefaultValues,
+    CreateEnrollmentPayloadSchema,
+    CreateEnrollmentPayloadDefaultValues,
   );
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { id: courseId } = useParams<{ id: string }>();
@@ -112,7 +112,7 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
           <Button
             variant="outline"
             onClick={() => {
-              form.reset(CreateManyEnrollmentDefaultValues);
+              form.reset(CreateEnrollmentPayloadDefaultValues);
             }}
           >
             Clear data
@@ -120,7 +120,7 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                form.reset(CreateManyEnrollmentDefaultValues);
+                form.reset(CreateEnrollmentPayloadDefaultValues);
               }}
               variant="outline"
             >
