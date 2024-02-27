@@ -34,3 +34,9 @@ export const useCourseList = () =>
     queryKey: ['courses'],
     queryFn: () => courseService.getCourseList(),
   });
+
+export const useGetCourseById = (id: string) =>
+  useQuery({
+    queryKey: ['courses', id],
+    queryFn: () => courseService.getCourseById(id),
+  });

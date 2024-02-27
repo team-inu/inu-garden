@@ -33,6 +33,15 @@ class CourseService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async getCourseById(id: string): Promise<GetCourseList> {
+    const url = `/courses/${id}`;
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as GetCourseList;
+      })
+      .catch(this.throwError);
+  }
+
   public async getCourseByYear(year: string): Promise<any> {
     const url = `/course/year/${year}`;
     return this.get(url)
