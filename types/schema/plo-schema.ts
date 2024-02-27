@@ -1,6 +1,6 @@
 import * as z from 'zod';
 
-import { GetSubProgramLearningOutcomeList } from '@/types/schema/sub-plo-schema';
+import { GetSubPloResponse } from '@/types/schema/sub-plo-schema';
 
 export type GetProgramLearningOutcomeList = {
   id: string;
@@ -9,7 +9,7 @@ export type GetProgramLearningOutcomeList = {
   descriptionEng: string;
   programYear: number;
   programmeName: string;
-  subProgramLearningOutcomes: GetSubProgramLearningOutcomeList[];
+  subProgramLearningOutcomes: GetSubPloResponse[];
 };
 
 export const CreatePloSchema = z.object({
