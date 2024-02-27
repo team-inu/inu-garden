@@ -71,7 +71,7 @@ const CoursePage = () => {
           <Loading />
         </div>
       )}
-      <div className="grid grid-cols-3 gap-5">
+      <div className="grid grid-cols-1  gap-5 md:grid-cols-2">
         {courses &&
           courses
             .filter((e) => {
@@ -96,6 +96,7 @@ const CoursePage = () => {
                   finishedTask={0}
                   totalTask={0}
                   teacherAmount={0}
+                  curriculum={e.curriculum}
                 />
               );
             })}
