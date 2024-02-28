@@ -41,3 +41,36 @@ export const useCreateManyPos = () => {
     },
   });
 };
+
+export const useUpdatePo = () => {
+  return useMutation({
+    mutationFn: ({ po, id }: { po: CreatePoForm; id: string }) =>
+      poService.updatePo(po, id),
+    onSuccess: () => {
+      toast.success('PO has been updated', {
+        description: 'You can now add questions to the PO.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to update PO', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useDeletePo = () => {
+  return useMutation({
+    mutationFn: (id: string) => poService.deletePo(id),
+    onSuccess: () => {
+      toast.success('PO has been deleted', {
+        description: 'You can now add questions to the PO.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to delete PO', {
+        description: error.message,
+      });
+    },
+  });
+};

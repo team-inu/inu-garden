@@ -29,6 +29,20 @@ class PoService extends ApiService {
       .then(() => pos)
       .catch(this.throwError);
   }
+
+  public async updatePo(po: CreatePoForm, id: string): Promise<CreatePoForm> {
+    const url = `/pos/${id}`;
+    return this.patch(url, { programOutcomes: [po] })
+      .then(() => po)
+      .catch(this.throwError);
+  }
+
+  public async deletePo(id: string) {
+    const url = `/pos/${id}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
 }
 
 export const poService = new PoService();
