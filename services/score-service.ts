@@ -5,6 +5,10 @@ class ScoreService extends ApiService {
   public async getScoresByAssignmentId(
     assignmentId: string,
   ): Promise<GetScoreResponse[]> {
+    if (assignmentId === '') {
+      return [];
+    }
+
     const url = `/assignments/${assignmentId}/scores/`;
     return this.get(url)
       .then((response) => response.data.data as unknown as GetScoreResponse[])
