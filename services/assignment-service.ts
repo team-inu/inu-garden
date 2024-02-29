@@ -1,6 +1,7 @@
 import { ApiService } from '@/services/api-service';
 import {
   CreateAssignmentForm,
+  GetAssignmentByIdResponse,
   GetAssignmentResponse,
 } from '@/types/schema/assignment-schema';
 
@@ -31,6 +32,18 @@ class AssignmentService extends ApiService {
     return this.get(url)
       .then(
         (response) => response.data.data as unknown as GetAssignmentResponse[],
+      )
+      .catch(this.throwError);
+  }
+
+  public async getAssignmentById(
+    assignmentId: string,
+  ): Promise<GetAssignmentByIdResponse> {
+    const url = `/assignments/${assignmentId}`;
+    return this.get(url)
+      .then(
+        (response) =>
+          response.data.data as unknown as GetAssignmentByIdResponse,
       )
       .catch(this.throwError);
   }

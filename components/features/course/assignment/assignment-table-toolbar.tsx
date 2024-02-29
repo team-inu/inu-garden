@@ -46,12 +46,13 @@ export function AssignmentTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate, isSuccess } = useCreateAssignment();
+  const { mutate, isError } = useCreateAssignment();
 
   const HandleSubmitAssigment = (values: CreateAssignmentForm) => {
     mutate(values);
+    console.log(status);
 
-    if (isSuccess) {
+    if (!isError) {
       setIsOpen(false);
     }
   };

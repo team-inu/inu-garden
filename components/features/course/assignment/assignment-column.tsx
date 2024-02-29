@@ -48,16 +48,16 @@ export const columns: ColumnDef<AssignmentColumn>[] = [
       return <span>{row.getValue('maxScore')}</span>;
     },
   },
-  {
-    accessorKey: 'courseLearningOutcomesId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="clo" />
-    ),
-    cell: ({ row }) => {
-      //TODO: get clo name from id
-      return <span></span>;
-    },
-  },
+  // {
+  //   accessorKey: 'courseLearningOutcomesId',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="clo" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     //TODO: get clo name from id
+  //     return <span></span>;
+  //   },
+  // },
   {
     accessorKey: 'weight',
     header: ({ column }) => (

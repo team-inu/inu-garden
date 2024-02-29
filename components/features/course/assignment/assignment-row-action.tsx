@@ -21,7 +21,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
+import {
+  AssignmentSchema,
+  CreateAssignmentForm,
+} from '@/types/schema/assignment-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -30,10 +33,9 @@ interface DataTableRowActionsProps<TData> {
 export function AssigmentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  // const assignmentData = AssignmentSchema.parse(row.original);
+  const assignmentData = AssignmentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  // const clo = checkMultipleString(assignmentData.courseLearningOutcomeId);
   // const po = checkMultipleString(assignmentData.po);
   // const plo = checkMultipleString(assignmentData.plo);
 
@@ -71,10 +73,9 @@ export function AssigmentRowActions<TData>({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {/*
-      {isEditDialogOpen && (
+
+      {/* {isEditDialogOpen && (
         <AssignmentEditDialog
-          isEdit
           onSubmit={onSubmit}
           defaultValues={{
             ...assignmentData,

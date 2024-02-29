@@ -1,5 +1,7 @@
 import * as z from 'zod';
 
+import { GetCloResponse } from '@/types/schema/clo-shema';
+
 // base
 
 export const AssignmentSchema = z.object({
@@ -11,12 +13,15 @@ export const AssignmentSchema = z.object({
   expectedScorePercentage: z.number(),
   expectedPassingStudentPercentage: z.number(),
   courseId: z.string(),
-  CourseLearningOutcomes: z.string(),
 });
 
 // response
 
 export type GetAssignmentResponse = z.infer<typeof AssignmentSchema>;
+
+export type GetAssignmentByIdResponse = GetAssignmentResponse & {
+  courseLearningOutcomes: GetCloResponse[];
+};
 
 // column
 
