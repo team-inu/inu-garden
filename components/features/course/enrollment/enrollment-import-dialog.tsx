@@ -63,7 +63,6 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
       enrollmentTable.slice(1),
     );
 
-    console.log(enrollments.map((e) => String(e._studentId)));
     form.reset({
       courseId: courseId,
       status: 'ENROLL',
