@@ -13,7 +13,7 @@ class EnrollmentService extends ApiService {
     const url = `/courses/${courseId}/enrollments`;
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetEnrollmentResponse[];
+        return response.data.data as unknown as GetEnrollmentResponse[];
       })
       .catch(this.throwError);
   }

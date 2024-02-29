@@ -9,7 +9,7 @@ class SubPloService extends ApiService {
     const url = '/splos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetSubPloResponse[];
+        return response.data.data as unknown as GetSubPloResponse[];
       })
       .catch(this.throwError);
   }

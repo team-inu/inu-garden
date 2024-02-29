@@ -6,7 +6,7 @@ class DepartmentService extends ApiService {
     const url = '/departments';
 
     return this.get(url)
-      .then((response) => response.data as unknown as GetFacultyResponse[])
+      .then((response) => response.data.data as unknown as GetFacultyResponse[])
       .catch(this.throwError);
   }
 
@@ -14,7 +14,7 @@ class DepartmentService extends ApiService {
     const url = '/students';
     return this.get(url)
       .then((response) => {
-        return response.data;
+        return response.data.data;
       })
       .catch(this.throwError);
   }

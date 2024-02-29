@@ -10,7 +10,7 @@ class PoService extends ApiService {
     const url = '/pos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetPoResponse[];
+        return response.data.data as unknown as GetPoResponse[];
       })
       .catch(this.throwError);
   }

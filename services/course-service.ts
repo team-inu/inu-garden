@@ -46,7 +46,7 @@ class CourseService extends ApiService {
     const url = `/course/year/${year}`;
     return this.get(url)
       .then((response) => {
-        return response.data;
+        return response.data.data;
       })
       .catch(this.throwError);
   }
@@ -55,7 +55,7 @@ class CourseService extends ApiService {
     const url = `/course/lecturer/${lecturerId}`;
     return this.get(url)
       .then((response) => {
-        return response.data;
+        return response.data.data;
       })
       .catch(this.throwError);
   }

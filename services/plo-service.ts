@@ -11,7 +11,8 @@ class PloService extends ApiService {
     const url = '/plos';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetProgramLearningOutcomeResponse[];
+        return response.data
+          .data as unknown as GetProgramLearningOutcomeResponse[];
       })
       .catch(this.throwError);
   }
