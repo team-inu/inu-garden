@@ -29,16 +29,16 @@ import { useStrictForm } from '@/hooks/form-hook';
 import { useGetPloList } from '@/hooks/plo-hook';
 import { useGetPoList } from '@/hooks/po-hook';
 import {
-  CreateCloDefaultValues,
-  CreateCloSchema,
-  CreateCloType,
+  CreateCloForm,
+  CreateCloFormDefaultValues,
+  CreateCloFormSchema,
 } from '@/types/schema/clo-shema';
 import { OptionaType } from '@/types/schema/form-schema';
 import { GetProgramLearningOutcomeResponse } from '@/types/schema/plo-schema';
 
 type PloDialogProps = {
-  onSubmit: (values: CreateCloType) => void;
-  defaultValues?: CreateCloType;
+  onSubmit: (values: CreateCloForm) => void;
+  defaultValues?: CreateCloForm;
 };
 
 const getSubPloOptions = (
@@ -62,8 +62,8 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
   const { data: polist } = useGetPoList();
 
   const form = useStrictForm(
-    CreateCloSchema,
-    defaultValues ?? CreateCloDefaultValues,
+    CreateCloFormSchema,
+    defaultValues ?? CreateCloFormDefaultValues,
   );
 
   const updatePlo = (ploId: string) => {

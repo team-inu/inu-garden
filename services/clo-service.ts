@@ -1,13 +1,13 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateCloType,
-  GetCourseLearningOutcome,
-  GetCourseLearningOutcomeWithSubPlo,
+  CreateCloForm,
+  GetCloResponse,
+  GetCloWithSubPloResponse,
 } from '@/types/schema/clo-shema';
 
 class CourseLearningOutcomeService extends ApiService {
   public async createClo(
-    data: CreateCloType,
+    data: CreateCloForm,
     courseId: string | string[],
   ): Promise<void> {
     const url = '/clos';
@@ -33,35 +33,30 @@ class CourseLearningOutcomeService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getCloList(): Promise<GetCourseLearningOutcome[]> {
+  public async getCloList(): Promise<GetCloResponse[]> {
     const url = '/clos';
     return this.get(url)
       .then((response) => {
-        return response.data.data as unknown as GetCourseLearningOutcome[];
+        return response.data.data as unknown as GetCloResponse[];
       })
       .catch(this.throwError);
   }
 
-  public async getCloById(
-    cloId: string,
-  ): Promise<GetCourseLearningOutcomeWithSubPlo> {
+  public async getCloById(cloId: string): Promise<GetCloWithSubPloResponse> {
     const url = `/clos/${cloId}`;
 
     return this.get(url)
       .then((response) => {
-        return response.data
-          .data as unknown as GetCourseLearningOutcomeWithSubPlo;
+        return response.data.data as unknown as GetCloWithSubPloResponse;
       })
       .catch(this.throwError);
   }
 
-  public async getCloByCourseId(
-    courseId: string,
-  ): Promise<GetCourseLearningOutcome[]> {
+  public async getCloByCourseId(courseId: string): Promise<GetCloResponse[]> {
     const url = `/courses/${courseId}/clos`;
     return this.get(url)
       .then((response) => {
-        return response.data.data as unknown as GetCourseLearningOutcome[];
+        return response.data.data as unknown as GetCloResponse[];
       })
       .catch(this.throwError);
   }

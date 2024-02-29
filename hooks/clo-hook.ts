@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { cloService } from '@/services/clo-service';
-import { CreateCloType } from '@/types/schema/clo-shema';
+import { CreateCloForm } from '@/types/schema/clo-shema';
 
 export const useGetCloList = () =>
   useQuery({
@@ -28,7 +28,7 @@ export const useCreateClo = () => {
       clo,
       courseId,
     }: {
-      clo: CreateCloType;
+      clo: CreateCloForm;
       courseId: string | string[];
     }) => cloService.createClo(clo, courseId),
     onSuccess: () => {

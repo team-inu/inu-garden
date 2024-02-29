@@ -14,7 +14,7 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateClo } from '@/hooks/clo-hook';
-import { CreateCloType } from '@/types/schema/clo-shema';
+import { CreateCloForm } from '@/types/schema/clo-shema';
 
 export type Option = {
   value: string;
@@ -49,7 +49,7 @@ export function CloTableToolbar<TData>({
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate } = useCreateClo();
 
-  const handleSubmitClo = (values: CreateCloType) => {
+  const handleSubmitClo = (values: CreateCloForm) => {
     mutate({ clo: values, courseId });
   };
 

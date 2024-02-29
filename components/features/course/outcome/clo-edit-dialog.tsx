@@ -27,14 +27,14 @@ import {
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetPoList } from '@/hooks/po-hook';
 import {
-  EditCloDefaultValues,
-  EditCloSchema,
-  EditCloType,
+  EditCloForm,
+  EditCloFormDefaultValues,
+  EditCloFormSchema,
 } from '@/types/schema/clo-shema';
 
 type PloDialogProps = {
-  onSubmit: (values: EditCloType) => void;
-  defaultValues?: EditCloType;
+  onSubmit: (values: EditCloForm) => void;
+  defaultValues?: EditCloForm;
 };
 
 const CloEditDialog: React.FC<PloDialogProps> = ({
@@ -44,8 +44,8 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
   const { data: polist } = useGetPoList();
 
   const form = useStrictForm(
-    EditCloSchema,
-    defaultValues ?? EditCloDefaultValues,
+    EditCloFormSchema,
+    defaultValues ?? EditCloFormDefaultValues,
   );
 
   return (

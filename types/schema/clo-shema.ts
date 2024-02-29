@@ -3,6 +3,7 @@ import * as z from 'zod';
 import { optionSchema } from '@/types/schema/form-schema';
 import { GetSubPloResponse } from '@/types/schema/sub-plo-schema';
 
+// base
 export const CloSchema = z.object({
   id: z.string(),
   code: z.string(),
@@ -17,27 +18,21 @@ export const CloSchema = z.object({
 
 type Clo = z.infer<typeof CloSchema>;
 
-export type CloColumn = Clo;
+// response
 
 export type GetCloResponse = Clo;
 
-export type GetCourseLearningOutcome = {
-  id: string;
-  code: string;
-  description: string;
-  expectedPassingAssignmentPercentage: number;
-  expectedScorePercentage: number;
-  expectedPassingStudentPercentage: number;
-  status: string;
-  programOutcomeId: string;
-  courseId: string;
-};
-
-export type GetCourseLearningOutcomeWithSubPlo = GetCourseLearningOutcome & {
+export type GetCloWithSubPloResponse = GetCloResponse & {
   subProgramLearningOutcomes: GetSubPloResponse[];
 };
 
-export const CreateCloSchema = z.object({
+// column
+
+export type CloColumn = Clo;
+
+// form
+
+export const CreateCloFormSchema = z.object({
   code: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -67,9 +62,26 @@ export const CreateCloSchema = z.object({
   }),
 });
 
-export type CreateCloType = z.infer<typeof CreateCloSchema>;
+export const CreateManyCloFormSchema = z.object({
+  clo: z.array(CreateCloFormSchema),
+});
 
-export const CreateCloDefaultValues: CreateCloType = {
+export const EditCloFormSchema = CreateCloFormSchema.omit({
+  subProgramLearningOutcomeId: true,
+  programLearningOutcomeId: true,
+}).extend({
+  id: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+});
+
+export type CreateCloForm = z.infer<typeof CreateCloFormSchema>;
+export type CreateManyCloForm = z.infer<typeof CreateManyCloFormSchema>;
+export type EditCloForm = z.infer<typeof EditCloFormSchema>;
+
+// payload
+
+// default values
+
+export const CreateCloFormDefaultValues: CreateCloForm = {
   code: '',
   description: '',
   expectedPassingAssignmentPercentage: 0,
@@ -81,44 +93,11 @@ export const CreateCloDefaultValues: CreateCloType = {
   programOutcomeId: '',
 };
 
-export const CreateManyCloSchema = z.object({
-  clo: z.array(CreateCloSchema),
-});
-
-export type CreateManyCloType = z.infer<typeof CreateManyCloSchema>;
-
-export const CreateManyCloDefaultValues: CreateManyCloType = {
+export const CreateManyCloFormDefaultValues: CreateManyCloForm = {
   clo: [],
 };
 
-export const EditCloSchema = z.object({
-  id: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
-  code: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  description: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  expectedPassingAssignmentPercentage: z.coerce.number({
-    required_error: 'required',
-  }),
-  expectedScorePercentage: z.coerce.number({
-    required_error: 'required',
-  }),
-  expectedPassingStudentPercentage: z.coerce.number({
-    required_error: 'required',
-  }),
-  status: z.string({ required_error: 'required' }).min(1, {
-    message: 'required',
-  }),
-  programOutcomeId: z.string({ required_error: 'required' }).min(1, {
-    message: 'required',
-  }),
-});
-
-export type EditCloType = z.infer<typeof EditCloSchema>;
-
-export const EditCloDefaultValues: EditCloType = {
+export const EditCloFormDefaultValues: EditCloForm = {
   id: '',
   code: '',
   description: '',

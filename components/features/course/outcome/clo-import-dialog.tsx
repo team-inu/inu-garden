@@ -30,13 +30,13 @@ import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
-  CreateManyCloDefaultValues,
-  CreateManyCloSchema,
-  CreateManyCloType,
+  CreateManyCloForm,
+  CreateManyCloFormDefaultValues,
+  CreateManyCloFormSchema,
 } from '@/types/schema/clo-shema';
 
 type CloImportDialogProps = {
-  onSubmit: (values: CreateManyCloType) => void;
+  onSubmit: (values: CreateManyCloForm) => void;
   open: boolean;
   isOnOpenChange: (open: boolean) => void;
 };
@@ -46,7 +46,10 @@ const CloImportDialog: React.FC<CloImportDialogProps> = ({
   open,
   isOnOpenChange,
 }) => {
-  const form = useStrictForm(CreateManyCloSchema, CreateManyCloDefaultValues);
+  const form = useStrictForm(
+    CreateManyCloFormSchema,
+    CreateManyCloFormDefaultValues,
+  );
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -160,7 +163,7 @@ const CloImportDialog: React.FC<CloImportDialogProps> = ({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                form.reset(CreateManyCloDefaultValues);
+                form.reset(CreateManyCloFormDefaultValues);
                 setApi(undefined);
                 setCurrent(0);
                 setCount(0);

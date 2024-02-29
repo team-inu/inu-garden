@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { CloSchema, EditCloType } from '@/types/schema/clo-shema';
+import { CloSchema, EditCloForm } from '@/types/schema/clo-shema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -33,7 +33,7 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const onSubmit = (values: EditCloType) => {
+  const onSubmit = (values: EditCloForm) => {
     console.log(values);
   };
 
