@@ -50,20 +50,15 @@ export const useCreateManyLecturers = () => {
 
 export const useUpdateLecturer = () => {
   return useMutation({
-    mutationFn: ({
-      lecturer,
-      lecturerId,
-    }: {
-      lecturer: EditLecturerForm;
-      lecturerId: string;
-    }) => lecturerService.updateLecturer(lecturer, lecturerId),
+    mutationFn: (lecturer: EditLecturerForm) =>
+      lecturerService.updateLecturer(lecturer.id, lecturer),
     onSuccess: () => {
-      toast.success('Student has been updated', {
-        description: 'You can now add questions to the student.',
+      toast.success('Lecturers has been created', {
+        description: 'You can now add questions to the lecturers.',
       });
     },
     onError: (error) => {
-      toast.error('Failed to update student', {
+      toast.error('Failed to create lecturers', {
         description: error.message,
       });
     },

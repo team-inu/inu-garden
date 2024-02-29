@@ -48,6 +48,21 @@ const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
+              name="id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>id</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} disabled={true} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
               name="firstName"
               render={({ field }) => (
                 <FormItem>
@@ -82,6 +97,22 @@ const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>role</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />

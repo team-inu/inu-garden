@@ -82,6 +82,22 @@ export const columns: ColumnDef<LecturerColumn>[] = [
     },
   },
   {
+    accessorKey: 'role',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="role" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex space-x-2">
+          <span className="truncate font-medium">{row.getValue('role')}</span>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
+    },
+  },
+  {
     accessorKey: 'course',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Courses" />

@@ -25,7 +25,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
+import { Option } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -55,24 +55,10 @@ export const lectureres: Option[] = [
   },
 ];
 
-const inputs: SelectorOption[] = [
-  {
-    options: lectureres,
-    title: 'Lecturer',
-    columnName: 'lecturer',
-  },
-];
-
-export function LecturerDataTable<
-  TData extends {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    collapsibleContent: string;
-  },
-  TValue,
->({ columns, data }: DataTableProps<TData, TValue>) {
+export function LecturerDataTable<TData extends LecturerColumn, TValue>({
+  columns,
+  data,
+}: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
     React.useState<VisibilityState>({});

@@ -16,16 +16,10 @@ class LecturerService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createLecturer(
-    lecturer: CreateLecturerForm,
-  ): Promise<CreateLecturerForm> {
-    const url = '/lecturers';
-    const formData = new FormData();
-    formData.append('firstName', lecturer.firstName);
-    formData.append('lastName', lecturer.lastName);
-    formData.append('email', lecturer.email);
-    formData.append('password', lecturer.password);
-    return this.post(url, formData)
+  public async createLecturer(lecturer: CreateLecturerForm): Promise<void> {
+    const url = `/lecturers`;
+
+    this.post(url, lecturer)
       .then(() => lecturer)
       .catch(this.throwError);
   }
@@ -42,15 +36,12 @@ class LecturerService extends ApiService {
   }
 
   public async updateLecturer(
-    lecturer: EditLecturerForm,
     lecturerId: string,
-  ): Promise<EditLecturerForm> {
+    lecturer: EditLecturerForm,
+  ): Promise<void> {
     const url = `/lecturers/${lecturerId}`;
-    const formData = new FormData();
-    formData.append('firstName', lecturer.firstName);
-    formData.append('lastName', lecturer.lastName);
-    formData.append('email', lecturer.email);
-    return this.put(url, formData)
+
+    this.patch(url, lecturer)
       .then(() => lecturer)
       .catch(this.throwError);
   }

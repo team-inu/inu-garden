@@ -4,6 +4,7 @@ import * as z from 'zod';
 
 export const LecturerSchema = z.object({
   id: z.string(),
+  role: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   email: z.string(),
@@ -32,6 +33,7 @@ const LecturerFormSchema = z.object({
     .min(1, { message: 'required' }),
   email: z
     .string({ required_error: 'required' })
+    .email()
     .min(1, { message: 'required' }),
   role: z
     .string({ required_error: 'required' })
@@ -60,6 +62,9 @@ export const EditLecturerFormSchema = LecturerFormSchema.pick({
   firstName: true,
   lastName: true,
   email: true,
+  role: true,
+}).extend({
+  id: z.string(),
 });
 
 export const ChangePasswordFormSchema = z
@@ -100,8 +105,10 @@ export const CreateLecturerFormDefaultValues: CreateLecturerForm = {
 };
 
 export const EditLecturerFormDefaultValues: EditLecturerForm = {
+  id: '',
   firstName: '',
   lastName: '',
+  role: '',
   email: '',
 };
 

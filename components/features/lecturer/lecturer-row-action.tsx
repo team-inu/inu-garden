@@ -23,6 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUpdateLecturer } from '@/hooks/lecturer-hook';
 import {
   EditLecturerForm,
   LecturerColumnSchema,
@@ -43,8 +44,13 @@ export function LecturerRowActions<TData>({
   const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
     useState(false);
 
+  const { mutate, isError } = useUpdateLecturer();
+
   const onSubmit = (values: EditLecturerForm) => {
-    console.log(values);
+    mutate(values);
+    if (!isError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   const onDelete = () => {
@@ -93,6 +99,8 @@ export function LecturerRowActions<TData>({
         <LecturerEditDialog
           onSubmit={onSubmit}
           defaultValues={{
+            id: lecturer.id,
+            role: lecturer.role,
             firstName: lecturer.firstName,
             lastName: lecturer.lastName,
             email: lecturer.email,
