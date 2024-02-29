@@ -10,7 +10,7 @@ class StudentService extends ApiService {
     const url = '/students';
     return this.get(url)
       .then((response) => {
-        return response.data as unknown as GetStudentResponse[];
+        return response.data.data as unknown as GetStudentResponse[];
       })
       .catch(this.throwError);
   }

@@ -19,7 +19,7 @@ class CourseService extends ApiService {
     const url = '/students';
     return this.get(url)
       .then((response) => {
-        return response.data;
+        return response.data.data;
       })
       .catch(this.throwError);
   }
