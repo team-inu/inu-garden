@@ -17,7 +17,16 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { useGetDepartments } from '@/hooks/department-hook';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useGetProgrammeList } from '@/hooks/programme-hook';
 import {
   CreateStudentForm,
   CreateStudentFormDefaultValues,
@@ -39,6 +48,9 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
     CreateStudentFormSchema,
     defaultValues ?? CreateStudentFormDefaultValues,
   );
+
+  const { data: departments } = useGetDepartments();
+  const { data: programmes } = useGetProgrammeList();
   return (
     <div>
       <DialogContent className="min-w-max">
@@ -248,14 +260,24 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 control={form.control}
                 name="programmeName"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>programmeName</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Program  outcome" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {programmes &&
+                          programmes.map((department, i) => (
+                            <SelectItem key={i} value={department.name}>
+                              {department.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -264,14 +286,24 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 control={form.control}
                 name="departmentName"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormLabel>departmentName</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Program  outcome" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {departments &&
+                          departments.map((department, i) => (
+                            <SelectItem key={i} value={department.name}>
+                              {department.name}
+                            </SelectItem>
+                          ))}
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
