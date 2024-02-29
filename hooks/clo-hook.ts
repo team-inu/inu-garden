@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { cloService } from '@/services/clo-service';
-import { CreateCloForm } from '@/types/schema/clo-shema';
+import { CreateCloForm, EditCloForm } from '@/types/schema/clo-shema';
 
 export const useGetCloList = () =>
   useQuery({
@@ -38,6 +38,20 @@ export const useCreateClo = () => {
     },
     onError: (error) => {
       toast.error('Failed to create clo', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useUpdateClo = () => {
+  return useMutation({
+    mutationFn: (clo: EditCloForm) => cloService.updateClo(clo.id, clo),
+    onSuccess: () => {
+      toast.success('Course has been updated');
+    },
+    onError: (error) => {
+      toast.error('Failed to update course', {
         description: error.message,
       });
     },

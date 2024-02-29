@@ -1,6 +1,7 @@
 import { ApiService } from '@/services/api-service';
 import {
   CreateCloForm,
+  EditCloForm,
   GetCloResponse,
   GetCloWithSubPloResponse,
 } from '@/types/schema/clo-shema';
@@ -57,6 +58,16 @@ class CourseLearningOutcomeService extends ApiService {
     return this.get(url)
       .then((response) => {
         return response.data.data as unknown as GetCloResponse[];
+      })
+      .catch(this.throwError);
+  }
+
+  public async updateClo(cloId: string, data: EditCloForm): Promise<void> {
+    const url = `/clos/${cloId}`;
+
+    return this.patch(url, data)
+      .then((response) => {
+        return response.data.data as unknown as void;
       })
       .catch(this.throwError);
   }
