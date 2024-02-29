@@ -60,6 +60,8 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
     defaultValues ?? CreateScoreFormDefaultValues,
   );
 
+  if (isLoading) return null;
+
   const enrollmentsOptions = enrollments?.map((enrollment) => ({
     label: enrollment.studentId,
     value: enrollment.studentId,

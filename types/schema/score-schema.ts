@@ -4,10 +4,13 @@ import * as z from 'zod';
 
 export const ScoreSchema = z.object({
   id: z.string(),
-  studentId: z.string(),
+  assignmentId: z.string(),
+  email: z.string(),
   firstName: z.string(),
   lastName: z.string(),
   score: z.number(),
+  lecturerId: z.string(),
+  studentId: z.string(),
 });
 
 export type Score = z.infer<typeof ScoreSchema>;

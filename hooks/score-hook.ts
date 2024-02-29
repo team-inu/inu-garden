@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { scoreService } from '@/services/score-service';
@@ -25,3 +25,9 @@ export const useCreateScore = () => {
     },
   });
 };
+
+export const useGetScoresByAssignmentId = (assignmentId: string) =>
+  useQuery({
+    queryKey: ['scores', assignmentId],
+    queryFn: () => scoreService.getScoresByAssignmentId(assignmentId),
+  });
