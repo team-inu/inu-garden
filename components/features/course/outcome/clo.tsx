@@ -3,7 +3,7 @@
 import { useParams } from 'next/navigation';
 import { useState } from 'react';
 
-import { columns } from '@/components/features/course/outcome/clo-column';
+import { cloColumn } from '@/components/features/course/outcome/clo-column';
 import { CourseLearningOutcomeDataTable } from '@/components/features/course/outcome/clo-table';
 import Loading from '@/components/features/loading-screen';
 import { subPloStaticColumn } from '@/components/features/tabee/sub-plo/sub-plo-static-column';
@@ -32,7 +32,7 @@ const CourseLearningOutcome = () => {
           <Loading />
         ) : (
           <CourseLearningOutcomeDataTable
-            columns={columns}
+            columns={cloColumn}
             data={clos ?? []}
             getValues={getVales}
           />

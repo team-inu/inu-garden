@@ -1,12 +1,12 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
+import { Trash2Icon } from 'lucide-react';
 
-import { CloRowActions } from '@/components/features/course/outcome/clo-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { CloColumn } from '@/types/schema/clo-shema';
 
-export const cloColumn: ColumnDef<CloColumn>[] = [
+export const cloStaticColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
@@ -98,6 +98,10 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
 
   {
     id: 'actions',
-    cell: ({ row }) => <CloRowActions row={row} />,
+    cell: ({ row }) => (
+      <div>
+        <Trash2Icon className="cursor-pointer hover:text-destructive  " />
+      </div>
+    ),
   },
 ];

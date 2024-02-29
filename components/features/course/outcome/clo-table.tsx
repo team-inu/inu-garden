@@ -56,6 +56,7 @@ interface DataTableProps<TData, TValue> {
   disableToolbar?: boolean;
   disablePagination?: boolean;
   getValues?: (id: string, code: string) => void;
+  isAssignmentLink?: boolean;
 }
 
 export function CourseLearningOutcomeDataTable<TData, TValue>({
@@ -63,6 +64,7 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
   data,
   disableToolbar = false,
   disablePagination = false,
+  isAssignmentLink = false,
   getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
@@ -103,6 +105,7 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
           selectorOptions={[]}
           isCreateEnabled={true}
           isViewOptions={true}
+          isAssignmentLink={isAssignmentLink}
         />
       )}
       <div className="rounded-md border">

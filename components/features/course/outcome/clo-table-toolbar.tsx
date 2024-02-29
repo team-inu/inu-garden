@@ -8,6 +8,7 @@ import { useState } from 'react';
 
 import CloAddDialog from '@/components/features/course/outcome/clo-add-dialog';
 import CloImportDialog from '@/components/features/course/outcome/clo-import-dialog';
+import CloLinkAssignmentDialog from '@/components/features/course/outcome/clo-link-assigment-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -33,6 +34,7 @@ interface DataTableToolbarProps<TData> {
   selectorOptions: SelectorOption[];
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
+  isAssignmentLink?: boolean;
 }
 
 export function CloTableToolbar<TData>({
@@ -40,6 +42,7 @@ export function CloTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
+  isAssignmentLink = false,
 }: DataTableToolbarProps<TData>) {
   const { id: courseId } = useParams();
   const hasOption = something.length > 0;
@@ -104,35 +107,45 @@ export function CloTableToolbar<TData>({
               Add
             </Button>
 
-            <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-              <CloAddDialog onSubmit={handleSubmitClo} />
-            </Dialog>
+            {isAssignmentLink ? (
+              <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+                <CloLinkAssignmentDialog onSubmit={() => {}} />
+              </Dialog>
+            ) : (
+              <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
+                <CloAddDialog onSubmit={handleSubmitClo} />
+              </Dialog>
+            )}
 
-            <Button
-              variant="outline"
-              size="sm"
-              className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsImportOpen(true)}
-            >
-              <PlusCircledIcon className="mr-2 h-4 w-4" />
-              Import
-            </Button>
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
-              <a className="flex items-center" href="/template/score.xlsx">
-                <FolderDotIcon className="mr-2 h-4 w-4" />
-                Template
-              </a>
-            </Button>
+            {!isAssignmentLink && (
+              <>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="ml-auto hidden h-8 lg:flex"
+                  onClick={() => setIsImportOpen(true)}
+                >
+                  <PlusCircledIcon className="mr-2 h-4 w-4" />
+                  Import
+                </Button>
+                <Button
+                  className="ml-auto hidden h-8 lg:flex"
+                  variant="outline"
+                  size="sm"
+                >
+                  <a className="flex items-center" href="/template/score.xlsx">
+                    <FolderDotIcon className="mr-2 h-4 w-4" />
+                    Template
+                  </a>
+                </Button>
 
-            <CloImportDialog
-              onSubmit={() => {}}
-              open={isImportOpen}
-              isOnOpenChange={setIsImportOpen}
-            />
+                <CloImportDialog
+                  onSubmit={() => {}}
+                  open={isImportOpen}
+                  isOnOpenChange={setIsImportOpen}
+                />
+              </>
+            )}
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}

@@ -73,9 +73,16 @@ export const EditCloFormSchema = CreateCloFormSchema.omit({
   id: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
+export const CreateCloLinkAssignmentSchema = z.object({
+  clos: z.array(optionSchema).min(1, { message: 'required' }),
+});
+
 export type CreateCloForm = z.infer<typeof CreateCloFormSchema>;
 export type CreateManyCloForm = z.infer<typeof CreateManyCloFormSchema>;
 export type EditCloForm = z.infer<typeof EditCloFormSchema>;
+export type CreateCloLinkAssignment = z.infer<
+  typeof CreateCloLinkAssignmentSchema
+>;
 
 // payload
 
@@ -106,4 +113,8 @@ export const EditCloFormDefaultValues: EditCloForm = {
   expectedPassingStudentPercentage: 0,
   status: '',
   programOutcomeId: '',
+};
+
+export const CreateCloLinkAssignmentDefaultValues: CreateCloLinkAssignment = {
+  clos: [],
 };
