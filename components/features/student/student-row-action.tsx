@@ -22,9 +22,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUpdateStudent } from '@/hooks/student-hook';
 import {
-  CreateStudentForm,
   StudentSchema,
+  UpdateStudentForm,
 } from '@/types/schema/student-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -37,9 +38,13 @@ export function StudentRowActions<TData>({
   const student = StudentSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { mutate: updateStudent, isError: isUpdateError } = useUpdateStudent();
 
-  const onSubmit = (values: CreateStudentForm) => {
-    console.log(values);
+  const onSubmit = (values: UpdateStudentForm) => {
+    updateStudent(values);
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   const onDelete = () => {

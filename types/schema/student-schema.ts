@@ -80,8 +80,10 @@ export const CreateStudentFormSchema = z.object({
   remark: z.string().optional(),
 });
 
-export type CreateStudentForm = z.infer<typeof CreateStudentFormSchema>;
+export const UpdateStudentFormSchema = CreateStudentFormSchema;
 
+export type CreateStudentForm = z.infer<typeof CreateStudentFormSchema>;
+export type UpdateStudentForm = z.infer<typeof UpdateStudentFormSchema>;
 // payload
 
 // default values
@@ -103,3 +105,6 @@ export const CreateStudentFormDefaultValues: CreateStudentForm = {
   departmentName: '',
   remark: undefined,
 };
+
+export const UpdateStudentFormDefaultValues: UpdateStudentForm =
+  CreateStudentFormDefaultValues;

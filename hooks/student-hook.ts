@@ -2,7 +2,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { studentService } from '@/services/student-service';
-import { CreateStudentForm } from '@/types/schema/student-schema';
+import {
+  CreateStudentForm,
+  UpdateStudentForm,
+} from '@/types/schema/student-schema';
 
 export const useGetStudentList = () =>
   useQuery({
@@ -38,6 +41,21 @@ export const useCreateStudentBulk = () => {
     },
     onError: (error) => {
       toast.error('Failed to create students', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useUpdateStudent = () => {
+  return useMutation({
+    mutationFn: (student: UpdateStudentForm) =>
+      studentService.updateStudent(student.kmuttId, student),
+    onSuccess: () => {
+      toast.success('Enrollment status has been updated');
+    },
+    onError: (error) => {
+      toast.error('Failed to update enrollment', {
         description: error.message,
       });
     },

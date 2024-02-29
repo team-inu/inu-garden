@@ -2,6 +2,7 @@ import { ApiService } from '@/services/api-service';
 import {
   CreateStudentForm,
   GetStudentResponse,
+  UpdateStudentForm,
 } from '@/types/schema/student-schema';
 
 class StudentService extends ApiService {
@@ -33,6 +34,17 @@ class StudentService extends ApiService {
     };
     return this.post(url, result)
       .then(() => students)
+      .catch(this.throwError);
+  }
+
+  public async updateStudent(
+    studentId: string,
+    student: UpdateStudentForm,
+  ): Promise<void> {
+    const url = `/students/${studentId}`;
+
+    this.patch(url, student)
+      .then(() => student)
       .catch(this.throwError);
   }
 }
