@@ -19,14 +19,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  EditLecturerDefaultValues,
+  EditLecturerForm,
+  EditLecturerFormDefaultValues,
   EditLecturerFormSchema,
-  EditLecturerType,
 } from '@/types/schema/lecturer-schema';
 
 type LecturerDialogProps = {
-  onSubmit: (values: EditLecturerType) => void;
-  defaultValues?: EditLecturerType;
+  onSubmit: (values: EditLecturerForm) => void;
+  defaultValues?: EditLecturerForm;
 };
 
 const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
@@ -35,7 +35,7 @@ const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
 }) => {
   const form = useStrictForm(
     EditLecturerFormSchema,
-    defaultValues ?? EditLecturerDefaultValues,
+    defaultValues ?? EditLecturerFormDefaultValues,
   );
   return (
     <div>

@@ -20,14 +20,15 @@ import { Input } from '@/components/ui/input';
 import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateLecturerDefaultValues,
+  CreateLecturerForm,
+  CreateLecturerFormDefaultValues,
   CreateLecturerFormSchema,
-  EditLecturerType,
+  EditLecturerForm,
 } from '@/types/schema/lecturer-schema';
 
 type LecturerDialogProps = {
-  onSubmit: (values: CreateLecturerFormSchema) => void;
-  defaultValues?: EditLecturerType | CreateLecturerFormSchema;
+  onSubmit: (values: CreateLecturerForm) => void;
+  defaultValues?: EditLecturerForm | CreateLecturerForm;
   isEdit?: boolean;
 };
 
@@ -38,7 +39,7 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
 }) => {
   const form = useStrictForm(
     CreateLecturerFormSchema,
-    defaultValues ?? CreateLecturerDefaultValues,
+    defaultValues ?? CreateLecturerFormDefaultValues,
   );
   return (
     <div>

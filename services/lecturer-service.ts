@@ -1,8 +1,8 @@
 import { ApiService } from '@/services/api-service';
 import {
-  CreateLecturerFormSchema,
+  CreateLecturerForm,
   CreateManyLecturerForm,
-  EditLecturerType,
+  EditLecturerForm,
   GetLecturerResponse,
 } from '@/types/schema/lecturer-schema';
 
@@ -17,8 +17,8 @@ class LecturerService extends ApiService {
   }
 
   public async createLecturer(
-    lecturer: CreateLecturerFormSchema,
-  ): Promise<CreateLecturerFormSchema> {
+    lecturer: CreateLecturerForm,
+  ): Promise<CreateLecturerForm> {
     const url = '/lecturers';
     const formData = new FormData();
     formData.append('firstName', lecturer.firstName);
@@ -42,9 +42,9 @@ class LecturerService extends ApiService {
   }
 
   public async updateLecturer(
-    lecturer: EditLecturerType,
+    lecturer: EditLecturerForm,
     lecturerId: string,
-  ): Promise<EditLecturerType> {
+  ): Promise<EditLecturerForm> {
     const url = `/lecturers/${lecturerId}`;
     const formData = new FormData();
     formData.append('firstName', lecturer.firstName);

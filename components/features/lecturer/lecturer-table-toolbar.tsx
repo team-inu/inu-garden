@@ -17,7 +17,7 @@ import {
   useCreateManyLecturers,
 } from '@/hooks/lecturer-hook';
 import {
-  CreateLecturerFormSchema,
+  CreateLecturerForm,
   CreateManyLecturerForm,
 } from '@/types/schema/lecturer-schema';
 
@@ -58,7 +58,8 @@ export function LecturerTableToolbar<TData>({
   const { mutate: createManyLecturers, isError: isCreateManyLecturerError } =
     useCreateManyLecturers();
 
-  const onSubmitAddLecturer = (value: CreateLecturerFormSchema) => {
+  const onSubmitAddLecturer = (value: CreateLecturerForm) => {
+    console.log('hihi');
     createLecturer(value);
     if (!isCreateLecturerError) {
       setIsAddLecturerOpen(false);

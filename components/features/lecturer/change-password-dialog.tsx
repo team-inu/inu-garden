@@ -19,13 +19,13 @@ import {
 import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  ChangePasswordDefaultValues,
+  ChangePasswordForm,
+  ChangePasswordFormDefaultValues,
   ChangePasswordFormSchema,
-  ChangePasswordType,
 } from '@/types/schema/lecturer-schema';
 
 type ChangePasswordDialogProps = {
-  onSubmit: (values: ChangePasswordType) => void;
+  onSubmit: (values: ChangePasswordForm) => void;
 };
 
 const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
@@ -33,7 +33,7 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
 }) => {
   const form = useStrictForm(
     ChangePasswordFormSchema,
-    ChangePasswordDefaultValues,
+    ChangePasswordFormDefaultValues,
   );
   return (
     <div>

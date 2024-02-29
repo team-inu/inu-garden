@@ -24,7 +24,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  EditLecturerType,
+  EditLecturerForm,
   LecturerColumnSchema,
 } from '@/types/schema/lecturer-schema';
 
@@ -43,7 +43,7 @@ export function LecturerRowActions<TData>({
   const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
     useState(false);
 
-  const onSubmit = (values: EditLecturerType) => {
+  const onSubmit = (values: EditLecturerForm) => {
     console.log(values);
   };
 

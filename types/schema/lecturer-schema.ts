@@ -79,18 +79,18 @@ export const ChangePasswordFormSchema = z
     path: ['confirmNewPassword'],
   });
 
-export type CreateLecturerFormSchema = z.infer<typeof CreateLecturerFormSchema>;
+export type CreateLecturerForm = z.infer<typeof CreateLecturerFormSchema>;
 export type CreateManyLecturerForm = z.infer<
   typeof CreateManyLecturerFormSchema
 >;
-export type EditLecturerType = z.infer<typeof EditLecturerFormSchema>;
-export type ChangePasswordType = z.infer<typeof ChangePasswordFormSchema>;
+export type EditLecturerForm = z.infer<typeof EditLecturerFormSchema>;
+export type ChangePasswordForm = z.infer<typeof ChangePasswordFormSchema>;
 
 // payload
 
 // default values
 
-export const CreateLecturerDefaultValues: CreateLecturerFormSchema = {
+export const CreateLecturerFormDefaultValues: CreateLecturerForm = {
   firstName: '',
   lastName: '',
   email: '',
@@ -99,7 +99,7 @@ export const CreateLecturerDefaultValues: CreateLecturerFormSchema = {
   confirmPassword: '',
 };
 
-export const EditLecturerDefaultValues: EditLecturerType = {
+export const EditLecturerFormDefaultValues: EditLecturerForm = {
   firstName: '',
   lastName: '',
   email: '',
@@ -109,7 +109,7 @@ export const CreateManyLecturerFormDefaultValues: CreateManyLecturerForm = {
   lecturers: [],
 };
 
-export const ChangePasswordDefaultValues: ChangePasswordType = {
+export const ChangePasswordFormDefaultValues: ChangePasswordForm = {
   oldPassword: '',
   newPassword: '',
   confirmNewPassword: '',
