@@ -45,3 +45,18 @@ export const useUpdateEnrollment = () => {
     },
   });
 };
+
+export const useDeleteEnrollment = () => {
+  return useMutation({
+    mutationFn: (assignmentId: string) =>
+      enrollmentService.deleteEnrollment(assignmentId),
+    onSuccess: () => {
+      toast.success('enrollment has been deleted', {});
+    },
+    onError: (error) => {
+      toast.error('Failed to delete enrollment', {
+        description: error.message,
+      });
+    },
+  });
+};
