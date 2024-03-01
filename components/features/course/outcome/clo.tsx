@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { cloColumn } from '@/components/features/course/outcome/clo-column';
@@ -11,12 +11,15 @@ import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/
 import { useGetCloByCourseId, useGetCloById } from '@/hooks/clo-hook';
 
 const CourseLearningOutcome = () => {
+  const router = useRouter();
+  const pathName = usePathname();
   const [selectedRows, setSelectedRows] = useState({
     id: '',
     code: '',
   });
   const getVales = (id: string, code: string) => {
     setSelectedRows({ id, code });
+    router.push(`${pathName}/?cloId=${id}&tab=outcome`);
   };
 
   const { id: courseId } = useParams<{ id: string }>();

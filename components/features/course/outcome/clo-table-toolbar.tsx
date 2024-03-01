@@ -4,7 +4,7 @@ import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CloAddDialog from '@/components/features/course/outcome/clo-add-dialog';
 import CloImportDialog from '@/components/features/course/outcome/clo-import-dialog';
@@ -50,7 +50,13 @@ export function CloTableToolbar<TData>({
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const { mutate } = useCreateClo();
+  const { mutate, isSuccess } = useCreateClo();
+
+  useEffect(() => {
+    if (isSuccess) {
+      setIsAddOpen(false);
+    }
+  }, [isSuccess]);
 
   const handleSubmitClo = (values: CreateCloForm) => {
     mutate({ clo: values, courseId });

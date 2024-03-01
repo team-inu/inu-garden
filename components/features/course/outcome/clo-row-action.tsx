@@ -37,7 +37,6 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const { mutate: updateClo, isError: isUpdateError } = useUpdateClo();
 
   const onSubmit = (values: EditCloForm) => {
-    console.log(values);
     updateClo(values);
     if (!isUpdateError) {
       setIsEditDialogOpen(false);

@@ -86,6 +86,11 @@ export type CreateCloLinkAssignment = z.infer<
 
 // payload
 
+export type CreateCloLinkSubPloPayload = {
+  cloId: string;
+  subProgramLearningOutcomeId: string[];
+};
+
 // default values
 
 export const CreateCloFormDefaultValues: CreateCloForm = {
