@@ -54,3 +54,18 @@ export const useUpdateAssignment = () => {
     },
   });
 };
+
+export const useDeleteAssignment = () => {
+  return useMutation({
+    mutationFn: (assignmentId: string) =>
+      assignmentService.deleteAssignment(assignmentId),
+    onSuccess: () => {
+      toast.success('assignment has been deleted', {});
+    },
+    onError: (error) => {
+      toast.error('Failed to delete assignment', {
+        description: error.message,
+      });
+    },
+  });
+};
