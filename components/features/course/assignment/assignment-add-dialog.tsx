@@ -28,12 +28,12 @@ import {
   CreateAssignmentFormSchema,
 } from '@/types/schema/assignment-schema';
 
-type StudentDialogProps = {
+type StudentAddDialogProps = {
   onSubmit: (values: CreateAssignmentForm) => void;
   defaultValues?: CreateAssignmentForm;
 };
 
-const AssignmentDialog: React.FC<StudentDialogProps> = ({
+const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
   onSubmit,
   defaultValues,
 }) => {
@@ -183,4 +183,4 @@ const AssignmentDialog: React.FC<StudentDialogProps> = ({
   );
 };
 
-export default AssignmentDialog;
+export default AssignmentAddDialog;
