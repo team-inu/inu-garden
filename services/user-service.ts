@@ -42,6 +42,13 @@ class UserService extends ApiService {
       .then(() => user)
       .catch(this.throwError);
   }
+
+  public async deleteUser(id: string) {
+    const url = `/users/${id}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
 }
 
 export const userService = new UserService();
