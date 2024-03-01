@@ -22,18 +22,18 @@ import {
 import { Textarea } from '@/components/ui/textarea';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
 import { useGetSemesterList } from '@/hooks/semester-hook';
-import { useGetLecturerList } from '@/hooks/user-hook';
+import { useGetUserList } from '@/hooks/user-hook';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseForm = () => {
   const form = useFormContext<CreateCourseSchemaValues>();
-  const { data: lecturers, isLoading: isLectuerLoading } = useGetLecturerList();
+  const { data: users, isLoading: isUsersLoading } = useGetUserList();
   const { data: semesters, isLoading: isSemesterLoading } =
     useGetSemesterList();
   const { data: programmes, isLoading: isProgrammeLoading } =
     useGetProgrammeList();
 
-  if (isLectuerLoading || isSemesterLoading || isProgrammeLoading) {
+  if (isUsersLoading || isSemesterLoading || isProgrammeLoading) {
     return <Loading />;
   }
 
@@ -68,20 +68,20 @@ const CourseForm = () => {
         />
         <FormField
           control={form.control}
-          name="lecturerId"
+          name="userId"
           render={({ field }) => (
             <FormItem className="w-full">
-              <FormLabel>Lecturer</FormLabel>
+              <FormLabel>User</FormLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <FormControl>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select an lecturer" />
+                    <SelectValue placeholder="Select an user" />
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {lecturers?.map((lecturer) => (
-                    <SelectItem key={lecturer.id} value={lecturer.id}>
-                      {lecturer.firstName} {lecturer.lastName}
+                  {users?.map((user) => (
+                    <SelectItem key={user.id} value={user.id}>
+                      {user.firstName} {user.lastName}
                     </SelectItem>
                   ))}
                 </SelectContent>

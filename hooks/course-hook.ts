@@ -23,10 +23,10 @@ export const useCreateCourse = () => {
   });
 };
 
-export const useCourseListByLecturer = (lecturerId: string) =>
+export const useCourseListByUser = (userId: string) =>
   useQuery({
-    queryKey: ['courses', lecturerId],
-    queryFn: () => courseService.getCourseListByLecturer(lecturerId),
+    queryKey: ['courses', userId],
+    queryFn: () => courseService.getCourseListByUser(userId),
   });
 
 export const useCourseList = () =>

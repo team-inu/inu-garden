@@ -9,7 +9,7 @@ export const ScoreSchema = z.object({
   firstName: z.string(),
   lastName: z.string(),
   score: z.number(),
-  lecturerId: z.string(),
+  userId: z.string(),
   studentId: z.string(),
 });
 

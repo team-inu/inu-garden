@@ -37,30 +37,30 @@ import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
-  CreateManyLecturerForm,
-  CreateManyLecturerFormDefaultValues,
-  CreateManyLecturerFormSchema,
+  CreateManyUserForm,
+  CreateManyUserFormDefaultValues,
+  CreateManyUserFormSchema,
 } from '@/types/schema/user-schema';
 
-type LecturerImportDialogProps = {
-  onSubmit: (values: CreateManyLecturerForm) => void;
+type UserImportDialogProps = {
+  onSubmit: (values: CreateManyUserForm) => void;
   open: boolean;
   isOnOpenChange: (open: boolean) => void;
 };
 
-const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
+const UserImportDialog: React.FC<UserImportDialogProps> = ({
   onSubmit,
   open,
   isOnOpenChange,
 }) => {
   const form = useStrictForm(
-    CreateManyLecturerFormSchema,
-    CreateManyLecturerFormDefaultValues,
+    CreateManyUserFormSchema,
+    CreateManyUserFormDefaultValues,
   );
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
-    name: 'lecturers',
+    name: 'users',
   });
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -87,23 +87,23 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
     const buffer = await file.arrayBuffer();
     const workBook = XLSX.read(buffer, { type: 'buffer' });
 
-    const lecturerSheet = workBook.Sheets[workBook.SheetNames[0]];
+    const userSheet = workBook.Sheets[workBook.SheetNames[0]];
 
-    const [lecturerTable] = await worksheetToTables(lecturerSheet);
+    const [userTable] = await worksheetToTables(userSheet);
 
-    const lecturers = tableToObject(lecturerTable[0], lecturerTable.slice(1));
+    const users = tableToObject(userTable[0], userTable.slice(1));
 
     form.reset({
-      lecturers: lecturers.map((lecturer) => ({
-        firstName: lecturer._firstname,
-        lastName: lecturer.lastname,
-        email: lecturer.email,
-        role: lecturer.role,
-        password: lecturer.password,
+      users: users.map((user) => ({
+        firstName: user._firstname,
+        lastName: user.lastname,
+        email: user.email,
+        role: user.role,
+        password: user.password,
       })),
     });
 
-    toast.success('Lecturers imported successfully');
+    toast.success('Users imported successfully');
   };
   return (
     <Dialog open={open} onOpenChange={isOnOpenChange}>
@@ -114,9 +114,9 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
         }}
       >
         <DialogHeader>
-          <DialogTitle>Import Lecturer</DialogTitle>
+          <DialogTitle>Import User</DialogTitle>
           <DialogDescription>
-            Import lecturer from a file. The file should be in .csv format.
+            Import user from a file. The file should be in .csv format.
           </DialogDescription>
         </DialogHeader>
         <Input
@@ -135,7 +135,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
         </Button>
         {count > 0 && (
           <div className="py-2 text-center text-sm text-muted-foreground">
-            Lecturer {current} of {count}
+            User {current} of {count}
           </div>
         )}
         <Form {...form}>
@@ -147,7 +147,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
                     <CarouselItem key={index}>
                       <FormField
                         control={form.control}
-                        name={`lecturers.${index}.firstName`}
+                        name={`users.${index}.firstName`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>First name</FormLabel>
@@ -162,7 +162,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
                       />
                       <FormField
                         control={form.control}
-                        name={`lecturers.${index}.lastName`}
+                        name={`users.${index}.lastName`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Last name</FormLabel>
@@ -177,7 +177,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
                       />
                       <FormField
                         control={form.control}
-                        name={`lecturers.${index}.role`}
+                        name={`users.${index}.role`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Role</FormLabel>
@@ -192,7 +192,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
                       />
                       <FormField
                         control={form.control}
-                        name={`lecturers.${index}.email`}
+                        name={`users.${index}.email`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Email</FormLabel>
@@ -207,7 +207,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
                       />
                       <FormField
                         control={form.control}
-                        name={`lecturers.${index}.password`}
+                        name={`users.${index}.password`}
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel>Password</FormLabel>
@@ -233,7 +233,7 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
           <DialogClose asChild>
             <Button
               onClick={() => {
-                form.reset(CreateManyLecturerFormDefaultValues);
+                form.reset(CreateManyUserFormDefaultValues);
               }}
               variant="outline"
             >
@@ -249,4 +249,4 @@ const LecturerImportDialog: React.FC<LecturerImportDialogProps> = ({
   );
 };
 
-export default LecturerImportDialog;
+export default UserImportDialog;

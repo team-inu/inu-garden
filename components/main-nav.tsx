@@ -31,10 +31,10 @@ export function MainNav({
         Graduation
       </Link>
       <Link
-        href="/lecturer"
+        href="/user"
         className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
       >
-        Lecturer
+        User
       </Link>
       <Link
         href="/tabee"

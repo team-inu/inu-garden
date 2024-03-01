@@ -38,8 +38,8 @@ const CourseHistoryPage = () => {
         <div className="mb-5 space-y-1 ">
           <h1 className=" text-4xl font-bold">Course History</h1>
           <div>
-            this page is for showing the history of the course that the lecturer
-            has taken in the past.
+            this page is for showing the history of the course that the user has
+            taken in the past.
           </div>
         </div>
         <div>

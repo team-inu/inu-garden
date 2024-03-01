@@ -7,7 +7,7 @@ export const coursePortfolioFetch: Pick<
   info: {
     courseName: 'วิชาไรไม่รู้',
     courseCode: 'CPE100',
-    lecturer: ['นายไก่ ไข่', 'นายงู จาน'],
+    user: ['นายไก่ ไข่', 'นายงู จาน'],
   },
 
   outcome: {

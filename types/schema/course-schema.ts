@@ -7,7 +7,7 @@ const CourseSchema = z.object({
   curriculum: z.string(),
   description: z.string(),
   semesterId: z.string(),
-  lecturerId: z.string(),
+  userId: z.string(),
   criteriaGrade: z.object({
     criteriaGradeA: z.number(),
     criteriaGradeBP: z.number(),
@@ -34,7 +34,7 @@ export const CreateCourseSchema = z.object({
   code: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
-  lecturerId: z
+  userId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   curriculum: z
@@ -91,7 +91,7 @@ export const UpdateCourseSchema = z.object({
   name: z.string(),
   credit: z.string(),
   education: z.string(),
-  lecturer: z.string(),
+  user: z.string(),
 });
 
 export type UpdateCourseFormValues = z.infer<typeof UpdateCourseSchema>;
@@ -103,5 +103,5 @@ export const UpdateCourseDefaultValues: UpdateCourseFormValues = {
   name: '',
   credit: '',
   education: '',
-  lecturer: '',
+  user: '',
 };

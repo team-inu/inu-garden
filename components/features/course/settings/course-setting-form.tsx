@@ -124,7 +124,7 @@ export function CourseSettingForm() {
             description: '',
           },
           {
-            name: 'lecturer',
+            name: 'user',
             label: 'ชื่ออาจารยฺ์ผู้สอน',
             placeholder: '',
             description: '',

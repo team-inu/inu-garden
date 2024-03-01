@@ -19,30 +19,30 @@ import {
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  EditLecturerForm,
-  EditLecturerFormDefaultValues,
-  EditLecturerFormSchema,
+  EditUserForm,
+  EditUserFormDefaultValues,
+  EditUserFormSchema,
 } from '@/types/schema/user-schema';
 
-type LecturerDialogProps = {
-  onSubmit: (values: EditLecturerForm) => void;
-  defaultValues?: EditLecturerForm;
+type UserDialogProps = {
+  onSubmit: (values: EditUserForm) => void;
+  defaultValues?: EditUserForm;
 };
 
-const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
+const UserEditDialog: React.FC<UserDialogProps> = ({
   onSubmit,
   defaultValues,
 }) => {
   const form = useStrictForm(
-    EditLecturerFormSchema,
-    defaultValues ?? EditLecturerFormDefaultValues,
+    EditUserFormSchema,
+    defaultValues ?? EditUserFormDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Lecturer</DialogTitle>
-          <DialogDescription>Edit the lecturer information</DialogDescription>
+          <DialogTitle>Edit User</DialogTitle>
+          <DialogDescription>Edit the user information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -137,4 +137,4 @@ const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
   );
 };
 
-export default LecturerEditDialog;
+export default UserEditDialog;

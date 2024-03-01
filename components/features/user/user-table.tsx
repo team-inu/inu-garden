@@ -20,7 +20,7 @@ import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
-import { LecturerTableToolbar } from '@/components/features/user/user-table-toolbar';
+import { UserTableToolbar } from '@/components/features/user/user-table-toolbar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
@@ -35,14 +35,14 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import { LecturerColumn } from '@/types/schema/user-schema';
+import { UserColumn } from '@/types/schema/user-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export const lectureres: Option[] = [
+export const useres: Option[] = [
   {
     value: 'โครงการ 2B',
     label: 'โครงการ 2B',
@@ -55,7 +55,7 @@ export const lectureres: Option[] = [
   },
 ];
 
-export function LecturerDataTable<TData extends LecturerColumn, TValue>({
+export function UserDataTable<TData extends UserColumn, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
@@ -89,9 +89,7 @@ export function LecturerDataTable<TData extends LecturerColumn, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadLecturer = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleUploadUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
       return toast.error('Can not read file');
@@ -100,13 +98,13 @@ export function LecturerDataTable<TData extends LecturerColumn, TValue>({
     const buffer = await file.arrayBuffer();
     const workBook = XLSX.read(buffer, { type: 'buffer' });
 
-    const lecturerSheet = workBook.Sheets[workBook.SheetNames[0]];
+    const userSheet = workBook.Sheets[workBook.SheetNames[0]];
 
-    const [lecturerTable] = await worksheetToTables(lecturerSheet);
+    const [userTable] = await worksheetToTables(userSheet);
 
-    const lecturers = tableToObject(lecturerTable[0], lecturerTable.slice(1));
+    const users = tableToObject(userTable[0], userTable.slice(1));
 
-    const payload = lecturers.map((e) => {
+    const payload = users.map((e) => {
       return {
         firstName: e._firstname,
         lastName: e.lastname,
@@ -135,7 +133,7 @@ export function LecturerDataTable<TData extends LecturerColumn, TValue>({
     },
   ];
 
-  var CollapsibleRowContent = ({ row }: { row: LecturerColumn }) => (
+  var CollapsibleRowContent = ({ row }: { row: UserColumn }) => (
     <td colSpan={6} className="space-y-3 divide-y-2 divide-orange-400">
       {mockData.map((data, key) => (
         <div className="container" key={key}>
@@ -168,10 +166,10 @@ export function LecturerDataTable<TData extends LecturerColumn, TValue>({
 
   return (
     <div className="space-y-4">
-      <LecturerTableToolbar
+      <UserTableToolbar
         table={table}
         selectorOptions={[]}
-        handleImport={handleUploadLecturer}
+        handleImport={handleUploadUser}
       />
       <div className="rounded-md border">
         <Table>

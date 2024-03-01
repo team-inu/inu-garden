@@ -23,7 +23,7 @@ const resultFormSchema = z.object({
     message: 'Student Degree is required',
   }),
   studentAmount: z.string(),
-  lecturer: z.string(),
+  user: z.string(),
   resultForm: z.array(
     z.object({
       po: z.string().nonempty({
@@ -85,7 +85,7 @@ export function ResultForm() {
       courseCreadit: '',
       studentDegree: [],
       studentAmount: '',
-      lecturer: '',
+      user: '',
       resultForm: [initialLinkedSection],
     },
     mode: 'onChange',
@@ -225,12 +225,7 @@ export function ResultForm() {
           form={form}
         />
 
-        <InputForm
-          name="lecturer"
-          lable="Lecturer"
-          placeholder="Lecturer"
-          form={form}
-        />
+        <InputForm name="user" lable="User" placeholder="User" form={form} />
         <Button
           type="button"
           className={cn('w-full')}

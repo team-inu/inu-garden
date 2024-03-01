@@ -2,7 +2,7 @@ import * as z from 'zod';
 
 // base
 
-export const LecturerSchema = z.object({
+export const UserSchema = z.object({
   id: z.string(),
   role: z.string(),
   firstName: z.string(),
@@ -12,19 +12,19 @@ export const LecturerSchema = z.object({
 
 // response
 
-export type GetLecturerResponse = z.infer<typeof LecturerSchema>;
+export type GetUserResponse = z.infer<typeof UserSchema>;
 
 // column
 
-export const LecturerColumnSchema = LecturerSchema.extend({
+export const UserColumnSchema = UserSchema.extend({
   collapsibleContent: z.string(),
 });
 
-export type LecturerColumn = z.infer<typeof LecturerColumnSchema>;
+export type UserColumn = z.infer<typeof UserColumnSchema>;
 
 // form
 
-const LecturerFormSchema = z.object({
+const UserFormSchema = z.object({
   firstName: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -46,7 +46,7 @@ const LecturerFormSchema = z.object({
     .min(1, { message: 'required' }),
 });
 
-export const CreateLecturerFormSchema = LecturerFormSchema.refine(
+export const CreateUserFormSchema = UserFormSchema.refine(
   (data) => data.password === data.confirmPassword,
   {
     message: "Password doesn't match",
@@ -54,11 +54,11 @@ export const CreateLecturerFormSchema = LecturerFormSchema.refine(
   },
 );
 
-export const CreateManyLecturerFormSchema = z.object({
-  lecturers: LecturerFormSchema.omit({ confirmPassword: true }).array(),
+export const CreateManyUserFormSchema = z.object({
+  users: UserFormSchema.omit({ confirmPassword: true }).array(),
 });
 
-export const EditLecturerFormSchema = LecturerFormSchema.pick({
+export const EditUserFormSchema = UserFormSchema.pick({
   firstName: true,
   lastName: true,
   email: true,
@@ -84,18 +84,16 @@ export const ChangePasswordFormSchema = z
     path: ['confirmNewPassword'],
   });
 
-export type CreateLecturerForm = z.infer<typeof CreateLecturerFormSchema>;
-export type CreateManyLecturerForm = z.infer<
-  typeof CreateManyLecturerFormSchema
->;
-export type EditLecturerForm = z.infer<typeof EditLecturerFormSchema>;
+export type CreateUserForm = z.infer<typeof CreateUserFormSchema>;
+export type CreateManyUserForm = z.infer<typeof CreateManyUserFormSchema>;
+export type EditUserForm = z.infer<typeof EditUserFormSchema>;
 export type ChangePasswordForm = z.infer<typeof ChangePasswordFormSchema>;
 
 // payload
 
 // default values
 
-export const CreateLecturerFormDefaultValues: CreateLecturerForm = {
+export const CreateUserFormDefaultValues: CreateUserForm = {
   firstName: '',
   lastName: '',
   email: '',
@@ -104,7 +102,7 @@ export const CreateLecturerFormDefaultValues: CreateLecturerForm = {
   confirmPassword: '',
 };
 
-export const EditLecturerFormDefaultValues: EditLecturerForm = {
+export const EditUserFormDefaultValues: EditUserForm = {
   id: '',
   firstName: '',
   lastName: '',
@@ -112,8 +110,8 @@ export const EditLecturerFormDefaultValues: EditLecturerForm = {
   email: '',
 };
 
-export const CreateManyLecturerFormDefaultValues: CreateManyLecturerForm = {
-  lecturers: [],
+export const CreateManyUserFormDefaultValues: CreateManyUserForm = {
+  users: [],
 };
 
 export const ChangePasswordFormDefaultValues: ChangePasswordForm = {

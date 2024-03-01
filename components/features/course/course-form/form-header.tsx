@@ -37,7 +37,7 @@ const CourseFormHeader = () => {
       name: info['CourseTitle'],
       code: info['_CourseID'],
       semesterId: info['Semester'],
-      lecturerId: 'a',
+      userId: 'a',
       description: '',
     });
   };

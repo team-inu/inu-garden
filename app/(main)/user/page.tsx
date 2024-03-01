@@ -2,26 +2,26 @@
 
 import Loading from '@/components/features/loading-screen';
 import { columns } from '@/components/features/user/user-column';
-import { LecturerDataTable } from '@/components/features/user/user-table';
-import { useGetLecturerList } from '@/hooks/user-hook';
+import { UserDataTable } from '@/components/features/user/user-table';
+import { useGetUserList } from '@/hooks/user-hook';
 
-const LecturerPage = () => {
-  const { data: lecturers, isLoading } = useGetLecturerList();
+const UserPage = () => {
+  const { data: users, isLoading } = useGetUserList();
 
   return (
     <div className="mx-auto w-10/12 py-8">
       <div>
-        <h1 className="mb-5 text-4xl font-bold">Lecturer</h1>
+        <h1 className="mb-5 text-4xl font-bold">User</h1>
       </div>
       <div className="">
         {isLoading ? (
           <Loading />
         ) : (
-          <LecturerDataTable
+          <UserDataTable
             columns={columns}
             data={
-              lecturers?.map((lecturer) => ({
-                ...lecturer,
+              users?.map((user) => ({
+                ...user,
                 collapsibleContent: 'test',
               })) ?? []
             }
@@ -32,4 +32,4 @@ const LecturerPage = () => {
   );
 };
 
-export default LecturerPage;
+export default UserPage;

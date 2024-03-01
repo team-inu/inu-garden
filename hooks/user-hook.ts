@@ -1,23 +1,22 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import { lecturerService } from '@/services/user-service';
+import { userService } from '@/services/user-service';
 import {
-  CreateLecturerForm,
-  CreateManyLecturerForm,
-  EditLecturerForm,
+  CreateManyUserForm,
+  CreateUserForm,
+  EditUserForm,
 } from '@/types/schema/user-schema';
 
-export const useGetLecturerList = () =>
+export const useGetUserList = () =>
   useQuery({
-    queryKey: ['lectuers'],
-    queryFn: () => lecturerService.getLecturerList(),
+    queryKey: ['users'],
+    queryFn: () => userService.getUserList(),
   });
 
-export const useCreateLecturer = () => {
+export const useCreateUser = () => {
   return useMutation({
-    mutationFn: (lecturer: CreateLecturerForm) =>
-      lecturerService.createLecturer(lecturer),
+    mutationFn: (user: CreateUserForm) => userService.createUser(user),
     onSuccess: () => {
       toast.success('Student has been created', {
         description: 'You can now add questions to the student.',
@@ -31,10 +30,10 @@ export const useCreateLecturer = () => {
   });
 };
 
-export const useCreateManyLecturers = () => {
+export const useCreateManyUsers = () => {
   return useMutation({
-    mutationFn: (lecturers: CreateManyLecturerForm) =>
-      lecturerService.createManyLecturer(lecturers),
+    mutationFn: (users: CreateManyUserForm) =>
+      userService.createManyUser(users),
     onSuccess: () => {
       toast.success('Students has been created', {
         description: 'You can now add questions to the students.',
@@ -48,17 +47,16 @@ export const useCreateManyLecturers = () => {
   });
 };
 
-export const useUpdateLecturer = () => {
+export const useUpdateUser = () => {
   return useMutation({
-    mutationFn: (lecturer: EditLecturerForm) =>
-      lecturerService.updateLecturer(lecturer.id, lecturer),
+    mutationFn: (user: EditUserForm) => userService.updateUser(user.id, user),
     onSuccess: () => {
-      toast.success('Lecturers has been created', {
-        description: 'You can now add questions to the lecturers.',
+      toast.success('Users has been created', {
+        description: 'You can now add questions to the users.',
       });
     },
     onError: (error) => {
-      toast.error('Failed to create lecturers', {
+      toast.error('Failed to create users', {
         description: error.message,
       });
     },

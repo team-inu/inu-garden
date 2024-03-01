@@ -3,7 +3,7 @@ import * as z from 'zod';
 const Info = z.object({
   courseName: z.string().min(1, { message: 'required' }),
   courseCode: z.string().min(1, { message: 'required' }),
-  lecturer: z.array(z.string().min(1, { message: 'required' })).min(1, {
+  user: z.array(z.string().min(1, { message: 'required' })).min(1, {
     message: 'required',
   }),
 });

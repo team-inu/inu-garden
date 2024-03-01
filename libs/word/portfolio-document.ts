@@ -216,7 +216,7 @@ export async function generatePortfolioDocument({
           createParagraph({
             children: [
               new TextRun({ text: 'ผู้สอน: \t', bold: true }),
-              new TextRun({ text: info.lecturer.join(', ') }),
+              new TextRun({ text: info.user.join(', ') }),
             ],
           }),
           createParagraph({

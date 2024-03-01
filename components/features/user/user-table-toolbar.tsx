@@ -5,18 +5,15 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useState } from 'react';
 
-import LecturerDialog from '@/components/features/user/user-dialog';
-import LecturerImportDialog from '@/components/features/user/user-import-dialog';
+import UserDialog from '@/components/features/user/user-dialog';
+import UserImportDialog from '@/components/features/user/user-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreateLecturer, useCreateManyLecturers } from '@/hooks/user-hook';
-import {
-  CreateLecturerForm,
-  CreateManyLecturerForm,
-} from '@/types/schema/user-schema';
+import { useCreateManyUsers, useCreateUser } from '@/hooks/user-hook';
+import { CreateManyUserForm, CreateUserForm } from '@/types/schema/user-schema';
 
 export type Option = {
   value: string;
@@ -38,7 +35,7 @@ interface DataTableToolbarProps<TData> {
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function LecturerTableToolbar<TData>({
+export function UserTableToolbar<TData>({
   table,
   selectorOptions: something,
   isViewOptions = true,
@@ -46,26 +43,25 @@ export function LecturerTableToolbar<TData>({
   handleImport,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
-  const [isAddLecturerOpen, setIsAddLecturerOpen] = useState(false);
+  const [isAddUserOpen, setIsAddUserOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const { mutate: createLecturer, isError: isCreateLecturerError } =
-    useCreateLecturer();
-  const { mutate: createManyLecturers, isError: isCreateManyLecturerError } =
-    useCreateManyLecturers();
+  const { mutate: createUser, isError: isCreateUserError } = useCreateUser();
+  const { mutate: createManyUsers, isError: isCreateManyUserError } =
+    useCreateManyUsers();
 
-  const onSubmitAddLecturer = (value: CreateLecturerForm) => {
+  const onSubmitAddUser = (value: CreateUserForm) => {
     console.log('hihi');
-    createLecturer(value);
-    if (!isCreateLecturerError) {
-      setIsAddLecturerOpen(false);
+    createUser(value);
+    if (!isCreateUserError) {
+      setIsAddUserOpen(false);
     }
   };
 
-  const onSubmitImport = (value: CreateManyLecturerForm) => {
-    createManyLecturers(value);
-    if (!isCreateManyLecturerError) {
+  const onSubmitImport = (value: CreateManyUserForm) => {
+    createManyUsers(value);
+    if (!isCreateManyUserError) {
       setIsImportOpen(false);
     }
   };
@@ -115,17 +111,14 @@ export function LecturerTableToolbar<TData>({
               variant="outline"
               size="sm"
               className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsAddLecturerOpen(true)}
+              onClick={() => setIsAddUserOpen(true)}
             >
               <PlusCircledIcon className="mr-2 h-4 w-4" />
               Add
             </Button>
 
-            <Dialog
-              open={isAddLecturerOpen}
-              onOpenChange={setIsAddLecturerOpen}
-            >
-              <LecturerDialog onSubmit={onSubmitAddLecturer} />
+            <Dialog open={isAddUserOpen} onOpenChange={setIsAddUserOpen}>
+              <UserDialog onSubmit={onSubmitAddUser} />
             </Dialog>
 
             <Button
@@ -142,12 +135,12 @@ export function LecturerTableToolbar<TData>({
               variant="outline"
               size="sm"
             >
-              <a className="flex items-center" href="/template/lecturer.xlsx">
+              <a className="flex items-center" href="/template/user.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>
             </Button>
-            <LecturerImportDialog
+            <UserImportDialog
               open={isImportOpen}
               isOnOpenChange={setIsImportOpen}
               onSubmit={onSubmitImport}

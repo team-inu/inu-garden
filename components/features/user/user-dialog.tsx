@@ -20,36 +20,36 @@ import { Input } from '@/components/ui/input';
 import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  CreateLecturerForm,
-  CreateLecturerFormDefaultValues,
-  CreateLecturerFormSchema,
-  EditLecturerForm,
+  CreateUserForm,
+  CreateUserFormDefaultValues,
+  CreateUserFormSchema,
+  EditUserForm,
 } from '@/types/schema/user-schema';
 
-type LecturerDialogProps = {
-  onSubmit: (values: CreateLecturerForm) => void;
-  defaultValues?: EditLecturerForm | CreateLecturerForm;
+type UserDialogProps = {
+  onSubmit: (values: CreateUserForm) => void;
+  defaultValues?: EditUserForm | CreateUserForm;
   isEdit?: boolean;
 };
 
-const LecturerDialog: React.FC<LecturerDialogProps> = ({
+const UserDialog: React.FC<UserDialogProps> = ({
   onSubmit,
   defaultValues,
   isEdit = false,
 }) => {
   const form = useStrictForm(
-    CreateLecturerFormSchema,
-    defaultValues ?? CreateLecturerFormDefaultValues,
+    CreateUserFormSchema,
+    defaultValues ?? CreateUserFormDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>{isEdit ? 'Edit Lecturer' : 'Add Lecturer'}</DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit User' : 'Add User'}</DialogTitle>
           <DialogDescription>
             {isEdit
-              ? 'Edit the lecturer information'
-              : 'Fill in the lecturer information'}
+              ? 'Edit the user information'
+              : 'Fill in the user information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -90,6 +90,22 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Role</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -149,4 +165,4 @@ const LecturerDialog: React.FC<LecturerDialogProps> = ({
   );
 };
 
-export default LecturerDialog;
+export default UserDialog;

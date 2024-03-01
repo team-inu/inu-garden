@@ -7,7 +7,7 @@ import { useState } from 'react';
 
 // TODO: make it dynamic
 import ChangePasswordDialog from '@/components/features/user/change-password-dialog';
-import LecturerEditDialog from '@/components/features/user/user-edit-dialog';
+import UserEditDialog from '@/components/features/user/user-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,20 +23,17 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateLecturer } from '@/hooks/user-hook';
-import {
-  EditLecturerForm,
-  LecturerColumnSchema,
-} from '@/types/schema/user-schema';
+import { useUpdateUser } from '@/hooks/user-hook';
+import { EditUserForm, UserColumnSchema } from '@/types/schema/user-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function LecturerRowActions<TData>({
+export function UserRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const lecturer = LecturerColumnSchema.omit({
+  const user = UserColumnSchema.omit({
     collapsibleContent: true,
   }).parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -44,9 +41,9 @@ export function LecturerRowActions<TData>({
   const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
     useState(false);
 
-  const { mutate, isError } = useUpdateLecturer();
+  const { mutate, isError } = useUpdateUser();
 
-  const onSubmit = (values: EditLecturerForm) => {
+  const onSubmit = (values: EditUserForm) => {
     mutate(values);
     if (!isError) {
       setIsEditDialogOpen(false);
@@ -96,14 +93,14 @@ export function LecturerRowActions<TData>({
         <ChangePasswordDialog onSubmit={() => {}} />
       )}
       {isEditDialogOpen && (
-        <LecturerEditDialog
+        <UserEditDialog
           onSubmit={onSubmit}
           defaultValues={{
-            id: lecturer.id,
-            role: lecturer.role,
-            firstName: lecturer.firstName,
-            lastName: lecturer.lastName,
-            email: lecturer.email,
+            id: user.id,
+            role: user.role,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
           }}
         />
       )}
