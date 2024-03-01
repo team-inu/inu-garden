@@ -4,7 +4,7 @@ import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import EnrollmentAddDialog from '@/components/features/course/enrollment/enrollment-add-dialog';
 import EnrollmentImportDialog from '@/components/features/course/enrollment/enrollment-import-dialog';
@@ -56,18 +56,18 @@ export function EnrollmentTableToolbar<TData>({
   const { mutate, isSuccess } = useCreateEnrollment();
   const { id: courseId } = useParams<{ id: string }>();
 
-  const onSubmit = (value: CreateEnrollmentForm) => {
-    mutate(value);
+  useEffect(() => {
     if (isSuccess) {
       setIsAddDialogOpen(false);
     }
+  }, [isSuccess]);
+
+  const onSubmit = (value: CreateEnrollmentForm) => {
+    mutate(value);
   };
 
   const onSubmitImport = (value: CreateEnrollmentPayload) => {
     mutate(value);
-    if (isSuccess) {
-      setIsImportDialogOpen(false);
-    }
   };
 
   return (
