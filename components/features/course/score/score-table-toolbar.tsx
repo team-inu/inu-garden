@@ -48,11 +48,14 @@ export function ScoreTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate } = useCreateScore();
+  const { mutate, isError } = useCreateScore();
 
   const handleScoreSubmit = (values: CreateScoreForm) => {
     if (assignmentId) {
       mutate({ score: values, assignmentId });
+      if (!isError) {
+        setIsOpen(false);
+      }
     }
   };
   return (

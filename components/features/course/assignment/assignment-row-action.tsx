@@ -6,6 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import AssignmentEditDialog from '@/components/features/course/assignment/assigment-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,8 +23,12 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
+  useDeleteAssignment,
+  useUpdateAssignment,
+} from '@/hooks/assignment-hook';
+import {
   AssignmentSchema,
-  CreateAssignmentForm,
+  UpdateAssignmentForm,
 } from '@/types/schema/assignment-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -33,18 +38,25 @@ interface DataTableRowActionsProps<TData> {
 export function AssigmentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const assignmentData = AssignmentSchema.parse(row.original);
+  const assignment = AssignmentSchema.parse(row.original);
+
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  // const po = checkMultipleString(assignmentData.po);
-  // const plo = checkMultipleString(assignmentData.plo);
 
-  const onSubmit = (values: CreateAssignmentForm) => {
-    console.log(values);
+  const { mutate: updateAssignment, isError: isUpdateError } =
+    useUpdateAssignment();
+
+  const { mutate: deleteAssignment } = useDeleteAssignment();
+
+  const onSubmitDelete = () => {
+    deleteAssignment(assignment.id);
   };
 
-  const onDelete = () => {
-    console.log('delete');
+  const onSubmitEdit = (values: UpdateAssignmentForm) => {
+    updateAssignment(values);
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   return (
@@ -74,16 +86,21 @@ export function AssigmentRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* {isEditDialogOpen && (
+      {isEditDialogOpen && (
         <AssignmentEditDialog
-          onSubmit={onSubmit}
+          onSubmit={onSubmitEdit}
           defaultValues={{
-            ...assignmentData,
-            clo: [{ label: 'clo', value: 'clo', disable: false }],
-            description: '',
+            id: assignment.id,
+            description: assignment.description,
+            expectedPassingStudentPercentage:
+              assignment.expectedPassingStudentPercentage,
+            expectedScorePercentage: assignment.expectedScorePercentage,
+            maxScore: assignment.maxScore,
+            name: assignment.name,
+            weight: assignment.weight,
           }}
         />
-      )} */}
+      )}
 
       {isDeleteDialogOpen && (
         <DialogContent>
@@ -98,7 +115,7 @@ export function AssigmentRowActions<TData>({
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
+            <Button onClick={onSubmitDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       )}

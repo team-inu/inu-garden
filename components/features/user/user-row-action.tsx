@@ -23,7 +23,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateUser } from '@/hooks/user-hook';
+import { useDeleteUser, useUpdateUser } from '@/hooks/user-hook';
 import { EditUserForm, UserColumnSchema } from '@/types/schema/user-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -41,17 +41,21 @@ export function UserRowActions<TData>({
   const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
     useState(false);
 
-  const { mutate, isError } = useUpdateUser();
+  const { mutate: updateUser, isError: isUpdateError } = useUpdateUser();
+  const { mutate: deleteUser, isError: isDeleteError } = useDeleteUser();
 
   const onSubmit = (values: EditUserForm) => {
-    mutate(values);
-    if (!isError) {
+    updateUser(values);
+    if (!isUpdateError) {
       setIsEditDialogOpen(false);
     }
   };
 
   const onDelete = () => {
-    console.log('delete');
+    deleteUser(user.id);
+    if (!isDeleteError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   return (

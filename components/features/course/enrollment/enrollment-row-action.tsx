@@ -21,7 +21,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateEnrollment } from '@/hooks/enrollment-hook';
+import {
+  useDeleteEnrollment,
+  useUpdateEnrollment,
+} from '@/hooks/enrollment-hook';
 import {
   EditEnrollmentForm,
   EnrollmentSchema,
@@ -41,7 +44,10 @@ export function EnrollmentRowActions<TData>({
   const { mutate: updateEnrollment, isError: isUpdateError } =
     useUpdateEnrollment();
 
-  const onSubmit = (values: EditEnrollmentForm) => {
+  const { mutate: deleteEnrollment, isError: isDeleteError } =
+    useDeleteEnrollment();
+
+  const onSubmitEdit = (values: EditEnrollmentForm) => {
     console.log(values);
     updateEnrollment({ ...values, status: values.status });
     if (!isUpdateError) {
@@ -49,8 +55,11 @@ export function EnrollmentRowActions<TData>({
     }
   };
 
-  const onDelete = () => {
-    console.log('delete');
+  const onSubmitDelete = () => {
+    deleteEnrollment(enrollment.id);
+    if (!isDeleteError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   return (
@@ -81,7 +90,7 @@ export function EnrollmentRowActions<TData>({
       </DropdownMenu>
       {isEditDialogOpen && (
         <EnrollmentEditDialog
-          onSubmit={onSubmit}
+          onSubmit={onSubmitEdit}
           defaultValues={{
             studentId: enrollment.studentId,
             status: enrollment.status,
@@ -97,7 +106,7 @@ export function EnrollmentRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-              {`You can't undo this action. This will permanently delete the.`}
+              {`You can't undo this action. This will permanently delete the. (If you want this student to withdraw this course, please use "edit" menu instead)`}
             </DialogDescription>
           </DialogHeader>
 
@@ -105,7 +114,7 @@ export function EnrollmentRowActions<TData>({
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
+            <Button onClick={onSubmitDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       )}

@@ -49,6 +49,11 @@ class EnrollmentService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async deleteEnrollment(enrollmentId: string) {
+    const url = `/enrollments/${enrollmentId}`;
+    return this.delete(url).catch(this.throwError);
+  }
+
   private isCreateManyEnrollment(
     enrollment: CreateEnrollmentPayload | CreateEnrollmentForm,
   ): enrollment is CreateEnrollmentPayload {

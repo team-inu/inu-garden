@@ -5,7 +5,7 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useRef, useState } from 'react';
 
-import AssignmentDialog from '@/components/features/course/assignment/assignment-dialog';
+import AssignmentDialog from '@/components/features/course/assignment/assignment-add-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';

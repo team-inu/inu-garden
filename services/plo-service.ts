@@ -3,6 +3,7 @@ import {
   CreateManyPloForm,
   CreatePloForm,
   GetProgramLearningOutcomeResponse,
+  UpdatePloForm,
 } from '@/types/schema/plo-schema';
 import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
 
@@ -46,9 +47,9 @@ class PloService extends ApiService {
   public async updatePlo(
     plo: CreatePloForm,
     id: string,
-  ): Promise<CreatePloForm> {
+  ): Promise<UpdatePloForm> {
     const url = `/plos/${id}`;
-    return this.patch(url, { programLearningOutcomes: [plo] })
+    return this.patch(url, plo)
       .then(() => plo)
       .catch(this.throwError);
   }

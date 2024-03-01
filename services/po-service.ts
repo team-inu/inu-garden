@@ -3,6 +3,7 @@ import {
   CreateManyPoForm,
   CreatePoForm,
   GetPoResponse,
+  UpdatePoForm,
 } from '@/types/schema/po-schema';
 
 class PoService extends ApiService {
@@ -30,9 +31,9 @@ class PoService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updatePo(po: CreatePoForm, id: string): Promise<CreatePoForm> {
+  public async updatePo(po: UpdatePoForm, id: string): Promise<UpdatePoForm> {
     const url = `/pos/${id}`;
-    return this.patch(url, { programOutcomes: [po] })
+    return this.patch(url, po)
       .then(() => po)
       .catch(this.throwError);
   }

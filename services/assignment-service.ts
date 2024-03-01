@@ -3,6 +3,7 @@ import {
   CreateAssignmentForm,
   GetAssignmentByIdResponse,
   GetAssignmentResponse,
+  UpdateAssignmentForm,
 } from '@/types/schema/assignment-schema';
 
 class AssignmentService extends ApiService {
@@ -25,6 +26,16 @@ class AssignmentService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async updateAssignment(
+    assignment: UpdateAssignmentForm,
+  ): Promise<UpdateAssignmentForm> {
+    const url = `/assignments/${assignment.id}`;
+
+    return this.patch(url, assignment)
+      .then(() => assignment)
+      .catch(this.throwError);
+  }
+
   public async getAssignmentsByCourseId(
     courseId: string,
   ): Promise<GetAssignmentResponse[]> {
@@ -34,6 +45,11 @@ class AssignmentService extends ApiService {
         (response) => response.data.data as unknown as GetAssignmentResponse[],
       )
       .catch(this.throwError);
+  }
+
+  public async deleteAssignment(assignmentId: string) {
+    const url = `/assignments/${assignmentId}`;
+    return this.delete(url).catch(this.throwError);
   }
 
   public async getAssignmentById(
