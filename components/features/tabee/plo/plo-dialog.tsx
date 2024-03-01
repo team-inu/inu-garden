@@ -17,7 +17,15 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useGetProgrammeList } from '@/hooks/programme-hook';
 import {
   CreatePloForm,
   CreatePloFormDefaultValues,
@@ -39,6 +47,9 @@ const PloDialog: React.FC<PloDialogProps> = ({
     CreatePloFormSchema,
     defaultValues ?? CreatePloFormDefaultValues,
   );
+
+  const { data: programmes } = useGetProgrammeList();
+
   return (
     <div>
       <DialogContent>
@@ -116,14 +127,23 @@ const PloDialog: React.FC<PloDialogProps> = ({
               control={form.control}
               name="programmeName"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Programme</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
+                <FormItem className="w-full">
+                  <FormLabel>programmeName</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a curriculum" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {programmes?.map((programme, index) => (
+                        <SelectItem key={index} value={programme.name}>
+                          {programme.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />
