@@ -5,21 +5,18 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useState } from 'react';
 
-import LecturerDialog from '@/components/features/lecturer/lecturer-dialog';
-import LecturerImportDialog from '@/components/features/lecturer/lecturer-import-dialog';
+import LecturerDialog from '@/components/features/user/user-dialog';
+import LecturerImportDialog from '@/components/features/user/user-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import {
-  useCreateLecturer,
-  useCreateManyLecturers,
-} from '@/hooks/lecturer-hook';
+import { useCreateLecturer, useCreateManyLecturers } from '@/hooks/user-hook';
 import {
   CreateLecturerForm,
   CreateManyLecturerForm,
-} from '@/types/schema/lecturer-schema';
+} from '@/types/schema/user-schema';
 
 export type Option = {
   value: string;

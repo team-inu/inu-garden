@@ -3,11 +3,11 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { ChevronDown } from 'lucide-react';
 
-import { LecturerRowActions } from '@/components/features/lecturer/lecturer-row-action';
+import { LecturerRowActions } from '@/components/features/user/user-row-action';
 import { Checkbox } from '@/components/ui/checkbox';
 import { CollapsibleTrigger } from '@/components/ui/collapsible';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
-import { LecturerColumn } from '@/types/schema/lecturer-schema';
+import { LecturerColumn } from '@/types/schema/user-schema';
 
 export const columns: ColumnDef<LecturerColumn>[] = [
   {

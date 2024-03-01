@@ -20,9 +20,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
-import { useGetLecturerList } from '@/hooks/lecturer-hook';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
 import { useGetSemesterList } from '@/hooks/semester-hook';
+import { useGetLecturerList } from '@/hooks/user-hook';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseForm = () => {

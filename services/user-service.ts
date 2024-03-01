@@ -4,7 +4,7 @@ import {
   CreateManyLecturerForm,
   EditLecturerForm,
   GetLecturerResponse,
-} from '@/types/schema/lecturer-schema';
+} from '@/types/schema/user-schema';
 
 class LecturerService extends ApiService {
   public async getLecturerList(): Promise<GetLecturerResponse[]> {

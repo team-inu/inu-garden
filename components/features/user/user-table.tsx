@@ -20,7 +20,7 @@ import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
-import { LecturerTableToolbar } from '@/components/features/lecturer/lecturer-table-toolbar';
+import { LecturerTableToolbar } from '@/components/features/user/user-table-toolbar';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
@@ -35,7 +35,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import { LecturerColumn } from '@/types/schema/lecturer-schema';
+import { LecturerColumn } from '@/types/schema/user-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];

@@ -1,9 +1,9 @@
 'use client';
 
-import { columns } from '@/components/features/lecturer/lecturer-column';
-import { LecturerDataTable } from '@/components/features/lecturer/lecturer-table';
 import Loading from '@/components/features/loading-screen';
-import { useGetLecturerList } from '@/hooks/lecturer-hook';
+import { columns } from '@/components/features/user/user-column';
+import { LecturerDataTable } from '@/components/features/user/user-table';
+import { useGetLecturerList } from '@/hooks/user-hook';
 
 const LecturerPage = () => {
   const { data: lecturers, isLoading } = useGetLecturerList();

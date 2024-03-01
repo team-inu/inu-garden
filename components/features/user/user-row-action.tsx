@@ -6,8 +6,8 @@ import { Row } from '@tanstack/react-table';
 import { useState } from 'react';
 
 // TODO: make it dynamic
-import ChangePasswordDialog from '@/components/features/lecturer/change-password-dialog';
-import LecturerEditDialog from '@/components/features/lecturer/lecturer-edit-dialog';
+import ChangePasswordDialog from '@/components/features/user/change-password-dialog';
+import LecturerEditDialog from '@/components/features/user/user-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,11 +23,11 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateLecturer } from '@/hooks/lecturer-hook';
+import { useUpdateLecturer } from '@/hooks/user-hook';
 import {
   EditLecturerForm,
   LecturerColumnSchema,
-} from '@/types/schema/lecturer-schema';
+} from '@/types/schema/user-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;

@@ -40,7 +40,7 @@ import {
   CreateManyLecturerForm,
   CreateManyLecturerFormDefaultValues,
   CreateManyLecturerFormSchema,
-} from '@/types/schema/lecturer-schema';
+} from '@/types/schema/user-schema';
 
 type LecturerImportDialogProps = {
   onSubmit: (values: CreateManyLecturerForm) => void;

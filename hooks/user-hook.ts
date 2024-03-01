@@ -1,12 +1,12 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
-import { lecturerService } from '@/services/lecturer-service';
+import { lecturerService } from '@/services/user-service';
 import {
   CreateLecturerForm,
   CreateManyLecturerForm,
   EditLecturerForm,
-} from '@/types/schema/lecturer-schema';
+} from '@/types/schema/user-schema';
 
 export const useGetLecturerList = () =>
   useQuery({

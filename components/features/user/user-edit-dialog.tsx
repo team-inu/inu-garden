@@ -16,43 +16,45 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { PassowrdInput } from '@/components/ui/password-input';
+import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
-  ChangePasswordForm,
-  ChangePasswordFormDefaultValues,
-  ChangePasswordFormSchema,
-} from '@/types/schema/lecturer-schema';
+  EditLecturerForm,
+  EditLecturerFormDefaultValues,
+  EditLecturerFormSchema,
+} from '@/types/schema/user-schema';
 
-type ChangePasswordDialogProps = {
-  onSubmit: (values: ChangePasswordForm) => void;
+type LecturerDialogProps = {
+  onSubmit: (values: EditLecturerForm) => void;
+  defaultValues?: EditLecturerForm;
 };
 
-const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
+const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
   onSubmit,
+  defaultValues,
 }) => {
   const form = useStrictForm(
-    ChangePasswordFormSchema,
-    ChangePasswordFormDefaultValues,
+    EditLecturerFormSchema,
+    defaultValues ?? EditLecturerFormDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Change Password</DialogTitle>
-          <DialogDescription>Change your password here</DialogDescription>
+          <DialogTitle>Edit Lecturer</DialogTitle>
+          <DialogDescription>Edit the lecturer information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <FormField
               control={form.control}
-              name="oldPassword"
+              name="id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Old password</FormLabel>
+                  <FormLabel>id</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <PassowrdInput {...field} />
+                      <Input {...field} disabled={true} />
                       <FormMessage />
                     </div>
                   </FormControl>
@@ -61,13 +63,13 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
             />
             <FormField
               control={form.control}
-              name="newPassword"
+              name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New password</FormLabel>
+                  <FormLabel>Firstname</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <PassowrdInput {...field} />
+                      <Input {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>
@@ -76,13 +78,44 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
             />
             <FormField
               control={form.control}
-              name="confirmNewPassword"
+              name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Confirmed new password</FormLabel>
+                  <FormLabel>Lastname</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <PassowrdInput {...field} />
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="email"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Email</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="role"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>role</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
                       <FormMessage />
                     </div>
                   </FormControl>
@@ -104,4 +137,4 @@ const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
   );
 };
 
-export default ChangePasswordDialog;
+export default LecturerEditDialog;

@@ -17,50 +17,43 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
+  CreateLecturerForm,
+  CreateLecturerFormDefaultValues,
+  CreateLecturerFormSchema,
   EditLecturerForm,
-  EditLecturerFormDefaultValues,
-  EditLecturerFormSchema,
-} from '@/types/schema/lecturer-schema';
+} from '@/types/schema/user-schema';
 
 type LecturerDialogProps = {
-  onSubmit: (values: EditLecturerForm) => void;
-  defaultValues?: EditLecturerForm;
+  onSubmit: (values: CreateLecturerForm) => void;
+  defaultValues?: EditLecturerForm | CreateLecturerForm;
+  isEdit?: boolean;
 };
 
-const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
+const LecturerDialog: React.FC<LecturerDialogProps> = ({
   onSubmit,
   defaultValues,
+  isEdit = false,
 }) => {
   const form = useStrictForm(
-    EditLecturerFormSchema,
-    defaultValues ?? EditLecturerFormDefaultValues,
+    CreateLecturerFormSchema,
+    defaultValues ?? CreateLecturerFormDefaultValues,
   );
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Lecturer</DialogTitle>
-          <DialogDescription>Edit the lecturer information</DialogDescription>
+          <DialogTitle>{isEdit ? 'Edit Lecturer' : 'Add Lecturer'}</DialogTitle>
+          <DialogDescription>
+            {isEdit
+              ? 'Edit the lecturer information'
+              : 'Fill in the lecturer information'}
+          </DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <FormField
-              control={form.control}
-              name="id"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>id</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} disabled={true} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
             <FormField
               control={form.control}
               name="firstName"
@@ -107,21 +100,40 @@ const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
               )}
             />
 
-            <FormField
-              control={form.control}
-              name="role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>role</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
+            {!isEdit && (
+              <>
+                <FormField
+                  control={form.control}
+                  name="password"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <div className="flex flex-col space-y-3">
+                          <PassowrdInput {...field} />
+                          <FormMessage />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="confirmPassword"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Confirm password</FormLabel>
+                      <FormControl>
+                        <div className="flex flex-col space-y-3">
+                          <PassowrdInput {...field} />
+                          <FormMessage />
+                        </div>
+                      </FormControl>
+                    </FormItem>
+                  )}
+                />
+              </>
+            )}
           </form>
         </Form>
         <DialogFooter>
@@ -137,4 +149,4 @@ const LecturerEditDialog: React.FC<LecturerDialogProps> = ({
   );
 };
 
-export default LecturerEditDialog;
+export default LecturerDialog;
