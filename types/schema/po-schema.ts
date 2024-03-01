@@ -37,6 +37,7 @@ export const CreateManyPoSchema = z.object({
 
 export type CreatePoForm = z.infer<typeof CreatePoFormSchema>;
 export type CreateManyPoForm = z.infer<typeof CreateManyPoSchema>;
+export type UpdatePoForm = CreatePoForm;
 
 // payload
 

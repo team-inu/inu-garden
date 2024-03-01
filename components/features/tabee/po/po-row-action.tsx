@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useDeletePo, useUpdatePo } from '@/hooks/po-hook';
-import { CreatePoForm, PoSchema } from '@/types/schema/po-schema';
+import { PoSchema, UpdatePoForm } from '@/types/schema/po-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -36,7 +36,7 @@ export function PoRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const { mutate: updatePo, isError: isUpdateError } = useUpdatePo();
   const { mutate: deletePo, isError: isDeleteError } = useDeletePo();
 
-  const onSubmit = (values: CreatePoForm) => {
+  const onSubmit = (values: UpdatePoForm) => {
     updatePo({ po: values, id: po.id });
     if (!isUpdateError) {
       setIsEditDialogOpen(false);
