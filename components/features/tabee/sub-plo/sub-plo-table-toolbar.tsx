@@ -2,7 +2,9 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
+import { useSearchParams } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import SubPloDialog from '@/components/features/tabee/sub-plo/sub-plo-dialog';
 import SubPloLinkCloDialog from '@/components/features/tabee/sub-plo/sub-plo-link-clo-dialog';
@@ -11,6 +13,7 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useLinkSubPlo } from '@/hooks/clo-hook';
 import { useCreateSubPlo } from '@/hooks/sub-plo-hook';
 import {
   CreateSubPloLinkCloType,
@@ -48,13 +51,24 @@ export function SubPloTableToolbar<TData>({
   currentPlo,
   isTabee,
 }: DataTableToolbarProps<TData>) {
+  const cloId = useSearchParams().get('cloId');
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isError } = useCreateSubPlo();
+  const { mutate: mutateLink, isError: isLinkError } = useLinkSubPlo();
 
-  const onSubmit = (value: CreateSubPloLinkCloType) => {};
+  const onSubmit = (value: CreateSubPloLinkCloType) => {
+    const subPloId = value.subPlos.map((subPlo) => subPlo.value);
+    if (cloId) {
+      mutateLink({ cloId, subProgramLearningOutcomeId: subPloId });
+    } else {
+      toast.error('Failed to link Sub-PLO', {
+        description: 'Please select a CLO first',
+      });
+    }
+  };
 
   const onTabeeSubmit = (value: CreateSubPloType) => {
     mutate(value);

@@ -1,8 +1,8 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
-import { Trash2Icon } from 'lucide-react';
 
+import { SubPloUnlinkClo } from '@/components/features/tabee/sub-plo/sub-plo-unlink-clo';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { SubPloColumn } from '@/types/schema/sub-plo-schema';
 
@@ -44,11 +44,7 @@ export const subPloStaticColumn: ColumnDef<SubPloColumn>[] = [
 
   {
     id: 'actions',
-    cell: ({ row }) => (
-      <div>
-        <Trash2Icon className="cursor-pointer hover:text-destructive  " />
-      </div>
-    ),
+    cell: ({ row }) => <SubPloUnlinkClo row={row} />,
   },
 ];
 
