@@ -1,10 +1,11 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { scoreService } from '@/services/score-service';
-import { CreateScoreForm } from '@/types/schema/score-schema';
+import { CreateScoreForm, UpdateScoreForm } from '@/types/schema/score-schema';
 
 export const useCreateScore = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
       score,
@@ -14,6 +15,7 @@ export const useCreateScore = () => {
       assignmentId: string;
     }) => scoreService.createScore(score, assignmentId),
     onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['scores'] });
       toast.success('Score has been created', {
         description: 'You can now add questions to the student.',
       });
@@ -31,3 +33,40 @@ export const useGetScoresByAssignmentId = (assignmentId: string) =>
     queryKey: ['scores', assignmentId],
     queryFn: () => scoreService.getScoresByAssignmentId(assignmentId),
   });
+
+export const useUpdateScore = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({ score, id }: { score: UpdateScoreForm; id: string }) =>
+      scoreService.updateScore(score, id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['scores'] });
+      toast.success('Score has been updated', {
+        description: 'You can now add questions to the score.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to update Score', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useDeleteScore = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => scoreService.deleteScore(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['scores'] });
+      toast.success('Score has been deleted', {
+        description: 'You can now add questions to the score.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to delete score', {
+        description: error.message,
+      });
+    },
+  });
+};

@@ -21,6 +21,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useDeleteScore, useUpdateScore } from '@/hooks/score-hook';
 import { CreateScoreForm, ScoreSchema } from '@/types/schema/score-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -33,14 +34,23 @@ export function ScoreRowActions<TData>({
   const scoreData = ScoreSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const { mutate: updateScore, isError: isUpdateError } = useUpdateScore();
+  const { mutate: deleteScore, isError: isDeleteError } = useDeleteScore();
 
   const onSubmit = (values: CreateScoreForm) => {
-    console.log(values);
+    updateScore({ score: values, id: scoreData.id });
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   const onDelete = () => {
-    console.log('delete');
+    deleteScore(scoreData.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
+    }
   };
+
   return (
     <Dialog
       open={isEditDialogOpen || isDeleteDialogOpen}

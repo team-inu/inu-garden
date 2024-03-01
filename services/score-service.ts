@@ -1,5 +1,9 @@
 import { ApiService } from '@/services/api-service';
-import { CreateScoreForm, GetScoreResponse } from '@/types/schema/score-schema';
+import {
+  CreateScoreForm,
+  GetScoreResponse,
+  UpdateScoreForm,
+} from '@/types/schema/score-schema';
 
 class ScoreService extends ApiService {
   public async getScoresByAssignmentId(
@@ -27,6 +31,23 @@ class ScoreService extends ApiService {
     };
     return this.post(url, result)
       .then(() => data)
+      .catch(this.throwError);
+  }
+
+  public async updateScore(
+    score: UpdateScoreForm,
+    id: string,
+  ): Promise<UpdateScoreForm> {
+    const url = `/scores/${id}`;
+    return this.patch(url, score)
+      .then(() => score)
+      .catch(this.throwError);
+  }
+
+  public async deleteScore(id: string) {
+    const url = `/scores/${id}`;
+    return this.delete(url)
+      .then(() => {})
       .catch(this.throwError);
   }
 }

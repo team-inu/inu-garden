@@ -36,6 +36,14 @@ export const CreateScoreFormSchema = z.object({
 
 export type CreateScoreForm = z.infer<typeof CreateScoreFormSchema>;
 
+export const UpdateScoreFormSchema = z.object({
+  score: z.coerce
+    .number({ required_error: 'required' })
+    .min(0, { message: 'required' }),
+});
+
+export type UpdateScoreForm = z.infer<typeof UpdateScoreFormSchema>;
+
 // payload
 
 // default values
