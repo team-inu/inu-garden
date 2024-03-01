@@ -49,7 +49,7 @@ export const CreateManyPloFormSchema = z.object({
 
 export type CreatePloForm = z.infer<typeof CreatePloFormSchema>;
 export type CreateManyPloForm = z.infer<typeof CreateManyPloFormSchema>;
-
+export type UpdatePloForm = CreatePloForm;
 // payload
 
 // default values

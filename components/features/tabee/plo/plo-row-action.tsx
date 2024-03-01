@@ -23,7 +23,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useDeletePlo, useUpdatePlo } from '@/hooks/plo-hook';
-import { CreatePloForm, PloSchema } from '@/types/schema/plo-schema';
+import { PloSchema, UpdatePloForm } from '@/types/schema/plo-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
@@ -36,7 +36,7 @@ export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const { mutate: updatePlo, isError: isUpdateError } = useUpdatePlo();
   const { mutate: deletePlo, isError: isDeleteError } = useDeletePlo();
 
-  const onSubmit = (values: CreatePloForm) => {
+  const onSubmit = (values: UpdatePloForm) => {
     updatePlo({ plo: values, id: plo.id });
     if (!isUpdateError) {
       setIsEditDialogOpen(false);
