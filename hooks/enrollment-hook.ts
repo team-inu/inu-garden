@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { enrollmentService } from '@/services/enrollment-service';
@@ -15,10 +15,14 @@ export const useGetEnrollmentsByCourseId = (courseId: string) =>
   });
 
 export const useCreateEnrollment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (enrollment: CreateEnrollmentPayload | CreateEnrollmentForm) =>
       enrollmentService.createEnrollment(enrollment),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['enrollments'],
+      });
       toast.success('Enrollment has been created', {
         description: 'You can now add questions to the enrollment.',
       });
