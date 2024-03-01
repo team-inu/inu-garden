@@ -2,7 +2,10 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { assignmentService } from '@/services/assignment-service';
-import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
+import {
+  CreateAssignmentForm,
+  UpdateAssignmentForm,
+} from '@/types/schema/assignment-schema';
 
 export const useGetAssignmentByCourseId = (courseId: string) =>
   useQuery({
@@ -31,6 +34,21 @@ export const useCreateAssignment = () => {
     },
     onError: (error) => {
       toast.error('Failed to create assignment', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useUpdateAssignment = () => {
+  return useMutation({
+    mutationFn: (assignment: UpdateAssignmentForm) =>
+      assignmentService.updateAssignment(assignment),
+    onSuccess: () => {
+      toast.success('Assignment status has been updated');
+    },
+    onError: (error) => {
+      toast.error('Failed to update assignment', {
         description: error.message,
       });
     },

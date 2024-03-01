@@ -1,17 +1,16 @@
 'use client';
 
-import { DialogClose } from '@radix-ui/react-dialog';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
+import AssignmentEditDialog from '@/components/features/course/assignment/assigment-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -21,9 +20,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useUpdateAssignment } from '@/hooks/assignment-hook';
 import {
   AssignmentSchema,
-  CreateAssignmentForm,
+  UpdateAssignmentForm,
 } from '@/types/schema/assignment-schema';
 
 interface DataTableRowActionsProps<TData> {
@@ -33,18 +33,21 @@ interface DataTableRowActionsProps<TData> {
 export function AssigmentRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const assignmentData = AssignmentSchema.parse(row.original);
+  const assignment = AssignmentSchema.parse(row.original);
+
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  // const po = checkMultipleString(assignmentData.po);
-  // const plo = checkMultipleString(assignmentData.plo);
 
-  const onSubmit = (values: CreateAssignmentForm) => {
-    console.log(values);
-  };
+  const { mutate: updateAssignment, isError: isUpdateError } =
+    useUpdateAssignment();
 
-  const onDelete = () => {
-    console.log('delete');
+  const onDelete = () => {};
+
+  const onSubmitEdit = (values: UpdateAssignmentForm) => {
+    updateAssignment(values);
+    // if (!isUpdateError) {
+    //   setIsEditDialogOpen(false);
+    // }
   };
 
   return (
@@ -74,16 +77,21 @@ export function AssigmentRowActions<TData>({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      {/* {isEditDialogOpen && (
+      {isEditDialogOpen && (
         <AssignmentEditDialog
-          onSubmit={onSubmit}
+          onSubmit={onSubmitEdit}
           defaultValues={{
-            ...assignmentData,
-            clo: [{ label: 'clo', value: 'clo', disable: false }],
-            description: '',
+            id: assignment.id,
+            description: assignment.description,
+            expectedPassingStudentPercentage:
+              assignment.expectedPassingStudentPercentage,
+            expectedScorePercentage: assignment.expectedScorePercentage,
+            maxScore: assignment.maxScore,
+            name: assignment.name,
+            weight: assignment.weight,
           }}
         />
-      )} */}
+      )}
 
       {isDeleteDialogOpen && (
         <DialogContent>
@@ -93,13 +101,13 @@ export function AssigmentRowActions<TData>({
               {`You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
-
+          {/* 
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
             <Button onClick={onDelete}>Delete</Button>
-          </DialogFooter>
+          </DialogFooter> */}
         </DialogContent>
       )}
     </Dialog>
