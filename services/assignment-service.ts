@@ -3,6 +3,7 @@ import {
   CreateAssignmentForm,
   GetAssignmentByIdResponse,
   GetAssignmentResponse,
+  UpdateAssignmentForm,
 } from '@/types/schema/assignment-schema';
 
 class AssignmentService extends ApiService {
@@ -21,6 +22,16 @@ class AssignmentService extends ApiService {
       courseLearningOutcomeIds: assignment.clo.map((clo) => clo.value),
     };
     return this.post(url, result)
+      .then(() => assignment)
+      .catch(this.throwError);
+  }
+
+  public async updateAssignment(
+    assignment: UpdateAssignmentForm,
+  ): Promise<UpdateAssignmentForm> {
+    const url = `/assignments/${assignment.id}`;
+
+    return this.patch(url, assignment)
       .then(() => assignment)
       .catch(this.throwError);
   }

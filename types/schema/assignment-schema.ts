@@ -51,7 +51,14 @@ export const CreateAssignmentFormSchema = z.object({
   }),
 });
 
+export const UpdateAssignmentFormSchema = CreateAssignmentFormSchema.omit({
+  clo: true,
+}).extend({
+  id: z.string(),
+});
+
 export type CreateAssignmentForm = z.infer<typeof CreateAssignmentFormSchema>;
+export type UpdateAssignmentForm = z.infer<typeof UpdateAssignmentFormSchema>;
 
 // payload
 
@@ -61,6 +68,16 @@ export const CreateAssignmentFormDefaultValues: CreateAssignmentForm = {
   name: '',
   description: '',
   clo: [],
+  weight: 0,
+  maxScore: 0,
+  expectedScorePercentage: 0,
+  expectedPassingStudentPercentage: 0,
+};
+
+export const UpdateAssignmentFormDefaultValues: UpdateAssignmentForm = {
+  id: '',
+  name: '',
+  description: '',
   weight: 0,
   maxScore: 0,
   expectedScorePercentage: 0,
