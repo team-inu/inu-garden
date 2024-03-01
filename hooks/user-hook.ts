@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { userService } from '@/services/user-service';
@@ -15,9 +15,13 @@ export const useGetUserList = () =>
   });
 
 export const useCreateUser = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (user: CreateUserForm) => userService.createUser(user),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['users'],
+      });
       toast.success('Student has been created', {
         description: 'You can now add questions to the student.',
       });

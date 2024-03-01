@@ -134,7 +134,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({
   ];
 
   var CollapsibleRowContent = ({ row }: { row: UserColumn }) => (
-    <td colSpan={6} className="space-y-3 divide-y-2 divide-orange-400">
+    <td colSpan={7} className="space-y-3 divide-y-2 divide-orange-400">
       {mockData.map((data, key) => (
         <div className="container" key={key}>
           <div className="flex w-full items-center p-5">
