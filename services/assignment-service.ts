@@ -47,6 +47,11 @@ class AssignmentService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async deleteAssignment(assignmentId: string) {
+    const url = `/assignments/${assignmentId}`;
+    return this.delete(url).catch(this.throwError);
+  }
+
   public async getAssignmentById(
     assignmentId: string,
   ): Promise<GetAssignmentByIdResponse> {

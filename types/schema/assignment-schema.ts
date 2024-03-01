@@ -26,7 +26,6 @@ export type GetAssignmentByIdResponse = GetAssignmentResponse & {
 // column
 
 export type AssignmentColumn = z.infer<typeof AssignmentSchema>;
-
 // form
 
 const optionSchema = z.object({

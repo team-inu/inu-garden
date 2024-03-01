@@ -1,5 +1,6 @@
 'use client';
 
+import { DialogClose } from '@radix-ui/react-dialog';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
@@ -11,6 +12,7 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
@@ -20,7 +22,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateAssignment } from '@/hooks/assignment-hook';
+import {
+  useDeleteAssignment,
+  useUpdateAssignment,
+} from '@/hooks/assignment-hook';
 import {
   AssignmentSchema,
   UpdateAssignmentForm,
@@ -41,13 +46,17 @@ export function AssigmentRowActions<TData>({
   const { mutate: updateAssignment, isError: isUpdateError } =
     useUpdateAssignment();
 
-  const onDelete = () => {};
+  const { mutate: deleteAssignment } = useDeleteAssignment();
+
+  const onSubmitDelete = () => {
+    deleteAssignment(assignment.id);
+  };
 
   const onSubmitEdit = (values: UpdateAssignmentForm) => {
     updateAssignment(values);
-    // if (!isUpdateError) {
-    //   setIsEditDialogOpen(false);
-    // }
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
+    }
   };
 
   return (
@@ -101,13 +110,13 @@ export function AssigmentRowActions<TData>({
               {`You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
-          {/* 
+
           <DialogFooter>
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
-          </DialogFooter> */}
+            <Button onClick={onSubmitDelete}>Delete</Button>
+          </DialogFooter>
         </DialogContent>
       )}
     </Dialog>
