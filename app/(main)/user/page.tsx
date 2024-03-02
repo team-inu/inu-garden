@@ -5,6 +5,7 @@ import { withAuth } from '@/components/features/routes/private-route';
 import { columns } from '@/components/features/user/user-column';
 import { UserDataTable } from '@/components/features/user/user-table';
 import { useGetUserList } from '@/hooks/user-hook';
+import { Role } from '@/types/auth-type';
 
 const UserPage = () => {
   const { data: users, isLoading } = useGetUserList();
@@ -33,4 +34,4 @@ const UserPage = () => {
   );
 };
 
-export default withAuth(UserPage, ['admin']);
+export default withAuth(UserPage, [Role.MODERATOR]);

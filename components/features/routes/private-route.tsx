@@ -5,15 +5,21 @@ import { toast } from 'sonner';
 
 import NoPermission from '@/components/no-permission';
 import { useAuth } from '@/hooks/auth-hook';
+import { Role } from '@/types/auth-type';
 
 export type WithAuthProps = {
   children?: ReactNode;
-  role?: string[];
+  role?: Role[];
 };
 
 export function withAuth<T extends WithAuthProps = WithAuthProps>(
   WrappedComponent: ComponentType<T>,
-  role: string[] = ['lecturer', 'admin'],
+  role: Role[] = [
+    Role.LECTURER,
+    Role.MODERATOR,
+    Role.HEAD_OF_CRICULUM,
+    Role.TABEE_MANAGER,
+  ],
   herf: string = '/login',
 ) {
   const displayName =
