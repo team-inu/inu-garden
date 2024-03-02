@@ -2,7 +2,6 @@
 
 import * as React from 'react';
 
-import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -13,6 +12,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { PassowrdInput } from '@/components/ui/password-input';
 import { useAuth } from '@/hooks/auth-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { cn } from '@/libs/utils';
@@ -44,7 +44,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               Welcome back
             </h1>
             <p className="text-secondary-foreground">
-              Start coding and improve your skills!
+              Sign in to your account to continue
             </p>
           </div>
 
@@ -73,7 +73,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input
+                  <PassowrdInput
                     type="password"
                     placeholder=""
                     autoComplete="current-password"
@@ -93,20 +93,6 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
           </div>
         </form>
       </Form>
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
-        </div>
-        <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-background px-2 text-muted-foreground">
-            Or continue with
-          </span>
-        </div>
-      </div>
-      <Button variant="outline" type="button">
-        <Icons.gitHub className="mr-2 h-4 w-4" />
-        Github
-      </Button>
     </div>
   );
 }
