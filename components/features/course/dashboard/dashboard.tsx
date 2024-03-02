@@ -1,6 +1,5 @@
 import { TimerIcon } from '@radix-ui/react-icons';
 import { FolderIcon, UserIcon } from 'lucide-react';
-import React from 'react';
 
 import BadStudent from '@/components/bad-student';
 import { Overview } from '@/components/overview';
@@ -27,12 +26,11 @@ export default function Dashboard() {
           <CardContent>
             {/* Latest Assigment */}
             <div className="flex items-center text-2xl font-bold">
-              Lomuto
+              -
               <Badge variant="green" className="ml-2">
                 New
               </Badge>
             </div>
-            <p className="text-xs text-muted-foreground">due date 12/12/2021</p>
           </CardContent>
         </Card>
         <Card>
@@ -43,10 +41,8 @@ export default function Dashboard() {
             <UserIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">42</div>
-            <p className="text-xs text-muted-foreground">
-              including A and B sections
-            </p>
+            <div className="text-2xl font-bold"> - </div>
+            <p className="text-xs text-muted-foreground">-</p>
           </CardContent>
         </Card>
         <Card>
@@ -55,8 +51,8 @@ export default function Dashboard() {
             <FolderIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">2</div>
-            <p className="text-xs text-muted-foreground">assessing 3 clos</p>
+            <div className="text-2xl font-bold">-</div>
+            <p className="text-xs text-muted-foreground">-</p>
           </CardContent>
         </Card>
         <Card>
@@ -66,9 +62,9 @@ export default function Dashboard() {
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">63%</div>
+            <div className="text-2xl font-bold">-%</div>
             <p className="text-xs text-muted-foreground">
-              3 out of 5 students passed
+              - out of - students passed
             </p>
           </CardContent>
         </Card>
@@ -90,31 +86,7 @@ export default function Dashboard() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <BadStudent
-              data={[
-                {
-                  studentId: '6307050XXXX',
-                  firstName: 'John',
-                  lastName: 'Doe',
-                  email: 'jhon@mail.com',
-                  fails: 3,
-                },
-                {
-                  studentId: '6307050XXXX',
-                  firstName: 'Annie',
-                  lastName: 'Doe',
-                  email: 'no@mail.com',
-                  fails: 2,
-                },
-                {
-                  studentId: '6307050XXXX',
-                  firstName: 'Por',
-                  lastName: 'Ping',
-                  email: 'no@mail.com',
-                  fails: 1,
-                },
-              ]}
-            />
+            <BadStudent data={[]} />
           </CardContent>
         </Card>
       </div>
