@@ -1,16 +1,19 @@
 import { Loader2Icon } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { ComponentType, ReactNode, useEffect } from 'react';
 import { toast } from 'sonner';
 
+import NoPermission from '@/components/no-permission';
 import { useAuth } from '@/hooks/auth-hook';
 
 export type WithAuthProps = {
   children?: ReactNode;
+  role?: string[];
 };
 
 export function withAuth<T extends WithAuthProps = WithAuthProps>(
   WrappedComponent: ComponentType<T>,
+  role: string[] = ['lecturer', 'admin'],
   herf: string = '/login',
 ) {
   const displayName =
@@ -19,6 +22,9 @@ export function withAuth<T extends WithAuthProps = WithAuthProps>(
   const ComponentWithAuth = (props: Omit<T, keyof WithAuthProps>) => {
     const { user } = useAuth();
     const router = useRouter();
+    const path = usePathname();
+
+    console.log('path', path);
 
     useEffect(() => {
       if (user.isError) {
@@ -36,6 +42,11 @@ export function withAuth<T extends WithAuthProps = WithAuthProps>(
           </div>
         </div>
       );
+    }
+
+    //if user role is not admin or super admin redirect course page
+    if (user.data && !role.includes(user.data.role)) {
+      return <NoPermission />;
     }
 
     return user.isError ? (
