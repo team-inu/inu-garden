@@ -87,6 +87,12 @@ class CourseLearningOutcomeService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async deleteClo(cloId: string) {
+    const url = `/clos/${cloId}`;
+
+    return this.delete(url).catch(this.throwError);
+  }
+
   public async unLinkSubPlo(cloId: string, subPloId: string): Promise<void> {
     const url = `/clos/${cloId}/subplos/${subPloId}`;
 

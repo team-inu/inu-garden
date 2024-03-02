@@ -71,6 +71,24 @@ export const useUpdateClo = () => {
   });
 };
 
+export const useDeleteClo = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (cloId: string) => cloService.deleteClo(cloId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['clo'],
+      });
+      toast.success('clo has been deleted');
+    },
+    onError: (error) => {
+      toast.error('Failed to delete clo', {
+        description: error.message,
+      });
+    },
+  });
+};
+
 export const useLinkSubPlo = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -97,7 +115,7 @@ export const useUnLinkSubPlo = () => {
       cloService.unLinkSubPlo(cloId, subPloId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['clo', 'splos','cloId'],
+        queryKey: ['clo', 'splos', 'cloId'],
       });
       toast.success('Sub PLO has been unlinked');
     },

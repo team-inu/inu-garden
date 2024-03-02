@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateClo } from '@/hooks/clo-hook';
+import { useDeleteClo, useUpdateClo } from '@/hooks/clo-hook';
 import { CloSchema, EditCloForm } from '@/types/schema/clo-shema';
 
 interface DataTableRowActionsProps<TData> {
@@ -35,6 +35,7 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const { mutate: updateClo, isError: isUpdateError } = useUpdateClo();
+  const { mutate: deleteClo, isError: isDeleteError } = useDeleteClo();
 
   const onSubmit = (values: EditCloForm) => {
     updateClo(values);
@@ -44,7 +45,10 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   };
 
   const onDelete = () => {
-    console.log('delete');
+    deleteClo(clo.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
+    }
   };
 
   return (
