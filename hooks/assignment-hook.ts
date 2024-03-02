@@ -69,3 +69,27 @@ export const useDeleteAssignment = () => {
     },
   });
 };
+
+export const useUnLinkClo = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      assignmentId,
+      cloId: cloId,
+    }: {
+      assignmentId: string;
+      cloId: string;
+    }) => assignmentService.unLinkClo(assignmentId, cloId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['assignments', 'clos', 'assignmentId'],
+      });
+      toast.success('clo has been unlinked');
+    },
+    onError: (error) => {
+      toast.error('Failed to unlink clo', {
+        description: error.message,
+      });
+    },
+  });
+};

@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { columns as assignmentColumns } from '@/components/features/course/assignment/assignment-column';
@@ -30,12 +30,15 @@ type SelectedRowType = {
 };
 
 const Assignment = () => {
+  const router = useRouter();
+  const pathName = usePathname();
   const [selectedRows, setSelectedRows] = useState<SelectedRowType>({
     name: '',
     id: '',
   });
   const getVales = (id: string, name: string) => {
     setSelectedRows({ name: name, id: id });
+    router.push(`${pathName}/?assignmentId=${id}&tab=assignment`);
   };
   const { id: courseId } = useParams<{ id: string }>();
 

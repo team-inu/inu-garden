@@ -63,6 +63,16 @@ class AssignmentService extends ApiService {
       )
       .catch(this.throwError);
   }
+
+  public async unLinkClo(assignmentId: string, cloId: string): Promise<void> {
+    const url = `/assignments/${assignmentId}/clos/${cloId}`;
+
+    return this.delete(url)
+      .then((response) => {
+        return response.data.data as unknown as void;
+      })
+      .catch(this.throwError);
+  }
 }
 
 export const assignmentService = new AssignmentService();
