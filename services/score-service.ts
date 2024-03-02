@@ -26,7 +26,6 @@ class ScoreService extends ApiService {
     const url = '/scores';
     const result = {
       studentScores: [data],
-      userId: '01HQE0N3SWK4QEYK7Y24CJETHX', //Todo: get user id from session backend
       assignmentId: assignmentId,
     };
     return this.post(url, result)
