@@ -1,6 +1,7 @@
 'use client';
 
 import Loading from '@/components/features/loading-screen';
+import { withAuth } from '@/components/features/routes/private-route';
 import { columns } from '@/components/features/user/user-column';
 import { UserDataTable } from '@/components/features/user/user-table';
 import { useGetUserList } from '@/hooks/user-hook';
@@ -32,4 +33,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default withAuth(UserPage, ['admin']);
