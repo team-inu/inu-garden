@@ -38,7 +38,7 @@ const Assignment = () => {
   });
   const getVales = (id: string, name: string) => {
     setSelectedRows({ name: name, id: id });
-    router.push(`${pathName}/?assignmentId=${id}&tab=assignment`);
+    router.push(`${pathName}/?assignmentId=${id}&clolength=&tab=assignment`);
   };
   const { id: courseId } = useParams<{ id: string }>();
 
@@ -72,6 +72,9 @@ const Assignment = () => {
                   data={assignment?.courseLearningOutcomes ?? []}
                   disablePagination={true}
                   isAssignmentLink
+                  cloId={assignment?.courseLearningOutcomes.map(
+                    (clo) => clo.id,
+                  )}
                 />
               </CardContent>
             </Card>

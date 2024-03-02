@@ -60,6 +60,10 @@ export type CreateAssignmentForm = z.infer<typeof CreateAssignmentFormSchema>;
 export type UpdateAssignmentForm = z.infer<typeof UpdateAssignmentFormSchema>;
 
 // payload
+export type CreateAssigmentLinkCloPayload = {
+  assignmentId: string;
+  courseLearningOutcomeIds: string[];
+};
 
 // default values
 

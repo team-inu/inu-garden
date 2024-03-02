@@ -15,7 +15,7 @@ export const useGetAssignmentByCourseId = (courseId: string) =>
 
 export const useGetAssignmentById = (assignmentId: string) =>
   useQuery({
-    queryKey: ['assignments', assignmentId],
+    queryKey: ['assignmentsClo', assignmentId],
     queryFn: () => assignmentService.getAssignmentById(assignmentId),
   });
 
@@ -70,6 +70,34 @@ export const useDeleteAssignment = () => {
   });
 };
 
+export const useLinkClo = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      assignmentId,
+      courseLearningOutcomeIds,
+    }: {
+      assignmentId: string;
+      courseLearningOutcomeIds: string[];
+    }) =>
+      assignmentService.linkClo({
+        assignmentId,
+        courseLearningOutcomeIds,
+      }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['assignmentsClo'],
+      });
+      toast.success('clo has been linked');
+    },
+    onError: (error) => {
+      toast.error('Failed to link clo', {
+        description: error.message,
+      });
+    },
+  });
+};
+
 export const useUnLinkClo = () => {
   const queryClient = useQueryClient();
   return useMutation({
@@ -82,7 +110,7 @@ export const useUnLinkClo = () => {
     }) => assignmentService.unLinkClo(assignmentId, cloId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['assignments', 'clos', 'assignmentId'],
+        queryKey: ['assignmentsClo'],
       });
       toast.success('clo has been unlinked');
     },

@@ -1,5 +1,6 @@
 import { ApiService } from '@/services/api-service';
 import {
+  CreateAssigmentLinkCloPayload,
   CreateAssignmentForm,
   GetAssignmentByIdResponse,
   GetAssignmentResponse,
@@ -61,6 +62,21 @@ class AssignmentService extends ApiService {
         (response) =>
           response.data.data as unknown as GetAssignmentByIdResponse,
       )
+      .catch(this.throwError);
+  }
+
+  public async linkClo(
+    value: CreateAssigmentLinkCloPayload,
+  ): Promise<CreateAssigmentLinkCloPayload> {
+    const url = `/assignments/${value.assignmentId}/clos`;
+    const result = {
+      courseLearningOutcomeIds: value.courseLearningOutcomeIds,
+    };
+
+    return this.post(url, result)
+      .then(() => {
+        return value;
+      })
       .catch(this.throwError);
   }
 
