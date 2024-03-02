@@ -27,22 +27,22 @@ const LoginPage = () => {
         <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
           <Image
             className="absolute inset-0 bg-zinc-900"
-            src="https://media.tenor.com/UdISY4O42VQAAAAd/realistic-cat.gif"
+            src="/images/landing.webp"
             layout="fill"
             alt={''}
           />
           <div className="relative z-20 flex items-center space-x-3 text-lg font-medium">
             <Image src="/images/shiba.svg" width={40} height={40} alt="Inu" />
-            <div> Inu</div>
+            <div className="text-secondary"> Inu</div>
           </div>
-          <div className="relative z-20 mt-auto">
+          <div className="relative z-20 mt-auto rounded-lg bg-secondary/80 p-5 hover:animate-pulse">
             <blockquote className="space-y-2">
-              <p className="text-lg">
+              <p className="text-secondary-foreground">
                 &ldquo;Inu is the best platform for managing your courses and
                 assignments. It has everything you need to manage your
                 courses.&rdquo;
               </p>
-              <footer className="text-sm">Inu team</footer>
+              <footer className="text-secondary-foreground">Inu team</footer>
             </blockquote>
           </div>
         </div>
