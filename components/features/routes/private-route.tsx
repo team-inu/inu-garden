@@ -17,7 +17,7 @@ export function withAuth<T extends WithAuthProps = WithAuthProps>(
   role: Role[] = [
     Role.LECTURER,
     Role.MODERATOR,
-    Role.HEAD_OF_CRRICULUM,
+    Role.HEAD_OF_CURRICULUM,
     Role.TABEE_MANAGER,
   ],
   herf: string = '/login',
