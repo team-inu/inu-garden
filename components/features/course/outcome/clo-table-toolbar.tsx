@@ -3,8 +3,9 @@
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { useParams, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import CloAddDialog from '@/components/features/course/outcome/clo-add-dialog';
 import CloImportDialog from '@/components/features/course/outcome/clo-import-dialog';
@@ -14,8 +15,12 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useLinkClo } from '@/hooks/assignment-hook';
 import { useCreateClo } from '@/hooks/clo-hook';
-import { CreateCloForm } from '@/types/schema/clo-shema';
+import {
+  CreateCloForm,
+  CreateCloLinkAssignment,
+} from '@/types/schema/clo-shema';
 
 export type Option = {
   value: string;
@@ -35,6 +40,7 @@ interface DataTableToolbarProps<TData> {
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
   isAssignmentLink?: boolean;
+  cloId?: string[];
 }
 
 export function CloTableToolbar<TData>({
@@ -43,23 +49,37 @@ export function CloTableToolbar<TData>({
   isViewOptions = true,
   isCreateEnabled = true,
   isAssignmentLink = false,
+  cloId,
 }: DataTableToolbarProps<TData>) {
   const { id: courseId } = useParams();
+  const assignmentId = useSearchParams().get('assignmentId');
   const hasOption = something.length > 0;
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isSuccess } = useCreateClo();
+  const { mutate: linkMutate, isSuccess: linkIsSuccess } = useLinkClo();
 
   useEffect(() => {
-    if (isSuccess) {
+    if (isSuccess || linkIsSuccess) {
       setIsAddOpen(false);
     }
-  }, [isSuccess]);
+  }, [isSuccess, linkIsSuccess]);
 
   const handleSubmitClo = (values: CreateCloForm) => {
     mutate({ clo: values, courseId });
+  };
+
+  const handleLinkClo = (values: CreateCloLinkAssignment) => {
+    if (assignmentId) {
+      linkMutate({
+        assignmentId,
+        courseLearningOutcomeIds: values.clos.map((clo) => clo.value),
+      });
+    } else {
+      toast.error('Please select an assignment');
+    }
   };
 
   return (
@@ -115,7 +135,10 @@ export function CloTableToolbar<TData>({
 
             {isAssignmentLink ? (
               <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-                <CloLinkAssignmentDialog onSubmit={() => {}} />
+                <CloLinkAssignmentDialog
+                  onSubmit={handleLinkClo}
+                  cloId={cloId}
+                />
               </Dialog>
             ) : (
               <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>

@@ -59,13 +59,13 @@ const CloLinkAssignmentDialog: React.FC<CloDialogProps> = ({
               name="clos"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Sub Program Learning Outcome</FormLabel>
+                  <FormLabel>Course learning outcome</FormLabel>
                   <FormControl>
                     <MultipleSelector
                       value={field.value}
                       onChange={field.onChange}
                       options={closData
-                        ?.filter((clo) => cloId?.includes(clo.id))
+                        ?.filter((clo) => !cloId?.includes(clo.id))
                         .map((clo) => ({
                           label: clo.description,
                           value: clo.id,

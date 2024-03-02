@@ -1,7 +1,7 @@
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
-import { Row } from '@tanstack/react-table';
+import { Column, Row } from '@tanstack/react-table';
 import { Trash2 } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -23,6 +23,7 @@ import { CloSchema } from '@/types/schema/clo-shema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
+  column: Column<TData>;
 }
 
 export function CloUnlinkAssignment<TData>({

@@ -98,11 +98,8 @@ export const cloStaticColumn: ColumnDef<CloColumn>[] = [
 
   {
     id: 'actions',
-    cell: ({ row }) => <CloUnlinkAssignment row={row} />,
-    // cell: ({ row }) => (
-    //   <div>
-    //     <Trash2Icon className="cursor-pointer hover:text-destructive  " />
-    //   </div>
-    // ),
+    cell: ({ row, column }) => (
+      <CloUnlinkAssignment row={row} column={column} />
+    ),
   },
 ];
