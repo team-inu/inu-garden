@@ -22,7 +22,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { useUpdateStudent } from '@/hooks/student-hook';
+import { useDeleteStudent, useUpdateStudent } from '@/hooks/student-hook';
 import {
   StudentSchema,
   UpdateStudentForm,
@@ -39,6 +39,7 @@ export function StudentRowActions<TData>({
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const { mutate: updateStudent, isError: isUpdateError } = useUpdateStudent();
+  const { mutate: deleteStudent, isError: isDeleteError } = useDeleteStudent();
 
   const onSubmit = (values: UpdateStudentForm) => {
     updateStudent(values);
@@ -48,7 +49,10 @@ export function StudentRowActions<TData>({
   };
 
   const onDelete = () => {
-    console.log('delete');
+    deleteStudent(student.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
+    }
   };
 
   return (

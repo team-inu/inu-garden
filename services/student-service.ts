@@ -47,6 +47,13 @@ class StudentService extends ApiService {
       .then(() => student)
       .catch(this.throwError);
   }
+
+  public async deleteStudent(id: string) {
+    const url = `/students/${id}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
 }
 
 export const studentService = new StudentService();
