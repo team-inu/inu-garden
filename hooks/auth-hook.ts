@@ -27,7 +27,7 @@ export const useAuth = () => {
       })
       .catch((error) => {
         toast.error('Cannot sign in to your account', {
-          description: error,
+          description: error.message,
         });
       });
   };
