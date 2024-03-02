@@ -54,7 +54,7 @@ export function UserRowActions<TData>({
   const onDelete = () => {
     deleteUser(user.id);
     if (!isDeleteError) {
-      setIsEditDialogOpen(false);
+      setIsDeleteDialogOpen(false);
     }
   };
 

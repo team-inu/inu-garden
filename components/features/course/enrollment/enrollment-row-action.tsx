@@ -58,7 +58,7 @@ export function EnrollmentRowActions<TData>({
   const onSubmitDelete = () => {
     deleteEnrollment(enrollment.id);
     if (!isDeleteError) {
-      setIsEditDialogOpen(false);
+      setIsDeleteDialogOpen(false);
     }
   };
 

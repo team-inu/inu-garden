@@ -46,10 +46,14 @@ export function AssigmentRowActions<TData>({
   const { mutate: updateAssignment, isError: isUpdateError } =
     useUpdateAssignment();
 
-  const { mutate: deleteAssignment } = useDeleteAssignment();
+  const { mutate: deleteAssignment, isError: isDeleteError } =
+    useDeleteAssignment();
 
   const onSubmitDelete = () => {
     deleteAssignment(assignment.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
+    }
   };
 
   const onSubmitEdit = (values: UpdateAssignmentForm) => {
