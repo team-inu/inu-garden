@@ -46,10 +46,10 @@ export function StudentTableToolbar<TData>({
   const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const { mutate, isSuccess } = useCreateStudent();
+  const { mutate, isError } = useCreateStudent();
   const onSubmit = (value: CreateStudentForm) => {
     mutate(value);
-    if (isSuccess) {
+    if (!isError) {
       setIsOpen(false);
     }
   };
