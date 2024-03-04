@@ -48,7 +48,7 @@ const HomePage = () => {
                 <Link href="/course/1/portfolio">
                   <Button>Course Portfolio</Button>
                 </Link>
-                <Link href="/course/1/setting">
+                <Link href={`/course/${courseId}/setting`}>
                   <Button variant="secondary">Course Setting</Button>
                 </Link>
               </div>

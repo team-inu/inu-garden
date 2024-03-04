@@ -26,26 +26,25 @@ const CreateCoursePage = () => {
   };
 
   const checkGrade = (values: CreateCourseSchemaValues) => {
-    const grade = values.criteriaGrade;
-    if (grade.criteriaGradeA < grade.criteriaGradeBP) {
+    if (values.criteriaGradeA < values.criteriaGradeBP) {
       throw new Error('A grade must be greater than B+ grade');
     }
-    if (grade.criteriaGradeBP < grade.criteriaGradeB) {
+    if (values.criteriaGradeBP < values.criteriaGradeB) {
       throw new Error('B+ grade must be greater than B grade');
     }
-    if (grade.criteriaGradeB < grade.criteriaGradeCP) {
+    if (values.criteriaGradeB < values.criteriaGradeCP) {
       throw new Error('B grade must be greater than C+ grade');
     }
-    if (grade.criteriaGradeCP < grade.criteriaGradeC) {
+    if (values.criteriaGradeCP < values.criteriaGradeC) {
       throw new Error('C+ grade must be greater than C grade');
     }
-    if (grade.criteriaGradeC < grade.criteriaGradeDP) {
+    if (values.criteriaGradeC < values.criteriaGradeDP) {
       throw new Error('C grade must be greater than D+ grade');
     }
-    if (grade.criteriaGradeDP < grade.criteriaGradeD) {
+    if (values.criteriaGradeDP < values.criteriaGradeD) {
       throw new Error('D+ grade must be greater than D grade');
     }
-    if (grade.criteriaGradeD < grade.criteriaGradeF) {
+    if (values.criteriaGradeD < values.criteriaGradeF) {
       throw new Error('D grade must be greater than F grade');
     }
   };
