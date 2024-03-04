@@ -1,5 +1,7 @@
 'use client';
 
+import { useParams } from 'next/navigation';
+
 import { Button } from '@/components/ui/button';
 import {
   Form,
@@ -18,114 +20,44 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { useUpdateCourse } from '@/hooks/course-hook';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useGetProgrammeList } from '@/hooks/programme-hook';
 import {
-  UpdateCourseDefaultValues,
   UpdateCourseFormValues,
   UpdateCourseSchema,
 } from '@/types/schema/course-schema';
 
-export function CourseSettingForm() {
-  //TODO: get default values from server
-  const form = useStrictForm(UpdateCourseSchema, UpdateCourseDefaultValues);
+type CourseSettingFormProps = {
+  defaultValues: UpdateCourseFormValues;
+};
+
+const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
+  defaultValues,
+}) => {
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data: programmeData } = useGetProgrammeList();
+  const { mutate } = useUpdateCourse();
+  const form = useStrictForm(UpdateCourseSchema, defaultValues);
 
   function onSubmit(data: UpdateCourseFormValues) {
-    console.log(data);
+    mutate({ course: data, courseId });
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <FormField
-          name="department"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Department</FormLabel>
-              <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a department" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value={'1'}>Computer Engineer</SelectItem>
-                    <SelectItem value={'2'}>Chemistry Engineer </SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name="programme"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Programme</FormLabel>
-              <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a semester" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value={'1'}>Computer Engineer</SelectItem>
-                    <SelectItem value={'2'}>PLO2</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          name={'education'}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>ระดับการศึกษา</FormLabel>
-              <FormControl>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select a education" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value={'bachelor'}>ปริญญาตรี</SelectItem>
-                    <SelectItem value={'master'}>ปริญญาโท</SelectItem>
-                    <SelectItem value={'doctorate'}>ปริญญาเอก</SelectItem>
-                  </SelectContent>
-                </Select>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
         {[
           {
             name: 'code',
-            label: 'รหัสวิชา',
+            label: 'Code',
             placeholder: '',
             description: '',
           },
           {
             name: 'name',
-            label: 'ชื่อวิชา',
-            placeholder: '',
-            description: '',
-          },
-          {
-            name: 'credit',
-            label: 'จำนวนหน่วยกิต',
-            placeholder: '',
-            description: '',
-          },
-          {
-            name: 'user',
-            label: 'ชื่ออาจารยฺ์ผู้สอน',
+            label: 'Name',
             placeholder: '',
             description: '',
           },
@@ -149,8 +81,119 @@ export function CourseSettingForm() {
           );
         })}
 
+        <FormField
+          name="curriculum"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Programme</FormLabel>
+              <FormControl>
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a programme" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {programmeData?.map((programme, index) => (
+                      <SelectItem key={index} value={programme.name}>
+                        {programme.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <div className="grid grid-cols-4 gap-5">
+          {[
+            {
+              name: 'criteriaGradeA',
+              label: 'A',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeBP',
+              label: 'B+',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeB',
+              label: 'B',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeCP',
+              label: 'C+',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeC',
+              label: 'C',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeDP',
+              label: 'D+',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeD',
+              label: 'D',
+              placeholder: '',
+              description: '',
+            },
+            {
+              name: 'criteriaGradeF',
+              label: 'F',
+              placeholder: '',
+              description: '',
+            },
+          ].map((e, i) => {
+            return (
+              <FormField
+                key={i}
+                control={form.control}
+                name={e.name as 'name'}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{e.label}</FormLabel>
+                    <FormControl>
+                      <Input placeholder={e.placeholder} {...field} />
+                    </FormControl>
+                    <FormDescription>{e.description}</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            );
+          })}
+        </div>
+        <FormField
+          control={form.control}
+          name={'description'}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea className="w-full" {...field} />
+              </FormControl>
+
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <Button type="submit">Update account</Button>
       </form>
     </Form>
   );
-}
+};
+
+export default CourseSettingForm;

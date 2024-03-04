@@ -4,11 +4,17 @@ import {
   BreadcrumbLink,
 } from '@/components/ui/breadcrumb';
 
-const CourseSettingHeader = () => {
+type CourseSettingHeaderProps = {
+  courseId: string;
+};
+
+const CourseSettingHeader: React.FC<CourseSettingHeaderProps> = ({
+  courseId,
+}) => {
   return (
     <Breadcrumb>
       <BreadcrumbItem>
-        <BreadcrumbLink href={'http://localhost:3000/course/1'}>
+        <BreadcrumbLink href={`http://localhost:3000/course/${courseId}`}>
           Dashboard
         </BreadcrumbLink>
       </BreadcrumbItem>
