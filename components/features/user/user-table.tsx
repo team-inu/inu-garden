@@ -113,8 +113,6 @@ export function UserDataTable<TData extends UserColumn, TValue>({
       };
     });
 
-    console.log(payload);
-
     e.target.value = '';
   };
 

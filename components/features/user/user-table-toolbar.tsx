@@ -52,7 +52,6 @@ export function UserTableToolbar<TData>({
     useCreateManyUsers();
 
   const onSubmitAddUser = (value: CreateUserForm) => {
-    console.log('hihi');
     createUser(value);
     if (!isCreateUserError) {
       setIsAddUserOpen(false);

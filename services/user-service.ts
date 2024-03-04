@@ -29,7 +29,6 @@ class UserService extends ApiService {
   ): Promise<CreateManyUserForm> {
     const url = '/users/bulk';
 
-    console.log(users);
     return this.post(url, users)
       .then(() => users)
       .catch(this.throwError);

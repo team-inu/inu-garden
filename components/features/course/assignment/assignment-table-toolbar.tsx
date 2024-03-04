@@ -50,7 +50,6 @@ export function AssignmentTableToolbar<TData>({
 
   const HandleSubmitAssigment = (values: CreateAssignmentForm) => {
     mutate(values);
-    console.log(status);
 
     if (!isError) {
       setIsOpen(false);

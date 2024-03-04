@@ -100,8 +100,6 @@ export function ScoreDataTable<TData, TValue>({
       };
     });
 
-    console.log(payload);
-
     e.target.value = '';
   };
 
