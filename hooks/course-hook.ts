@@ -4,7 +4,10 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { courseService } from '@/services/course-service';
-import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
+import {
+  CreateCourseSchemaValues,
+  UpdateCourseFormValues,
+} from '@/types/schema/course-schema';
 
 export const useCreateCourse = () => {
   return useMutation({
@@ -17,6 +20,28 @@ export const useCreateCourse = () => {
     },
     onError: (error) => {
       toast.error('Failed to create course', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useUpdateCourse = () => {
+  return useMutation({
+    mutationFn: ({
+      course,
+      courseId,
+    }: {
+      course: UpdateCourseFormValues;
+      courseId: string;
+    }) => courseService.updateCourse(course, courseId),
+    onSuccess: () => {
+      toast.success('Course has been updated', {
+        description: 'You can now add questions to the course.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to update course', {
         description: error.message,
       });
     },
