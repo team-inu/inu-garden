@@ -1,4 +1,4 @@
-import { Table, TableRow } from 'docx';
+import { TableRow } from 'docx';
 
 import { createCell } from '@/libs/word/utils';
 import {
@@ -37,9 +37,7 @@ export class GradeTable {
 
     const gradeRows = grade.gradeFrequencies.map((e) => this.createGradeRow(e));
 
-    return new Table({
-      rows: [...rows, ...gradeRows],
-    });
+    return [...rows, ...gradeRows];
   }
 
   private createGradeRow(grade: GradeFrequencyType) {

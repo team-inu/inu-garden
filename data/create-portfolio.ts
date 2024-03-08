@@ -12,38 +12,53 @@ export const coursePortfolioFetch: Pick<
 
   outcome: {
     grade: {
-      studentAmount: '100',
-      GPA: '2.3',
+      studentAmount: '98',
+      GPA: '2.88',
       gradeFrequencies: [
         {
           name: 'A',
-          gradeScore: '1.2',
-          frequency: '21',
+          gradeScore: '82',
+          frequency: '20',
+        },
+        {
+          name: 'B+',
+          gradeScore: '78',
+          frequency: '8',
         },
         {
           name: 'B',
-          gradeScore: '2.2',
+          gradeScore: '69',
+          frequency: '27',
+        },
+        {
+          name: 'C+',
+          gradeScore: '61',
           frequency: '22',
         },
         {
           name: 'C',
-          gradeScore: '3.2',
-          frequency: '23',
+          gradeScore: '53',
+          frequency: '16',
+        },
+        {
+          name: 'D+',
+          gradeScore: '48',
+          frequency: '3',
         },
         {
           name: 'D',
-          gradeScore: '4.2',
-          frequency: '24',
-        },
-        {
-          name: 'E',
-          gradeScore: '5.2',
-          frequency: '25',
+          gradeScore: '43',
+          frequency: '2',
         },
         {
           name: 'F',
-          gradeScore: '6.2',
-          frequency: '26',
+          gradeScore: '0',
+          frequency: '0',
+        },
+        {
+          name: 'W',
+          gradeScore: '-',
+          frequency: '0',
         },
       ],
     },
