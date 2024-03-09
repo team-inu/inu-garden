@@ -66,7 +66,7 @@ export async function generatePortfolioDocument({
             }),
         ),
       },
-      'outcome.grade_distribution_image': {
+      'summary.grade_distribution_image': {
         type: PatchType.PARAGRAPH,
         children: [
           new ImageRun({
@@ -75,7 +75,7 @@ export async function generatePortfolioDocument({
           }),
         ],
       },
-      'outcome.grade_distribution_table': {
+      'summary.grade_distribution_table': {
         type: PatchType.DOCUMENT,
         children: [
           new Table({
@@ -84,7 +84,7 @@ export async function generatePortfolioDocument({
           }),
         ],
       },
-      'outcome.program_outcomes': {
+      'summary.tabee_outcomes': {
         type: PatchType.DOCUMENT,
         children: result.tabeeOutcomes.map(
           (e, i) =>
@@ -96,7 +96,7 @@ export async function generatePortfolioDocument({
             }),
         ),
       },
-      'outcome.tabee_outcome': {
+      'summary.tabee_outcome_table': {
         type: PatchType.DOCUMENT,
         children: [
           new Table({
