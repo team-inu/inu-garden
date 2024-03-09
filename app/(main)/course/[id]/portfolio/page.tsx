@@ -20,20 +20,19 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { coursePortfolioFetch } from '@/data/create-portfolio';
+import { coursePortfolioExample } from '@/data/create-portfolio-example';
 import { useStrictForm } from '@/hooks/form-hook';
 import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
 import {
+  CreateCoursePortfolioFillableDefaultValues,
   CreateCoursePortfolioFillableSchema,
-  CreateCoursePortfolioFillableSchemaDefaultValues,
-  CreateCoursePortfolioFillableSchemaType,
-  CreateCoursePortfolioSchemaType,
+  CreateCoursePortfolioForm,
 } from '@/types/schema/course-portfolio-schema';
 
 const CoursePortfolioPage = () => {
   const form = useStrictForm(
     CreateCoursePortfolioFillableSchema,
-    CreateCoursePortfolioFillableSchemaDefaultValues,
+    CreateCoursePortfolioFillableDefaultValues,
   );
   const {
     fields: teachingMethodFields,
@@ -97,12 +96,12 @@ const CoursePortfolioPage = () => {
     name: 'development.subjectsComments.downstream',
   });
 
-  const onSubmit = (values: CreateCoursePortfolioFillableSchemaType) => {
-    const test: CreateCoursePortfolioSchemaType = {
+  const onSubmit = (values: CreateCoursePortfolioFillableSchema) => {
+    const test: CreateCoursePortfolioForm = {
       development: values.development,
       summary: values.summary,
-      info: coursePortfolioFetch.info,
-      outcome: coursePortfolioFetch.outcome,
+      info: coursePortfolioExample.info,
+      result: coursePortfolioExample.result,
     };
 
     generatePortfolioDocument(test);

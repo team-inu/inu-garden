@@ -11,14 +11,14 @@ import {
 
 import { GradeTable } from '@/libs/word/table/grade-table';
 import { OutcomeTable } from '@/libs/word/table/outcome-table';
-import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
+import { CreateCoursePortfolioForm } from '@/types/schema/course-portfolio-schema';
 
 export async function generatePortfolioDocument({
   info,
   summary,
-  outcome,
+  result,
   development,
-}: CreateCoursePortfolioSchemaType) {
+}: CreateCoursePortfolioForm) {
   const mockImage = await fetch('/images/nopermission.png');
   const mockImageBuffer = await mockImage.arrayBuffer();
   const template = await fetch('/template.docx');
@@ -36,7 +36,7 @@ export async function generatePortfolioDocument({
       },
       'info.course_lecturer': {
         type: PatchType.PARAGRAPH,
-        children: [new TextRun(info.user.join(', '))],
+        children: [new TextRun(info.lecturer.join(', '))],
       },
       'summary.teaching_methods': {
         type: PatchType.DOCUMENT,
@@ -79,17 +79,17 @@ export async function generatePortfolioDocument({
         type: PatchType.DOCUMENT,
         children: [
           new Table({
-            rows: new GradeTable().generate(outcome.grade),
+            rows: new GradeTable().generate(result.gradeDistribution),
             alignment: 'center',
           }),
         ],
       },
       'outcome.program_outcomes': {
         type: PatchType.DOCUMENT,
-        children: outcome.programOutcomes.map(
+        children: result.tabeeOutcomes.map(
           (e, i) =>
             new Paragraph({
-              text: `${i + 1}. ${e.tabeeOutcome}`,
+              text: `${i + 1}. ${e.name}`,
               heading: HeadingLevel.TITLE,
               wordWrap: true,
               indent: { firstLine: 1125 },
@@ -100,7 +100,7 @@ export async function generatePortfolioDocument({
         type: PatchType.DOCUMENT,
         children: [
           new Table({
-            rows: new OutcomeTable().generate(outcome.programOutcomes),
+            rows: new OutcomeTable().generate(result.tabeeOutcomes),
             alignment: 'center',
           }),
         ],

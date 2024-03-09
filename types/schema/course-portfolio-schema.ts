@@ -1,17 +1,18 @@
 import * as z from 'zod';
 
-const Info = z.object({
+// [1] Info
+
+const CourseInfoSchema = z.object({
   courseName: z.string().min(1, { message: 'required' }),
   courseCode: z.string().min(1, { message: 'required' }),
-  user: z.array(z.string().min(1, { message: 'required' })).min(1, {
+  lecturer: z.array(z.string().min(1, { message: 'required' })).min(1, {
     message: 'required',
   }),
 });
 
-// { Grade, GradeFrequency }
-// { Assessment, Course, ProgramOutcome }
+// [2] Summary
 
-const Summary = z.object({
+const CourseSummarySchema = z.object({
   teachingMethod: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
@@ -21,56 +22,60 @@ const Summary = z.object({
     .min(1, { message: 'required' }),
 });
 
-export type SummaryType = z.infer<typeof Summary>;
+export type CourseSummary = z.infer<typeof CourseSummarySchema>;
 
-const Assessment = z.object({
+// [3.1] Tabee Outcome
+
+const AssessmentSchema = z.object({
   assessmentTask: z.string().min(1, { message: 'required' }),
   passingCriteria: z.string().min(1, { message: 'required' }),
   studentPassPercentage: z.string().min(1, { message: 'required' }),
 });
 
-export type AssessmentType = z.infer<typeof Assessment>;
-
-const Course = z.object({
-  courseOutcome: z.string().min(1, { message: 'required' }),
-  assessments: z.array(Assessment),
+const CourseOutcomeSchema = z.object({
+  name: z.string().min(1, { message: 'required' }),
+  assessments: z.array(AssessmentSchema),
 });
 
-export type CourseType = z.infer<typeof Course>;
-
-const ProgramOutcome = z.object({
-  tabeeOutcome: z.string().min(1, { message: 'required' }),
+const TabeeOutcomeSchema = z.object({
+  name: z.string().min(1, { message: 'required' }),
+  courseOutcomes: z.array(CourseOutcomeSchema),
   minimumPercentage: z.string().min(1, { message: 'required' }),
-  courses: z.array(Course),
 });
 
-export type ProgramOutcomeType = z.infer<typeof ProgramOutcome>;
+export type Assessment = z.infer<typeof AssessmentSchema>;
+export type CourseOutcome = z.infer<typeof CourseOutcomeSchema>;
+export type TabeeOutcome = z.infer<typeof TabeeOutcomeSchema>;
 
-const GradeFrequency = z.object({
+// [3.2] Grade Distribution
+
+const GradeFrequencySchema = z.object({
   name: z.string().min(1, { message: 'required' }),
   gradeScore: z.string().min(1, { message: 'required' }),
   frequency: z.string().min(1, { message: 'required' }),
 });
 
-export type GradeFrequencyType = z.infer<typeof GradeFrequency>;
-
-const Grade = z.object({
+const GradeDistributionSchema = z.object({
   studentAmount: z.string().min(1, { message: 'required' }),
   GPA: z.string().min(1, { message: 'required' }),
-  gradeFrequencies: z.array(GradeFrequency),
+  gradeFrequencies: z.array(GradeFrequencySchema),
 });
 
-export type GradeType = z.infer<typeof Grade>;
+// [3] Result
 
-const Outcome = z.object({
-  grade: Grade,
-  gradeDistibutionImage: z.object({}),
-  programOutcomes: z.array(ProgramOutcome),
+const CourseResultSchema = z.object({
+  tabeeOutcomes: z.array(TabeeOutcomeSchema),
+  gradeDistribution: GradeDistributionSchema,
+  gradeDistributionImage: z.object({}),
 });
 
-export type OutcomeType = z.infer<typeof Outcome>;
+export type GradeFrequency = z.infer<typeof GradeFrequencySchema>;
+export type GradeDistribution = z.infer<typeof GradeDistributionSchema>;
+export type CourseResult = z.infer<typeof CourseResultSchema>;
 
-const Development = z.object({
+// [4] Development
+
+const CourseDevelopmentSchema = z.object({
   plan: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
@@ -98,29 +103,32 @@ const Development = z.object({
   otherComments: z.string().min(1, { message: 'required' }),
 });
 
-export type DevelopmentType = z.infer<typeof Development>;
+export type CourseDevelopment = z.infer<typeof CourseDevelopmentSchema>;
 
-export const CreateCoursePortfolioSchema = z.object({
-  info: Info,
-  summary: Summary,
-  outcome: Outcome,
-  development: Development,
+// Form
+
+export const CreateCoursePortfolioFormSchema = z.object({
+  info: CourseInfoSchema,
+  summary: CourseSummarySchema,
+  result: CourseResultSchema,
+  development: CourseDevelopmentSchema,
 });
 
-export type CreateCoursePortfolioSchemaType = z.infer<
-  typeof CreateCoursePortfolioSchema
+export type CreateCoursePortfolioForm = z.infer<
+  typeof CreateCoursePortfolioFormSchema
 >;
 
-export const CreateCoursePortfolioFillableSchema = z.object({
-  summary: Summary,
-  development: Development,
-});
+export const CreateCoursePortfolioFillableSchema =
+  CreateCoursePortfolioFormSchema.pick({
+    summary: true,
+    development: true,
+  });
 
-export type CreateCoursePortfolioFillableSchemaType = z.infer<
+export type CreateCoursePortfolioFillableSchema = z.infer<
   typeof CreateCoursePortfolioFillableSchema
 >;
 
-export const CreateCoursePortfolioFillableSchemaDefaultValues: Partial<CreateCoursePortfolioFillableSchemaType> =
+export const CreateCoursePortfolioFillableDefaultValues: Partial<CreateCoursePortfolioFillableSchema> =
   {
     summary: {
       teachingMethod: [{ name: '' }],

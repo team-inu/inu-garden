@@ -7,16 +7,16 @@ import {
   TextRun,
 } from 'docx';
 
-import { CreateCoursePortfolioSchemaType } from '@/types/schema/course-portfolio-schema';
+import { CreateCoursePortfolioForm } from '@/types/schema/course-portfolio-schema';
 
 const INDENT = 300;
 
 export async function generatePortfolioDocument({
   info,
   summary,
-  outcome,
+  result,
   development,
-}: CreateCoursePortfolioSchemaType) {
+}: CreateCoursePortfolioForm) {
   const font = await fetch('/fonts/THSarabunNew/THSarabunNew.ttf');
   const buff = Buffer.from(await font.arrayBuffer());
 
@@ -214,7 +214,7 @@ export async function generatePortfolioDocument({
           createParagraph({
             children: [
               new TextRun({ text: 'ผู้สอน: \t', bold: true }),
-              new TextRun({ text: info.user.join(', ') }),
+              new TextRun({ text: info.lecturer.join(', ') }),
             ],
           }),
           createParagraph({

@@ -1,9 +1,9 @@
 import { Paragraph, TableCell, TableRow, TextRun } from 'docx';
 
 import {
-  AssessmentType,
-  CourseType,
-  ProgramOutcomeType,
+  Assessment,
+  CourseOutcome,
+  TabeeOutcome,
 } from '@/types/schema/course-portfolio-schema';
 
 export class OutcomeTable {
@@ -15,17 +15,17 @@ export class OutcomeTable {
     'Percentage of Students with PASS outcome (98 total students)',
   ];
 
-  public generate(programOutcomes: ProgramOutcomeType[]): TableRow[] {
-    const contents = programOutcomes.flatMap(
-      ({ courses, tabeeOutcome, minimumPercentage }) => {
-        const assessmentCount = courses.flatMap(
+  public generate(tabeeOutcomes: TabeeOutcome[]): TableRow[] {
+    const contents = tabeeOutcomes.flatMap(
+      ({ courseOutcomes, name, minimumPercentage }) => {
+        const assessmentCount = courseOutcomes.flatMap(
           (course) => course.assessments,
         ).length;
 
-        const courseRows = courses.flatMap((course, courseIndex) => {
+        const courseRows = courseOutcomes.flatMap((course, courseIndex) => {
           return course.assessments.flatMap((assessment, assessmentIndex) => {
             return this.createRow(
-              tabeeOutcome,
+              name,
               course,
               assessment,
               assessmentCount,
@@ -63,8 +63,8 @@ export class OutcomeTable {
 
   private createRow(
     tabeeOutcome: string,
-    course: CourseType,
-    assessment: AssessmentType,
+    course: CourseOutcome,
+    assessment: Assessment,
     assessmentCount: number,
     courseIndex: number,
     assessmentIndex: number,
@@ -77,7 +77,7 @@ export class OutcomeTable {
 
     if (assessmentIndex === 0) {
       children.push(
-        this.createCell(course.courseOutcome, false, course.assessments.length),
+        this.createCell(course.name, false, course.assessments.length),
       );
     }
 
