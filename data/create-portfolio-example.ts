@@ -105,7 +105,7 @@ export const coursePortfolioExample: Pick<
   info: {
     courseName: 'วิชาไรไม่รู้',
     courseCode: 'CPE100',
-    lecturer: ['นายไก่ ไข่', 'นายงู จาน'],
+    lecturers: ['นายไก่ ไข่', 'นายงู จาน'],
   },
 
   result: {

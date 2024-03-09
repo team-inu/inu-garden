@@ -5,7 +5,7 @@ import * as z from 'zod';
 const CourseInfoSchema = z.object({
   courseName: z.string().min(1, { message: 'required' }),
   courseCode: z.string().min(1, { message: 'required' }),
-  lecturer: z.array(z.string().min(1, { message: 'required' })).min(1, {
+  lecturers: z.array(z.string().min(1, { message: 'required' })).min(1, {
     message: 'required',
   }),
 });
@@ -13,11 +13,11 @@ const CourseInfoSchema = z.object({
 // [2] Summary
 
 const CourseSummarySchema = z.object({
-  teachingMethod: z
+  teachingMethods: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
   onlineTool: z.string().min(1, { message: 'required' }),
-  objective: z
+  objectives: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
 });
@@ -76,23 +76,23 @@ export type CourseResult = z.infer<typeof CourseResultSchema>;
 // [4] Development
 
 const CourseDevelopmentSchema = z.object({
-  plan: z
+  plans: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
-  doAndCheck: z
+  doAndChecks: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
-  act: z
+  acts: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
-  subjectsComments: z.object({
-    upstream: z.array(
+  subjectComments: z.object({
+    upstreamSubjects: z.array(
       z.object({
         courseName: z.string().min(1, { message: 'required' }),
         comments: z.string().min(1, { message: 'required' }),
       }),
     ),
-    downstream: z.array(
+    downstreamSubjects: z.array(
       z.object({
         courseName: z.string().min(1, { message: 'required' }),
         comments: z.string().min(1, { message: 'required' }),
@@ -100,7 +100,7 @@ const CourseDevelopmentSchema = z.object({
     ),
     other: z.string().min(1, { message: 'required' }),
   }),
-  otherComments: z.string().min(1, { message: 'required' }),
+  otherComment: z.string().min(1, { message: 'required' }),
 });
 
 export type CourseDevelopment = z.infer<typeof CourseDevelopmentSchema>;
@@ -131,19 +131,19 @@ export type CreateCoursePortfolioFillableSchema = z.infer<
 export const CreateCoursePortfolioFillableDefaultValues: Partial<CreateCoursePortfolioFillableSchema> =
   {
     summary: {
-      teachingMethod: [{ name: '' }],
+      teachingMethods: [{ name: '' }],
       onlineTool: '',
-      objective: [{ name: '' }],
+      objectives: [{ name: '' }],
     },
     development: {
-      plan: [{ name: '' }],
-      doAndCheck: [{ name: '' }],
-      act: [{ name: '' }],
-      subjectsComments: {
-        upstream: [{ courseName: '', comments: '' }],
-        downstream: [{ courseName: '', comments: '' }],
+      plans: [{ name: '' }],
+      doAndChecks: [{ name: '' }],
+      acts: [{ name: '' }],
+      subjectComments: {
+        upstreamSubjects: [{ courseName: '', comments: '' }],
+        downstreamSubjects: [{ courseName: '', comments: '' }],
         other: '',
       },
-      otherComments: '',
+      otherComment: '',
     },
   };

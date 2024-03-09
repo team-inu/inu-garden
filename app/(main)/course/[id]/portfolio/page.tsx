@@ -40,7 +40,7 @@ const CoursePortfolioPage = () => {
     remove: teachingRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'summary.teachingMethod',
+    name: 'summary.teachingMethods',
   });
 
   const {
@@ -49,7 +49,7 @@ const CoursePortfolioPage = () => {
     remove: objectiveRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'summary.objective',
+    name: 'summary.objectives',
   });
 
   const {
@@ -58,7 +58,7 @@ const CoursePortfolioPage = () => {
     remove: planRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.plan',
+    name: 'development.plans',
   });
 
   const {
@@ -67,7 +67,7 @@ const CoursePortfolioPage = () => {
     remove: doRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.doAndCheck',
+    name: 'development.doAndChecks',
   });
 
   const {
@@ -76,7 +76,7 @@ const CoursePortfolioPage = () => {
     remove: actRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.act',
+    name: 'development.acts',
   });
 
   const {
@@ -85,7 +85,7 @@ const CoursePortfolioPage = () => {
     remove: upstreamRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.subjectsComments.upstream',
+    name: 'development.subjectComments.upstreamSubjects',
   });
   const {
     fields: downstreamFields,
@@ -93,7 +93,7 @@ const CoursePortfolioPage = () => {
     remove: downstreamRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.subjectsComments.downstream',
+    name: 'development.subjectComments.downstreamSubjects',
   });
 
   const onSubmit = (values: CreateCoursePortfolioFillableSchema) => {
@@ -161,7 +161,7 @@ const CoursePortfolioPage = () => {
                     remove={teachingRemove}
                     key={item.id}
                     fieldLength={teachingMethodFields.length}
-                    fieldName={`summary.teachingMethod[${index}].name`}
+                    fieldName={`summary.teachingMethods[${index}].name`}
                   />
                 );
               })}
@@ -192,7 +192,7 @@ const CoursePortfolioPage = () => {
                     remove={objectiveRemove}
                     key={item.id}
                     fieldLength={objectiveFields.length}
-                    fieldName={`summary.objective[${index}].name`}
+                    fieldName={`summary.objectives[${index}].name`}
                   />
                 );
               })}
@@ -238,7 +238,7 @@ const CoursePortfolioPage = () => {
                     remove={planRemove}
                     key={item.id}
                     fieldLength={planFields.length}
-                    fieldName={`development.plan[${index}].name`}
+                    fieldName={`development.plans[${index}].name`}
                   />
                 );
               })}
@@ -258,7 +258,7 @@ const CoursePortfolioPage = () => {
                     remove={doRemove}
                     key={item.id}
                     fieldLength={doFields.length}
-                    fieldName={`development.doAndCheck[${index}].name`}
+                    fieldName={`development.doAndChecks[${index}].name`}
                   />
                 );
               })}
@@ -278,7 +278,7 @@ const CoursePortfolioPage = () => {
                     remove={actRemove}
                     key={item.id}
                     fieldLength={actFields.length}
-                    fieldName={`development.act[${index}].name`}
+                    fieldName={`development.acts[${index}].name`}
                   />
                 );
               })}
@@ -296,8 +296,8 @@ const CoursePortfolioPage = () => {
                           remove={upstreamRemove}
                           key={item.id}
                           fieldLength={upstreamFields.length}
-                          fieldCourseName={`development.subjectsComments.upstream[${index}].courseName`}
-                          fieldCourseComment={`development.subjectsComments.upstream[${index}].comments`}
+                          fieldCourseName={`development.subjectComments.upstreamSubjects[${index}].courseName`}
+                          fieldCourseComment={`development.subjectComments.upstreamSubjects[${index}].comments`}
                         />
                       );
                     })}
@@ -323,8 +323,8 @@ const CoursePortfolioPage = () => {
                           remove={downstreamRemove}
                           key={item.id}
                           fieldLength={downstreamFields.length}
-                          fieldCourseName={`development.subjectsComments.downstream[${index}].courseName`}
-                          fieldCourseComment={`development.subjectsComments.downstream[${index}].comments`}
+                          fieldCourseName={`development.subjectComments.downstreamSubjects[${index}].courseName`}
+                          fieldCourseComment={`development.subjectComments.downstreamSubjects[${index}].comments`}
                         />
                       );
                     })}
@@ -343,7 +343,7 @@ const CoursePortfolioPage = () => {
                 <Label className="text-lg">วิชาอื่นๆ (ถ้ามี)</Label>
                 <FormField
                   control={form.control}
-                  name={`development.subjectsComments.other`}
+                  name={`development.subjectComments.other`}
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
@@ -358,7 +358,7 @@ const CoursePortfolioPage = () => {
               <Label className="text-lg">ความคิดเห็นอื่นๆ (ถ้ามี)</Label>
               <FormField
                 control={form.control}
-                name={`development.otherComments`}
+                name={`development.otherComment`}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

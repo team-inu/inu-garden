@@ -36,11 +36,11 @@ export async function generatePortfolioDocument({
       },
       'info.course_lecturer': {
         type: PatchType.PARAGRAPH,
-        children: [new TextRun(info.lecturer.join(', '))],
+        children: [new TextRun(info.lecturers.join(', '))],
       },
       'summary.teaching_methods': {
         type: PatchType.DOCUMENT,
-        children: summary.teachingMethod.map(
+        children: summary.teachingMethods.map(
           (e, i) =>
             new Paragraph({
               text: `${i + 1}. ${e.name}`,
@@ -56,7 +56,7 @@ export async function generatePortfolioDocument({
       },
       'summary.objectives': {
         type: PatchType.DOCUMENT,
-        children: summary.objective.map(
+        children: summary.objectives.map(
           (e, i) =>
             new Paragraph({
               text: `${i + 1}. ${e.name}`,
@@ -108,7 +108,7 @@ export async function generatePortfolioDocument({
       development_plans: {
         type: PatchType.DOCUMENT,
         children: [
-          ...development.plan.map((plan) => {
+          ...development.plans.map((plan) => {
             return new Paragraph({
               text: `-     ${plan.name}`,
               indent: { firstLine: 700 },
@@ -120,7 +120,7 @@ export async function generatePortfolioDocument({
       'development.do_and_checks': {
         type: PatchType.DOCUMENT,
         children: [
-          ...development.doAndCheck.map((plan) => {
+          ...development.doAndChecks.map((plan) => {
             return new Paragraph({
               text: `-     ${plan.name}`,
               indent: { firstLine: 700 },
@@ -132,7 +132,7 @@ export async function generatePortfolioDocument({
       'development.acts': {
         type: PatchType.DOCUMENT,
         children: [
-          ...development.act.map((plan) => {
+          ...development.acts.map((plan) => {
             return new Paragraph({
               text: `-     ${plan.name}`,
               indent: { firstLine: 700 },
@@ -141,10 +141,10 @@ export async function generatePortfolioDocument({
           }),
         ],
       },
-      'development.upstream': {
+      'development.upstreamSubjects': {
         type: PatchType.DOCUMENT,
         children: [
-          ...development.subjectsComments.upstream
+          ...development.subjectComments.upstreamSubjects
             .map((e) => {
               const courseName = new Paragraph({
                 text: `-     ${e.courseName}`,
@@ -166,7 +166,7 @@ export async function generatePortfolioDocument({
       'development.downstream': {
         type: PatchType.DOCUMENT,
         children: [
-          ...development.subjectsComments.downstream
+          ...development.subjectComments.downstreamSubjects
             .map((e) => {
               const courseName = new Paragraph({
                 text: `-     ${e.courseName}`,
@@ -188,7 +188,7 @@ export async function generatePortfolioDocument({
         type: PatchType.DOCUMENT,
         children: [
           new Paragraph({
-            text: `${development.subjectsComments.other}`,
+            text: `${development.subjectComments.other}`,
             indent: { left: 3240 },
             wordWrap: true,
           }),
@@ -198,7 +198,7 @@ export async function generatePortfolioDocument({
         type: PatchType.DOCUMENT,
         children: [
           new Paragraph({
-            text: development.otherComments,
+            text: development.otherComment,
             indent: { firstLine: 700 },
             wordWrap: true,
           }),

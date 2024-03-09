@@ -214,7 +214,7 @@ export async function generatePortfolioDocument({
           createParagraph({
             children: [
               new TextRun({ text: 'ผู้สอน: \t', bold: true }),
-              new TextRun({ text: info.lecturer.join(', ') }),
+              new TextRun({ text: info.lecturers.join(', ') }),
             ],
           }),
           createParagraph({
@@ -343,7 +343,7 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.plan.map((plan) => {
+          ...development.plans.map((plan) => {
             return createParagraph({
               text: plan.name,
               bullet: {
@@ -360,7 +360,7 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.doAndCheck.map((doAndCheck) => {
+          ...development.doAndChecks.map((doAndCheck) => {
             return createParagraph({
               text: doAndCheck.name,
               bullet: {
@@ -377,7 +377,7 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.act.map((act) => {
+          ...development.acts.map((act) => {
             return createParagraph({
               text: act.name,
               bullet: {
@@ -401,14 +401,16 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.subjectsComments.upstream.map((upstream) => {
-            return createParagraph({
-              text: `${upstream.courseName}: ${upstream.comments}`,
-              bullet: {
-                level: 1,
-              },
-            });
-          }),
+          ...development.subjectComments.upstreamSubjects.map(
+            (upstreamSubject) => {
+              return createParagraph({
+                text: `${upstreamSubject.courseName}: ${upstreamSubject.comments}`,
+                bullet: {
+                  level: 1,
+                },
+              });
+            },
+          ),
           createParagraph({
             text: 'วิชา Downstream',
             style: 'boldStyle',
@@ -417,14 +419,16 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.subjectsComments.downstream.map((downstream) => {
-            return createParagraph({
-              text: `${downstream.courseName}: ${downstream.comments}`,
-              bullet: {
-                level: 1,
-              },
-            });
-          }),
+          ...development.subjectComments.downstreamSubjects.map(
+            (downstream) => {
+              return createParagraph({
+                text: `${downstream.courseName}: ${downstream.comments}`,
+                bullet: {
+                  level: 1,
+                },
+              });
+            },
+          ),
           createParagraph({
             text: 'วิชาอื่นๆ (ถ้ามี)',
             style: 'boldStyle',
@@ -442,7 +446,7 @@ export async function generatePortfolioDocument({
           //   });
           // }),
           createParagraph({
-            text: development.subjectsComments.other,
+            text: development.subjectComments.other,
             bullet: {
               level: 1,
             },
@@ -465,7 +469,7 @@ export async function generatePortfolioDocument({
           //   });
           // }),
           createParagraph({
-            text: development.otherComments,
+            text: development.otherComment,
             bullet: {
               level: 0,
             },
