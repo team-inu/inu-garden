@@ -105,14 +105,18 @@ const CourseDevelopmentSchema = z.object({
 
 export type CourseDevelopment = z.infer<typeof CourseDevelopmentSchema>;
 
-// Form
+// [] Course Portfolio
 
-export const CreateCoursePortfolioFormSchema = z.object({
+export const CoursePortfolioFormSchema = z.object({
   info: CourseInfoSchema,
   summary: CourseSummarySchema,
   result: CourseResultSchema,
   development: CourseDevelopmentSchema,
 });
+
+// Form
+
+export const CreateCoursePortfolioFormSchema = CoursePortfolioFormSchema;
 
 export type CreateCoursePortfolioForm = z.infer<
   typeof CreateCoursePortfolioFormSchema
