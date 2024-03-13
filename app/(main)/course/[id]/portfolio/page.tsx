@@ -1,6 +1,7 @@
 'use client';
 
 import { PlusCircleIcon } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { FormProvider, useFieldArray } from 'react-hook-form';
 
 import ArrayInput from '@/components/features/course/course-portfolio/array-input-form';
@@ -10,6 +11,7 @@ import CourseStream from '@/components/features/course/course-portfolio/course-s
 import { GradeTable } from '@/components/features/course/course-portfolio/grade-table';
 import Information from '@/components/features/course/course-portfolio/information';
 import OutcomeTable from '@/components/features/course/course-portfolio/outcome-table';
+import Loading from '@/components/features/loading-screen';
 import { Overview } from '@/components/overview';
 import { Button } from '@/components/ui/button';
 import {
@@ -21,6 +23,7 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { coursePortfolioExample } from '@/data/create-portfolio-example';
+import { useGetCoursePortfolio } from '@/hooks/course-portfolio-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
 import {
@@ -30,6 +33,10 @@ import {
 } from '@/types/schema/course-portfolio-schema';
 
 const CoursePortfolioPage = () => {
+  const { id: courseId } = useParams<{ id: string }>();
+
+  const { data, isLoading } = useGetCoursePortfolio(courseId);
+
   const form = useStrictForm(
     CreateCoursePortfolioFillableSchema,
     CreateCoursePortfolioFillableDefaultValues,
@@ -107,6 +114,8 @@ const CoursePortfolioPage = () => {
     generatePortfolioDocument(test);
   };
 
+  if (isLoading) return <Loading />;
+
   return (
     <div className="container hidden  flex-col space-y-3 md:flex">
       <CoursePortfolioHeader />
@@ -128,8 +137,14 @@ const CoursePortfolioPage = () => {
               <Information label="หลักสูตร" value="ปกติ" />
               <div className="w-4/5 space-y-2">
                 <div className="grid grid-cols-3">
-                  <Information label="รหัสวิชา" value="CPEXXX" />
-                  <Information label="ชื่อวิชา" value="Computer exploration" />
+                  <Information
+                    label="รหัสวิชา"
+                    value={data?.info.courseCode ?? '-'}
+                  />
+                  <Information
+                    label="ชื่อวิชา"
+                    value={data?.info.courseName ?? '-'}
+                  />
                   <Information label="จำนวนหน่วยกิต" value="3" />
                 </div>
                 <div className="grid grid-cols-3">
@@ -139,7 +154,7 @@ const CoursePortfolioPage = () => {
               </div>
               <Information
                 label="ชื่ออาจารยฺ์ผู้สอน"
-                value="นาย วิศวะ คอมพิวเตอร์"
+                value={data?.info.lecturers[0] ?? '-'}
               />
             </div>
             {/* Summary */}

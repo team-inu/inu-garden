@@ -115,8 +115,12 @@ export const CoursePortfolioFormSchema = z.object({
 });
 
 // Form
-
+export const GetCoursePortfolioFormSchema = CoursePortfolioFormSchema;
 export const CreateCoursePortfolioFormSchema = CoursePortfolioFormSchema;
+
+export type GetCoursePortfolioForm = z.infer<
+  typeof GetCoursePortfolioFormSchema
+>;
 
 export type CreateCoursePortfolioForm = z.infer<
   typeof CreateCoursePortfolioFormSchema
