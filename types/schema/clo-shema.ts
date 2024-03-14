@@ -9,7 +9,6 @@ export const CloSchema = z.object({
   code: z.string(),
   description: z.string(),
   expectedPassingAssignmentPercentage: z.number(),
-  expectedScorePercentage: z.number(),
   expectedPassingStudentPercentage: z.number(),
   courseId: z.string(),
   status: z.string(),
@@ -40,9 +39,6 @@ export const CreateCloFormSchema = z.object({
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   expectedPassingAssignmentPercentage: z.coerce.number({
-    required_error: 'required',
-  }),
-  expectedScorePercentage: z.coerce.number({
     required_error: 'required',
   }),
   expectedPassingStudentPercentage: z.coerce.number({
@@ -97,7 +93,6 @@ export const CreateCloFormDefaultValues: CreateCloForm = {
   code: '',
   description: '',
   expectedPassingAssignmentPercentage: 0,
-  expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
   status: '',
   programLearningOutcomeId: '',
@@ -114,7 +109,6 @@ export const EditCloFormDefaultValues: EditCloForm = {
   code: '',
   description: '',
   expectedPassingAssignmentPercentage: 0,
-  expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
   status: '',
   programOutcomeId: '',

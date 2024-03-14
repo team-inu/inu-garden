@@ -125,21 +125,6 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
               />
               <FormField
                 control={form.control}
-                name="expectedScorePercentage"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Passing Score %</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} type="number" min={0} max={100} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="expectedPassingAssignmentPercentage"
                 render={({ field }) => (
                   <FormItem>

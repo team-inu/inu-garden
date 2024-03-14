@@ -19,7 +19,6 @@ class CourseLearningOutcomeService extends ApiService {
       status: data.status,
       expectedPassingAssignmentPercentage:
         data.expectedPassingAssignmentPercentage,
-      expectedScorePercentage: data.expectedScorePercentage,
       expectedPassingStudentPercentage: data.expectedPassingStudentPercentage,
       programOutcomeId: data.programOutcomeId,
       subProgramLearningOutcomeId: data.subProgramLearningOutcomeId.map(
