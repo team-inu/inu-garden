@@ -82,12 +82,18 @@ const Assignment = () => {
           <div className="grid grid-cols-2 gap-3">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle>Score of {selectedRows.name}</CardTitle>
+                <CardTitle className="flex w-full justify-between">
+                  <div>Score of {selectedRows.name}</div>
+                  <div>
+                    submitted {scores?.submittedAmount} of{' '}
+                    {scores?.enrolledAmount}
+                  </div>
+                </CardTitle>{' '}
               </CardHeader>
               <CardContent>
                 <ScoreDataTable
                   columns={scoreColumns}
-                  data={scores ?? []}
+                  data={scores?.scores ?? []}
                   assignmentName={selectedRows?.name}
                   assignmentId={selectedRows?.id}
                 />

@@ -13,11 +13,18 @@ export const ScoreSchema = z.object({
   studentId: z.string(),
 });
 
+export const AssignmentScore = z.object({
+  scores: z.array(ScoreSchema),
+  submittedAmount: z.number(),
+  enrolledAmount: z.number(),
+});
+
 export type Score = z.infer<typeof ScoreSchema>;
 
 // response
 
 export type GetScoreResponse = z.infer<typeof ScoreSchema>;
+export type GetScoreByAssignmentResponse = z.infer<typeof AssignmentScore>;
 
 // column
 

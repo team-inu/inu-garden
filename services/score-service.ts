@@ -1,21 +1,24 @@
 import { ApiService } from '@/services/api-service';
 import {
   CreateScoreForm,
-  GetScoreResponse,
+  GetScoreByAssignmentResponse,
   UpdateScoreForm,
 } from '@/types/schema/score-schema';
 
 class ScoreService extends ApiService {
   public async getScoresByAssignmentId(
     assignmentId: string,
-  ): Promise<GetScoreResponse[]> {
+  ): Promise<GetScoreByAssignmentResponse> {
     if (assignmentId === '') {
-      return [];
+      return { enrolledAmount: 0, submittedAmount: 0, scores: [] };
     }
 
     const url = `/assignments/${assignmentId}/scores/`;
     return this.get(url)
-      .then((response) => response.data.data as unknown as GetScoreResponse[])
+      .then(
+        (response) =>
+          response.data.data as unknown as GetScoreByAssignmentResponse,
+      )
       .catch(this.throwError);
   }
 
