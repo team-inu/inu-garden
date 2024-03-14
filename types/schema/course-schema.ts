@@ -8,6 +8,7 @@ const CourseSchema = z.object({
   description: z.string(),
   semesterId: z.string(),
   userId: z.string(),
+  expectedPassingCloPercentage: z.number(),
 
   criteriaGradeA: z.number(),
   criteriaGradeBP: z.number(),
@@ -36,6 +37,9 @@ export const CreateCourseSchema = z.object({
   userId: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
+  expectedPassingCloPercentage: z.coerce.number({
+    required_error: 'require expectedPassingCloPercentage',
+  }),
   curriculum: z
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
@@ -83,6 +87,7 @@ export const UpdateCourseSchema = CreateCourseSchema.pick({
   description: true,
   code: true,
   curriculum: true,
+  expectedPassingCloPercentage: true,
   criteriaGradeA: true,
   criteriaGradeBP: true,
   criteriaGradeB: true,
@@ -100,6 +105,7 @@ export const UpdateCourseDefaultValues: UpdateCourseFormValues = {
   description: '',
   code: '',
   curriculum: '',
+  expectedPassingCloPercentage: 0,
   criteriaGradeA: 80,
   criteriaGradeBP: 75,
   criteriaGradeB: 70,

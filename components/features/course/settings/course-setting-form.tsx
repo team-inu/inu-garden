@@ -106,6 +106,19 @@ const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
             </FormItem>
           )}
         />
+        <FormField
+          control={form.control}
+          name="expectedPassingCloPercentage"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Expected Passing CLO Percentage</FormLabel>
+              <FormControl>
+                <Input {...field} type="number" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <div className="grid grid-cols-4 gap-5">
           {[
             {

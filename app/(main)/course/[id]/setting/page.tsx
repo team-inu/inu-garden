@@ -31,6 +31,8 @@ const SettingPage = () => {
             name: courseData.name,
             description: courseData.description,
             curriculum: courseData.curriculum,
+            expectedPassingCloPercentage:
+              courseData.expectedPassingCloPercentage,
             criteriaGradeA: courseData.criteriaGradeA,
             criteriaGradeBP: courseData.criteriaGradeBP,
             criteriaGradeB: courseData.criteriaGradeB,
