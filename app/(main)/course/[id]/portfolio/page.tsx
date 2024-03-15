@@ -8,11 +8,11 @@ import ArrayInput from '@/components/features/course/course-portfolio/array-inpu
 import AttachedDocumentCheckbox from '@/components/features/course/course-portfolio/attached-doc-checkbox';
 import CoursePortfolioHeader from '@/components/features/course/course-portfolio/course-portfolio-header';
 import CourseStream from '@/components/features/course/course-portfolio/course-stream';
-import { GradeTable } from '@/components/features/course/course-portfolio/grade-table';
+import GradeTable from '@/components/features/course/course-portfolio/grade-table';
 import Information from '@/components/features/course/course-portfolio/information';
 import OutcomeTable from '@/components/features/course/course-portfolio/outcome-table';
 import Loading from '@/components/features/loading-screen';
-import { Overview } from '@/components/overview';
+import Overview from '@/components/overview';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,
@@ -31,6 +31,92 @@ import {
   CreateCoursePortfolioFillableSchema,
   CreateCoursePortfolioForm,
 } from '@/types/schema/course-portfolio-schema';
+
+const gradeData = [
+  {
+    grade: 'A',
+    gradeScore: '82',
+    studentAmount: '10',
+  },
+  {
+    grade: 'B+',
+    gradeScore: '75',
+    studentAmount: '25',
+  },
+  {
+    grade: 'B',
+    gradeScore: '68',
+    studentAmount: '13',
+  },
+  {
+    grade: 'C+',
+    gradeScore: '61',
+    studentAmount: '17',
+  },
+  {
+    grade: 'C',
+    gradeScore: '54',
+    studentAmount: '5',
+  },
+  {
+    grade: 'D+',
+    gradeScore: '47',
+    studentAmount: '3',
+  },
+  {
+    grade: 'D',
+    gradeScore: '40',
+    studentAmount: '2',
+  },
+  {
+    grade: 'F',
+    gradeScore: '0',
+    studentAmount: '0',
+  },
+];
+
+export const graphData = [
+  {
+    score: '0',
+    total: 5,
+  },
+  {
+    score: '10',
+    total: 10,
+  },
+  {
+    score: '20',
+    total: 6,
+  },
+  {
+    score: '30',
+    total: 7,
+  },
+  {
+    score: '40',
+    total: 4,
+  },
+  {
+    score: '50',
+    total: 5,
+  },
+  {
+    score: '60',
+    total: 5,
+  },
+  {
+    score: '70',
+    total: 6,
+  },
+  {
+    score: '80',
+    total: 11,
+  },
+  {
+    score: '90',
+    total: 4,
+  },
+];
 
 const CoursePortfolioPage = () => {
   const { id: courseId } = useParams<{ id: string }>();
@@ -218,9 +304,9 @@ const CoursePortfolioPage = () => {
               <div className="space-y-5">
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
                 <div className="mx-auto w-3/4 space-y-5">
-                  <Overview />
+                  <Overview data={graphData} />
                   <div className="mx-auto w-3/4">
-                    <GradeTable />
+                    <GradeTable gradeData={gradeData} />
                   </div>
                 </div>
               </div>

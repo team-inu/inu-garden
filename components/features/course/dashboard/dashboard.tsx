@@ -1,8 +1,9 @@
 import { TimerIcon } from '@radix-ui/react-icons';
 import { FolderIcon, UserIcon } from 'lucide-react';
 
+import { graphData } from '@/app/(main)/course/[id]/portfolio/page';
 import BadStudent from '@/components/bad-student';
-import { Overview } from '@/components/overview';
+import Overview from '@/components/overview';
 import { Badge } from '@/components/ui/badge';
 import {
   Card,
@@ -75,7 +76,7 @@ export default function Dashboard() {
             <CardTitle>Grade Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            <Overview data={graphData} />
           </CardContent>
         </Card>
         <Card className="col-span-3">
