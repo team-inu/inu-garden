@@ -7,27 +7,24 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { GradeDistribution } from '@/types/schema/course-portfolio-schema';
 
 type GradeTableProps = {
-  gradeData: {
-    grade: string;
-    gradeScore: string;
-    studentAmount: string;
-  }[];
+  gradeDistribution: GradeDistribution;
 };
 
-const GradeTable: React.FC<GradeTableProps> = ({ gradeData }) => {
+const GradeTable: React.FC<GradeTableProps> = ({ gradeDistribution }) => {
   return (
     <Table>
       <TableCaption>Grade of students</TableCaption>
       <TableHeader>
         <TableRow>
           <TableHead colSpan={3}>Number of student</TableHead>
-          <TableHead colSpan={3}> 98</TableHead>
+          <TableHead colSpan={3}> {gradeDistribution.studentAmount}</TableHead>
         </TableRow>
         <TableRow>
           <TableHead colSpan={3}>GPA</TableHead>
-          <TableHead colSpan={3}>2.93</TableHead>
+          <TableHead colSpan={3}>{gradeDistribution.GPA}</TableHead>
         </TableRow>
         <TableRow>
           <TableHead colSpan={2}>Grade</TableHead>
@@ -36,17 +33,17 @@ const GradeTable: React.FC<GradeTableProps> = ({ gradeData }) => {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {gradeData.map((invoice) => (
-          <TableRow key={invoice.grade}>
+        {gradeDistribution.gradeFrequencies.map((gradeFrequency) => (
+          <TableRow key={gradeFrequency.name}>
             <TableCell colSpan={2} className="font-medium">
-              {invoice.grade}
+              {gradeFrequency.name}
             </TableCell>
             <TableCell colSpan={2}>
               {`>`}
-              {invoice.gradeScore}
+              {gradeFrequency.gradeScore}
             </TableCell>
             <TableCell colSpan={2} className="text-right">
-              {invoice.studentAmount}
+              {gradeFrequency.frequency}
             </TableCell>
           </TableRow>
         ))}

@@ -10,17 +10,18 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { tabeeOutcomes } from '@/data/create-portfolio-example';
+import { TabeeOutcome } from '@/types/schema/course-portfolio-schema';
 
-const OutcomeTable = () => {
+type OutcomeTableProps = {
+  tabeeOutcomes: TabeeOutcome[];
+};
+
+const OutcomeTable: React.FC<OutcomeTableProps> = ({ tabeeOutcomes }) => {
   //prevent hydration error useState in useEffect
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
     setMounted(true);
   }, []);
-
-  // TODO: use real data
-  const exampleTabeeOutcomes = tabeeOutcomes;
 
   if (!mounted) return null;
 
@@ -29,10 +30,10 @@ const OutcomeTable = () => {
       <TableHeader>
         <TableRow>
           <TableHead>TABEE Outcome</TableHead>
-          <TableHead> Course Outcome</TableHead>
+          <TableHead> Course Learning Outcome</TableHead>
         </TableRow>
       </TableHeader>
-      {exampleTabeeOutcomes.map((tabeeOutcome, i) => (
+      {tabeeOutcomes.map((tabeeOutcome, i) => (
         <TableBody key={i}>
           <TableRow className="">
             <TableCell className="w-1/5">{tabeeOutcome.name}</TableCell>

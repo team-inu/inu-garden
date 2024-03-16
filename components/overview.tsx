@@ -4,15 +4,24 @@ import { Bar, BarChart, ResponsiveContainer, XAxis, YAxis } from 'recharts';
 
 type OverviewProps = {
   data: {
-    score: string;
-    total: number;
+    score: number;
+    frequency: number;
   }[];
 };
 
 const Overview: React.FC<OverviewProps> = ({ data }) => {
+  const bar = data
+    .map((e) => {
+      return {
+        score: e.score,
+        total: e.frequency,
+      };
+    })
+    .sort((a, b) => a.score - b.score);
+
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      <BarChart data={bar}>
         <XAxis
           dataKey="score"
           scale="band"

@@ -44,7 +44,7 @@ export class OutcomeTable {
                 1,
                 3,
               ),
-              this.createCell(minimumPercentage, true),
+              this.createCell(minimumPercentage.toString(), true),
             ],
           }),
         );
@@ -83,8 +83,8 @@ export class OutcomeTable {
 
     children.push(
       this.createCell(assessment.assessmentTask, false),
-      this.createCell(assessment.passingCriteria, false),
-      this.createCell(assessment.studentPassPercentage, false),
+      this.createCell(assessment.passingCriteria.toString(), false),
+      this.createCell(assessment.studentPassPercentage.toString(), false),
     );
 
     return new TableRow({ children });

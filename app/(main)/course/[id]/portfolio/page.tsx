@@ -2,7 +2,9 @@
 
 import { PlusCircleIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
+import { useRef } from 'react';
 import { FormProvider, useFieldArray } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import ArrayInput from '@/components/features/course/course-portfolio/array-input-form';
 import AttachedDocumentCheckbox from '@/components/features/course/course-portfolio/attached-doc-checkbox';
@@ -22,101 +24,16 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { coursePortfolioExample } from '@/data/create-portfolio-example';
 import { useGetCoursePortfolio } from '@/hooks/course-portfolio-hook';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useScreenshot } from '@/hooks/screenshot-hook';
 import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
 import {
+  CourseResult,
   CreateCoursePortfolioFillableDefaultValues,
   CreateCoursePortfolioFillableSchema,
   CreateCoursePortfolioForm,
 } from '@/types/schema/course-portfolio-schema';
-
-const gradeData = [
-  {
-    grade: 'A',
-    gradeScore: '82',
-    studentAmount: '10',
-  },
-  {
-    grade: 'B+',
-    gradeScore: '75',
-    studentAmount: '25',
-  },
-  {
-    grade: 'B',
-    gradeScore: '68',
-    studentAmount: '13',
-  },
-  {
-    grade: 'C+',
-    gradeScore: '61',
-    studentAmount: '17',
-  },
-  {
-    grade: 'C',
-    gradeScore: '54',
-    studentAmount: '5',
-  },
-  {
-    grade: 'D+',
-    gradeScore: '47',
-    studentAmount: '3',
-  },
-  {
-    grade: 'D',
-    gradeScore: '40',
-    studentAmount: '2',
-  },
-  {
-    grade: 'F',
-    gradeScore: '0',
-    studentAmount: '0',
-  },
-];
-
-export const graphData = [
-  {
-    score: '0',
-    total: 5,
-  },
-  {
-    score: '10',
-    total: 10,
-  },
-  {
-    score: '20',
-    total: 6,
-  },
-  {
-    score: '30',
-    total: 7,
-  },
-  {
-    score: '40',
-    total: 4,
-  },
-  {
-    score: '50',
-    total: 5,
-  },
-  {
-    score: '60',
-    total: 5,
-  },
-  {
-    score: '70',
-    total: 6,
-  },
-  {
-    score: '80',
-    total: 11,
-  },
-  {
-    score: '90',
-    total: 4,
-  },
-];
 
 const CoursePortfolioPage = () => {
   const { id: courseId } = useParams<{ id: string }>();
@@ -189,18 +106,37 @@ const CoursePortfolioPage = () => {
     name: 'development.subjectComments.downstreamSubjects',
   });
 
-  const onSubmit = (values: CreateCoursePortfolioFillableSchema) => {
-    const test: CreateCoursePortfolioForm = {
+  const onSubmit = async (values: CreateCoursePortfolioFillableSchema) => {
+    const image = await takeScreenshot(ref.current);
+
+    if (!data) {
+      toast.error('data was not completed');
+      return;
+    }
+
+    if (!image) {
+      toast.error('cannot generate grade distribution image');
+      return;
+    }
+
+    const courseResult: CourseResult = data.result;
+    courseResult.gradeDistributionImage = image;
+
+    const coursePortfolio: CreateCoursePortfolioForm = {
       development: values.development,
       summary: values.summary,
-      info: coursePortfolioExample.info,
-      result: coursePortfolioExample.result,
+      info: data.info,
+      result: courseResult,
     };
 
-    generatePortfolioDocument(test);
+    generatePortfolioDocument(coursePortfolio);
   };
 
+  const ref = useRef(null);
+  const [image, takeScreenshot] = useScreenshot({});
+
   if (isLoading) return <Loading />;
+  if (data === undefined) return <div>error</div>;
 
   return (
     <div className="container hidden  flex-col space-y-3 md:flex">
@@ -235,7 +171,10 @@ const CoursePortfolioPage = () => {
                 </div>
                 <div className="grid grid-cols-3">
                   <Information label="นักศึกษาระดับ" value="ป.ตรี" />
-                  <Information label="จำนวนนักศึกษา" value="100" />
+                  <Information
+                    label="จำนวนนักศึกษา"
+                    value={data.result.gradeDistribution.studentAmount}
+                  />
                 </div>
               </div>
               <Information
@@ -304,9 +243,15 @@ const CoursePortfolioPage = () => {
               <div className="space-y-5">
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
                 <div className="mx-auto w-3/4 space-y-5">
-                  <Overview data={graphData} />
+                  <div ref={ref}>
+                    <Overview
+                      data={data.result.gradeDistribution.scoreFrequencies}
+                    />
+                  </div>
                   <div className="mx-auto w-3/4">
-                    <GradeTable gradeData={gradeData} />
+                    <GradeTable
+                      gradeDistribution={data.result.gradeDistribution}
+                    />
                   </div>
                 </div>
               </div>
@@ -317,7 +262,7 @@ const CoursePortfolioPage = () => {
                 <Input type="string" />
               </div>
               <div className="">
-                <OutcomeTable />
+                <OutcomeTable tabeeOutcomes={data.result.tabeeOutcomes} />
               </div>
             </div>
             {/* Development */}

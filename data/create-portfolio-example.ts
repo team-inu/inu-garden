@@ -12,13 +12,13 @@ export const tabeeOutcomes: TabeeOutcome[] = [
         assessments: [
           {
             assessmentTask: 'การบ้านครั้งที่ 1',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
           {
             assessmentTask: 'Final',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
         ],
       },
@@ -27,23 +27,23 @@ export const tabeeOutcomes: TabeeOutcome[] = [
         assessments: [
           {
             assessmentTask: 'Midterm',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
           {
             assessmentTask: 'การสอบย่อยครั้งที่ 1',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
           {
             assessmentTask: 'การสอบย่อยครั้งที่ 15',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
         ],
       },
     ],
-    minimumPercentage: '10',
+    minimumPercentage: 10,
   },
   {
     name: 'Analysis and synthesis of complex engineering problems',
@@ -53,13 +53,13 @@ export const tabeeOutcomes: TabeeOutcome[] = [
         assessments: [
           {
             assessmentTask: 'การบ้านครั้งที่ 1',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
           {
             assessmentTask: 'Final',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
         ],
       },
@@ -68,18 +68,18 @@ export const tabeeOutcomes: TabeeOutcome[] = [
         assessments: [
           {
             assessmentTask: 'Midterm',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
           {
             assessmentTask: 'การสอบย่อยครั้งที่ 1',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
           {
             assessmentTask: 'การสอบปลายภาค',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
         ],
       },
@@ -88,13 +88,13 @@ export const tabeeOutcomes: TabeeOutcome[] = [
         assessments: [
           {
             assessmentTask: 'กระบวนปราณวารี',
-            passingCriteria: '50',
-            studentPassPercentage: '10',
+            passingCriteria: 50,
+            studentPassPercentage: 10,
           },
         ],
       },
     ],
-    minimumPercentage: '10',
+    minimumPercentage: 10,
   },
 ];
 
@@ -111,56 +111,57 @@ export const coursePortfolioExample: Pick<
   result: {
     gradeDistribution: {
       studentAmount: '98',
-      GPA: '2.88',
+      GPA: 2.88,
       gradeFrequencies: [
         {
           name: 'A',
-          gradeScore: '82',
-          frequency: '20',
+          gradeScore: 82,
+          frequency: 20,
         },
         {
           name: 'B+',
-          gradeScore: '78',
-          frequency: '8',
+          gradeScore: 78,
+          frequency: 8,
         },
         {
           name: 'B',
-          gradeScore: '69',
-          frequency: '27',
+          gradeScore: 69,
+          frequency: 27,
         },
         {
           name: 'C+',
-          gradeScore: '61',
-          frequency: '22',
+          gradeScore: 61,
+          frequency: 22,
         },
         {
           name: 'C',
-          gradeScore: '53',
-          frequency: '16',
+          gradeScore: 53,
+          frequency: 126,
         },
         {
           name: 'D+',
-          gradeScore: '48',
-          frequency: '3',
+          gradeScore: 48,
+          frequency: 12,
         },
         {
           name: 'D',
-          gradeScore: '43',
-          frequency: '2',
+          gradeScore: 43,
+          frequency: 122,
         },
         {
           name: 'F',
-          gradeScore: '0',
-          frequency: '0',
+          gradeScore: 0,
+          frequency: 120,
         },
         {
           name: 'W',
-          gradeScore: '-',
-          frequency: '0',
+          gradeScore: 0,
+          frequency: 120,
         },
       ],
+      scoreFrequencies: [],
     },
     tabeeOutcomes: tabeeOutcomes,
-    gradeDistributionImage: {},
+    gradeDistributionImage: '',
   },
 };

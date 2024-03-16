@@ -28,8 +28,8 @@ export type CourseSummary = z.infer<typeof CourseSummarySchema>;
 
 const AssessmentSchema = z.object({
   assessmentTask: z.string().min(1, { message: 'required' }),
-  passingCriteria: z.string().min(1, { message: 'required' }),
-  studentPassPercentage: z.string().min(1, { message: 'required' }),
+  passingCriteria: z.number(),
+  studentPassPercentage: z.number(),
 });
 
 const CourseOutcomeSchema = z.object({
@@ -40,7 +40,7 @@ const CourseOutcomeSchema = z.object({
 const TabeeOutcomeSchema = z.object({
   name: z.string().min(1, { message: 'required' }),
   courseOutcomes: z.array(CourseOutcomeSchema),
-  minimumPercentage: z.string().min(1, { message: 'required' }),
+  minimumPercentage: z.number(),
 });
 
 export type Assessment = z.infer<typeof AssessmentSchema>;
@@ -51,14 +51,20 @@ export type TabeeOutcome = z.infer<typeof TabeeOutcomeSchema>;
 
 const GradeFrequencySchema = z.object({
   name: z.string().min(1, { message: 'required' }),
-  gradeScore: z.string().min(1, { message: 'required' }),
-  frequency: z.string().min(1, { message: 'required' }),
+  gradeScore: z.number(),
+  frequency: z.number(),
+});
+
+const ScoreFrequencySchema = z.object({
+  score: z.number(),
+  frequency: z.number(),
 });
 
 const GradeDistributionSchema = z.object({
   studentAmount: z.string().min(1, { message: 'required' }),
-  GPA: z.string().min(1, { message: 'required' }),
+  GPA: z.number(),
   gradeFrequencies: z.array(GradeFrequencySchema),
+  scoreFrequencies: z.array(ScoreFrequencySchema),
 });
 
 // [3] Result
@@ -66,10 +72,11 @@ const GradeDistributionSchema = z.object({
 const CourseResultSchema = z.object({
   tabeeOutcomes: z.array(TabeeOutcomeSchema),
   gradeDistribution: GradeDistributionSchema,
-  gradeDistributionImage: z.object({}),
+  gradeDistributionImage: z.string(),
 });
 
 export type GradeFrequency = z.infer<typeof GradeFrequencySchema>;
+export type ScoreFrequency = z.infer<typeof ScoreFrequencySchema>;
 export type GradeDistribution = z.infer<typeof GradeDistributionSchema>;
 export type CourseResult = z.infer<typeof CourseResultSchema>;
 

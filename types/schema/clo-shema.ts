@@ -13,6 +13,7 @@ export const CloSchema = z.object({
   courseId: z.string(),
   status: z.string(),
   programOutcomeId: z.string(),
+  programOutcomeName: z.string().optional(),
 });
 
 type Clo = z.infer<typeof CloSchema>;

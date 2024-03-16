@@ -76,14 +76,12 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   },
 
   {
-    accessorKey: 'expectedScorePercentage',
+    accessorKey: 'programOutcomeName',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ScorePercentage" />
+      <DataTableColumnHeader column={column} title="PO" />
     ),
     cell: ({ row }) => {
-      return (
-        <span className="">{row.getValue('expectedScorePercentage')}</span>
-      );
+      return <span className="">{row.getValue('programOutcomeName')}</span>;
     },
   },
   {

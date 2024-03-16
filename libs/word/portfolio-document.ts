@@ -13,14 +13,27 @@ import { GradeTable } from '@/libs/word/table/grade-table';
 import { OutcomeTable } from '@/libs/word/table/outcome-table';
 import { CreateCoursePortfolioForm } from '@/types/schema/course-portfolio-schema';
 
+const base64ToImageBuffer = (base64: string) => {
+  const binary = atob(base64.split(',')[1]);
+
+  const bytes = new Uint8Array(binary.length);
+
+  for (let i = 0; i < binary.length; i++) {
+    bytes[i] = binary.charCodeAt(i);
+  }
+
+  return bytes.buffer;
+};
+
 export async function generatePortfolioDocument({
   info,
   summary,
   result,
   development,
 }: CreateCoursePortfolioForm) {
-  const mockImage = await fetch('/images/nopermission.png');
-  const mockImageBuffer = await mockImage.arrayBuffer();
+  const mockImageBuffer = base64ToImageBuffer(result.gradeDistributionImage);
+
+  console.log(mockImageBuffer);
   const template = await fetch('/template.docx');
   const templateBuffer = await template.arrayBuffer();
 
@@ -141,7 +154,7 @@ export async function generatePortfolioDocument({
           }),
         ],
       },
-      'development.upstreamSubjects': {
+      'development.upstream': {
         type: PatchType.DOCUMENT,
         children: [
           ...development.subjectComments.upstreamSubjects
