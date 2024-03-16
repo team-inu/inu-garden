@@ -45,6 +45,7 @@
     "eslint-config-next": "13.4.19",
     "exceljs": "^4.4.0",
     "framer-motion": "^10.16.0",
+    "html2canvas": "^1.4.1",
     "json-bigint": "^1.0.0",
     "lucide-react": "^0.277.0",
     "next": "13.5.4",
