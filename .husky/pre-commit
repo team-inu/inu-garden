@@ -1,1 +1,1 @@
-pnpm tsc --noEmit
+pnpm tsc --noEmit --project type-check.tsconfig.json
