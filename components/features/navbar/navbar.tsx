@@ -19,7 +19,7 @@ const Navbar = () => {
             <Image src="/images/shiba.svg" width={40} height={40} alt="Inu" />
             <div className="text-lg">Inu</div>
           </div>
-          <MainNav className="mx-6" />
+          <MainNav className="mx-6" role={user.data?.role.toUpperCase()} />
           <div className="ml-auto flex items-center space-x-4">
             <ModeToggle />
             <Badge variant="green">{user.data?.role.toUpperCase()}</Badge>

@@ -1,4 +1,8 @@
+'use client';
+
+import { withAuth } from '@/components/features/routes/private-route';
 import TABEE from '@/components/features/tabee/tabee';
+import { Role } from '@/types/auth-type';
 
 const TABEEPage = () => {
   return (
@@ -13,4 +17,7 @@ const TABEEPage = () => {
   );
 };
 
-export default TABEEPage;
+export default withAuth(TABEEPage, [
+  Role.HEAD_OF_CURRICULUM,
+  Role.TABEE_MANAGER,
+]);
