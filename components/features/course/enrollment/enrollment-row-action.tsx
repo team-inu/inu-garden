@@ -48,7 +48,6 @@ export function EnrollmentRowActions<TData>({
     useDeleteEnrollment();
 
   const onSubmitEdit = (values: EditEnrollmentForm) => {
-    console.log(values);
     updateEnrollment({ ...values, status: values.status });
     if (!isUpdateError) {
       setIsEditDialogOpen(false);

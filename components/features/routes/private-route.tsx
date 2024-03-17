@@ -1,5 +1,5 @@
 import { Loader2Icon } from 'lucide-react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { ComponentType, ReactNode, useEffect } from 'react';
 import { toast } from 'sonner';
 
@@ -28,9 +28,6 @@ export function withAuth<T extends WithAuthProps = WithAuthProps>(
   const ComponentWithAuth = (props: Omit<T, keyof WithAuthProps>) => {
     const { user } = useAuth();
     const router = useRouter();
-    const path = usePathname();
-
-    console.log('path', path);
 
     useEffect(() => {
       if (user.isError) {

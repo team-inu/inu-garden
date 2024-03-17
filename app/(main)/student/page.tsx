@@ -1,6 +1,8 @@
 'use client';
 
+import { withAuth } from '@/components/features/routes/private-route';
 import Student from '@/components/features/student/student';
+import { Role } from '@/types/auth-type';
 
 const AdmissionPage = () => {
   return (
@@ -10,4 +12,8 @@ const AdmissionPage = () => {
   );
 };
 
-export default AdmissionPage;
+export default withAuth(AdmissionPage, [
+  Role.HEAD_OF_CURRICULUM,
+  Role.MODERATOR,
+  Role.TABEE_MANAGER,
+]);

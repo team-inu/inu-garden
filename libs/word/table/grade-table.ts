@@ -1,13 +1,13 @@
-import { Table, TableRow } from 'docx';
+import { TableRow } from 'docx';
 
 import { createCell } from '@/libs/word/utils';
 import {
-  GradeFrequencyType,
-  GradeType,
+  GradeDistribution,
+  GradeFrequency,
 } from '@/types/schema/course-portfolio-schema';
 
 export class GradeTable {
-  public generate(grade: GradeType) {
+  public generate(grade: GradeDistribution) {
     const rows: TableRow[] = [];
 
     rows.push(
@@ -37,12 +37,10 @@ export class GradeTable {
 
     const gradeRows = grade.gradeFrequencies.map((e) => this.createGradeRow(e));
 
-    return new Table({
-      rows: [...rows, ...gradeRows],
-    });
+    return [...rows, ...gradeRows];
   }
 
-  private createGradeRow(grade: GradeFrequencyType) {
+  private createGradeRow(grade: GradeFrequency) {
     return new TableRow({
       children: [
         createCell(grade.name),

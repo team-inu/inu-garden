@@ -109,9 +109,6 @@ export function EnrollmentDataTable<TData, TValue>({
 
     const student = tableToObject(studentTable[0], studentTable.slice(1));
 
-    // TODO: push to backend
-    console.log(student);
-
     e.target.value = '';
   };
 
@@ -148,7 +145,6 @@ export function EnrollmentDataTable<TData, TValue>({
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              (console.log(table.getRowModel().rows),
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
@@ -163,7 +159,7 @@ export function EnrollmentDataTable<TData, TValue>({
                     </TableCell>
                   ))}
                 </TableRow>
-              )))
+              ))
             ) : (
               <TableRow>
                 <TableCell

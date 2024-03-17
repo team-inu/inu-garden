@@ -2,8 +2,9 @@
 
 import { columns } from '@/components/features/graduation/graduation-column';
 import { GraduationDataTable } from '@/components/features/graduation/graduation-table';
+import { withAuth } from '@/components/features/routes/private-route';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Role } from '@/types/auth-type';
 
 const GraduationPage = () => {
   return (
@@ -43,4 +44,8 @@ const GraduationPage = () => {
   );
 };
 
-export default GraduationPage;
+export default withAuth(GraduationPage, [
+  Role.HEAD_OF_CURRICULUM,
+  Role.MODERATOR,
+  Role.TABEE_MANAGER,
+]);

@@ -19,7 +19,6 @@ class CourseLearningOutcomeService extends ApiService {
       status: data.status,
       expectedPassingAssignmentPercentage:
         data.expectedPassingAssignmentPercentage,
-      expectedScorePercentage: data.expectedScorePercentage,
       expectedPassingStudentPercentage: data.expectedPassingStudentPercentage,
       programOutcomeId: data.programOutcomeId,
       subProgramLearningOutcomeId: data.subProgramLearningOutcomeId.map(
@@ -27,7 +26,7 @@ class CourseLearningOutcomeService extends ApiService {
       ),
       courseId: courseId,
     };
-    console.log(result);
+
     return this.post(url, result)
       .then((response) => {
         return response.data.data as unknown as void;

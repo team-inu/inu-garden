@@ -1,8 +1,11 @@
 /** @type {import('next').NextConfig} */
+
+const nextOutput = process.platform === 'win32' ? undefined : 'standalone';
+
 const nextConfig = {
-  output: 'standalone',
+  output: nextOutput,
   images: {
-    domains: ['i.kym-cdn.com', 'media.tenor.com'],
+    domains: ['media.tenor.com'],
   },
 };
 

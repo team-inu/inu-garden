@@ -88,7 +88,6 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
               clo.expectedPassingAssignmentPercentage,
             expectedPassingStudentPercentage:
               clo.expectedPassingStudentPercentage,
-            expectedScorePercentage: clo.expectedScorePercentage,
             status: clo.status,
             programOutcomeId: clo.programOutcomeId,
           }}

@@ -1,10 +1,9 @@
-import { Paragraph, Table, TableCell, TableRow } from 'docx';
+import { Paragraph, TableCell, TableRow, TextRun } from 'docx';
 
-import { createCell } from '@/libs/word/utils';
 import {
-  AssessmentType,
-  CourseType,
-  ProgramOutcomeType,
+  Assessment,
+  CourseOutcome,
+  TabeeOutcome,
 } from '@/types/schema/course-portfolio-schema';
 
 export class OutcomeTable {
@@ -16,17 +15,17 @@ export class OutcomeTable {
     'Percentage of Students with PASS outcome (98 total students)',
   ];
 
-  public generate(programOutcomes: ProgramOutcomeType[]): Table {
-    const contents = programOutcomes.flatMap(
-      ({ courses, tabeeOutcome, minimumPercentage }) => {
-        const assessmentCount = courses.flatMap(
+  public generate(tabeeOutcomes: TabeeOutcome[]): TableRow[] {
+    const contents = tabeeOutcomes.flatMap(
+      ({ courseOutcomes, name, minimumPercentage }) => {
+        const assessmentCount = courseOutcomes.flatMap(
           (course) => course.assessments,
         ).length;
 
-        const courseRows = courses.flatMap((course, courseIndex) => {
+        const courseRows = courseOutcomes.flatMap((course, courseIndex) => {
           return course.assessments.flatMap((assessment, assessmentIndex) => {
             return this.createRow(
-              tabeeOutcome,
+              name,
               course,
               assessment,
               assessmentCount,
@@ -39,12 +38,13 @@ export class OutcomeTable {
         courseRows.push(
           new TableRow({
             children: [
-              createCell(
+              this.createCell(
                 'percentage of students with PASS outcome for at least one assessment task',
+                true,
                 1,
                 3,
               ),
-              createCell(minimumPercentage),
+              this.createCell(minimumPercentage.toString(), true),
             ],
           }),
         );
@@ -53,22 +53,18 @@ export class OutcomeTable {
       },
     );
 
-    const fuckingTable = new Table({
-      rows: [
-        new TableRow({
-          children: this.tableHeader.map((item) => createCell(item)),
-        }),
-        ...contents,
-      ],
-    });
-
-    return fuckingTable;
+    return [
+      new TableRow({
+        children: this.tableHeader.map((item) => this.createCell(item, true)),
+      }),
+      ...contents,
+    ];
   }
 
   private createRow(
     tabeeOutcome: string,
-    course: CourseType,
-    assessment: AssessmentType,
+    course: CourseOutcome,
+    assessment: Assessment,
     assessmentCount: number,
     courseIndex: number,
     assessmentIndex: number,
@@ -76,21 +72,38 @@ export class OutcomeTable {
     const children = [];
 
     if (assessmentIndex === 0 && courseIndex === 0) {
-      children.push(createCell(tabeeOutcome, assessmentCount + 1));
+      children.push(this.createCell(tabeeOutcome, true, assessmentCount + 1));
     }
 
     if (assessmentIndex === 0) {
       children.push(
-        createCell(course.courseOutcome, course.assessments.length),
+        this.createCell(course.name, false, course.assessments.length),
       );
     }
 
     children.push(
-      createCell(assessment.assessmentTask),
-      createCell(assessment.passingCriteria),
-      createCell(assessment.studentPassPercentage),
+      this.createCell(assessment.assessmentTask, false),
+      this.createCell(assessment.passingCriteria.toString(), false),
+      this.createCell(assessment.studentPassPercentage.toString(), false),
     );
 
     return new TableRow({ children });
+  }
+
+  private createCell(
+    text: string,
+    bold: boolean,
+    rowSpan: number = 1,
+    colSpan: number = 1,
+  ) {
+    return new TableCell({
+      children: [
+        new Paragraph({
+          children: [new TextRun({ text: text, bold: bold })],
+        }),
+      ],
+      rowSpan: rowSpan,
+      columnSpan: colSpan,
+    });
   }
 }

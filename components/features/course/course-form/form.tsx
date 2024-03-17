@@ -179,6 +179,20 @@ const CourseForm = () => {
           </FormItem>
         )}
       />
+
+      <FormField
+        control={form.control}
+        name="expectedPassingCloPercentage"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Expected Passing CLO Percentage</FormLabel>
+            <FormControl>
+              <Input {...field} type="number" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
       <div className="pt-5">Define your course grade</div>
       <CourseFormGrade />
     </div>

@@ -1,16 +1,20 @@
 'use client';
 
 import { PlusCircleIcon } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { useRef } from 'react';
 import { FormProvider, useFieldArray } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import ArrayInput from '@/components/features/course/course-portfolio/array-input-form';
 import AttachedDocumentCheckbox from '@/components/features/course/course-portfolio/attached-doc-checkbox';
 import CoursePortfolioHeader from '@/components/features/course/course-portfolio/course-portfolio-header';
 import CourseStream from '@/components/features/course/course-portfolio/course-stream';
-import { GradeTable } from '@/components/features/course/course-portfolio/grade-table';
+import GradeTable from '@/components/features/course/course-portfolio/grade-table';
 import Information from '@/components/features/course/course-portfolio/information';
 import OutcomeTable from '@/components/features/course/course-portfolio/outcome-table';
-import { Overview } from '@/components/overview';
+import Loading from '@/components/features/loading-screen';
+import Overview from '@/components/overview';
 import { Button } from '@/components/ui/button';
 import {
   FormControl,
@@ -20,20 +24,25 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { coursePortfolioFetch } from '@/data/create-portfolio';
+import { useGetCoursePortfolio } from '@/hooks/course-portfolio-hook';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useScreenshot } from '@/hooks/screenshot-hook';
 import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
 import {
+  CourseResult,
+  CreateCoursePortfolioFillableDefaultValues,
   CreateCoursePortfolioFillableSchema,
-  CreateCoursePortfolioFillableSchemaDefaultValues,
-  CreateCoursePortfolioFillableSchemaType,
-  CreateCoursePortfolioSchemaType,
+  CreateCoursePortfolioForm,
 } from '@/types/schema/course-portfolio-schema';
 
 const CoursePortfolioPage = () => {
+  const { id: courseId } = useParams<{ id: string }>();
+
+  const { data, isLoading } = useGetCoursePortfolio(courseId);
+
   const form = useStrictForm(
     CreateCoursePortfolioFillableSchema,
-    CreateCoursePortfolioFillableSchemaDefaultValues,
+    CreateCoursePortfolioFillableDefaultValues,
   );
   const {
     fields: teachingMethodFields,
@@ -41,7 +50,7 @@ const CoursePortfolioPage = () => {
     remove: teachingRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'summary.teachingMethod',
+    name: 'summary.teachingMethods',
   });
 
   const {
@@ -50,7 +59,7 @@ const CoursePortfolioPage = () => {
     remove: objectiveRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'summary.objective',
+    name: 'summary.objectives',
   });
 
   const {
@@ -59,7 +68,7 @@ const CoursePortfolioPage = () => {
     remove: planRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.plan',
+    name: 'development.plans',
   });
 
   const {
@@ -68,7 +77,7 @@ const CoursePortfolioPage = () => {
     remove: doRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.doAndCheck',
+    name: 'development.doAndChecks',
   });
 
   const {
@@ -77,7 +86,7 @@ const CoursePortfolioPage = () => {
     remove: actRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.act',
+    name: 'development.acts',
   });
 
   const {
@@ -86,7 +95,7 @@ const CoursePortfolioPage = () => {
     remove: upstreamRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.subjectsComments.upstream',
+    name: 'development.subjectComments.upstreamSubjects',
   });
   const {
     fields: downstreamFields,
@@ -94,19 +103,40 @@ const CoursePortfolioPage = () => {
     remove: downstreamRemove,
   } = useFieldArray({
     control: form.control,
-    name: 'development.subjectsComments.downstream',
+    name: 'development.subjectComments.downstreamSubjects',
   });
 
-  const onSubmit = (values: CreateCoursePortfolioFillableSchemaType) => {
-    const test: CreateCoursePortfolioSchemaType = {
+  const onSubmit = async (values: CreateCoursePortfolioFillableSchema) => {
+    const image = await takeScreenshot(ref.current);
+
+    if (!data) {
+      toast.error('data was not completed');
+      return;
+    }
+
+    if (!image) {
+      toast.error('cannot generate grade distribution image');
+      return;
+    }
+
+    const courseResult: CourseResult = data.result;
+    courseResult.gradeDistributionImage = image;
+
+    const coursePortfolio: CreateCoursePortfolioForm = {
       development: values.development,
       summary: values.summary,
-      info: coursePortfolioFetch.info,
-      outcome: coursePortfolioFetch.outcome,
+      info: data.info,
+      result: courseResult,
     };
 
-    generatePortfolioDocument(test);
+    generatePortfolioDocument(coursePortfolio);
   };
+
+  const ref = useRef(null);
+  const [image, takeScreenshot] = useScreenshot({});
+
+  if (isLoading) return <Loading />;
+  if (data === undefined) return <div>error</div>;
 
   return (
     <div className="container hidden  flex-col space-y-3 md:flex">
@@ -129,18 +159,27 @@ const CoursePortfolioPage = () => {
               <Information label="หลักสูตร" value="ปกติ" />
               <div className="w-4/5 space-y-2">
                 <div className="grid grid-cols-3">
-                  <Information label="รหัสวิชา" value="CPEXXX" />
-                  <Information label="ชื่อวิชา" value="Computer exploration" />
+                  <Information
+                    label="รหัสวิชา"
+                    value={data?.info.courseCode ?? '-'}
+                  />
+                  <Information
+                    label="ชื่อวิชา"
+                    value={data?.info.courseName ?? '-'}
+                  />
                   <Information label="จำนวนหน่วยกิต" value="3" />
                 </div>
                 <div className="grid grid-cols-3">
                   <Information label="นักศึกษาระดับ" value="ป.ตรี" />
-                  <Information label="จำนวนนักศึกษา" value="100" />
+                  <Information
+                    label="จำนวนนักศึกษา"
+                    value={data.result.gradeDistribution.studentAmount}
+                  />
                 </div>
               </div>
               <Information
                 label="ชื่ออาจารยฺ์ผู้สอน"
-                value="นาย วิศวะ คอมพิวเตอร์"
+                value={data?.info.lecturers[0] ?? '-'}
               />
             </div>
             {/* Summary */}
@@ -162,7 +201,7 @@ const CoursePortfolioPage = () => {
                     remove={teachingRemove}
                     key={item.id}
                     fieldLength={teachingMethodFields.length}
-                    fieldName={`summary.teachingMethod[${index}].name`}
+                    fieldName={`summary.teachingMethods[${index}].name`}
                   />
                 );
               })}
@@ -193,7 +232,7 @@ const CoursePortfolioPage = () => {
                     remove={objectiveRemove}
                     key={item.id}
                     fieldLength={objectiveFields.length}
-                    fieldName={`summary.objective[${index}].name`}
+                    fieldName={`summary.objectives[${index}].name`}
                   />
                 );
               })}
@@ -204,9 +243,15 @@ const CoursePortfolioPage = () => {
               <div className="space-y-5">
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
                 <div className="mx-auto w-3/4 space-y-5">
-                  <Overview />
+                  <div ref={ref}>
+                    <Overview
+                      data={data.result.gradeDistribution.scoreFrequencies}
+                    />
+                  </div>
                   <div className="mx-auto w-3/4">
-                    <GradeTable />
+                    <GradeTable
+                      gradeDistribution={data.result.gradeDistribution}
+                    />
                   </div>
                 </div>
               </div>
@@ -217,7 +262,7 @@ const CoursePortfolioPage = () => {
                 <Input type="string" />
               </div>
               <div className="">
-                <OutcomeTable />
+                <OutcomeTable tabeeOutcomes={data.result.tabeeOutcomes} />
               </div>
             </div>
             {/* Development */}
@@ -239,7 +284,7 @@ const CoursePortfolioPage = () => {
                     remove={planRemove}
                     key={item.id}
                     fieldLength={planFields.length}
-                    fieldName={`development.plan[${index}].name`}
+                    fieldName={`development.plans[${index}].name`}
                   />
                 );
               })}
@@ -259,7 +304,7 @@ const CoursePortfolioPage = () => {
                     remove={doRemove}
                     key={item.id}
                     fieldLength={doFields.length}
-                    fieldName={`development.doAndCheck[${index}].name`}
+                    fieldName={`development.doAndChecks[${index}].name`}
                   />
                 );
               })}
@@ -279,7 +324,7 @@ const CoursePortfolioPage = () => {
                     remove={actRemove}
                     key={item.id}
                     fieldLength={actFields.length}
-                    fieldName={`development.act[${index}].name`}
+                    fieldName={`development.acts[${index}].name`}
                   />
                 );
               })}
@@ -297,8 +342,8 @@ const CoursePortfolioPage = () => {
                           remove={upstreamRemove}
                           key={item.id}
                           fieldLength={upstreamFields.length}
-                          fieldCourseName={`development.subjectsComments.upstream[${index}].courseName`}
-                          fieldCourseComment={`development.subjectsComments.upstream[${index}].comments`}
+                          fieldCourseName={`development.subjectComments.upstreamSubjects[${index}].courseName`}
+                          fieldCourseComment={`development.subjectComments.upstreamSubjects[${index}].comments`}
                         />
                       );
                     })}
@@ -324,8 +369,8 @@ const CoursePortfolioPage = () => {
                           remove={downstreamRemove}
                           key={item.id}
                           fieldLength={downstreamFields.length}
-                          fieldCourseName={`development.subjectsComments.downstream[${index}].courseName`}
-                          fieldCourseComment={`development.subjectsComments.downstream[${index}].comments`}
+                          fieldCourseName={`development.subjectComments.downstreamSubjects[${index}].courseName`}
+                          fieldCourseComment={`development.subjectComments.downstreamSubjects[${index}].comments`}
                         />
                       );
                     })}
@@ -344,7 +389,7 @@ const CoursePortfolioPage = () => {
                 <Label className="text-lg">วิชาอื่นๆ (ถ้ามี)</Label>
                 <FormField
                   control={form.control}
-                  name={`development.subjectsComments.other`}
+                  name={`development.subjectComments.other`}
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
@@ -359,7 +404,7 @@ const CoursePortfolioPage = () => {
               <Label className="text-lg">ความคิดเห็นอื่นๆ (ถ้ามี)</Label>
               <FormField
                 control={form.control}
-                name={`development.otherComments`}
+                name={`development.otherComment`}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>

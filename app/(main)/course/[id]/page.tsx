@@ -45,10 +45,10 @@ const HomePage = () => {
                 <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
               </TabsList>
               <div className="space-x-3">
-                <Link href="/course/1/portfolio">
+                <Link href={`/course/${courseId}/portfolio`}>
                   <Button>Course Portfolio</Button>
                 </Link>
-                <Link href="/course/1/setting">
+                <Link href={`/course/${courseId}/setting`}>
                   <Button variant="secondary">Course Setting</Button>
                 </Link>
               </div>

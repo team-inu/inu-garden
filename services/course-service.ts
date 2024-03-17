@@ -2,6 +2,7 @@ import { ApiService } from '@/services/api-service';
 import {
   CreateCourseSchemaValues,
   GetCourseList,
+  UpdateCourseFormValues,
 } from '@/types/schema/course-schema';
 
 class CourseService extends ApiService {
@@ -11,6 +12,17 @@ class CourseService extends ApiService {
     const url = '/courses';
 
     return this.post(url, course)
+      .then(() => course)
+      .catch(this.throwError);
+  }
+
+  public async updateCourse(
+    course: UpdateCourseFormValues,
+    courseId: string,
+  ): Promise<UpdateCourseFormValues> {
+    const url = `/courses/${courseId}`;
+
+    return this.patch(url, course)
       .then(() => course)
       .catch(this.throwError);
   }

@@ -2,8 +2,11 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
+import excel from 'exceljs';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
+import { toast } from 'sonner';
 
 import ScoreDialog from '@/components/features/course/score/score-dialog';
 import { Button } from '@/components/ui/button';
@@ -11,6 +14,7 @@ import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filte
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
+import { useGetEnrollmentsByCourseId } from '@/hooks/enrollment-hook';
 import { useCreateScore } from '@/hooks/score-hook';
 import { CreateScoreForm } from '@/types/schema/score-schema';
 
@@ -43,12 +47,16 @@ export function ScoreTableToolbar<TData>({
   handleImport,
   assignmentId,
 }: DataTableToolbarProps<TData>) {
+  const { id: courseId } = useParams<{ id: string }>();
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { mutate, isError } = useCreateScore();
+
+  const { data: enrollments, isLoading } =
+    useGetEnrollmentsByCourseId(courseId);
 
   const handleScoreSubmit = (values: CreateScoreForm) => {
     if (assignmentId) {
@@ -58,6 +66,74 @@ export function ScoreTableToolbar<TData>({
       }
     }
   };
+
+  const generate = async () => {
+    if (enrollments === undefined) {
+      return;
+    }
+
+    const workbook = new excel.Workbook();
+
+    const sheet = workbook.addWorksheet('score');
+
+    const headers = ['_studentId', 'first name', 'last name', 'score'];
+    const data = enrollments.map((e) => {
+      return [e.studentId, e.firstName, e.lastName, null];
+    });
+
+    sheet.addRow(headers);
+    sheet.addRows(data);
+
+    sheet.getRow(1).eachCell((e) => {
+      e.alignment = {
+        vertical: 'middle',
+        horizontal: 'center',
+        wrapText: true,
+      };
+      e.fill = {
+        type: 'pattern',
+        pattern: 'solid',
+        fgColor: { argb: 'FFFC6F03' },
+      };
+      e.font = { color: { argb: 'FFFFFFFF' }, bold: true };
+      e.border = {
+        top: { style: 'thick' },
+        left: { style: 'thick' },
+        bottom: { style: 'thick' },
+        right: { style: 'thick' },
+      };
+    });
+
+    sheet.columns = [
+      { width: 10 },
+      { width: 10 },
+      { width: 10 },
+      { width: 10 },
+    ];
+
+    return workbook;
+  };
+
+  const onDownloadScoreTemplate = async () => {
+    const workbook = await generate();
+
+    if (workbook === undefined) {
+      toast.error('Failed to generate template');
+      return;
+    }
+
+    const buffer = await workbook.xlsx.writeBuffer();
+
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const a = document.createElement('a');
+
+    a.href = URL.createObjectURL(blob);
+    a.download = 'test.xlsx';
+    a.click();
+  };
+
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
@@ -132,11 +208,12 @@ export function ScoreTableToolbar<TData>({
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
+              onClick={onDownloadScoreTemplate}
             >
-              <a className="flex items-center" href="/template/score.xlsx">
+              <div className="flex items-center">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
-              </a>
+              </div>
             </Button>
           </div>
         )}

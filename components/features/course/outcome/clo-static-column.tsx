@@ -76,17 +76,6 @@ export const cloStaticColumn: ColumnDef<CloColumn>[] = [
   },
 
   {
-    accessorKey: 'expectedScorePercentage',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ScorePercentage" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <span className="">{row.getValue('expectedScorePercentage')}</span>
-      );
-    },
-  },
-  {
     accessorKey: 'status',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />

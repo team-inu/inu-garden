@@ -15,11 +15,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useAuth } from '@/hooks/auth-hook';
 import { useCourseList } from '@/hooks/course-hook';
+import { Role } from '@/types/auth-type';
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
   const [year, setYear] = useState('2023');
+  const { user } = useAuth();
   const { data: courses, isLoading: isCourseLoading } = useCourseList();
 
   const handleYearChange = (e: string) => {
@@ -56,15 +59,17 @@ const CoursePage = () => {
           </div>
         </div>
 
-        <Link href="/course/create" className="flex w-2/12 justify-end">
-          <Button
-            variant={'default'}
-            className="min-w-max text-base  font-bold"
-            size={'lg'}
-          >
-            Add course
-          </Button>
-        </Link>
+        {user.data?.role === Role.HEAD_OF_CURRICULUM && (
+          <Link href="/course/create" className="flex w-2/12 justify-end">
+            <Button
+              variant={'default'}
+              className="min-w-max text-base  font-bold"
+              size={'lg'}
+            >
+              Add course
+            </Button>
+          </Link>
+        )}
       </div>
       {isCourseLoading && (
         <div className="items-center">

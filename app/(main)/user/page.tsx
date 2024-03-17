@@ -34,4 +34,4 @@ const UserPage = () => {
   );
 };
 
-export default withAuth(UserPage, [Role.MODERATOR]);
+export default withAuth(UserPage, [Role.HEAD_OF_CURRICULUM]);
