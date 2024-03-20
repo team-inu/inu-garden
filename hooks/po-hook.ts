@@ -21,7 +21,7 @@ export const useCreatePo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pos'] });
       toast.success('PO has been created', {
-        description: 'You can now add questions to the PO.',
+        description: 'You can now see the PO in the table.',
       });
     },
     onError: (error) => {
@@ -39,7 +39,7 @@ export const useCreateManyPos = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pos'] });
       toast.success('POs have been created', {
-        description: 'You can now see the POs in the list.',
+        description: 'You can now see the POs in the table.',
       });
     },
     onError: (error) => {
@@ -57,9 +57,7 @@ export const useUpdatePo = () => {
       poService.updatePo(po, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pos'] });
-      toast.success('PO has been updated', {
-        description: 'You can now add questions to the PO.',
-      });
+      toast.success('PO has been updated');
     },
     onError: (error) => {
       toast.error('Failed to update PO', {
@@ -75,9 +73,7 @@ export const useDeletePo = () => {
     mutationFn: (id: string) => poService.deletePo(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pos'] });
-      toast.success('PO has been deleted', {
-        description: 'You can now add questions to the PO.',
-      });
+      toast.success('PO has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete PO', {

@@ -17,7 +17,7 @@ export const useCreateScore = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['scores'] });
       toast.success('Score has been created', {
-        description: 'You can now add questions to the student.',
+        description: 'You can now see the score from the table.',
       });
     },
     onError: (error) => {
@@ -41,9 +41,7 @@ export const useUpdateScore = () => {
       scoreService.updateScore(score, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['scores'] });
-      toast.success('Score has been updated', {
-        description: 'You can now add questions to the score.',
-      });
+      toast.success('Score has been updated');
     },
     onError: (error) => {
       toast.error('Failed to update Score', {
@@ -59,9 +57,7 @@ export const useDeleteScore = () => {
     mutationFn: (id: string) => scoreService.deleteScore(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['scores'] });
-      toast.success('Score has been deleted', {
-        description: 'You can now add questions to the score.',
-      });
+      toast.success('Score has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete score', {

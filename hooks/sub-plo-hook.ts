@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { subPloService } from '@/services/sub-plo-service';
@@ -11,11 +11,15 @@ export const useGetSubPloList = () =>
   });
 
 export const useCreateSubPlo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (splo: CreateSubPloType) => subPloService.createSubPlo(splo),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['splos'],
+      });
       toast.success('Sub PLO has been created', {
-        description: 'You can now add questions to the Sub PLO.',
+        description: 'You can now use the Sub PLO.',
       });
     },
     onError: (error) => {
@@ -27,13 +31,15 @@ export const useCreateSubPlo = () => {
 };
 
 export const useUpdateSubPlo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({ splo, id }: { splo: CreateSubPloType; id: string }) =>
       subPloService.updateSubPlo(splo, id),
     onSuccess: () => {
-      toast.success('Sub-PLO has been updated', {
-        description: 'You can now add questions to the Sub-PLO.',
+      queryClient.invalidateQueries({
+        queryKey: ['splos'],
       });
+      toast.success('Sub-PLO has been updated');
     },
     onError: (error) => {
       toast.error('Failed to update Sub-PLO', {
@@ -44,12 +50,14 @@ export const useUpdateSubPlo = () => {
 };
 
 export const useDeleteSubPlo = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (id: string) => subPloService.deleteSubPlo(id),
     onSuccess: () => {
-      toast.success('Sub-PLO has been deleted', {
-        description: 'You can now add questions to the Sub-PLO.',
+      queryClient.invalidateQueries({
+        queryKey: ['splos'],
       });
+      toast.success('Sub-PLO has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete Sub-PLO', {
