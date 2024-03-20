@@ -1,6 +1,6 @@
 'use client';
 
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { courseService } from '@/services/course-service';
@@ -10,12 +10,16 @@ import {
 } from '@/types/schema/course-schema';
 
 export const useCreateCourse = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (course: CreateCourseSchemaValues) =>
       courseService.createCourse(course),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['courses'],
+      });
       toast.success('Course has been created', {
-        description: 'You can now add questions to the course.',
+        description: 'You can now use this course.',
       });
     },
     onError: (error) => {
@@ -27,6 +31,7 @@ export const useCreateCourse = () => {
 };
 
 export const useUpdateCourse = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: ({
       course,
@@ -36,9 +41,10 @@ export const useUpdateCourse = () => {
       courseId: string;
     }) => courseService.updateCourse(course, courseId),
     onSuccess: () => {
-      toast.success('Course has been updated', {
-        description: 'You can now add questions to the course.',
+      queryClient.invalidateQueries({
+        queryKey: ['courses'],
       });
+      toast.success('Course has been updated');
     },
     onError: (error) => {
       toast.error('Failed to update course', {

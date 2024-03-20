@@ -10,7 +10,7 @@ import {
 
 export const useGetUserList = () =>
   useQuery({
-    queryKey: ['users'],
+    queryKey: ['lecturers'],
     queryFn: () => userService.getUserList(),
   });
 
@@ -20,14 +20,14 @@ export const useCreateUser = () => {
     mutationFn: (user: CreateUserForm) => userService.createUser(user),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['users'],
+        queryKey: ['lecturers'],
       });
-      toast.success('Student has been created', {
-        description: 'You can now add questions to the student.',
+      toast.success('User has been created', {
+        description: 'You can now assign courses to this user.',
       });
     },
     onError: (error) => {
-      toast.error('Failed to create student', {
+      toast.error('Failed to create user', {
         description: error.message,
       });
     },
@@ -40,13 +40,13 @@ export const useCreateManyUsers = () => {
     mutationFn: (users: CreateManyUserForm) =>
       userService.createManyUser(users),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      toast.success('Students has been created', {
-        description: 'You can now add questions to the students.',
+      queryClient.invalidateQueries({ queryKey: ['lecturers'] });
+      toast.success('Users have been created', {
+        description: 'You can now assign courses to these users.',
       });
     },
     onError: (error) => {
-      toast.error('Failed to create students', {
+      toast.error('Failed to create users', {
         description: error.message,
       });
     },
@@ -58,15 +58,11 @@ export const useUpdateUser = () => {
   return useMutation({
     mutationFn: (user: EditUserForm) => userService.updateUser(user.id, user),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      toast.success('Users has been created', {
-        description: 'You can now add questions to the users.',
-      });
+      queryClient.invalidateQueries({ queryKey: ['lecturers'] });
+      toast.success('User has been updated');
     },
     onError: (error) => {
-      toast.error('Failed to create users', {
-        description: error.message,
-      });
+      toast.error('Failed to update user');
     },
   });
 };
@@ -76,10 +72,8 @@ export const useDeleteUser = () => {
   return useMutation({
     mutationFn: (id: string) => userService.deleteUser(id),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-      toast.success('User has been deleted', {
-        description: 'You can now add questions to the user.',
-      });
+      queryClient.invalidateQueries({ queryKey: ['lecturers'] });
+      toast.success('User has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete user', {

@@ -24,7 +24,7 @@ export const useCreateEnrollment = () => {
         queryKey: ['enrollments'],
       });
       toast.success('Enrollment has been created', {
-        description: 'You can now add questions to the enrollment.',
+        description: 'You can see the enrollment in the table.',
       });
     },
     onError: (error) => {
@@ -36,10 +36,14 @@ export const useCreateEnrollment = () => {
 };
 
 export const useUpdateEnrollment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (enrollment: EditEnrollmentForm) =>
       enrollmentService.editEnrollment(enrollment),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['enrollments'],
+      });
       toast.success('Enrollment status has been updated');
     },
     onError: (error) => {
@@ -51,11 +55,15 @@ export const useUpdateEnrollment = () => {
 };
 
 export const useDeleteEnrollment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (assignmentId: string) =>
       enrollmentService.deleteEnrollment(assignmentId),
     onSuccess: () => {
-      toast.success('enrollment has been deleted', {});
+      queryClient.invalidateQueries({
+        queryKey: ['enrollments'],
+      });
+      toast.success('enrollment has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete enrollment', {

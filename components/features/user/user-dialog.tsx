@@ -18,6 +18,13 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PassowrdInput } from '@/components/ui/password-input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateUserForm,
@@ -104,14 +111,26 @@ const UserDialog: React.FC<UserDialogProps> = ({
               control={form.control}
               name="role"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormLabel>Role</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a role" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="LECTURER">Lecturer</SelectItem>
+                      <SelectItem value="MODERATOR">Moderator</SelectItem>
+                      <SelectItem value="TABEE_MANAGER">
+                        Tabee Manager
+                      </SelectItem>
+                      <SelectItem value="HEAD_OF_CURRICULUM">
+                        Head of Curriculum
+                      </SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />

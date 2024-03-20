@@ -22,7 +22,7 @@ export const useCreatePlo = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plos'] });
       toast.success('PLO has been created', {
-        description: 'You can now add questions to the PLO.',
+        description: 'You can now see the PLO in the table.',
       });
     },
     onError: (error) => {
@@ -43,7 +43,7 @@ export const useCreateManyPlos = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plos'] });
       toast.success('PLOs have been created', {
-        description: 'You can now see the PLOs in the list.',
+        description: 'You can now see the PLOs in the table.',
       });
     },
     onError: (error) => {
@@ -61,9 +61,7 @@ export const useUpdatePlo = () => {
       ploService.updatePlo(plo, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plos'] });
-      toast.success('PLO has been updated', {
-        description: 'You can now add questions to the PLO.',
-      });
+      toast.success('PLO has been updated');
     },
     onError: (error) => {
       toast.error('Failed to update PLO', {
@@ -79,9 +77,7 @@ export const useDeletePlo = () => {
     mutationFn: (id: string) => ploService.deletePlo(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plos'] });
-      toast.success('PLO has been deleted', {
-        description: 'You can now add questions to the PLO.',
-      });
+      toast.success('PLO has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete PLO', {

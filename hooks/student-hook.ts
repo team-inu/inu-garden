@@ -21,7 +21,7 @@ export const useCreateStudent = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       toast.success('Student has been created', {
-        description: 'You can now add questions to the student.',
+        description: 'You can now enroll this student.',
       });
     },
     onError: (error) => {
@@ -40,7 +40,7 @@ export const useCreateStudentBulk = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       toast.success('Students have been created', {
-        description: 'You can now see the students in the list.',
+        description: 'You can now see the students in the table.',
       });
     },
     onError: (error) => {
@@ -58,7 +58,7 @@ export const useUpdateStudent = () => {
       studentService.updateStudent(student.kmuttId, student),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
-      toast.success('Enrollment status has been updated');
+      toast.success('Student has been updated');
     },
     onError: (error) => {
       toast.error('Failed to update enrollment', {
@@ -74,9 +74,7 @@ export const useDeleteStudent = () => {
     mutationFn: (id: string) => studentService.deleteStudent(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
-      toast.success('Student has been deleted', {
-        description: 'You can now add questions to the student.',
-      });
+      toast.success('Student has been deleted');
     },
     onError: (error) => {
       toast.error('Failed to delete student', {

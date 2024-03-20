@@ -29,7 +29,7 @@ export const useCreateAssignment = () => {
         queryKey: ['assignments'],
       });
       toast.success('Assignment has been created', {
-        description: 'You can now add questions to the assignment.',
+        description: 'You can now use this assignment.',
       });
     },
     onError: (error) => {
@@ -41,10 +41,14 @@ export const useCreateAssignment = () => {
 };
 
 export const useUpdateAssignment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (assignment: UpdateAssignmentForm) =>
       assignmentService.updateAssignment(assignment),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['assignments'],
+      });
       toast.success('Assignment status has been updated');
     },
     onError: (error) => {
@@ -56,10 +60,14 @@ export const useUpdateAssignment = () => {
 };
 
 export const useDeleteAssignment = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (assignmentId: string) =>
       assignmentService.deleteAssignment(assignmentId),
     onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['assignments'],
+      });
       toast.success('assignment has been deleted', {});
     },
     onError: (error) => {

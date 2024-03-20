@@ -16,10 +16,10 @@ class UserService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createUser(user: CreateUserForm): Promise<void> {
+  public async createUser(user: CreateUserForm): Promise<CreateUserForm> {
     const url = `/users`;
 
-    this.post(url, user)
+    return this.post(url, user)
       .then(() => user)
       .catch(this.throwError);
   }
@@ -34,10 +34,13 @@ class UserService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateUser(userId: string, user: EditUserForm): Promise<void> {
+  public async updateUser(
+    userId: string,
+    user: EditUserForm,
+  ): Promise<EditUserForm> {
     const url = `/users/${userId}`;
 
-    this.patch(url, user)
+    return this.patch(url, user)
       .then(() => user)
       .catch(this.throwError);
   }

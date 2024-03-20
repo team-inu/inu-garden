@@ -41,12 +41,12 @@ export const useCreateClo = () => {
       queryClient.invalidateQueries({
         queryKey: ['clo'],
       });
-      toast.success('Clo has been created', {
-        description: 'You can now add questions to the course.',
+      toast.success('CLO has been created', {
+        description: 'You can now use this CLO.',
       });
     },
     onError: (error) => {
-      toast.error('Failed to create clo', {
+      toast.error('Failed to create CLO', {
         description: error.message,
       });
     },
@@ -61,10 +61,10 @@ export const useUpdateClo = () => {
       queryClient.invalidateQueries({
         queryKey: ['clo'],
       });
-      toast.success('Course has been updated');
+      toast.success('CLO has been updated');
     },
     onError: (error) => {
-      toast.error('Failed to update course', {
+      toast.error('Failed to update CLO', {
         description: error.message,
       });
     },
@@ -79,10 +79,10 @@ export const useDeleteClo = () => {
       queryClient.invalidateQueries({
         queryKey: ['clo'],
       });
-      toast.success('clo has been deleted');
+      toast.success('CLO has been deleted');
     },
     onError: (error) => {
-      toast.error('Failed to delete clo', {
+      toast.error('Failed to delete CLO', {
         description: error.message,
       });
     },
@@ -115,7 +115,7 @@ export const useUnLinkSubPlo = () => {
       cloService.unLinkSubPlo(cloId, subPloId),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['clo', 'splos', 'cloId'],
+        queryKey: ['clo'],
       });
       toast.success('Sub PLO has been unlinked');
     },

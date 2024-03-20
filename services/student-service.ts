@@ -40,10 +40,10 @@ class StudentService extends ApiService {
   public async updateStudent(
     studentId: string,
     student: UpdateStudentForm,
-  ): Promise<void> {
+  ): Promise<UpdateStudentForm> {
     const url = `/students/${studentId}`;
 
-    this.patch(url, student)
+    return this.patch(url, student)
       .then(() => student)
       .catch(this.throwError);
   }
