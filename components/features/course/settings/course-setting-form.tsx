@@ -112,6 +112,10 @@ const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Expected Passing CLO Percentage</FormLabel>
+              <FormDescription>
+                % of how many CLOs a student need to pass to pass each PLO and
+                PO
+              </FormDescription>
               <FormControl>
                 <Input {...field} type="number" />
               </FormControl>

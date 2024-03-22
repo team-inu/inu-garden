@@ -11,6 +11,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -107,12 +108,19 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Status</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="from curriculum">
+                          From curriculum
+                        </SelectItem>
+                        <SelectItem value="modified">Modified</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormItem>
                 )}
               />
@@ -140,6 +148,10 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Passing Student %</FormLabel>
+                    <FormDescription>
+                      % of how many students need to pass this CLO for it to
+                      succeed
+                    </FormDescription>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} type="number" min={0} max={100} />
@@ -155,6 +167,10 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Passing Assignment %</FormLabel>
+                    <FormDescription>
+                      % of how many assignments a student need to pass to pass
+                      this CLO
+                    </FormDescription>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />

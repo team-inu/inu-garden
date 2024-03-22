@@ -6,6 +6,7 @@ import CourseFormGrade from '@/components/features/course/course-form/form-grade
 import Loading from '@/components/features/loading-screen';
 import {
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -186,6 +187,9 @@ const CourseForm = () => {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Expected Passing CLO Percentage</FormLabel>
+            <FormDescription>
+              % of how many CLOs a student need to pass to pass each PLO and PO
+            </FormDescription>
             <FormControl>
               <Input {...field} type="number" />
             </FormControl>

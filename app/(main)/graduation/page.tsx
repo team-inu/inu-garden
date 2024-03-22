@@ -35,7 +35,7 @@ const GraduationPage = () => {
               lastName: 'Doe',
               workPlace: 'jo',
               year: 2556,
-              remarks: 'ตาย',
+              remarks: '',
             },
           ]}
         />

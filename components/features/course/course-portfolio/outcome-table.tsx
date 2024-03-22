@@ -40,16 +40,17 @@ const OutcomeTable: React.FC<OutcomeTableProps> = ({ tabeeOutcomes }) => {
             {tabeeOutcome.courseOutcomes.map((courseOutcome, i) => (
               <TableRow className="w-4/5" key={i}>
                 <TableCell className="w-96"> {courseOutcome.name}</TableCell>
-                {courseOutcome.assessments.map((assessment, i) => (
-                  <TableRow key={i}>
-                    <TableHead>Assessment</TableHead>
-                    <TableCell>{assessment.assessmentTask}</TableCell>
-                    <TableHead>Passing Criteria</TableHead>
-                    <TableCell> {assessment.passingCriteria}</TableCell>
-                    <TableHead>Student Pass</TableHead>
-                    <TableCell>{assessment.studentPassPercentage}</TableCell>
-                  </TableRow>
-                ))}
+                {courseOutcome.assessments &&
+                  courseOutcome.assessments.map((assessment, i) => (
+                    <TableRow key={i}>
+                      <TableHead>Assessment</TableHead>
+                      <TableCell>{assessment.assessmentTask}</TableCell>
+                      <TableHead>Passing Criteria</TableHead>
+                      <TableCell> {assessment.passingCriteria}</TableCell>
+                      <TableHead>Student Pass</TableHead>
+                      <TableCell>{assessment.studentPassPercentage}</TableCell>
+                    </TableRow>
+                  ))}
               </TableRow>
             ))}
             <TableRow>
