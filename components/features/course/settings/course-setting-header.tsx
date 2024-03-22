@@ -14,9 +14,7 @@ const CourseSettingHeader: React.FC<CourseSettingHeaderProps> = ({
   return (
     <Breadcrumb>
       <BreadcrumbItem>
-        <BreadcrumbLink href={`http://localhost:3000/course/${courseId}`}>
-          Dashboard
-        </BreadcrumbLink>
+        <BreadcrumbLink href={`/course/${courseId}`}>Dashboard</BreadcrumbLink>
       </BreadcrumbItem>
       <BreadcrumbItem isCurrentPage>
         <BreadcrumbLink>Settings</BreadcrumbLink>

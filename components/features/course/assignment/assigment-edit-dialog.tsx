@@ -11,6 +11,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -132,6 +133,10 @@ const AssignmentEdotDialog: React.FC<StudentEdotDialogProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Expected passing student percentage</FormLabel>
+                  <FormDescription>
+                    % of how many students need to pass this assignment for it
+                    to succeed
+                  </FormDescription>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} type="number" min={0} max={100} />
@@ -147,6 +152,10 @@ const AssignmentEdotDialog: React.FC<StudentEdotDialogProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Expected score percentage</FormLabel>
+                  <FormDescription>
+                    % of score of max score a student needed to pass this
+                    assignment
+                  </FormDescription>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} type="number" min={0} max={100} />
