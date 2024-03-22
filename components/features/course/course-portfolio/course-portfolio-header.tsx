@@ -9,9 +9,7 @@ const CoursePortfolioHeader = () => {
     <div className="pt-6">
       <Breadcrumb>
         <BreadcrumbItem>
-          <BreadcrumbLink href={'http://localhost:3000/course/1'}>
-            Dashboard
-          </BreadcrumbLink>
+          <BreadcrumbLink href={'/course/1'}>Dashboard</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbItem isCurrentPage>
           <BreadcrumbLink>Course-Portfolio</BreadcrumbLink>
