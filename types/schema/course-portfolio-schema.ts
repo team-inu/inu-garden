@@ -95,19 +95,19 @@ const CourseDevelopmentSchema = z.object({
   subjectComments: z.object({
     upstreamSubjects: z.array(
       z.object({
-        courseName: z.string().min(1, { message: 'required' }),
-        comments: z.string().min(1, { message: 'required' }),
+        courseName: z.string().optional(),
+        comments: z.string().optional(),
       }),
     ),
     downstreamSubjects: z.array(
       z.object({
-        courseName: z.string().min(1, { message: 'required' }),
-        comments: z.string().min(1, { message: 'required' }),
+        courseName: z.string().optional(),
+        comments: z.string().optional(),
       }),
     ),
-    other: z.string().min(1, { message: 'required' }),
+    other: z.string().optional(),
   }),
-  otherComment: z.string().min(1, { message: 'required' }),
+  otherComment: z.string().optional(),
 });
 
 export type CourseDevelopment = z.infer<typeof CourseDevelopmentSchema>;
