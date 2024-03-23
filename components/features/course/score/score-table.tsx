@@ -15,8 +15,6 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import * as React from 'react';
-import { toast } from 'sonner';
-import * as XLSX from 'xlsx';
 
 import { ScoreTableToolbar } from '@/components/features/course/score/score-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
@@ -28,7 +26,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { tableToObject, worksheetToTables } from '@/libs/excel';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -75,41 +72,12 @@ export function ScoreDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadScore = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (!assignmentName) return;
-
-    const file = e.target.files?.[0];
-    if (!file) {
-      return toast.error('Can not read file');
-    }
-
-    const buffer = await file.arrayBuffer();
-    const workBook = XLSX.read(buffer, { type: 'buffer' });
-
-    const sheet = workBook.Sheets[workBook.SheetNames[3]];
-
-    const [scoreTable] = await worksheetToTables(sheet);
-
-    const scores = tableToObject(scoreTable[0], scoreTable.slice(1));
-
-    const payload = scores.map((e) => {
-      return {
-        id: e._ID,
-        name: e.Name,
-        score: e[assignmentName],
-      };
-    });
-
-    e.target.value = '';
-  };
-
   return (
     <div className="space-y-4">
       <ScoreTableToolbar
         table={table}
         selectorOptions={[]}
         isViewOptions={false}
-        handleImport={handleUploadScore}
         assignmentId={assignmentId}
       />
       <div className="rounded-md border">

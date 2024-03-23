@@ -2,7 +2,11 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { scoreService } from '@/services/score-service';
-import { CreateScoreForm, UpdateScoreForm } from '@/types/schema/score-schema';
+import {
+  CreateBulkScoresForm,
+  CreateScoreForm,
+  UpdateScoreForm,
+} from '@/types/schema/score-schema';
 
 export const useCreateScore = () => {
   const queryClient = useQueryClient();
@@ -14,6 +18,30 @@ export const useCreateScore = () => {
       score: CreateScoreForm;
       assignmentId: string;
     }) => scoreService.createScore(score, assignmentId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['scores'] });
+      toast.success('Score has been created', {
+        description: 'You can now see the score from the table.',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to create score', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useCreateBulkScore = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: ({
+      scores,
+      assignmentId,
+    }: {
+      scores: CreateBulkScoresForm;
+      assignmentId: string;
+    }) => scoreService.createBulkScores(scores, assignmentId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['scores'] });
       toast.success('Score has been created', {
