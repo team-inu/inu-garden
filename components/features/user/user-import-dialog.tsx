@@ -78,7 +78,7 @@ const UserImportDialog: React.FC<UserImportDialogProps> = ({
       setCurrent(api.selectedScrollSnap() + 1);
     });
   }, [api]);
-  const handleUploadClo = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleUploadUser = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
       return toast.error('Can not read file');
@@ -123,7 +123,7 @@ const UserImportDialog: React.FC<UserImportDialogProps> = ({
           type="file"
           className="hidden"
           ref={fileImportRef}
-          onChange={handleUploadClo}
+          onChange={handleUploadUser}
         />
         <Button
           className="w-full"

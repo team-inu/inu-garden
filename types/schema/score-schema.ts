@@ -41,7 +41,9 @@ export const CreateScoreFormSchema = z.object({
     .min(0, { message: 'required' }),
 });
 
-export type CreateScoreForm = z.infer<typeof CreateScoreFormSchema>;
+export const CreateBulkScoresFormSchema = z.object({
+  studentScores: CreateScoreFormSchema.array(),
+});
 
 export const UpdateScoreFormSchema = z.object({
   score: z.coerce
@@ -49,6 +51,8 @@ export const UpdateScoreFormSchema = z.object({
     .min(0, { message: 'required' }),
 });
 
+export type CreateScoreForm = z.infer<typeof CreateScoreFormSchema>;
+export type CreateBulkScoresForm = z.infer<typeof CreateBulkScoresFormSchema>;
 export type UpdateScoreForm = z.infer<typeof UpdateScoreFormSchema>;
 
 // payload
@@ -58,4 +62,8 @@ export type UpdateScoreForm = z.infer<typeof UpdateScoreFormSchema>;
 export const CreateScoreFormDefaultValues: CreateScoreForm = {
   studentId: '',
   score: 0,
+};
+
+export const CreateBulkScoresFormDefaultValues: CreateBulkScoresForm = {
+  studentScores: [],
 };

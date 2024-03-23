@@ -9,6 +9,7 @@ import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
 import ScoreDialog from '@/components/features/course/score/score-dialog';
+import ScoreImportDialog from '@/components/features/course/score/score-import-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -44,12 +45,12 @@ export function ScoreTableToolbar<TData>({
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
-  handleImport,
   assignmentId,
 }: DataTableToolbarProps<TData>) {
   const { id: courseId } = useParams<{ id: string }>();
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
+  const [isImportOpen, setIsImportOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
@@ -188,22 +189,22 @@ export function ScoreTableToolbar<TData>({
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
               <ScoreDialog onSubmit={handleScoreSubmit} />
             </Dialog>
-
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
-              onClick={() => fileImportRef.current?.click()}
+              onClick={() => setIsImportOpen(true)}
             >
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
             </Button>
+
+            <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
+              <ScoreImportDialog
+                open={isImportOpen}
+                setIsOnOpenChange={setIsImportOpen}
+              />
+            </Dialog>
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"

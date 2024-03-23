@@ -1,5 +1,6 @@
 import { ApiService } from '@/services/api-service';
 import {
+  CreateBulkScoresForm,
   CreateScoreForm,
   GetScoreByAssignmentResponse,
   UpdateScoreForm,
@@ -31,6 +32,21 @@ class ScoreService extends ApiService {
       studentScores: [data],
       assignmentId: assignmentId,
     };
+    return this.post(url, result)
+      .then(() => data)
+      .catch(this.throwError);
+  }
+
+  public async createBulkScores(
+    data: CreateBulkScoresForm,
+    assignmentId: string,
+  ): Promise<CreateBulkScoresForm> {
+    const url = '/scores';
+    const result = {
+      studentScores: data.studentScores,
+      assignmentId: assignmentId,
+    };
+
     return this.post(url, result)
       .then(() => data)
       .catch(this.throwError);
