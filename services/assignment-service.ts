@@ -21,6 +21,7 @@ class AssignmentService extends ApiService {
         assignment.expectedPassingStudentPercentage,
       weight: assignment.weight,
       courseLearningOutcomeIds: assignment.clo.map((clo) => clo.value),
+      isIncludedInClo: assignment.isIncludedInClo,
     };
     return this.post(url, result)
       .then(() => assignment)

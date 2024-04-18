@@ -90,6 +90,15 @@ export const columns: ColumnDef<AssignmentColumn>[] = [
     },
   },
   {
+    accessorKey: 'isIncludedInClo',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Included in CLO" />
+    ),
+    cell: ({ row }) => {
+      return <span>{String(row.getValue('isIncludedInClo'))}</span>;
+    },
+  },
+  {
     id: 'actions',
     cell: ({ row }) => <AssigmentRowActions row={row} />,
   },
