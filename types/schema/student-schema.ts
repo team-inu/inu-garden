@@ -80,9 +80,12 @@ export const CreateStudentFormSchema = z.object({
   remark: z.string().optional(),
 });
 
+export const CreateStudentsFormSchema = CreateStudentFormSchema.array();
+
 export const UpdateStudentFormSchema = CreateStudentFormSchema;
 
 export type CreateStudentForm = z.infer<typeof CreateStudentFormSchema>;
+export type CreateStudentsForm = z.infer<typeof CreateStudentsFormSchema>;
 export type UpdateStudentForm = z.infer<typeof UpdateStudentFormSchema>;
 // payload
 
@@ -105,6 +108,8 @@ export const CreateStudentFormDefaultValues: CreateStudentForm = {
   departmentName: '',
   remark: undefined,
 };
+
+export const CreateStudentsFormDefaultValues: CreateStudentsForm = [];
 
 export const UpdateStudentFormDefaultValues: UpdateStudentForm =
   CreateStudentFormDefaultValues;

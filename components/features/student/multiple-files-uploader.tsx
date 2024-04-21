@@ -1,7 +1,8 @@
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
-import { useState } from 'react';
+import { ImportIcon } from 'lucide-react';
+import { useRef, useState } from 'react';
 import Dropzone, { DropEvent, FileRejection } from 'react-dropzone';
 import { toast } from 'sonner';
 import * as xlsx from 'xlsx';
@@ -14,15 +15,30 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
+import { Form } from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import {
+  Tabs,
+  TabsContent,
+  TabsList,
+  TabsTrigger,
+} from '@/components/ui/tabs-api';
+import { useStrictForm } from '@/hooks/form-hook';
 import { useCreateStudentBulk } from '@/hooks/student-hook';
+import { tableToObject, worksheetToTables } from '@/libs/excel';
 import {
   ApplicantSpreadsheetRow,
   FirstDataHeaderRow,
 } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
-import { CreateStudentForm } from '@/types/schema/student-schema';
+import {
+  CreateStudentForm,
+  CreateStudentsForm,
+  CreateStudentsFormDefaultValues,
+  CreateStudentsFormSchema,
+} from '@/types/schema/student-schema';
 
-const MultipleFileUploader = () => {
+const SinfoFormatDialog = () => {
   const [applicantFiles, setApplicantFiles] = useState<File[]>([]);
   const [eligibleFiles, setEligibleFiles] = useState<File[]>([]);
 
@@ -122,38 +138,6 @@ const MultipleFileUploader = () => {
   };
 
   const onEligibleFilesDrop = <T extends File>(
-    acceptedFiles: T[],
-    _fileRejections: FileRejection[],
-    _event: DropEvent,
-  ) => {
-    const readFile = async (file: File) => {
-      const buffer = await file.arrayBuffer();
-      const workBook = xlsx.read(buffer, { type: 'buffer' });
-
-      workBook.SheetNames.map((sheetName) => {
-        const sheet = workBook.Sheets[sheetName];
-        const eligibles = xlsx.utils.sheet_to_json(sheet, {
-          range: 1,
-        }) as EligibleSpreadsheetRow[];
-        setEligibles((prev) => [...prev, ...eligibles]);
-      });
-    };
-
-    setEligibleFiles(acceptedFiles);
-
-    const promises = acceptedFiles.map((file) => {
-      if (file.type !== 'application/vnd.ms-excel') {
-        return Promise.resolve();
-      }
-      return readFile(file);
-    });
-
-    Promise.all(promises).then(() => {
-      toast.success('All files have been read');
-    });
-  };
-
-  const onFinalEligibleFileDrop = <T extends File>(
     acceptedFiles: T[],
     _fileRejections: FileRejection[],
     _event: DropEvent,
@@ -333,13 +317,7 @@ const MultipleFileUploader = () => {
   };
 
   return (
-    <DialogContent className="min-w-fit">
-      <DialogHeader>
-        <DialogTitle>Import students</DialogTitle>
-        <DialogDescription>
-          Import students from spreadsheet files.
-        </DialogDescription>
-      </DialogHeader>
+    <div>
       <div className="container relative mx-auto space-y-3  bg-white/20 px-5 py-5 shadow-xl">
         <div className="space-y-3">
           <Dropzone onDrop={onApplicantFilesDrop}>
@@ -422,6 +400,146 @@ const MultipleFileUploader = () => {
           Save
         </Button>
       </DialogFooter>
+    </div>
+  );
+};
+
+const InuFormatDialog = () => {
+  const form = useStrictForm(
+    CreateStudentsFormSchema,
+    CreateStudentsFormDefaultValues,
+  );
+
+  const fileImportRef = useRef<HTMLInputElement>(null);
+
+  const { mutate, isPending: isSubmitting } = useCreateStudentBulk();
+
+  const handleUploadStudent = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
+    const file = e.target.files?.[0];
+    if (!file) {
+      return toast.error('Can not read file');
+    }
+
+    const buffer = await file.arrayBuffer();
+    const workBook = xlsx.read(buffer, { type: 'buffer' });
+
+    const sheet = workBook.Sheets[workBook.SheetNames[0]];
+
+    const [studentTable] = await worksheetToTables(sheet);
+    const students = tableToObject(studentTable[0], studentTable.slice(1));
+    console.log(students);
+    form.reset(
+      students.map((e) => {
+        return {
+          kmuttId: e['_kmuttId'],
+          // ...e,
+          admission: e['admission'],
+          city: e['city'],
+          departmentName: e['departmentName'],
+          email: e['email'],
+          engGPA: e['engGPA'],
+          firstName: e['firstName'],
+          lastName: e['lastName'],
+          gpax: e['GPAX'],
+          mathGPA: e['mathGPA'],
+          programmeName: e['programmeName'],
+          remark: e['remark'],
+          school: e['school'],
+          sciGPA: e['sciGPA'],
+          year: e['year'],
+        };
+      }),
+    );
+
+    toast.success(
+      'Students excel parsed successfully, please review the data before submit',
+    );
+  };
+
+  const onSubmit = (data: CreateStudentsForm) => {
+    console.log(data);
+    mutate(data);
+  };
+
+  return (
+    <div className="">
+      <Input
+        type="file"
+        className="hidden"
+        ref={fileImportRef}
+        onChange={handleUploadStudent}
+      />
+      <Button
+        className="w-full"
+        variant="outline"
+        onClick={() => fileImportRef.current?.click()}
+      >
+        <ImportIcon className="mr-2 h-4 w-4" />
+        Import
+      </Button>
+
+      {/* <ScrollArea className="h-[200px] w-full rounded-md border p-4 font-mono">
+        {form.getValues().map((e, i) => (
+          <div key={i}>
+            {e.kmuttId}: {e.firstName}
+          </div>
+        ))}
+      </ScrollArea> */}
+
+      <Form {...form}>
+        <form onSubmit={form.handleSubmit(onSubmit)}></form>
+      </Form>
+      <DialogFooter>
+        <Button
+          variant="outline"
+          onClick={() => {
+            form.reset();
+          }}
+        >
+          Clear data
+        </Button>
+        <DialogClose asChild>
+          <Button
+            onClick={() => {
+              form.reset(CreateStudentsFormDefaultValues);
+            }}
+            variant="outline"
+          >
+            Cancel
+          </Button>
+        </DialogClose>
+        <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
+          Save
+        </Button>
+      </DialogFooter>
+    </div>
+  );
+};
+const MultipleFileUploader = () => {
+  return (
+    <DialogContent className="min-w-fit">
+      <DialogHeader>
+        <DialogTitle>Import students</DialogTitle>
+        <DialogDescription>
+          Import students from spreadsheet files.
+        </DialogDescription>
+      </DialogHeader>
+      <Tabs defaultValue="overview" className="space-y-4">
+        <div className="flex justify-between">
+          <TabsList>
+            <TabsTrigger value="sinfo">SINFO Format</TabsTrigger>
+            <TabsTrigger value="inu">Inu Format</TabsTrigger>
+          </TabsList>
+        </div>
+        <TabsContent value="sinfo" className="space-y-4">
+          <SinfoFormatDialog />
+        </TabsContent>
+        <TabsContent value="inu" className="space-y-4">
+          <InuFormatDialog />
+        </TabsContent>
+      </Tabs>
     </DialogContent>
   );
 };
