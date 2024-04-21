@@ -1,36 +1,56 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import CourseHistoryCard from '@/components/features/course/history/course-history-card';
 import CourseHistoryHeader from '@/components/features/course/history/course-history-header';
+import Loading from '@/components/features/loading-screen';
 import { Input } from '@/components/ui/input';
+import { useCourseList } from '@/hooks/course-hook';
+import { GetCourseList } from '@/types/schema/course-schema';
+
+type CourseHistoryType = GetCourseList & {
+  isSee: boolean;
+};
 
 const CourseHistoryPage = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [courseMock, setCourseMock] = useState([
-    {
-      courseId: 'cpe100',
-      courseName: 'Fundamental of Programming in C',
-      isSee: false,
-    },
-    {
-      courseId: 'cpe101',
-      courseName: 'Intro into com eng',
-      isSee: false,
-    },
-  ]);
+  const [coursesSelect, setCoursesSelect] = useState<CourseHistoryType[]>();
+  const { data: courses, isLoading: isCourseLoading } = useCourseList();
+
+  const setCourseData = (data: GetCourseList[]) => {
+    const newCourses = data.map((course) => {
+      return {
+        ...course,
+        isSee: false,
+      };
+    });
+    setCoursesSelect(newCourses);
+  };
+
   const handleIsSee = (id: string) => {
-    setCourseMock(
-      courseMock.map((item) => {
-        if (item.courseId === id) {
-          return { ...item, isSee: !item.isSee };
+    setCoursesSelect(
+      coursesSelect?.map((course) => {
+        if (course.id === id) {
+          return {
+            ...course,
+            isSee: !course.isSee,
+          };
         } else {
-          return { ...item, isSee: false };
+          return { ...course, isSee: false };
         }
       }),
     );
   };
+
+  useEffect(() => {
+    if (courses) {
+      setCourseData(courses);
+    }
+  }, [courses]);
+
+  if (isCourseLoading || !courses) return <Loading />;
+
   return (
     <div className="container ">
       <CourseHistoryHeader />
@@ -51,15 +71,15 @@ const CourseHistoryPage = () => {
           />
         </div>
         <div className="space-y-5">
-          {courseMock.map((item, index) => (
-            <CourseHistoryCard
-              key={index}
-              courseId={item.courseId}
-              courseName={item.courseName}
-              isSee={item.isSee}
-              handleIsSee={handleIsSee}
-            />
-          ))}
+          {coursesSelect &&
+            coursesSelect.map((course) => (
+              <CourseHistoryCard
+                key={course.id}
+                courseData={course}
+                isSee={course.isSee}
+                handleIsSee={handleIsSee}
+              />
+            ))}
         </div>
       </div>
     </div>

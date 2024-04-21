@@ -153,6 +153,38 @@ const MultipleFileUploader = () => {
     });
   };
 
+  const onFinalEligibleFileDrop = <T extends File>(
+    acceptedFiles: T[],
+    _fileRejections: FileRejection[],
+    _event: DropEvent,
+  ) => {
+    const readFile = async (file: File) => {
+      const buffer = await file.arrayBuffer();
+      const workBook = xlsx.read(buffer, { type: 'buffer' });
+
+      workBook.SheetNames.map((sheetName) => {
+        const sheet = workBook.Sheets[sheetName];
+        const eligibles = xlsx.utils.sheet_to_json(sheet, {
+          range: 1,
+        }) as EligibleSpreadsheetRow[];
+        setEligibles((prev) => [...prev, ...eligibles]);
+      });
+    };
+
+    setEligibleFiles(acceptedFiles);
+
+    const promises = acceptedFiles.map((file) => {
+      if (file.type !== 'application/vnd.ms-excel') {
+        return Promise.resolve();
+      }
+      return readFile(file);
+    });
+
+    Promise.all(promises).then(() => {
+      toast.success('All files have been read');
+    });
+  };
+
   const exportFile = () => {
     type ExtendedEligible = EligibleSpreadsheetRow & { year: string };
 
@@ -367,6 +399,8 @@ const MultipleFileUploader = () => {
           </ul>
         </div>
       </div>
+      <div>another one</div>
+
       <DialogFooter>
         <Button
           type="submit"
