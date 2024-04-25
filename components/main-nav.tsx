@@ -51,6 +51,17 @@ export function MainNav({ className, role }: MainNavProps) {
         User
       </Link>
       <Link
+        href="/prediction"
+        className={cn(
+          'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',
+          {
+            hidden: role === Role.LECTURER,
+          },
+        )}
+      >
+        Prediction
+      </Link>
+      <Link
         href="/tabee"
         className={cn(
           'text-sm font-medium text-muted-foreground transition-colors hover:text-primary',

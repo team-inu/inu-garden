@@ -1,12 +1,18 @@
 'use client';
 
+import { DialogClose } from '@radix-ui/react-dialog';
 import { UserCircle } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import CourseHistoryCardDetail from '@/components/features/course/history/course-history-card-detail';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleTrigger } from '@/components/ui/collapsible';
-import { GetCourseList } from '@/types/schema/course-schema';
+import {
+  CreateCourseSchemaValues,
+  GetCourseList,
+} from '@/types/schema/course-schema';
 
 type CourseHistoryCardProps = {
   courseData: GetCourseList;
@@ -19,6 +25,19 @@ const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
   isSee,
   handleIsSee,
 }) => {
+  const formCtx = useFormContext<CreateCourseSchemaValues>();
+
+  const handleImportCourse = () => {
+    formCtx.reset({
+      name: courseData.name,
+      code: courseData.code,
+      semesterId: courseData.semester.id,
+      userId: courseData.user.id,
+      description: courseData.description,
+    });
+
+    toast.success('Course imported successfully');
+  };
   return (
     <Collapsible open={isSee}>
       <div className=" w-full border-2 border-l-4 border-l-primary p-3">
@@ -62,7 +81,11 @@ const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
                 See more
               </Button>
             </CollapsibleTrigger>
-            <Button size={'sm'}>Import this course</Button>
+            <DialogClose asChild>
+              <Button size={'sm'} onClick={handleImportCourse}>
+                Import this course
+              </Button>
+            </DialogClose>
           </div>
         </div>
       </div>
