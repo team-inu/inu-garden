@@ -1,18 +1,28 @@
 'use client';
 
+import { DialogClose } from '@radix-ui/react-dialog';
 import { ImportIcon, TimerIcon } from 'lucide-react';
-import Link from 'next/link';
-import { ChangeEvent, useRef } from 'react';
+import { ChangeEvent, useRef, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
+import CourseHistory from '@/components/features/course/history/course-history';
 import { Button } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseFormHeader = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const formCtx = useFormContext<CreateCourseSchemaValues>();
   const fileImportRef = useRef<HTMLInputElement>(null);
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
@@ -57,12 +67,34 @@ const CourseFormHeader = () => {
         <ImportIcon className="h-5 w-5" />
         <div className="">Import</div>
       </Button>
-      <Link href="/course/history">
-        <Button type="button" variant={'secondary'} className="space-x-3">
-          <TimerIcon className="h-5 w-5" />
-          <div className="">History</div>
-        </Button>
-      </Link>
+      <Button
+        onClick={() => setIsOpen(true)}
+        type="button"
+        variant={'secondary'}
+        className="space-x-3"
+      >
+        <TimerIcon className="h-5 w-5" />
+        <div className="">History</div>
+      </Button>
+
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogContent className="min-w-[80%]">
+          <DialogHeader>
+            <DialogTitle>Course History</DialogTitle>
+            <DialogDescription>
+              this page is for showing the history of the course that the user
+              has taken in the past.
+            </DialogDescription>
+          </DialogHeader>
+          <CourseHistory />
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
