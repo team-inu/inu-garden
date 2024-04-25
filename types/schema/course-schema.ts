@@ -29,7 +29,7 @@ export type GetCourseList = Course & {
   semester: {
     id: string;
     year: number;
-    semesterSequence: number;
+    semesterSequence: string;
   };
 };
 
