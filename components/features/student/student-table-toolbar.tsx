@@ -5,8 +5,9 @@ import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useState } from 'react';
 
-import MultipleFileUploader from '@/components/features/student/multiple-files-uploader';
+import GradeImportDialog from '@/components/features/student/grade-import-dialog';
 import StudentDialog from '@/components/features/student/student-dialog';
+import StudentFilesUploader from '@/components/features/student/student-files-uploader';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
@@ -43,7 +44,8 @@ export function StudentTableToolbar<TData>({
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
-  const [isImportOpen, setIsImportOpen] = useState(false);
+  const [isImportStudentOpen, setIsImportStudentOpen] = useState(false);
+  const [isImportGradeOpen, setIsImportGradeOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate, isError } = useCreateStudent();
@@ -102,7 +104,7 @@ export function StudentTableToolbar<TData>({
               onClick={() => setIsOpen(true)}
             >
               <PlusCircledIcon className="mr-2 h-4 w-4" />
-              Add
+              Add Student
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -113,14 +115,34 @@ export function StudentTableToolbar<TData>({
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
               size="sm"
-              onClick={() => setIsImportOpen(true)}
+              onClick={() => setIsImportStudentOpen(true)}
             >
               <ImportIcon className="mr-2 h-4 w-4" />
-              Import
+              Import Student
             </Button>
 
-            <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
-              <MultipleFileUploader />
+            <Dialog
+              open={isImportStudentOpen}
+              onOpenChange={setIsImportStudentOpen}
+            >
+              <StudentFilesUploader />
+            </Dialog>
+
+            <Button
+              className="ml-auto hidden h-8 lg:flex"
+              variant="outline"
+              size="sm"
+              onClick={() => setIsImportGradeOpen(true)}
+            >
+              <ImportIcon className="mr-2 h-4 w-4" />
+              Import Grade
+            </Button>
+
+            <Dialog
+              open={isImportGradeOpen}
+              onOpenChange={setIsImportGradeOpen}
+            >
+              <GradeImportDialog />
             </Dialog>
 
             <Button
@@ -130,7 +152,18 @@ export function StudentTableToolbar<TData>({
             >
               <a className="flex items-center" href="/template/student.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
-                Template
+                Student Template
+              </a>
+            </Button>
+
+            <Button
+              className="ml-auto hidden h-8 lg:flex"
+              variant="outline"
+              size="sm"
+            >
+              <a className="flex items-center" href="/template/grade.xlsx">
+                <FolderDotIcon className="mr-2 h-4 w-4" />
+                Grade Template
               </a>
             </Button>
           </div>

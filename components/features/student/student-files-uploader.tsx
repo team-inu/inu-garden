@@ -356,7 +356,7 @@ const SinfoFormatDialog = () => {
         </div>
         <div className="bg-white/20 px-10 py-3 font-mono ">
           {'Uplaoded applicant files'}
-          <ul className="scrollbar-thumb-blue-900 scrollbar  scrollbar-track-white/10 h-32 overflow-y-auto ">
+          <ul className="h-32 overflow-y-auto  scrollbar scrollbar-track-white/10 scrollbar-thumb-blue-900 ">
             {applicantFiles.map((file, i) => (
               <li key={i}>
                 [{(file as any).path}] [{file.type}] {file.name} - {file.size}{' '}
@@ -367,7 +367,7 @@ const SinfoFormatDialog = () => {
         </div>
         <div className="bg-white/20 px-10 py-3 font-mono">
           {'Uploaded eligible files'}
-          <ul className="scrollbar-thumb-blue-900 scrollbar  scrollbar-track-white/10 h-32 overflow-y-auto">
+          <ul className="h-32 overflow-y-auto  scrollbar scrollbar-track-white/10 scrollbar-thumb-blue-900">
             {eligibleFiles.map((file, i) => (
               <li key={i}>
                 [{(file as any).path}] [{file.type}] {file.name} - {file.size}{' '}
@@ -517,7 +517,7 @@ const InuFormatDialog = () => {
     </div>
   );
 };
-const MultipleFileUploader = () => {
+const StudentFilesUploader = () => {
   return (
     <DialogContent className="min-w-fit">
       <DialogHeader>
@@ -544,4 +544,4 @@ const MultipleFileUploader = () => {
   );
 };
 
-export default MultipleFileUploader;
+export default StudentFilesUploader;
