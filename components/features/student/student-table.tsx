@@ -1,5 +1,6 @@
 'use client';
 
+import { DialogClose } from '@radix-ui/react-dialog';
 import { CircleIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
@@ -19,9 +20,18 @@ import { TrashIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { StudentTableToolbar } from '@/components/features/student/student-table-toolbar';
+import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog';
 import {
   Table,
   TableBody,
@@ -91,33 +101,62 @@ export function StudentDataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+
+  const onDelete = () => {};
 
   var CollapsibleRowContent = ({ row }: { row: StudentColumn }) => (
-    <td colSpan={16}>
-      <div className="mx-auto w-11/12 py-5">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead colSpan={1}>Semester</TableHead>
-              <TableHead colSpan={1}>Grade</TableHead>
-              <TableHead colSpan={1}></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>1</TableCell>
-              <TableCell>{row.grade}</TableCell>
-              <TrashIcon className="h-4 w-4" />
-            </TableRow>
-            <TableRow>
-              <TableCell>2</TableCell>
-              <TableCell>{row.grade}</TableCell>
-              <TrashIcon className="h-4 w-4" />
-            </TableRow>
-          </TableBody>
-        </Table>
-      </div>
-    </td>
+    <>
+      <td colSpan={16}>
+        <div className="mx-auto w-11/12 py-5">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead colSpan={1}>Semester</TableHead>
+                <TableHead colSpan={1}>Grade</TableHead>
+                <TableHead colSpan={1}></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              <TableRow>
+                <TableCell>1</TableCell>
+                <TableCell>{row.grade}</TableCell>
+                <TableCell>
+                  <TrashIcon className="h-4 w-4 cursor-pointer hover:text-red-500" />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>2</TableCell>
+                <TableCell>{row.grade}</TableCell>
+                <TableCell>
+                  <TrashIcon
+                    onClick={() => setIsDeleteDialogOpen(true)}
+                    className="h-4 w-4 cursor-pointer hover:text-red-500"
+                  />
+                </TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </div>
+      </td>
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are your sure to delete?</DialogTitle>
+            <DialogDescription>
+              {` You can't undo this action. This will permanently delete the.`}
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button onClick={onDelete}>Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 
   return (
