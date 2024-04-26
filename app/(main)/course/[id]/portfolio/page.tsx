@@ -242,7 +242,7 @@ const CoursePortfolioPage = () => {
               <div className="text-xl font-semibold">3. ผลการศึกษา</div>
               <div className="space-y-5">
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
-                <div className="mx-auto w-3/4 space-y-5">
+                <div className="">
                   <div ref={ref}>
                     <Overview
                       data={data.result.gradeDistribution.scoreFrequencies}
