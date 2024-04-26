@@ -109,6 +109,7 @@ export function StudentDataTable<TData, TValue>({
     <>
       <td colSpan={16}>
         <div className="mx-auto w-11/12 py-5">
+          <Button variant="default">Add Grade</Button>
           <Table>
             <TableHeader>
               <TableRow>
