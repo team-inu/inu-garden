@@ -22,6 +22,13 @@ class GradeService extends ApiService {
       .then(() => payload)
       .catch(this.throwError);
   }
+
+  public async deleteGrade(id: string) {
+    const url = `/grades/${id}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
 }
 
 export const gradeService = new GradeService();

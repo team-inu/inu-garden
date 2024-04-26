@@ -41,7 +41,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useGetGradeByStudentId } from '@/hooks/grade-hook';
+import { useDeleteGrade, useGetGradeByStudentId } from '@/hooks/grade-hook';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -68,6 +68,76 @@ const inputs: SelectorOption[] = [
     columnName: 'admission',
   },
 ];
+
+const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
+  const { data: grades } = useGetGradeByStudentId(studentId);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
+  const [gradeId, setGradeId] = React.useState('');
+  const { mutate } = useDeleteGrade();
+  const onDelete = (gradeId: string) => {
+    mutate(gradeId);
+  };
+  return (
+    <>
+      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+        <StudentGradeForm studentId={studentId} />
+      </Dialog>
+      <td colSpan={16} className="mx-auto w-11/12 py-5">
+        <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
+          Add Grade
+        </Button>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead colSpan={1}>Semester</TableHead>
+              <TableHead colSpan={1}>Grade</TableHead>
+              <TableHead colSpan={1}></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            {grades?.map((e, index) => {
+              return (
+                <TableRow key={index}>
+                  <TableCell>
+                    {e.semester?.semesterSequence} / {e.semester?.year}
+                  </TableCell>
+                  <TableCell>{e.grade}</TableCell>
+                  <TableCell>
+                    <TrashIcon
+                      onClick={() => {
+                        setIsDeleteDialogOpen(true);
+                        setGradeId(e.id);
+                      }}
+                      className="h-4 w-4 cursor-pointer hover:text-red-500"
+                    />
+                  </TableCell>
+                </TableRow>
+              );
+            })}
+          </TableBody>
+        </Table>
+      </td>
+      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are your sure to delete?</DialogTitle>
+            <DialogDescription>
+              {` You can't undo this action. This will permanently delete the.`}
+            </DialogDescription>
+          </DialogHeader>
+
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button onClick={() => onDelete(gradeId)}>Delete</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
+  );
+};
 
 export function StudentDataTable<TData, TValue>({
   columns,
@@ -102,69 +172,6 @@ export function StudentDataTable<TData, TValue>({
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
-  const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
-
-  const onDelete = () => {};
-
-  var CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
-    const { data: grades } = useGetGradeByStudentId(studentId);
-    console.log('x', grades);
-    return (
-      <>
-        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-          <StudentGradeForm studentId={studentId} />
-        </Dialog>
-        <td colSpan={16} className="mx-auto w-11/12 py-5">
-          <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
-            Add Grade
-          </Button>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead colSpan={1}>Semester</TableHead>
-                <TableHead colSpan={1}>Grade</TableHead>
-                <TableHead colSpan={1}></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {grades?.map((e) => {
-                console.log(e);
-                return (
-                  <TableRow>
-                    <TableCell>
-                      {e.semester.semesterSequence} / {e.semester.year}
-                    </TableCell>
-                    <TableCell>{e.grade}</TableCell>
-                    <TableCell>
-                      <TrashIcon className="h-4 w-4 cursor-pointer hover:text-red-500" />
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </td>
-        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-          <DialogContent>
-            <DialogHeader>
-              <DialogTitle>Are your sure to delete?</DialogTitle>
-              <DialogDescription>
-                {` You can't undo this action. This will permanently delete the.`}
-              </DialogDescription>
-            </DialogHeader>
-
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button variant="outline">Cancel</Button>
-              </DialogClose>
-              <Button onClick={onDelete}>Delete</Button>
-            </DialogFooter>
-          </DialogContent>
-        </Dialog>
-      </>
-    );
-  };
 
   return (
     <div className="space-y-4">

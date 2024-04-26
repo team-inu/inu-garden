@@ -6,7 +6,7 @@ import { PayloadCreateGradeType } from '@/types/schema/grade-schema';
 
 export const useGetGradeByStudentId = (studentId: string) =>
   useQuery({
-    queryKey: ['grades'],
+    queryKey: ['grades', studentId],
     queryFn: () => gradeService.getGradeByStudentId(studentId),
   });
 
@@ -25,6 +25,24 @@ export const useCreateGrade = () => {
     },
     onError: (error) => {
       toast.error('Failed to create grade', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useDeleteGrade = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => gradeService.deleteGrade(id),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['grades'],
+      });
+      toast.success('Grade has been deleted');
+    },
+    onError: (error) => {
+      toast.error('Failed to delete grade', {
         description: error.message,
       });
     },
