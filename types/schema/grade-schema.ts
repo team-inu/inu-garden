@@ -8,6 +8,18 @@ const GradeSchema = z.object({
   grade: z.string(),
 });
 
+const GradeSemesterSchema = z.object({
+  id: z.string(),
+  studentId: z.string(),
+  semesterId: z.string(),
+  grade: z.number(),
+  semester: z.object({
+    id: z.string(),
+    year: z.number(),
+    semesterSequence: z.string(),
+  }),
+});
+
 export const CreateGradeSchema = z.object({
   semesterSequence: z.string().min(1, { message: 'required' }),
   studentId: z.string().min(1, { message: 'required' }),
@@ -30,6 +42,8 @@ export type GradeType = z.infer<typeof GradeSchema>;
 export type CreateGradeType = z.infer<typeof CreateGradeSchema>;
 
 export type PayloadCreateGradeType = z.infer<typeof PayloadCreateGradeSchema>;
+
+export type GradeSemester = z.infer<typeof GradeSemesterSchema>;
 
 export const CreateGradeTypeDefaultValues: CreateGradeType = {
   semesterSequence: '',

@@ -41,7 +41,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { StudentColumn } from '@/types/schema/student-schema';
+import { useGetGradeByStudentId } from '@/hooks/grade-hook';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -107,63 +107,64 @@ export function StudentDataTable<TData, TValue>({
 
   const onDelete = () => {};
 
-  var CollapsibleRowContent = ({ row }: { row: StudentColumn }) => (
-    <>
-      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <StudentGradeForm studentId={row.id} />
-      </Dialog>
-      <td colSpan={16} className="mx-auto w-11/12 py-5">
-        <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
-          Add Grade
-        </Button>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead colSpan={1}>Semester</TableHead>
-              <TableHead colSpan={1}>Grade</TableHead>
-              <TableHead colSpan={1}></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            <TableRow>
-              <TableCell>1</TableCell>
-              <TableCell>{row.grade}</TableCell>
-              <TableCell>
-                <TrashIcon className="h-4 w-4 cursor-pointer hover:text-red-500" />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell>2</TableCell>
-              <TableCell>{row.grade}</TableCell>
-              <TableCell>
-                <TrashIcon
-                  onClick={() => setIsDeleteDialogOpen(true)}
-                  className="h-4 w-4 cursor-pointer hover:text-red-500"
-                />
-              </TableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </td>
-      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
-          </DialogHeader>
+  var CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
+    const { data: grades } = useGetGradeByStudentId(studentId);
+    console.log('x', grades);
+    return (
+      <>
+        <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+          <StudentGradeForm studentId={studentId} />
+        </Dialog>
+        <td colSpan={16} className="mx-auto w-11/12 py-5">
+          <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
+            Add Grade
+          </Button>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead colSpan={1}>Semester</TableHead>
+                <TableHead colSpan={1}>Grade</TableHead>
+                <TableHead colSpan={1}></TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {grades?.map((e) => {
+                console.log(e);
+                return (
+                  <TableRow>
+                    <TableCell>
+                      {e.semester.semesterSequence} / {e.semester.year}
+                    </TableCell>
+                    <TableCell>{e.grade}</TableCell>
+                    <TableCell>
+                      <TrashIcon className="h-4 w-4 cursor-pointer hover:text-red-500" />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </td>
+        <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are your sure to delete?</DialogTitle>
+              <DialogDescription>
+                {` You can't undo this action. This will permanently delete the.`}
+              </DialogDescription>
+            </DialogHeader>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
-  );
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button onClick={onDelete}>Delete</Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
+      </>
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -208,9 +209,7 @@ export function StudentDataTable<TData, TValue>({
                     </TableRow>
                     <CollapsibleContent asChild className="bg-black">
                       <tr>
-                        <CollapsibleRowContent
-                          row={row.original as StudentColumn}
-                        />
+                        <CollapsibleRowContent studentId={row.getValue('id')} />
                       </tr>
                     </CollapsibleContent>
                   </>

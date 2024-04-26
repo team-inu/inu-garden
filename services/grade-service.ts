@@ -1,12 +1,15 @@
 import { ApiService } from '@/services/api-service';
-import { PayloadCreateGradeType } from '@/types/schema/grade-schema';
+import {
+  GradeSemester,
+  PayloadCreateGradeType,
+} from '@/types/schema/grade-schema';
 
 class GradeService extends ApiService {
   public async getGradeByStudentId(studentId: string) {
-    const url = `/grades/${studentId}`;
+    const url = `/grades?studentId=${studentId}`;
     return this.get(url)
       .then((response) => {
-        return response.data.data;
+        return response.data.data as unknown as GradeSemester[];
       })
       .catch(this.throwError);
   }
