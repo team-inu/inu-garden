@@ -8,7 +8,7 @@ const GradeSchema = z.object({
   grade: z.string(),
 });
 
-const CreateGradeSchema = z.object({
+export const CreateGradeSchema = z.object({
   semesterSequence: z.string(),
   year: z.string(),
   studentId: z.string(),

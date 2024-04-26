@@ -19,6 +19,7 @@ import {
 import { TrashIcon } from 'lucide-react';
 import * as React from 'react';
 
+import StudentGradeForm from '@/components/features/student/student-grade-form';
 import { StudentTableToolbar } from '@/components/features/student/student-table-toolbar';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
@@ -102,14 +103,20 @@ export function StudentDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = React.useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
 
   const onDelete = () => {};
 
   var CollapsibleRowContent = ({ row }: { row: StudentColumn }) => (
     <>
+      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+        <StudentGradeForm studentId={row.id} />
+      </Dialog>
       <td colSpan={16}>
         <div className="mx-auto w-11/12 py-5">
-          <Button variant="default">Add Grade</Button>
+          <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
+            Add Grade
+          </Button>
           <Table>
             <TableHeader>
               <TableRow>
