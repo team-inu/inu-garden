@@ -20,13 +20,17 @@ export const StudentSchema = z.object({
   remark: z.string(),
 });
 
+const StudentColumnSchema = StudentSchema.extend({
+  grade: z.string(),
+});
+
 // response
 
 export type GetStudentResponse = z.infer<typeof StudentSchema>;
 
 // column
 
-export type StudentColumn = z.infer<typeof StudentSchema>;
+export type StudentColumn = z.infer<typeof StudentColumnSchema>;
 
 // form
 

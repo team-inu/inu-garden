@@ -4,6 +4,7 @@ import Loading from '@/components/features/loading-screen';
 import { columns } from '@/components/features/student/student-column';
 import { StudentDataTable } from '@/components/features/student/student-table';
 import { useGetStudentList } from '@/hooks/student-hook';
+import { StudentColumn } from '@/types/schema/student-schema';
 
 const Student = () => {
   const { data: students, isLoading } = useGetStudentList();
@@ -17,7 +18,15 @@ const Student = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <StudentDataTable columns={columns} data={students ?? []} />
+          <StudentDataTable
+            columns={columns}
+            data={
+              students?.map((student: StudentColumn) => ({
+                ...student,
+                grade: 'test',
+              })) ?? []
+            }
+          />
         )}
       </div>
     </>

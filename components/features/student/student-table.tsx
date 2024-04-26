@@ -15,9 +15,11 @@ import {
   getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table';
+import { TrashIcon } from 'lucide-react';
 import * as React from 'react';
 
 import { StudentTableToolbar } from '@/components/features/student/student-table-toolbar';
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
 import {
@@ -28,6 +30,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { StudentColumn } from '@/types/schema/student-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -89,6 +92,34 @@ export function StudentDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  var CollapsibleRowContent = ({ row }: { row: StudentColumn }) => (
+    <td colSpan={16}>
+      <div className="mx-auto w-11/12 py-5">
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead colSpan={1}>Semester</TableHead>
+              <TableHead colSpan={1}>Grade</TableHead>
+              <TableHead colSpan={1}></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>1</TableCell>
+              <TableCell>{row.grade}</TableCell>
+              <TrashIcon className="h-4 w-4" />
+            </TableRow>
+            <TableRow>
+              <TableCell>2</TableCell>
+              <TableCell>{row.grade}</TableCell>
+              <TrashIcon className="h-4 w-4" />
+            </TableRow>
+          </TableBody>
+        </Table>
+      </div>
+    </td>
+  );
+
   return (
     <div className="space-y-4">
       <StudentTableToolbar table={table} selectorOptions={inputs} />
@@ -115,19 +146,30 @@ export function StudentDataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Collapsible key={row.id} asChild>
+                  <>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <CollapsibleContent asChild className="bg-black">
+                      <tr>
+                        <CollapsibleRowContent
+                          row={row.original as StudentColumn}
+                        />
+                      </tr>
+                    </CollapsibleContent>
+                  </>
+                </Collapsible>
               ))
             ) : (
               <TableRow>
