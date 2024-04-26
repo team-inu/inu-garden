@@ -112,40 +112,38 @@ export function StudentDataTable<TData, TValue>({
       <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
         <StudentGradeForm studentId={row.id} />
       </Dialog>
-      <td colSpan={16}>
-        <div className="mx-auto w-11/12 py-5">
-          <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
-            Add Grade
-          </Button>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead colSpan={1}>Semester</TableHead>
-                <TableHead colSpan={1}>Grade</TableHead>
-                <TableHead colSpan={1}></TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell>1</TableCell>
-                <TableCell>{row.grade}</TableCell>
-                <TableCell>
-                  <TrashIcon className="h-4 w-4 cursor-pointer hover:text-red-500" />
-                </TableCell>
-              </TableRow>
-              <TableRow>
-                <TableCell>2</TableCell>
-                <TableCell>{row.grade}</TableCell>
-                <TableCell>
-                  <TrashIcon
-                    onClick={() => setIsDeleteDialogOpen(true)}
-                    className="h-4 w-4 cursor-pointer hover:text-red-500"
-                  />
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
+      <td colSpan={16} className="mx-auto w-11/12 py-5">
+        <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
+          Add Grade
+        </Button>
+        <Table>
+          <TableHeader>
+            <TableRow>
+              <TableHead colSpan={1}>Semester</TableHead>
+              <TableHead colSpan={1}>Grade</TableHead>
+              <TableHead colSpan={1}></TableHead>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+            <TableRow>
+              <TableCell>1</TableCell>
+              <TableCell>{row.grade}</TableCell>
+              <TableCell>
+                <TrashIcon className="h-4 w-4 cursor-pointer hover:text-red-500" />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell>2</TableCell>
+              <TableCell>{row.grade}</TableCell>
+              <TableCell>
+                <TrashIcon
+                  onClick={() => setIsDeleteDialogOpen(true)}
+                  className="h-4 w-4 cursor-pointer hover:text-red-500"
+                />
+              </TableCell>
+            </TableRow>
+          </TableBody>
+        </Table>
       </td>
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent>
