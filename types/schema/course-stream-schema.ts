@@ -7,25 +7,25 @@ export enum CourseStreamType {
 
 const CourseStream = z.object({
   id: z.string(),
-  courseId: z.string(),
-  courseStreamId: z.string(),
-  type: z.nativeEnum(CourseStreamType),
+  formCourseId: z.string(),
+  targetCourseId: z.string(),
+  streamType: z.nativeEnum(CourseStreamType),
   comment: z.string(),
 });
 
 export type CourseStream = z.infer<typeof CourseStream>;
 
 export const CreateCourseStream = CourseStream.pick({
-  courseStreamId: true,
-  type: true,
+  targetCourseId: true,
   comment: true,
+  streamType: true,
 });
 
 export const CreateCourseStreamPayload = CourseStream.pick({
-  courseId: true,
-  courseStreamId: true,
-  type: true,
+  formCourseId: true,
+  targetCourseId: true,
   comment: true,
+  streamType: true,
 });
 
 export type CreateCourseStream = z.infer<typeof CreateCourseStream>;
@@ -35,7 +35,7 @@ export type CreateCourseStreamPayload = z.infer<
 >;
 
 export const CreateCourseStreamDefaultValue: CreateCourseStream = {
-  courseStreamId: '',
-  type: CourseStreamType.UPSTREAM,
+  targetCourseId: '',
   comment: '',
+  streamType: CourseStreamType.UPSTREAM,
 };
