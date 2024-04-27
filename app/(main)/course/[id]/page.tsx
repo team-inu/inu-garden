@@ -70,6 +70,7 @@ const HomePage = () => {
               <Enrollment />
             </TabsContent>
             <TabsContent value="stream" className="space-y-4">
+              {/* TODO: Typo */}
               <StreamCoures />
             </TabsContent>
           </Tabs>

@@ -1,5 +1,6 @@
 import CommentCourse from '@/components/features/course/stream-course/comment-course';
 import CommentForm from '@/components/features/course/stream-course/comment-form';
+import CommentHistory from '@/components/features/course/stream-course/comment-history';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import '@/components/ui/tabs-api';
 
@@ -26,7 +27,7 @@ const StreamCoures = () => {
               <CommentForm />
             </TabsContent>
             <TabsContent value="history">
-              <div>History</div>
+              <CommentHistory />
             </TabsContent>
           </Tabs>
         </div>

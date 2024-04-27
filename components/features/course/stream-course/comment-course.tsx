@@ -1,11 +1,11 @@
 import { useParams } from 'next/navigation';
 
 import CommentCard from '@/components/features/course/stream-course/comment-card';
-import { useGetCommentsByCourseId } from '@/hooks/course-stream-hook';
+import { useGetTargetCourseStreamByCourseId } from '@/hooks/course-stream-hook';
 
 const CommentCourse = () => {
   const { id: courseId } = useParams<{ id: string }>();
-  const { data: courseStreams } = useGetCommentsByCourseId(courseId);
+  const { data: courseStreams } = useGetTargetCourseStreamByCourseId(courseId);
 
   return (
     <div className="space-y-5 p-5 ">

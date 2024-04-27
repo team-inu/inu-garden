@@ -10,10 +10,17 @@ export const useGetCourseStreams = () =>
     queryFn: () => courseStreamService.getCourseStreamList(),
   });
 
-export const useGetCommentsByCourseId = (courseId: string) => {
+export const useGetTargetCourseStreamByCourseId = (courseId: string) => {
   return useQuery({
-    queryKey: ['comments', courseId],
-    queryFn: () => courseStreamService.getCommentByCourseId(courseId),
+    queryKey: ['course-streams', courseId],
+    queryFn: () => courseStreamService.getTargetCourseStream(courseId),
+  });
+};
+
+export const useGetHistoryCourseStreamByCourseId = (courseId: string) => {
+  return useQuery({
+    queryKey: ['history-course-streams', courseId],
+    queryFn: () => courseStreamService.getHistoryCourseStream(courseId),
   });
 };
 
@@ -24,7 +31,7 @@ export const useCreateCourseStreamComment = () => {
       courseStreamService.createCourseStream(couresStreamData),
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['lecturers'],
+        queryKey: ['course-streams'],
       });
       toast.success('Comment has been created', {
         description: 'Your target course can now seeing you comment.',
@@ -32,6 +39,27 @@ export const useCreateCourseStreamComment = () => {
     },
     onError: (error) => {
       toast.error('Failed to create comment', {
+        description: error.message,
+      });
+    },
+  });
+};
+
+export const useDeleteCourseStreamComment = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (courseId: string) =>
+      courseStreamService.deleteCourseStream(courseId),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['history-course-streams'],
+      });
+      toast.success('course stream has been delete', {
+        description: 'disappeared!!!',
+      });
+    },
+    onError: (error) => {
+      toast.error('Failed to remove course stream', {
         description: error.message,
       });
     },
