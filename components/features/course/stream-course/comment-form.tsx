@@ -34,7 +34,7 @@ const CommentForm = () => {
     console.log(values);
   };
   return (
-    <div className="space-y-5 p-5 ">
+    <div className="space-y-5 p-5">
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
