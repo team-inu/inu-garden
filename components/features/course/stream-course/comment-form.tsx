@@ -21,7 +21,7 @@ import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateCourseStream,
   CreateCourseStreamDefaultValue,
-} from '@/types/schema/course-stream';
+} from '@/types/schema/course-stream-schema';
 
 const CommentForm = () => {
   const { id: courseId } = useParams<{ id: string }>();
@@ -35,7 +35,6 @@ const CommentForm = () => {
   };
   return (
     <div className="space-y-5 p-5 ">
-      <div className="text-lg font-semibold">Comment Form</div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -44,7 +43,7 @@ const CommentForm = () => {
           <div className="space-y-3">
             <FormField
               control={form.control}
-              name={'type'}
+              name={'streamType'}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Course Stream options</FormLabel>
@@ -67,7 +66,7 @@ const CommentForm = () => {
             />
             <FormField
               control={form.control}
-              name={'courseStreamId'}
+              name={'targetCourseId'}
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Course</FormLabel>
