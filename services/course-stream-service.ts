@@ -1,5 +1,5 @@
 import { ApiService } from '@/services/api-service';
-import { CreateCourseStreamPayload } from '@/types/schema/course-stream';
+import { CreateCourseStreamPayload } from '@/types/schema/course-stream-schema';
 
 class CourseStreamService extends ApiService {
   public async getCourseStreamList() {
@@ -28,3 +28,5 @@ class CourseStreamService extends ApiService {
       .catch(this.throwError);
   }
 }
+
+export const courseStreamService = new CourseStreamService();
