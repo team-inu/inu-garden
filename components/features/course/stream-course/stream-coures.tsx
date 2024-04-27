@@ -1,5 +1,7 @@
 import CommentCourse from '@/components/features/course/stream-course/comment-course';
 import CommentForm from '@/components/features/course/stream-course/comment-form';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import '@/components/ui/tabs-api';
 
 const StreamCoures = () => {
   return (
@@ -12,8 +14,21 @@ const StreamCoures = () => {
           <CommentCourse />
         </div>
         {/* Right form */}
-        <div className="w-1/2">
-          <CommentForm />
+        <div className="w-1/2 space-y-3">
+          <div className="text-lg font-semibold">Comment Form</div>
+          <Tabs defaultValue="form" className="space-y-4">
+            <TabsList>
+              <TabsTrigger value="form">Form</TabsTrigger>
+              <TabsTrigger value="history">History</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="form">
+              <CommentForm />
+            </TabsContent>
+            <TabsContent value="history">
+              <div>History</div>
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
     </div>
