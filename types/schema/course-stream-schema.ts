@@ -7,7 +7,7 @@ export enum CourseStreamType {
 
 const CourseStream = z.object({
   id: z.string(),
-  formCourseId: z.string(),
+  fromCourseId: z.string(),
   targetCourseId: z.string(),
   streamType: z.nativeEnum(CourseStreamType),
   comment: z.string(),
@@ -22,7 +22,7 @@ export const CreateCourseStream = CourseStream.pick({
 });
 
 export const CreateCourseStreamPayload = CourseStream.pick({
-  formCourseId: true,
+  fromCourseId: true,
   targetCourseId: true,
   comment: true,
   streamType: true,

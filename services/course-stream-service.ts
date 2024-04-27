@@ -1,5 +1,8 @@
 import { ApiService } from '@/services/api-service';
-import { CreateCourseStreamPayload } from '@/types/schema/course-stream-schema';
+import {
+  CourseStream,
+  CreateCourseStreamPayload,
+} from '@/types/schema/course-stream-schema';
 
 class CourseStreamService extends ApiService {
   public async getCourseStreamList() {
@@ -12,10 +15,10 @@ class CourseStreamService extends ApiService {
   }
 
   public async getCommentByCourseId(courseId: string) {
-    const url = `/courses/${courseId}/comments`;
+    const url = `/course-streams?targetCourseId=${courseId}`;
     return this.get(url)
       .then((response) => {
-        return response.data.data;
+        return response.data.data as unknown as CourseStream[];
       })
       .catch(this.throwError);
   }

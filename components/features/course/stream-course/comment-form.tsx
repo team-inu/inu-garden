@@ -17,6 +17,8 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { useCourseList } from '@/hooks/course-hook';
+import { useCreateCourseStreamComment } from '@/hooks/course-stream-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateCourseStream,
@@ -25,13 +27,21 @@ import {
 
 const CommentForm = () => {
   const { id: courseId } = useParams<{ id: string }>();
+  const { data: courses } = useCourseList();
+  const { mutate, isSuccess } = useCreateCourseStreamComment();
+
   const form = useStrictForm(
     CreateCourseStream,
     CreateCourseStreamDefaultValue,
   );
 
   const onSubmit = (values: CreateCourseStream) => {
-    console.log(values);
+    mutate({
+      comment: values.comment,
+      targetCourseId: values.targetCourseId,
+      streamType: values.streamType,
+      fromCourseId: courseId,
+    });
   };
   return (
     <div className="space-y-5 p-5">
@@ -78,14 +88,13 @@ const CommentForm = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value={'CPE100 Basic programming computer'}>
-                          CPE100 Basic programming computer
-                        </SelectItem>
-                        <SelectItem
-                          value={'CPE200 Data Structure and Algorithm'}
-                        >
-                          CPE200 Data Structure and Algorithm
-                        </SelectItem>
+                        {courses?.map((e) => {
+                          return (
+                            <SelectItem value={e.id}>
+                              {e.code} {e.name}
+                            </SelectItem>
+                          );
+                        })}
                       </SelectContent>
                     </Select>
                   </FormControl>
