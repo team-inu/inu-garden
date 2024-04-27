@@ -2,7 +2,7 @@
 
 import { PlusCircleIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { FormProvider, useFieldArray } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -131,6 +131,21 @@ const CoursePortfolioPage = () => {
 
     generatePortfolioDocument(coursePortfolio);
   };
+
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        development: {
+          subjectComments: {
+            downstreamSubjects:
+              data.development.subjectComments.upstreamSubjects,
+            upstreamSubjects:
+              data.development.subjectComments.downstreamSubjects,
+          },
+        },
+      });
+    }
+  }, [data]);
 
   const ref = useRef(null);
   const [image, takeScreenshot] = useScreenshot({});
