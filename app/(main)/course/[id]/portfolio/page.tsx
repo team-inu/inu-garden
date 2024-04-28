@@ -145,6 +145,7 @@ const CoursePortfolioPage = () => {
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
   const ref = useRef(null);

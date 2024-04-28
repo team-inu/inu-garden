@@ -26,6 +26,7 @@ const CommentHistory = () => {
             historyCourseStreams?.map((e, i) => {
               return (
                 <CommentCardHistory
+                  key={i}
                   comment={e.comment}
                   streamType={e.streamType}
                   courseId={e.targetCourseId}

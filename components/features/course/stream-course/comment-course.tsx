@@ -15,6 +15,7 @@ const CommentCourse = () => {
           {courseStreams?.map((e, i) => {
             return (
               <CommentCard
+                key={i}
                 comment={e.comment}
                 streamType={e.streamType}
                 courseId={e.targetCourseId}
