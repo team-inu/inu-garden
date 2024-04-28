@@ -88,9 +88,9 @@ const CommentForm = () => {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        {courses?.map((e) => {
+                        {courses?.map((e, index) => {
                           return (
-                            <SelectItem value={e.id}>
+                            <SelectItem value={e.id} key={index}>
                               {e.code} {e.name}
                             </SelectItem>
                           );
