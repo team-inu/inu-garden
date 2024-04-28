@@ -1,11 +1,7 @@
-'use client';
-
 import { useEffect, useState } from 'react';
 
 import CourseHistoryCard from '@/components/features/course/history/course-history-card';
-import CourseHistoryHeader from '@/components/features/course/history/course-history-header';
 import Loading from '@/components/features/loading-screen';
-import { Input } from '@/components/ui/input';
 import { useCourseList } from '@/hooks/course-hook';
 import { GetCourseList } from '@/types/schema/course-schema';
 
@@ -13,7 +9,7 @@ type CourseHistoryType = GetCourseList & {
   isSee: boolean;
 };
 
-const CourseHistoryPage = () => {
+const CourseHistory = () => {
   const [searchValue, setSearchValue] = useState('');
   const [coursesSelect, setCoursesSelect] = useState<CourseHistoryType[]>();
   const { data: courses, isLoading: isCourseLoading } = useCourseList();
@@ -53,22 +49,14 @@ const CourseHistoryPage = () => {
 
   return (
     <div className="container ">
-      <CourseHistoryHeader />
       <div className="space-y-3">
-        <div className="mb-5 space-y-1 ">
-          <h1 className=" text-4xl font-bold">Course History</h1>
-          <div>
-            this page is for showing the history of the course that the user has
-            taken in the past.
-          </div>
-        </div>
         <div>
-          <Input
+          {/* <Input
             type="search"
             placeholder="Search..."
             className="w-1/4"
             onChange={(e) => setSearchValue(e.target.value)}
-          />
+          /> */}
         </div>
         <div className="space-y-5">
           {coursesSelect &&
@@ -86,4 +74,4 @@ const CourseHistoryPage = () => {
   );
 };
 
-export default CourseHistoryPage;
+export default CourseHistory;

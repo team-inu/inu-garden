@@ -11,7 +11,7 @@ const CourseFormGrade = () => {
   return (
     <div className="grid grid-cols-5 gap-5">
       <FormField
-        name="criteriaGrade.criteriaGradeA"
+        name="criteriaGradeA"
         render={({ field }) => (
           <FormItem>
             <FormLabel>A</FormLabel>
@@ -23,7 +23,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeBP"
+        name="criteriaGradeBP"
         render={({ field }) => (
           <FormItem>
             <FormLabel>B+</FormLabel>
@@ -35,7 +35,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeB"
+        name="criteriaGradeB"
         render={({ field }) => (
           <FormItem>
             <FormLabel>B</FormLabel>
@@ -47,7 +47,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeCP"
+        name="criteriaGradeCP"
         render={({ field }) => (
           <FormItem>
             <FormLabel>C+</FormLabel>
@@ -59,7 +59,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeC"
+        name="criteriaGradeC"
         render={({ field }) => (
           <FormItem>
             <FormLabel>C</FormLabel>
@@ -71,7 +71,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeDP"
+        name="criteriaGradeDP"
         render={({ field }) => (
           <FormItem>
             <FormLabel>D+</FormLabel>
@@ -83,7 +83,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeD"
+        name="criteriaGradeD"
         render={({ field }) => (
           <FormItem>
             <FormLabel>D</FormLabel>
@@ -95,7 +95,7 @@ const CourseFormGrade = () => {
         )}
       />
       <FormField
-        name="criteriaGrade.criteriaGradeF"
+        name="criteriaGradeF"
         render={({ field }) => (
           <FormItem>
             <FormLabel>F</FormLabel>

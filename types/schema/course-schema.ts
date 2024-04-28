@@ -1,5 +1,7 @@
 import * as z from 'zod';
 
+import { User } from '@/types/auth-type';
+
 const CourseSchema = z.object({
   id: z.string(),
   name: z.string(),
@@ -22,7 +24,14 @@ const CourseSchema = z.object({
 
 type Course = z.infer<typeof CourseSchema>;
 
-export type GetCourseList = Course;
+export type GetCourseList = Course & {
+  user: User;
+  semester: {
+    id: string;
+    year: number;
+    semesterSequence: string;
+  };
+};
 
 export const CreateCourseSchema = z.object({
   name: z

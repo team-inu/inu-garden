@@ -13,6 +13,7 @@ export const AssignmentSchema = z.object({
   expectedScorePercentage: z.number(),
   expectedPassingStudentPercentage: z.number(),
   courseId: z.string(),
+  isIncludedInClo: z.boolean(),
 });
 
 // response
@@ -48,6 +49,9 @@ export const CreateAssignmentFormSchema = z.object({
   expectedPassingStudentPercentage: z.coerce.number({
     required_error: 'required',
   }),
+  isIncludedInClo: z.coerce.boolean({
+    required_error: 'required',
+  }),
 });
 
 export const UpdateAssignmentFormSchema = CreateAssignmentFormSchema.omit({
@@ -75,6 +79,7 @@ export const CreateAssignmentFormDefaultValues: CreateAssignmentForm = {
   maxScore: 0,
   expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
+  isIncludedInClo: false,
 };
 
 export const UpdateAssignmentFormDefaultValues: UpdateAssignmentForm = {
@@ -85,4 +90,5 @@ export const UpdateAssignmentFormDefaultValues: UpdateAssignmentForm = {
   maxScore: 0,
   expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
+  isIncludedInClo: false,
 };

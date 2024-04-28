@@ -2,6 +2,7 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
 import {
   DialogContent,
   DialogDescription,
@@ -141,6 +142,7 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="expectedPassingStudentPercentage"
@@ -176,6 +178,30 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
                       <FormMessage />
                     </div>
                   </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="isIncludedInClo"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Checkbox
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel>Included In CLO?</FormLabel>
+                    <FormDescription>
+                      is this assignment included when checking if the CLOs pass
+                      or not
+                    </FormDescription>
+                  </div>
                 </FormItem>
               )}
             />

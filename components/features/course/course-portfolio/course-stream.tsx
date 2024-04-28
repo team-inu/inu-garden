@@ -9,13 +9,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/libs/utils';
 
@@ -49,21 +42,7 @@ const CourseStream: React.FC<CourseStreamProps> = ({
           <FormItem>
             <FormLabel>Course</FormLabel>
             <FormControl>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  <SelectItem value={'CPE100 Basic programming computer'}>
-                    CPE100 Basic programming computer
-                  </SelectItem>
-                  <SelectItem value={'CPE200 Data Structure and Algorithm'}>
-                    CPE200 Data Structure and Algorithm
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <Input {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>

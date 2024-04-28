@@ -29,7 +29,7 @@ const CourseLearningOutcome = () => {
 
   return (
     <>
-      <h1 className="font- mb-5 text-2xl ">Course learning outcome</h1>{' '}
+      <h1 className="mb-5 text-2xl font-bold">Course learning outcome</h1>{' '}
       <div className="">
         {isLoading ? (
           <Loading />

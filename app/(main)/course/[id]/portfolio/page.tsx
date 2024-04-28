@@ -2,7 +2,7 @@
 
 import { PlusCircleIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { FormProvider, useFieldArray } from 'react-hook-form';
 import { toast } from 'sonner';
 
@@ -132,6 +132,21 @@ const CoursePortfolioPage = () => {
     generatePortfolioDocument(coursePortfolio);
   };
 
+  useEffect(() => {
+    if (data) {
+      form.reset({
+        development: {
+          subjectComments: {
+            downstreamSubjects:
+              data.development.subjectComments.upstreamSubjects,
+            upstreamSubjects:
+              data.development.subjectComments.downstreamSubjects,
+          },
+        },
+      });
+    }
+  }, [data]);
+
   const ref = useRef(null);
   const [image, takeScreenshot] = useScreenshot({});
 
@@ -242,7 +257,7 @@ const CoursePortfolioPage = () => {
               <div className="text-xl font-semibold">3. ผลการศึกษา</div>
               <div className="space-y-5">
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
-                <div className="mx-auto w-3/4 space-y-5">
+                <div className="">
                   <div ref={ref}>
                     <Overview
                       data={data.result.gradeDistribution.scoreFrequencies}

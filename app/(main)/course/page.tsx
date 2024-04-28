@@ -21,12 +21,18 @@ import { Role } from '@/types/auth-type';
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
+  const [curriculum, setCurriculum] = useState('none');
   const [year, setYear] = useState('2023');
   const { user } = useAuth();
   const { data: courses, isLoading: isCourseLoading } = useCourseList();
+  const curriculumLists = ['international', 'regular', 'none'];
 
   const handleYearChange = (e: string) => {
     setYear(e);
+  };
+
+  const handleCurriculumChange = (e: string) => {
+    setCurriculum(e);
   };
 
   return (
@@ -35,28 +41,41 @@ const CoursePage = () => {
         <h1 className="mb-5 text-4xl font-bold">Course</h1>
       </div>
       <div className="mb-16 flex w-full items-center justify-between  ">
-        <div className="flex w-10/12">
+        <div className="flex w-10/12 space-x-2">
           <Input
             type="search"
             placeholder="Search..."
             className="w-10/12 "
             onChange={(e) => setSearchValue(e.target.value)}
           />
-          <div>
-            <Select value={year} onValueChange={handleYearChange}>
-              <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a year" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  <SelectItem value="2022">2022</SelectItem>
-                  <SelectItem value="2023">2023</SelectItem>
-                  <SelectItem value="2024">2024</SelectItem>
-                  <SelectItem value="2025">2025</SelectItem>
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          </div>
+          <Select value={curriculum} onValueChange={handleCurriculumChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a curriculum" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {curriculumLists.map((curriculum) => (
+                  <SelectItem key={curriculum} value={curriculum}>
+                    {curriculum}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Select value={year} onValueChange={handleYearChange}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Select a year" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                <SelectItem value="2022">2022</SelectItem>
+                <SelectItem value="2023">2023</SelectItem>
+                <SelectItem value="2024">2024</SelectItem>
+                <SelectItem value="2025">2025</SelectItem>
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <div></div>
         </div>
 
         {user.data?.role === Role.HEAD_OF_CURRICULUM && (
@@ -89,6 +108,12 @@ const CoursePage = () => {
                 lowerCaseCourseName.includes(lowerCaseSearchValue) ||
                 lowerCaseCourseId.includes(lowerCaseSearchValue)
               );
+            })
+            .filter((e) => {
+              if (curriculum === 'none') {
+                return e;
+              }
+              return e.curriculum === curriculum;
             })
             .map((e, i) => {
               return (

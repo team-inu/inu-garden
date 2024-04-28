@@ -1,7 +1,6 @@
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
-import { ScrollArea } from '@radix-ui/react-scroll-area';
 import { ImportIcon } from 'lucide-react';
 import { useSearchParams } from 'next/navigation';
 import { useRef } from 'react';
@@ -19,6 +18,7 @@ import {
 } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useCreateBulkScore } from '@/hooks/score-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';

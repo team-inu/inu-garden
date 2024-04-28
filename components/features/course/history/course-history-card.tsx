@@ -1,25 +1,43 @@
 'use client';
 
+import { DialogClose } from '@radix-ui/react-dialog';
 import { UserCircle } from 'lucide-react';
+import { useFormContext } from 'react-hook-form';
+import { toast } from 'sonner';
 
 import CourseHistoryCardDetail from '@/components/features/course/history/course-history-card-detail';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleTrigger } from '@/components/ui/collapsible';
+import {
+  CreateCourseSchemaValues,
+  GetCourseList,
+} from '@/types/schema/course-schema';
 
 type CourseHistoryCardProps = {
-  courseId: string;
-  courseName: string;
+  courseData: GetCourseList;
   isSee: boolean;
   handleIsSee: (id: string) => void;
 };
 
 const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
-  courseId,
-  courseName,
+  courseData,
   isSee,
   handleIsSee,
 }) => {
+  const formCtx = useFormContext<CreateCourseSchemaValues>();
+
+  const handleImportCourse = () => {
+    formCtx.reset({
+      name: courseData.name,
+      code: courseData.code,
+      semesterId: courseData.semester.id,
+      userId: courseData.user.id,
+      description: courseData.description,
+    });
+
+    toast.success('Course imported successfully');
+  };
   return (
     <Collapsible open={isSee}>
       <div className=" w-full border-2 border-l-4 border-l-primary p-3">
@@ -27,25 +45,30 @@ const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
           <div className="space-y-1">
             <div className="flex justify-between">
               <div className="space-x-3">
-                <span className="text-xl font-bold">{courseId}</span>
+                <span className="text-xl font-bold">{courseData.code}</span>
                 <span className="text-sm font-semibold">regular</span>
               </div>
-              <Badge className="text-sm font-bold">2/2023</Badge>
+              <Badge className="text-sm font-bold">
+                {courseData.semester.semesterSequence}/
+                {courseData.semester.year}
+              </Badge>
             </div>
-            <div className="text-gray-400 ">{courseName}</div>
+            <div className="text-gray-400 ">{courseData.name}</div>
             <div className="flex items-center space-x-2">
               <UserCircle className="h-5 w-5 " />
-              <div>Dr. John Doe</div>
+              <div>
+                {courseData.user.firstName} {courseData.user.lastName}
+              </div>
             </div>
           </div>
         </div>
         <div className="flex items-center justify-between">
           <div className="flex space-x-3">
             <div className="font-semibold">
-              Academic year: <span>2021</span>
+              Academic year: <span>-</span>
             </div>
             <div className="font-semibold">
-              Graduate year: <span>2023</span>
+              Graduate year: <span>-</span>
             </div>
           </div>
           <div className="space-x-5">
@@ -53,16 +76,31 @@ const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
               <Button
                 size={'sm'}
                 variant={'ghost'}
-                onClick={() => handleIsSee(courseId)}
+                onClick={() => handleIsSee(courseData.id)}
               >
                 See more
               </Button>
             </CollapsibleTrigger>
-            <Button size={'sm'}>Import this course</Button>
+            <DialogClose asChild>
+              <Button size={'sm'} onClick={handleImportCourse}>
+                Import this course
+              </Button>
+            </DialogClose>
           </div>
         </div>
       </div>
-      <CourseHistoryCardDetail courseId={courseId} />
+      <CourseHistoryCardDetail
+        courseId={courseData.id}
+        courseDescription={courseData.description}
+        criteriaGradeA={courseData.criteriaGradeA}
+        criteriaGradeBP={courseData.criteriaGradeBP}
+        criteriaGradeB={courseData.criteriaGradeB}
+        criteriaGradeCP={courseData.criteriaGradeCP}
+        criteriaGradeC={courseData.criteriaGradeC}
+        criteriaGradeDP={courseData.criteriaGradeDP}
+        criteriaGradeD={courseData.criteriaGradeD}
+        criteriaGradeF={courseData.criteriaGradeF}
+      />
     </Collapsible>
   );
 };

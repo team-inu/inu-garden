@@ -1,4 +1,5 @@
 import { Paragraph, TableCell, TableRow, TextRun } from 'docx';
+import { toast } from 'sonner';
 
 import {
   Assessment,
@@ -23,6 +24,10 @@ export class OutcomeTable {
         ).length;
 
         const courseRows = courseOutcomes.flatMap((course, courseIndex) => {
+          if (!course.assessments) {
+            toast.error('Please link the clo to assigment first');
+            throw new Error('Please link the clo to assigment first');
+          }
           return course.assessments.flatMap((assessment, assessmentIndex) => {
             return this.createRow(
               name,

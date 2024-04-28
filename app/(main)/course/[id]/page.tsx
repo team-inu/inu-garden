@@ -7,6 +7,7 @@ import Assignment from '@/components/features/course/assignment/assignment';
 import Dashboard from '@/components/features/course/dashboard/dashboard';
 import Enrollment from '@/components/features/course/enrollment/enrollment';
 import CourseLearningOutcome from '@/components/features/course/outcome/clo';
+import StreamCoures from '@/components/features/course/stream-course/stream-coures';
 import { Button } from '@/components/ui/button';
 import {
   Tabs,
@@ -43,6 +44,9 @@ const HomePage = () => {
                 </TabsTrigger>
                 <TabsTrigger value="assignment">Assignments</TabsTrigger>
                 <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
+                <TabsTrigger value="stream">
+                  Up / Down Stream Course
+                </TabsTrigger>
               </TabsList>
               <div className="space-x-3">
                 <Link href={`/course/${courseId}/portfolio`}>
@@ -64,6 +68,10 @@ const HomePage = () => {
             </TabsContent>
             <TabsContent value="enrollment" className="space-y-4">
               <Enrollment />
+            </TabsContent>
+            <TabsContent value="stream" className="space-y-4">
+              {/* TODO: Typo */}
+              <StreamCoures />
             </TabsContent>
           </Tabs>
         </div>
