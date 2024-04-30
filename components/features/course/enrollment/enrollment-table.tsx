@@ -35,6 +35,7 @@ import { tableToObject, worksheetToTables } from '@/libs/excel';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isCreateEnabled?: boolean;
 }
 
 export const studentStatus: Option[] = [
@@ -61,6 +62,7 @@ const inputs: SelectorOption[] = [
 export function EnrollmentDataTable<TData, TValue>({
   columns,
   data,
+  isCreateEnabled = true,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -122,6 +124,7 @@ export function EnrollmentDataTable<TData, TValue>({
         table={table}
         selectorOptions={inputs}
         handleImport={handleUploadEnrollment}
+        isCreateEnabled={isCreateEnabled}
       />
       <div className="rounded-md border">
         <Table>
