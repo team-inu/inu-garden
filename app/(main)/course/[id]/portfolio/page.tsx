@@ -7,7 +7,6 @@ import { FormProvider, useFieldArray } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import ArrayInput from '@/components/features/course/course-portfolio/array-input-form';
-import AttachedDocumentCheckbox from '@/components/features/course/course-portfolio/attached-doc-checkbox';
 import CoursePortfolioHeader from '@/components/features/course/course-portfolio/course-portfolio-header';
 import CourseStream from '@/components/features/course/course-portfolio/course-stream';
 import GradeTable from '@/components/features/course/course-portfolio/grade-table';
@@ -169,7 +168,7 @@ const CoursePortfolioPage = () => {
               </p>
             </div>
             {/* information */}
-            <div className="space-y-2 ">
+            <div className="space-y-2 rounded-lg border-2 border-white/50 p-5">
               <div className="text-xl font-semibold">1. รายละเอียด</div>
               <Information label="ภาควิชา" value="วิศวกรรมคอมพิวเตอร์" />
               <Information label="หลักสูตร" value="ปกติ" />
@@ -199,7 +198,7 @@ const CoursePortfolioPage = () => {
               />
             </div>
             {/* Summary */}
-            <div className="space-y-2">
+            <div className="space-y-2 rounded-lg border-2 border-white/50 p-5">
               <div className="text-xl font-semibold">2. สรุปผลการดำเนินงาน</div>
               <div className="flex items-center space-x-5 ">
                 <Label className="text-lg">
@@ -282,7 +281,7 @@ const CoursePortfolioPage = () => {
               </div>
             </div>
             {/* Development */}
-            <div className="space-y-2">
+            <div className="space-y-2 rounded-lg border-2 border-white/50 p-5">
               <div className="text-xl font-semibold">4. การพัฒนา</div>
               <div className="flex items-center space-x-5">
                 <Label className="text-lg">
@@ -432,14 +431,17 @@ const CoursePortfolioPage = () => {
               />
             </div>
             {/* Attached documents */}
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <div className="text-xl font-semibold ">5.เอกสารแนบ</div>
               <AttachedDocumentCheckbox lable="1. แบบประเมินผลการเรียนรู้" />
               <AttachedDocumentCheckbox lable="2. การประชุมรายวิชา(ผู้สอนหลายคน) บันทึกรายวิชา (ผู้สอนคนเดียว) ก่อนเปิดภาคการศึกษา" />
               <AttachedDocumentCheckbox lable="3. การประชุมรายวิชา(ผู้สอนหลายคน) บันทึกรายวิชา (ผู้สอนคนเดียว) สิ้นภาคการศึกษา" />
               <AttachedDocumentCheckbox lable="4. การประเมิณตาม TABEE Outcome" />
+            </div> */}
+            <div className="mb-5 flex ">
+              <Button className="w-full">Export course portfolio</Button>
+              <Button className="w-full">Submit</Button>
             </div>
-            <Button className="w-full">Export course portfolio</Button>
           </div>
         </form>
       </FormProvider>

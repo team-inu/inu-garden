@@ -136,11 +136,11 @@ const CourseForm = () => {
                     </Button>
                   </FormControl>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0">
+                <PopoverContent className=" w-[200px] p-0">
                   <Command>
                     <CommandInput placeholder="Search semester..." />
                     <CommandEmpty>No Semester found.</CommandEmpty>
-                    <CommandGroup>
+                    <CommandGroup className="max-h-96 overflow-y-auto">
                       {semesters &&
                         semesters.map((semester) => (
                           <CommandItem
