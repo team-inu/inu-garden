@@ -3,18 +3,17 @@
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
-import { toast } from 'sonner';
 
-import AssignmentDialog from '@/components/features/course/assignment/assignment-add-dialog';
+import AssignmentGroupAddDialog from '@/components/features/course/assignment/group/assignment-group-add-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreateAssignment } from '@/hooks/assignment-hook';
-import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
+import { useCreateAssignmentGroup } from '@/hooks/assignment-group-hook';
+import { CreateAssignmentGroupForm } from '@/types/schema/assignment-group-schema';
 
 export type Option = {
   value: string;
@@ -36,31 +35,23 @@ interface DataTableToolbarProps<TData> {
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function AssignmentTableToolbar<TData>({
+export function AssignmentGroupTableToolbar<TData>({
   table,
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
   handleImport,
 }: DataTableToolbarProps<TData>) {
-  const assignmentGroupId = useSearchParams().get('assignmentGroupId');
+  const { id: courseId } = useParams<{ id: string }>();
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate, isError } = useCreateAssignment();
+  const { mutate, isError } = useCreateAssignmentGroup();
 
-  const HandleSubmitAssignment = (values: CreateAssignmentForm) => {
-    if (!assignmentGroupId) {
-      return toast.error('Assignment Group is required.', {
-        description: 'Please select an assignment group to add an assignment.',
-      });
-    }
-    mutate({
-      assignmentGroupId: assignmentGroupId,
-      assignment: values,
-    });
+  const HandleSubmitAssignment = (values: CreateAssignmentGroupForm) => {
+    mutate(values);
 
     if (!isError) {
       setIsOpen(false);
@@ -119,7 +110,10 @@ export function AssignmentTableToolbar<TData>({
             </Button>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <AssignmentDialog onSubmit={HandleSubmitAssignment} />
+              <AssignmentGroupAddDialog
+                onSubmit={HandleSubmitAssignment}
+                defaultValues={{ courseId: courseId, name: '', weight: 0 }}
+              />
             </Dialog>
 
             <Input
