@@ -101,7 +101,6 @@ export function AssigmentRowActions<TData>({
             expectedScorePercentage: assignment.expectedScorePercentage,
             maxScore: assignment.maxScore,
             name: assignment.name,
-            weight: assignment.weight,
             isIncludedInClo: assignment.isIncludedInClo,
           }}
         />

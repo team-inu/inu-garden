@@ -9,7 +9,6 @@ export const AssignmentSchema = z.object({
   name: z.string(),
   description: z.string(),
   maxScore: z.number(),
-  weight: z.number(),
   expectedScorePercentage: z.number(),
   expectedPassingStudentPercentage: z.number(),
   courseId: z.string(),
@@ -43,7 +42,6 @@ export const CreateAssignmentFormSchema = z.object({
     .string({ required_error: 'required' })
     .min(1, { message: 'required' }),
   clo: z.array(optionSchema).min(1, { message: 'required' }),
-  weight: z.coerce.number({ required_error: 'required' }),
   maxScore: z.coerce.number({ required_error: 'required' }),
   expectedScorePercentage: z.coerce.number({ required_error: 'required' }),
   expectedPassingStudentPercentage: z.coerce.number({
@@ -75,7 +73,6 @@ export const CreateAssignmentFormDefaultValues: CreateAssignmentForm = {
   name: '',
   description: '',
   clo: [],
-  weight: 0,
   maxScore: 0,
   expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
@@ -86,7 +83,6 @@ export const UpdateAssignmentFormDefaultValues: UpdateAssignmentForm = {
   id: '',
   name: '',
   description: '',
-  weight: 0,
   maxScore: 0,
   expectedScorePercentage: 0,
   expectedPassingStudentPercentage: 0,
