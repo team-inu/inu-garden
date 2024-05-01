@@ -117,21 +117,6 @@ export function UserDataTable<TData extends UserColumn, TValue>({
     e.target.value = '';
   };
 
-  const mockData = [
-    {
-      code: 'CPE 100',
-      name: 'Computer Concepts and Programming',
-      student: 40,
-      task: 2,
-    },
-    {
-      code: 'CPE 101',
-      name: 'Introduction to Computer Engineering and Information Technology',
-      student: 41,
-      task: 2,
-    },
-  ];
-
   const CollapsibleRowContent = ({ userId }: { userId: string }) => {
     console.log('userId:', userId);
     const { data: courses } = useCourseListByUser(userId);

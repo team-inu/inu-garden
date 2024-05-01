@@ -177,3 +177,21 @@ export const GetStudentResultClo = z.object({
 });
 
 export type StudentResultClo = z.infer<typeof GetStudentResultClo>;
+
+export const GetEnrollmentResultPloPo = z.object({
+  studentId: z.string(),
+  plo: z.array(
+    z.object({
+      ploName: z.string(),
+      pass: z.boolean(),
+    }),
+  ),
+  po: z.array(
+    z.object({
+      poName: z.string(),
+      pass: z.boolean(),
+    }),
+  ),
+});
+
+export type EnrollmentResultPloPo = z.infer<typeof GetEnrollmentResultPloPo>;

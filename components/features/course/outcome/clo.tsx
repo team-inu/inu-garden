@@ -54,6 +54,7 @@ const CourseLearningOutcome = () => {
               Students status of CLO:{selectedRows.code}
             </h1>
             <EnrollmentDataTable
+              outcomeData={[]}
               columns={columns}
               data={
                 ((passStudents &&

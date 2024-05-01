@@ -117,7 +117,6 @@ export const columns: ColumnDef<UserColumn>[] = [
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
-          <div> 7 courses</div>
           <CollapsibleTrigger>
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
