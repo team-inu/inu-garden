@@ -1,5 +1,6 @@
 import { ApiService } from '@/services/api-service';
 import {
+  EnrollmentResultPloPo,
   GetCoursePortfolioForm,
   StudentResultClo,
 } from '@/types/schema/course-portfolio-schema';
@@ -23,6 +24,17 @@ class CoursePortfolioService extends ApiService {
     return this.get(url)
       .then((response) => {
         return response.data.data as unknown as StudentResultClo[];
+      })
+      .catch(this.throwError);
+  }
+
+  public async getPloandPoOutcomeEnrollment(
+    courseId: string,
+  ): Promise<EnrollmentResultPloPo[]> {
+    const url = `/courses/${courseId}/students/outcomes`;
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as EnrollmentResultPloPo[];
       })
       .catch(this.throwError);
   }

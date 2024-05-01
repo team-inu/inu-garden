@@ -154,33 +154,51 @@ export function EnrollmentDataTable<TData, TValue>({
               value="plo"
               className=" space-y-3 rounded-xl bg-secondary p-3"
             >
-              <div className="flex gap-5">
+              <div className="flex flex-col justify-center gap-5">
                 {/* make it nice table */}
-                {student?.plo.map((plo) => (
-                  <div key={plo.ploName} className="flex  gap-5  ">
-                    <span className="text-xl font-semibold">
-                      {plo.ploName}:{' '}
-                    </span>
-                    <Badge variant={plo.pass ? 'green' : 'destructive'}>
-                      {plo.pass ? 'Pass' : 'Fail'}
-                    </Badge>
+                {student ? (
+                  student.programLearningOutcomes.map((plo) => (
+                    <div key={plo.id} className="flex  gap-5  ">
+                      <span className="text-lg ">
+                        PLO{plo.code}-{plo.descriptionThai}:{' '}
+                      </span>
+                      <Badge
+                        className="text-lg"
+                        variant={plo.pass ? 'green' : 'destructive'}
+                      >
+                        {plo.pass ? 'Pass' : 'Fail'}
+                      </Badge>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex w-full items-center justify-center text-lg ">
+                    No data
                   </div>
-                ))}
+                )}
               </div>
             </TabsContent>
             <TabsContent
               value="po"
               className="space-y-3 rounded-xl bg-secondary p-3 "
             >
-              <div className="flex gap-5">
-                {student?.po.map((po) => (
-                  <div key={po.poName} className="flex gap-5">
-                    <span className="text-xl font-semibold">{po.poName}: </span>
-                    <Badge variant={po.pass ? 'green' : 'destructive'}>
-                      {po.pass ? 'Pass' : 'Fail'}
-                    </Badge>
+              <div className="flex flex-col justify-center gap-5">
+                {student ? (
+                  student.programOutcomes.map((po) => (
+                    <div key={po.id} className="flex gap-5">
+                      <span className="text-lg ">{po.name}: </span>
+                      <Badge
+                        className="text-lg"
+                        variant={po.pass ? 'green' : 'destructive'}
+                      >
+                        {po.pass ? 'Pass' : 'Fail'}
+                      </Badge>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex w-full items-center justify-center text-lg ">
+                    No data
                   </div>
-                ))}
+                )}
               </div>
             </TabsContent>
           </Tabs>

@@ -14,3 +14,10 @@ export const useGetCloAndPassingCourseLearningOutcome = (courseId: string) =>
     queryFn: () =>
       coursePortfolioService.getCloAndPassingCourseLearningOutcome(courseId),
   });
+
+export const useGetPloAndPoOutcomeEnrollment = (courseId: string) =>
+  useQuery({
+    queryKey: ['plo-and-po-outcome-enrollment', courseId],
+    queryFn: () =>
+      coursePortfolioService.getPloandPoOutcomeEnrollment(courseId),
+  });
