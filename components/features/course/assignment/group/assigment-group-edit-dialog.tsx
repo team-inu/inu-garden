@@ -81,6 +81,21 @@ const AssignmentGroupEditDialog: React.FC<StudentEdotDialogProps> = ({
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name="weight"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Weight</FormLabel>
+                  <FormControl>
+                    <div className="flex flex-col space-y-3">
+                      <Input {...field} />
+                      <FormMessage />
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
           </form>
         </Form>
         <DialogFooter>
