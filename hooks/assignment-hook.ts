@@ -13,6 +13,12 @@ export const useGetAssignmentByCourseId = (courseId: string) =>
     queryFn: () => assignmentService.getAssignmentsByCourseId(courseId),
   });
 
+export const useGetAssignmentByGroupId = (groupId: string) =>
+  useQuery({
+    queryKey: ['assignments', groupId],
+    queryFn: () => assignmentService.getAssignmentsByGroupId(groupId),
+  });
+
 export const useGetAssignmentById = (assignmentId: string) =>
   useQuery({
     queryKey: ['assignmentsClo', assignmentId],
@@ -22,8 +28,13 @@ export const useGetAssignmentById = (assignmentId: string) =>
 export const useCreateAssignment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignment: CreateAssignmentForm) =>
-      assignmentService.createAssignment(assignment),
+    mutationFn: ({
+      assignment,
+      assignmentGroupId,
+    }: {
+      assignment: CreateAssignmentForm;
+      assignmentGroupId: string;
+    }) => assignmentService.createAssignment(assignment, assignmentGroupId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignments'],

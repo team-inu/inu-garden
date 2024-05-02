@@ -10,6 +10,7 @@ import {
 class AssignmentService extends ApiService {
   public async createAssignment(
     assignment: CreateAssignmentForm,
+    assignmentGroupId: string,
   ): Promise<CreateAssignmentForm> {
     const url = '/assignments';
     const result = {
@@ -19,9 +20,9 @@ class AssignmentService extends ApiService {
       expectedScorePercentage: assignment.expectedScorePercentage,
       expectedPassingStudentPercentage:
         assignment.expectedPassingStudentPercentage,
-      weight: assignment.weight,
       courseLearningOutcomeIds: assignment.clo.map((clo) => clo.value),
       isIncludedInClo: assignment.isIncludedInClo,
+      assignmentGroupId,
     };
     return this.post(url, result)
       .then(() => assignment)
@@ -42,6 +43,17 @@ class AssignmentService extends ApiService {
     courseId: string,
   ): Promise<GetAssignmentResponse[]> {
     const url = `/courses/${courseId}/assignments`;
+    return this.get(url)
+      .then(
+        (response) => response.data.data as unknown as GetAssignmentResponse[],
+      )
+      .catch(this.throwError);
+  }
+
+  public async getAssignmentsByGroupId(
+    groupId: string,
+  ): Promise<GetAssignmentResponse[]> {
+    const url = `/assignment-groups/${groupId}/assignments`;
     return this.get(url)
       .then(
         (response) => response.data.data as unknown as GetAssignmentResponse[],

@@ -6,7 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
-import AssignmentEditDialog from '@/components/features/course/assignment/assigment-edit-dialog';
+import AssignmentGroupEditDialog from '@/components/features/course/assignment/group/assigment-group-edit-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -23,31 +23,31 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
-  useDeleteAssignment,
-  useUpdateAssignment,
-} from '@/hooks/assignment-hook';
+  useDeleteAssignmentGroup,
+  useUpdateAssignmentGroup,
+} from '@/hooks/assignment-group-hook';
 import {
-  AssignmentSchema,
-  UpdateAssignmentForm,
-} from '@/types/schema/assignment-schema';
+  AssignmentGroupSchema,
+  UpdateAssignmentGroupForm,
+} from '@/types/schema/assignment-group-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function AssignmentRowActions<TData>({
+export function AssignmentGroupRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const assignment = AssignmentSchema.parse(row.original);
+  const assignment = AssignmentGroupSchema.parse(row.original);
 
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
   const { mutate: updateAssignment, isError: isUpdateError } =
-    useUpdateAssignment();
+    useUpdateAssignmentGroup();
 
   const { mutate: deleteAssignment, isError: isDeleteError } =
-    useDeleteAssignment();
+    useDeleteAssignmentGroup();
 
   const onSubmitDelete = () => {
     deleteAssignment(assignment.id);
@@ -56,7 +56,7 @@ export function AssignmentRowActions<TData>({
     }
   };
 
-  const onSubmitEdit = (values: UpdateAssignmentForm) => {
+  const onSubmitEdit = (values: UpdateAssignmentGroupForm) => {
     updateAssignment(values);
     if (!isUpdateError) {
       setIsEditDialogOpen(false);
@@ -91,17 +91,12 @@ export function AssignmentRowActions<TData>({
       </DropdownMenu>
 
       {isEditDialogOpen && (
-        <AssignmentEditDialog
+        <AssignmentGroupEditDialog
           onSubmit={onSubmitEdit}
           defaultValues={{
             id: assignment.id,
-            description: assignment.description,
-            expectedPassingStudentPercentage:
-              assignment.expectedPassingStudentPercentage,
-            expectedScorePercentage: assignment.expectedScorePercentage,
-            maxScore: assignment.maxScore,
             name: assignment.name,
-            isIncludedInClo: assignment.isIncludedInClo,
+            weight: assignment.weight,
           }}
         />
       )}

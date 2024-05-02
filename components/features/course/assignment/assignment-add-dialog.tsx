@@ -88,21 +88,6 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
             <div className="grid grid-cols-2 gap-3">
               <FormField
                 control={form.control}
-                name="weight"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Weight</FormLabel>
-                    <FormControl>
-                      <div className="flex flex-col space-y-3">
-                        <Input {...field} type="number" min={0} max={100} />
-                        <FormMessage />
-                      </div>
-                    </FormControl>
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
                 name="maxScore"
                 render={({ field }) => (
                   <FormItem>
