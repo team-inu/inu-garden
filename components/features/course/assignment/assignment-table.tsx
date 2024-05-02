@@ -97,7 +97,8 @@ export function AssignmentDataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
                     if (getValues) {
                       getValues(row.getValue('id'), row.getValue('name'));
                     }

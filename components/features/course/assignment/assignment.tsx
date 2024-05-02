@@ -1,7 +1,12 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import { columns as assignmentColumns } from '@/components/features/course/assignment/assignment-column';
@@ -40,6 +45,14 @@ type SelectedAssignmentRowType = {
 const Assignment = () => {
   const router = useRouter();
   const pathName = usePathname();
+  //get assignmentGroupId
+  const assignmentGroupId = useSearchParams().get('assignmentGroupId');
+  const assignmentId = useSearchParams().get('assignmentId');
+  const [selectedAssignmentGroup, setSelectedAssignmentGroup] =
+    useState<string>(assignmentGroupId ?? '');
+  const [selectedAssignment, setSelectedAssignment] = useState<string>(
+    assignmentId ?? '',
+  );
 
   const [selectedAssignmentRows, setSelectedAssignmentRows] =
     useState<SelectedAssignmentRowType>({
@@ -47,6 +60,9 @@ const Assignment = () => {
       assignmentId: '',
     });
   const getAssignmentValues = (id: string, name: string) => {
+    if (selectedAssignment !== id) {
+      setSelectedAssignmentGroup('');
+    }
     setSelectedAssignmentRows({ assignmentName: name, assignmentId: id });
     router.push(`${pathName}/?assignmentId=${id}&clolength=&tab=assignment`);
   };
@@ -57,6 +73,9 @@ const Assignment = () => {
       groupId: '',
     });
   const getAssignmentGroupValues = (groupId: string, groupName: string) => {
+    if (selectedAssignmentGroup !== groupId) {
+      setSelectedAssignmentRows({ assignmentName: '', assignmentId: '' });
+    }
     setSelectedAssignmentGroupRows({
       groupName,
       groupId,
