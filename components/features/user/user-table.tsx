@@ -22,6 +22,7 @@ import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
 import { UserTableToolbar } from '@/components/features/user/user-table-toolbar';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
@@ -136,7 +137,11 @@ export function UserDataTable<TData extends UserColumn, TValue>({
                   <UserCircle className="h-5 w-5" />
                   <div>{data.curriculum}</div>
                   <div>
-                    {/* <Badge variant={'green'}>Task {data.task}</Badge> */}
+                    <Badge
+                      variant={data.isPortfolioCompleted ? 'green' : 'warning'}
+                    >
+                      {data.isPortfolioCompleted ? 'Finished' : 'In progress'}
+                    </Badge>
                   </div>
                 </div>
               </div>
