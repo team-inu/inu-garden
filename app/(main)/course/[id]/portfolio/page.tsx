@@ -150,19 +150,19 @@ const CoursePortfolioPage = () => {
   useEffect(() => {
     if (data) {
       realData.development = {
-        plans: data?.development.plans.map((e) => ({ name: e })) ?? [],
+        plans: data?.development.plans?.map((e) => ({ name: e })) ?? [],
         doAndChecks:
-          data?.development.doAndChecks.map((e) => ({ name: e })) ?? [],
-        acts: data?.development.acts.map((e) => ({ name: e })) ?? [],
+          data?.development.doAndChecks?.map((e) => ({ name: e })) ?? [],
+        acts: data?.development.acts?.map((e) => ({ name: e })) ?? [],
         subjectComments: {
           other: data?.development.subjectComments.other ?? '',
           upstreamSubjects:
-            data?.development.subjectComments.upstreamSubjects.map((e) => ({
+            data?.development.subjectComments.upstreamSubjects?.map((e) => ({
               courseName: e.courseName,
               comments: e.comments,
             })) ?? [],
           downstreamSubjects:
-            data?.development.subjectComments.downstreamSubjects.map((e) => ({
+            data?.development.subjectComments.downstreamSubjects?.map((e) => ({
               courseName: e.courseName,
               comments: e.comments,
             })) ?? [],
@@ -173,7 +173,7 @@ const CoursePortfolioPage = () => {
       realData.summary = {
         teachingMethods:
           data?.summary.teachingMethods?.map((e) => ({ name: e })) ?? [],
-        objectives: data?.summary.objectives.map((e) => ({ name: e })) ?? [],
+        objectives: data?.summary.objectives?.map((e) => ({ name: e })) ?? [],
         onlineTools: data?.summary.onlineTools ?? '',
       };
       form.reset(realData);

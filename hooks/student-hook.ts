@@ -13,6 +13,12 @@ export const useGetStudentList = () =>
     queryFn: () => studentService.getStudentList(),
   });
 
+export const useGetStudentWithOutcomes = (studentId: string) =>
+  useQuery({
+    queryKey: ['outcomes-student'],
+    queryFn: () => studentService.getStudentWithOutcomes(studentId),
+  });
+
 export const useCreateStudent = () => {
   const queryClient = useQueryClient();
   return useMutation({
