@@ -429,7 +429,7 @@ const InuFormatDialog = () => {
 
     const [studentTable] = await worksheetToTables(sheet);
     const students = tableToObject(studentTable[0], studentTable.slice(1));
-    console.log(students);
+
     form.reset(
       students.map((e) => {
         return {

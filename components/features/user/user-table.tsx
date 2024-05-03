@@ -118,7 +118,6 @@ export function UserDataTable<TData extends UserColumn, TValue>({
   };
 
   const CollapsibleRowContent = ({ userId }: { userId: string }) => {
-    console.log('userId:', userId);
     const { data: courses } = useCourseListByUser(userId);
     if (!courses) {
       return <div>Loading</div>;

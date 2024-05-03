@@ -18,7 +18,7 @@ const CommentCardHistory = ({
   onDelete,
 }: CommentCardProps) => {
   const { data: course } = useGetCourseById(courseId);
-  console.log(course);
+
   return (
     <div className="rounded-md border-2 border-primary-foreground bg-secondary p-3">
       <div className="flex items-center space-x-3">

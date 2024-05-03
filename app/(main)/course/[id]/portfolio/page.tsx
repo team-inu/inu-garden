@@ -131,6 +131,11 @@ const CoursePortfolioPage = () => {
     generatePortfolioDocument(coursePortfolio);
   };
 
+  const onSaved = () => {
+    //get data from form
+    const values = form.getValues();
+  };
+
   useEffect(() => {
     if (data) {
       form.reset({
@@ -154,7 +159,7 @@ const CoursePortfolioPage = () => {
   if (data === undefined) return <div>error</div>;
 
   return (
-    <div className="container hidden  flex-col space-y-3 md:flex">
+    <div className="container hidden flex-col  space-y-3 py-5 md:flex">
       <CoursePortfolioHeader />
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -438,13 +443,15 @@ const CoursePortfolioPage = () => {
               <AttachedDocumentCheckbox lable="3. การประชุมรายวิชา(ผู้สอนหลายคน) บันทึกรายวิชา (ผู้สอนคนเดียว) สิ้นภาคการศึกษา" />
               <AttachedDocumentCheckbox lable="4. การประเมิณตาม TABEE Outcome" />
             </div> */}
-            <div className="mb-5 flex ">
+            <div className="">
               <Button className="w-full">Export course portfolio</Button>
-              <Button className="w-full">Submit</Button>
             </div>
           </div>
         </form>
       </FormProvider>
+      <Button className="" variant={'default'} onClick={onSaved}>
+        Save draft
+      </Button>
     </div>
   );
 };

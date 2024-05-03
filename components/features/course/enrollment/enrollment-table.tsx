@@ -120,10 +120,6 @@ export function EnrollmentDataTable<TData, TValue>({
     e.target.value = '';
   };
 
-  const handleCreateStudent = () => {
-    console.log('create student');
-  };
-
   // {student?.plo.map((plo) => (
   //   <div key={plo.ploName} className="flex justify-between">
   //     <span>{plo.ploName}</span>

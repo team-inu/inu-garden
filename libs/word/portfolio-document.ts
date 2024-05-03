@@ -33,7 +33,6 @@ export async function generatePortfolioDocument({
 }: CreateCoursePortfolioForm) {
   const mockImageBuffer = base64ToImageBuffer(result.gradeDistributionImage);
 
-  console.log(mockImageBuffer);
   const template = await fetch('/template.docx');
   const templateBuffer = await template.arrayBuffer();
 

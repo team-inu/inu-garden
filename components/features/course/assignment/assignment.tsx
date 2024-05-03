@@ -7,7 +7,7 @@ import {
   useRouter,
   useSearchParams,
 } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { columns as assignmentColumns } from '@/components/features/course/assignment/assignment-column';
 import { AssignmentDataTable } from '@/components/features/course/assignment/assignment-table';
@@ -99,9 +99,7 @@ const Assignment = () => {
     selectedAssignmentRows.assignmentId,
   );
 
-  useEffect(() => {
-    console.log(selectedAssignmentGroupRows);
-  }, [selectedAssignmentGroupRows]);
+
 
   return (
     <div className="space-y-5">

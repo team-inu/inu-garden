@@ -15,8 +15,6 @@ const Enrollment = () => {
     useGetEnrollmentsByCourseId(courseId);
   const { data: outcomeData } = useGetPloAndPoOutcomeEnrollment(courseId);
 
-  console.log(outcomeData);
-
   return (
     <>
       <div>
