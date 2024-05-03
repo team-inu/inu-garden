@@ -2,6 +2,7 @@ import { ApiService } from '@/services/api-service';
 import {
   EnrollmentResultPloPo,
   GetCoursePortfolioForm,
+  SaveCoursePortfolioForm,
   StudentResultClo,
 } from '@/types/schema/course-portfolio-schema';
 
@@ -35,6 +36,51 @@ class CoursePortfolioService extends ApiService {
     return this.get(url)
       .then((response) => {
         return response.data.data as unknown as EnrollmentResultPloPo[];
+      })
+      .catch(this.throwError);
+  }
+
+  public async editCoursePortfolio(
+    data: SaveCoursePortfolioForm,
+    courseId: string,
+  ): Promise<void> {
+    const url = `/courses/${courseId}/portfolio`;
+    //array object to array of string
+    let result = {
+      summary: {
+        ...data.summary,
+        teachingMethods: data.summary.teachingMethods.map((e) => e.name),
+        objectives: data.summary.objectives.map((e) => e.name),
+      },
+      development: {
+        ...data.development,
+        plans: data.development.plans.map((e) => e.name),
+        doAndChecks: data.development.doAndChecks.map((e) => e.name),
+        acts: data.development.acts.map((e) => e.name),
+        subjectComments: {
+          upstreamSubjects:
+            data.development.subjectComments.upstreamSubjects.map((e) => {
+              return {
+                courseName: e.courseName,
+                comments: e.comments,
+              };
+            }),
+          downstreamSubjects:
+            data.development.subjectComments.downstreamSubjects.map((e) => {
+              return {
+                courseName: e.courseName,
+                comments: e.comments,
+              };
+            }),
+          other: data.development.subjectComments.other,
+        },
+        otherComment: data.development.otherComment,
+      },
+    };
+
+    return this.patch(url, result)
+      .then(() => {
+        return;
       })
       .catch(this.throwError);
   }

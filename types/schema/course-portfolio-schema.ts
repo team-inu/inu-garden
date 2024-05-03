@@ -12,16 +12,23 @@ const CourseInfoSchema = z.object({
 
 // [2] Summary
 
-const CourseSummarySchema = z.object({
+const CourseSummaryFormSchema = z.object({
   teachingMethods: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
-  onlineTool: z.string().min(1, { message: 'required' }),
+  onlineTools: z.string().min(1, { message: 'required' }),
   objectives: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
 });
 
+const CourseSummarySchema = z.object({
+  teachingMethods: z.array(z.string()),
+  onlineTools: z.string(),
+  objectives: z.array(z.string()),
+});
+
+export type CourseSummaryForm = z.infer<typeof CourseSummaryFormSchema>;
 export type CourseSummary = z.infer<typeof CourseSummarySchema>;
 
 // [3.1] Tabee Outcome
@@ -82,7 +89,7 @@ export type CourseResult = z.infer<typeof CourseResultSchema>;
 
 // [4] Development
 
-const CourseDevelopmentSchema = z.object({
+const CourseDevelopmentFormSchema = z.object({
   plans: z
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
@@ -110,19 +117,56 @@ const CourseDevelopmentSchema = z.object({
   otherComment: z.string().optional(),
 });
 
-export type CourseDevelopment = z.infer<typeof CourseDevelopmentSchema>;
+const CousreDevelopmentSchema = z.object({
+  plans: z.array(z.string()),
+  doAndChecks: z.array(z.string()),
+  acts: z.array(z.string()),
+  subjectComments: z.object({
+    upstreamSubjects: z.array(
+      z.object({
+        courseName: z.string().optional(),
+        comments: z.string().optional(),
+      }),
+    ),
+    downstreamSubjects: z.array(
+      z.object({
+        courseName: z.string().optional(),
+        comments: z.string().optional(),
+      }),
+    ),
+    other: z.string().optional(),
+  }),
+  otherComment: z.string().optional(),
+});
+
+// const CourseDevelopment
+
+export type CourseDevelopmentForm = z.infer<typeof CourseDevelopmentFormSchema>;
+export type CourseDevelopment = z.infer<typeof CousreDevelopmentSchema>;
 
 // [] Course Portfolio
 
 export const CoursePortfolioFormSchema = z.object({
   info: CourseInfoSchema,
+  summary: CourseSummaryFormSchema,
+  result: CourseResultSchema,
+  development: CourseDevelopmentFormSchema,
+});
+
+export const CoursePortfolioSchema = z.object({
+  info: CourseInfoSchema,
   summary: CourseSummarySchema,
   result: CourseResultSchema,
-  development: CourseDevelopmentSchema,
+  development: CousreDevelopmentSchema,
+});
+
+export const SaveCoursePortfolioFormSchema = CoursePortfolioFormSchema.pick({
+  summary: true,
+  development: true,
 });
 
 // Form
-export const GetCoursePortfolioFormSchema = CoursePortfolioFormSchema;
+export const GetCoursePortfolioFormSchema = CoursePortfolioSchema;
 export const CreateCoursePortfolioFormSchema = CoursePortfolioFormSchema;
 
 export type GetCoursePortfolioForm = z.infer<
@@ -143,11 +187,15 @@ export type CreateCoursePortfolioFillableSchema = z.infer<
   typeof CreateCoursePortfolioFillableSchema
 >;
 
-export const CreateCoursePortfolioFillableDefaultValues: Partial<CreateCoursePortfolioFillableSchema> =
+export type SaveCoursePortfolioForm = z.infer<
+  typeof SaveCoursePortfolioFormSchema
+>;
+
+export const CreateCoursePortfolioFillableDefaultValues: CreateCoursePortfolioFillableSchema =
   {
     summary: {
       teachingMethods: [{ name: '' }],
-      onlineTool: '',
+      onlineTools: '',
       objectives: [{ name: '' }],
     },
     development: {
