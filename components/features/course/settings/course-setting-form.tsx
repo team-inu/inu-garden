@@ -42,6 +42,7 @@ const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
   const form = useStrictForm(UpdateCourseSchema, defaultValues);
 
   function onSubmit(data: UpdateCourseFormValues) {
+    data.IsPortfolioCompleted = false;
     mutate({ course: data, courseId });
   }
 

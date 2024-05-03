@@ -1,11 +1,18 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import {
+  useParams,
+  usePathname,
+  useRouter,
+  useSearchParams,
+} from 'next/navigation';
 import { useState } from 'react';
 
 import { columns as assignmentColumns } from '@/components/features/course/assignment/assignment-column';
 import { AssignmentDataTable } from '@/components/features/course/assignment/assignment-table';
+import { columns as assignmentGroupColumns } from '@/components/features/course/assignment/group/assignment-group-column';
+import { AssignmentGroupTable } from '@/components/features/course/assignment/group/assignment-group-table';
 import { cloStaticColumn } from '@/components/features/course/outcome/clo-static-column';
 import { CourseLearningOutcomeDataTable } from '@/components/features/course/outcome/clo-table';
 import { columns as scoreColumns } from '@/components/features/course/score/score-column';
@@ -18,51 +25,131 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { useGetAssignmentGroupsByCourseId } from '@/hooks/assignment-group-hook';
 import {
-  useGetAssignmentByCourseId,
+  useGetAssignmentByGroupId,
   useGetAssignmentById,
 } from '@/hooks/assignment-hook';
 import { useGetScoresByAssignmentId } from '@/hooks/score-hook';
 
-type SelectedRowType = {
-  name: string;
-  id: string;
+type SelectedGroupRowType = {
+  groupName: string;
+  groupId: string;
+};
+
+type SelectedAssignmentRowType = {
+  assignmentName: string;
+  assignmentId: string;
 };
 
 const Assignment = () => {
   const router = useRouter();
   const pathName = usePathname();
-  const [selectedRows, setSelectedRows] = useState<SelectedRowType>({
-    name: '',
-    id: '',
-  });
-  const getVales = (id: string, name: string) => {
-    setSelectedRows({ name: name, id: id });
+  //get assignmentGroupId
+  const assignmentGroupId = useSearchParams().get('assignmentGroupId');
+  const assignmentId = useSearchParams().get('assignmentId');
+  const [selectedAssignmentGroup, setSelectedAssignmentGroup] =
+    useState<string>(assignmentGroupId ?? '');
+  const [selectedAssignment, setSelectedAssignment] = useState<string>(
+    assignmentId ?? '',
+  );
+
+  const [selectedAssignmentRows, setSelectedAssignmentRows] =
+    useState<SelectedAssignmentRowType>({
+      assignmentName: '',
+      assignmentId: '',
+    });
+  const getAssignmentValues = (id: string, name: string) => {
+    if (selectedAssignment !== id) {
+      setSelectedAssignmentGroup('');
+    }
+    setSelectedAssignmentRows({ assignmentName: name, assignmentId: id });
     router.push(`${pathName}/?assignmentId=${id}&clolength=&tab=assignment`);
   };
+
+  const [selectedAssignmentGroupRows, setSelectedAssignmentGroupRows] =
+    useState<SelectedGroupRowType>({
+      groupName: '',
+      groupId: '',
+    });
+  const getAssignmentGroupValues = (groupId: string, groupName: string) => {
+    if (selectedAssignmentGroup !== groupId) {
+      setSelectedAssignmentRows({ assignmentName: '', assignmentId: '' });
+    }
+    setSelectedAssignmentGroupRows({
+      groupName,
+      groupId,
+    });
+    router.push(
+      `${pathName}/?assignmentGroupId=${groupId}&clolength=&tab=assignment`,
+    );
+  };
+
   const { id: courseId } = useParams<{ id: string }>();
 
-  const { data: assignments } = useGetAssignmentByCourseId(courseId);
-  const { data: assignment } = useGetAssignmentById(selectedRows.id);
-  const { data: scores } = useGetScoresByAssignmentId(selectedRows.id);
+  const { data: assignmentGroups } = useGetAssignmentGroupsByCourseId(courseId);
+
+  const { data: assignments } = useGetAssignmentByGroupId(
+    selectedAssignmentGroupRows.groupId,
+  );
+  const { data: assignment } = useGetAssignmentById(
+    selectedAssignmentRows.assignmentId,
+  );
+  const { data: scores } = useGetScoresByAssignmentId(
+    selectedAssignmentRows.assignmentId,
+  );
+
+
 
   return (
     <div className="space-y-5">
-      <h1 className="mb-5 text-2xl font-bold">Assignments</h1>
+      <h1 className="mb-5 text-2xl font-bold">Assignment Groups</h1>
       <div className="">
-        <AssignmentDataTable
-          columns={assignmentColumns}
-          getValues={getVales}
-          data={assignments ?? []}
+        <AssignmentGroupTable
+          columns={assignmentGroupColumns}
+          getValues={getAssignmentGroupValues}
+          data={assignmentGroups ?? []}
         />
       </div>
-      {selectedRows.id !== '' ? (
+      {selectedAssignmentGroupRows.groupId ? (
+        <>
+          <h1 className="mb-5 text-2xl font-bold">Assignments</h1>
+          <div className="">
+            <AssignmentDataTable
+              columns={assignmentColumns}
+              getValues={getAssignmentValues}
+              data={assignments ?? []}
+            />
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="mt-10 flex flex-col items-center justify-center space-y-5">
+            <Image
+              priority
+              src="/images/shiba.svg"
+              alt="shiba"
+              width={160}
+              height={160}
+              className="animate-pulse"
+              placeholder="blur"
+              blurDataURL="/images/shiba.svg"
+            />
+            <h1 className="mb-5 text-xl font-bold text-slate-700">
+              Please select assignment group to see each assignment
+            </h1>
+          </div>
+        </>
+      )}
+
+      {selectedAssignmentRows.assignmentId !== '' ? (
         <>
           <div className="">
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle>
-                  Course learning outcome of {selectedRows.name}
+                  Course learning outcome of{' '}
+                  {selectedAssignmentRows.assignmentName}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -83,7 +170,7 @@ const Assignment = () => {
             <Card>
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                 <CardTitle className="flex w-full justify-between">
-                  <div>Score of {selectedRows.name}</div>
+                  <div>Score of {selectedAssignmentRows.assignmentName}</div>
                   <div>
                     submitted {scores?.submittedAmount} of{' '}
                     {scores?.enrolledAmount}
@@ -94,8 +181,8 @@ const Assignment = () => {
                 <ScoreDataTable
                   columns={scoreColumns}
                   data={scores?.scores ?? []}
-                  assignmentName={selectedRows?.name}
-                  assignmentId={selectedRows?.id}
+                  assignmentName={selectedAssignmentRows?.assignmentName}
+                  assignmentId={selectedAssignmentRows?.assignmentId}
                 />
               </CardContent>
             </Card>
@@ -104,7 +191,7 @@ const Assignment = () => {
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                   <CardTitle>Summary</CardTitle>
                   <CardDescription>
-                    Score of {selectedRows.name}
+                    Score of {selectedAssignmentRows.assignmentName}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -115,21 +202,25 @@ const Assignment = () => {
           </div>
         </>
       ) : (
-        <div className="mt-10 flex flex-col items-center justify-center space-y-5">
-          <Image
-            priority
-            src="/images/shiba.svg"
-            alt="shiba"
-            width={160}
-            height={160}
-            className="animate-pulse"
-            placeholder="blur"
-            blurDataURL="/images/shiba.svg"
-          />
-          <h1 className="mb-5 text-xl font-bold text-slate-700">
-            Please select assignment to see score
-          </h1>
-        </div>
+        <>
+          {selectedAssignmentGroupRows.groupId !== '' && (
+            <div className="mt-10 flex flex-col items-center justify-center space-y-5">
+              <Image
+                priority
+                src="/images/shiba.svg"
+                alt="shiba"
+                width={160}
+                height={160}
+                className="animate-pulse"
+                placeholder="blur"
+                blurDataURL="/images/shiba.svg"
+              />
+              <h1 className="mb-5 text-xl font-bold text-slate-700">
+                Please select assignment to see score
+              </h1>
+            </div>
+          )}
+        </>
       )}
     </div>
   );

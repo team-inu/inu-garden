@@ -12,6 +12,17 @@ export const EnrollmentSchema = z.object({
   lastName: z.string(),
 });
 
+export const EnrollmentClo = z.object({
+  studentId: z.string(),
+  firstName: z.string(),
+  lastName: z.string(),
+  pass: z.boolean(),
+});
+
+export const EnrollmentColumnSchema = EnrollmentSchema.extend({
+  collapsibleContent: z.string(),
+});
+
 export type Enrollment = z.infer<typeof EnrollmentSchema>;
 
 // response
@@ -20,7 +31,9 @@ export type GetEnrollmentResponse = z.infer<typeof EnrollmentSchema>;
 
 // column
 
-export type EnrollmentColumn = z.infer<typeof EnrollmentSchema>;
+export type EnrollmentColumn = z.infer<typeof EnrollmentColumnSchema>;
+
+export type EnrollmentCloColumn = z.infer<typeof EnrollmentClo>;
 
 // form
 

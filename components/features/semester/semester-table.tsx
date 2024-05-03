@@ -1,5 +1,6 @@
 'use client';
 
+import { CircleIcon, QuestionMarkCircledIcon } from '@radix-ui/react-icons';
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -16,8 +17,9 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
-import { AssignmentTableToolbar } from '@/components/features/course/assignment/assignment-table-toolbar';
+import { SemesterTableToolbar } from '@/components/features/semester/semester-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
+import { Option } from '@/components/ui/data-table-toolbar';
 import {
   Table,
   TableBody,
@@ -26,17 +28,29 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { SemesterColumn } from '@/types/schema/semsester-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  getValues?: (name: string, id: string) => void;
 }
 
-export function AssignmentDataTable<TData, TValue>({
+export const useres: Option[] = [
+  {
+    value: 'โครงการ 2B',
+    label: 'โครงการ 2B',
+    icon: QuestionMarkCircledIcon,
+  },
+  {
+    value: 'โครงการ 3B',
+    label: 'โครงการ 3B',
+    icon: CircleIcon,
+  },
+];
+
+export function SemesterDataTable<TData extends SemesterColumn, TValue>({
   columns,
   data,
-  getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -70,7 +84,7 @@ export function AssignmentDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <AssignmentTableToolbar table={table} selectorOptions={[]} />
+      <SemesterTableToolbar table={table} selectorOptions={[]} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -91,28 +105,24 @@ export function AssignmentDataTable<TData, TValue>({
               </TableRow>
             ))}
           </TableHeader>
-          <TableBody className="cursor-pointer">
+          <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    if (getValues) {
-                      getValues(row.getValue('id'), row.getValue('name'));
-                    }
-                  }}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <>
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && 'selected'}
+                  >
+                    {row.getVisibleCells().map((cell) => (
+                      <TableCell key={cell.id}>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    ))}
+                  </TableRow>
+                </>
               ))
             ) : (
               <TableRow>
@@ -127,7 +137,7 @@ export function AssignmentDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} isRowSelectionEnabled={false} />
+      <DataTablePagination table={table} />
     </div>
   );
 }

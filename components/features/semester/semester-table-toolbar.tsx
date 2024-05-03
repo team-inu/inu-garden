@@ -2,19 +2,16 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { FolderDotIcon, ImportIcon } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { useRef, useState } from 'react';
-import { toast } from 'sonner';
+import { useState } from 'react';
 
-import AssignmentDialog from '@/components/features/course/assignment/assignment-add-dialog';
+import SemesterDialog from '@/components/features/semester/semester-dialog';
 import { Button } from '@/components/ui/button';
 import { DataTableFacetedFilter } from '@/components/ui/data-table-faceted-filter';
 import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreateAssignment } from '@/hooks/assignment-hook';
-import { CreateAssignmentForm } from '@/types/schema/assignment-schema';
+import { useCreateSemester } from '@/hooks/semester-hook';
+import { CreateSemesterForm } from '@/types/schema/semsester-schema';
 
 export type Option = {
   value: string;
@@ -36,32 +33,19 @@ interface DataTableToolbarProps<TData> {
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function AssignmentTableToolbar<TData>({
+export function SemesterTableToolbar<TData>({
   table,
   selectorOptions: something,
   isViewOptions = true,
   isCreateEnabled = true,
-  handleImport,
 }: DataTableToolbarProps<TData>) {
-  const assignmentGroupId = useSearchParams().get('assignmentGroupId');
   const hasOption = something.length > 0;
   const [isOpen, setIsOpen] = useState(false);
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
-  const fileImportRef = useRef<HTMLInputElement>(null);
-  const { mutate, isError } = useCreateAssignment();
-
-  const HandleSubmitAssignment = (values: CreateAssignmentForm) => {
-    if (!assignmentGroupId) {
-      return toast.error('Assignment Group is required.', {
-        description: 'Please select an assignment group to add an assignment.',
-      });
-    }
-    mutate({
-      assignmentGroupId: assignmentGroupId,
-      assignment: values,
-    });
-
+  const { mutate, isError } = useCreateSemester();
+  const onSubmit = (value: CreateSemesterForm) => {
+    mutate(value);
     if (!isError) {
       setIsOpen(false);
     }
@@ -106,49 +90,21 @@ export function AssignmentTableToolbar<TData>({
         )}
       </div>
       <div className="flex space-x-2">
-        {isCreateEnabled && (
-          <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsOpen(true)}
-            >
-              <PlusCircledIcon className="mr-2 h-4 w-4" />
-              Add
-            </Button>
+        <div className="flex space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            className="ml-auto hidden h-8 lg:flex"
+            onClick={() => setIsOpen(true)}
+          >
+            <PlusCircledIcon className="mr-2 h-4 w-4" />
+            Add Semester
+          </Button>
 
-            <Dialog open={isOpen} onOpenChange={setIsOpen}>
-              <AssignmentDialog onSubmit={HandleSubmitAssignment} />
-            </Dialog>
-
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-              onClick={() => fileImportRef.current?.click()}
-            >
-              <ImportIcon className="mr-2 h-4 w-4" />
-              Import
-            </Button>
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
-              <a className="flex items-center" href="/template/assignment.xlsx">
-                <FolderDotIcon className="mr-2 h-4 w-4" />
-                Template
-              </a>
-            </Button>
-          </div>
-        )}
+          <Dialog open={isOpen} onOpenChange={setIsOpen}>
+            <SemesterDialog onSubmit={onSubmit} />
+          </Dialog>
+        </div>
         {isViewOptions && <DataTableViewOptions table={table} />}
       </div>
     </div>

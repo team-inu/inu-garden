@@ -11,6 +11,7 @@ const CourseSchema = z.object({
   semesterId: z.string(),
   userId: z.string(),
   expectedPassingCloPercentage: z.number(),
+  IsPortfolioCompleted: z.boolean(),
 
   criteriaGradeA: z.number(),
   criteriaGradeBP: z.number(),
@@ -105,7 +106,11 @@ export const UpdateCourseSchema = CreateCourseSchema.pick({
   criteriaGradeDP: true,
   criteriaGradeD: true,
   criteriaGradeF: true,
-});
+}).merge(
+  z.object({
+    IsPortfolioCompleted: z.boolean().optional(),
+  }),
+);
 
 export type UpdateCourseFormValues = z.infer<typeof UpdateCourseSchema>;
 
@@ -123,4 +128,5 @@ export const UpdateCourseDefaultValues: UpdateCourseFormValues = {
   criteriaGradeDP: 55,
   criteriaGradeD: 50,
   criteriaGradeF: 45,
+  IsPortfolioCompleted: false,
 };

@@ -1,9 +1,11 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
+import { ChevronDown } from 'lucide-react';
 
 import { EnrollmentRowActions } from '@/components/features/course/enrollment/enrollment-row-action';
 import { studentStatus } from '@/components/features/course/enrollment/enrollment-table';
+import { CollapsibleTrigger } from '@/components/ui/collapsible';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { EnrollmentColumn } from '@/types/schema/enrollment-schema';
 
@@ -11,9 +13,15 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="EnrollmentId" />
+      <DataTableColumnHeader
+        column={column}
+        title="EnrollmentId"
+        className="hidden"
+      />
     ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue('id')}</div>,
+    cell: ({ row }) => (
+      <div className="hidden w-[80px]">{row.getValue('id')}</div>
+    ),
     enableSorting: false,
     enableHiding: false,
   },
@@ -81,15 +89,33 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
       return value.includes(row.getValue(id));
     },
   },
+  // {
+  //   accessorKey: 'email',
+  //   header: ({ column }) => (
+  //     <DataTableColumnHeader column={column} title="Email" />
+  //   ),
+  //   cell: ({ row }) => {
+  //     return (
+  //       <div className="flex space-x-2">
+  //         <span className="truncate font-medium">{row.getValue('email')}</span>
+  //       </div>
+  //     );
+  //   },
+  //   filterFn: (row, id, value) => {
+  //     return value.includes(row.getValue(id));
+  //   },
+  // },
   {
-    accessorKey: 'email',
+    accessorKey: 'outcome',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
+      <DataTableColumnHeader column={column} title="Outcome" />
     ),
     cell: ({ row }) => {
       return (
-        <div className="flex space-x-2">
-          <span className="truncate font-medium">{row.getValue('email')}</span>
+        <div className="flex items-center">
+          <CollapsibleTrigger>
+            <ChevronDown className="h-4 w-4" />
+          </CollapsibleTrigger>
         </div>
       );
     },

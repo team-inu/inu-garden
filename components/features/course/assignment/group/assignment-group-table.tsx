@@ -16,7 +16,7 @@ import {
 } from '@tanstack/react-table';
 import * as React from 'react';
 
-import { AssignmentTableToolbar } from '@/components/features/course/assignment/assignment-table-toolbar';
+import { AssignmentGroupTableToolbar } from '@/components/features/course/assignment/group/assignment-group-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
   Table,
@@ -33,7 +33,7 @@ interface DataTableProps<TData, TValue> {
   getValues?: (name: string, id: string) => void;
 }
 
-export function AssignmentDataTable<TData, TValue>({
+export function AssignmentGroupTable<TData, TValue>({
   columns,
   data,
   getValues,
@@ -70,7 +70,7 @@ export function AssignmentDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <AssignmentTableToolbar table={table} selectorOptions={[]} />
+      <AssignmentGroupTableToolbar table={table} selectorOptions={[]} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>

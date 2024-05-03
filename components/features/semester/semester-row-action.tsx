@@ -6,7 +6,7 @@ import { Row } from '@tanstack/react-table';
 // TODO: make it dynamic
 import { useState } from 'react';
 
-import AssignmentEditDialog from '@/components/features/course/assignment/assigment-edit-dialog';
+import SemesterDialog from '@/components/features/semester/semester-dialog';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -22,44 +22,46 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { useDeleteSemester, useUpdateSemester } from '@/hooks/semester-hook';
 import {
-  useDeleteAssignment,
-  useUpdateAssignment,
-} from '@/hooks/assignment-hook';
-import {
-  AssignmentSchema,
-  UpdateAssignmentForm,
-} from '@/types/schema/assignment-schema';
+  SemesterSchema,
+  UpdateSemesterForm,
+} from '@/types/schema/semsester-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function AssignmentRowActions<TData>({
+export function SemesterRowActions<TData>({
   row,
 }: DataTableRowActionsProps<TData>) {
-  const assignment = AssignmentSchema.parse(row.original);
-
+  const semester = SemesterSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
 
-  const { mutate: updateAssignment, isError: isUpdateError } =
-    useUpdateAssignment();
+  const { mutate: deleteSemester, isError: isDeleteError } =
+    useDeleteSemester();
+  const { mutate: updateSemester, isError: isUpdateError } =
+    useUpdateSemester();
 
-  const { mutate: deleteAssignment, isError: isDeleteError } =
-    useDeleteAssignment();
-
-  const onSubmitDelete = () => {
-    deleteAssignment(assignment.id);
-    if (!isDeleteError) {
-      setIsDeleteDialogOpen(false);
+  const onSubmit = (values: UpdateSemesterForm) => {
+    const result = {
+      semester: {
+        semesterSequence: values.semesterSequence,
+        year: values.year,
+      },
+      id: semester.id,
+    };
+    updateSemester(result);
+    if (!isUpdateError) {
+      setIsEditDialogOpen(false);
     }
   };
 
-  const onSubmitEdit = (values: UpdateAssignmentForm) => {
-    updateAssignment(values);
-    if (!isUpdateError) {
-      setIsEditDialogOpen(false);
+  const onDelete = () => {
+    deleteSemester(semester.id);
+    if (!isDeleteError) {
+      setIsDeleteDialogOpen(false);
     }
   };
 
@@ -89,19 +91,13 @@ export function AssignmentRowActions<TData>({
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-
       {isEditDialogOpen && (
-        <AssignmentEditDialog
-          onSubmit={onSubmitEdit}
+        <SemesterDialog
+          isEdit
+          onSubmit={onSubmit}
           defaultValues={{
-            id: assignment.id,
-            description: assignment.description,
-            expectedPassingStudentPercentage:
-              assignment.expectedPassingStudentPercentage,
-            expectedScorePercentage: assignment.expectedScorePercentage,
-            maxScore: assignment.maxScore,
-            name: assignment.name,
-            isIncludedInClo: assignment.isIncludedInClo,
+            semesterSequence: semester.semesterSequence,
+            year: semester.year,
           }}
         />
       )}
@@ -111,7 +107,7 @@ export function AssignmentRowActions<TData>({
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
             <DialogDescription>
-              {`You can't undo this action. This will permanently delete the.`}
+              {` You can't undo this action. This will permanently delete the.`}
             </DialogDescription>
           </DialogHeader>
 
@@ -119,7 +115,7 @@ export function AssignmentRowActions<TData>({
             <DialogClose asChild>
               <Button variant="outline">Cancel</Button>
             </DialogClose>
-            <Button onClick={onSubmitDelete}>Delete</Button>
+            <Button onClick={onDelete}>Delete</Button>
           </DialogFooter>
         </DialogContent>
       )}

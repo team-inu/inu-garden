@@ -23,7 +23,7 @@ const Overview: React.FC<OverviewProps> = ({ data }) => {
 
     shownData.push({ score: i, total: 0 });
   }
-  console.log(shownData); // const bar = data
+  // const bar = data
   //   .map((e) => {
   //     return {
   //       score: e.score,

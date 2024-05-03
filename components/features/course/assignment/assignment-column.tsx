@@ -2,7 +2,7 @@
 
 import { ColumnDef } from '@tanstack/react-table';
 
-import { AssigmentRowActions } from '@/components/features/course/assignment/assignment-row-action';
+import { AssignmentRowActions } from '@/components/features/course/assignment/assignment-row-action';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { AssignmentColumn } from '@/types/schema/assignment-schema';
 
@@ -59,19 +59,6 @@ export const columns: ColumnDef<AssignmentColumn>[] = [
   //   },
   // },
   {
-    accessorKey: 'weight',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Weight" />
-    ),
-    cell: ({ row }) => {
-      return (
-        <div>
-          <span>{row.getValue('weight')}</span>
-        </div>
-      );
-    },
-  },
-  {
     accessorKey: 'expectedPassingStudentPercentage',
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="ExpectedPassingStudent%" />
@@ -100,6 +87,6 @@ export const columns: ColumnDef<AssignmentColumn>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => <AssigmentRowActions row={row} />,
+    cell: ({ row }) => <AssignmentRowActions row={row} />,
   },
 ];

@@ -1,9 +1,18 @@
 'use client';
 
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { useFormContext } from 'react-hook-form';
 
 import CourseFormGrade from '@/components/features/course/course-form/form-grade';
 import Loading from '@/components/features/loading-screen';
+import { Button } from '@/components/ui/button';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+} from '@/components/ui/command';
 import {
   FormControl,
   FormDescription,
@@ -13,6 +22,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import {
   Select,
   SelectContent,
@@ -24,6 +38,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
 import { useGetSemesterList } from '@/hooks/semester-hook';
 import { useGetUserList } from '@/hooks/user-hook';
+import { cn } from '@/libs/utils';
 import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 
 const CourseForm = () => {
@@ -95,22 +110,61 @@ const CourseForm = () => {
           control={form.control}
           name="semesterId"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem className="flex w-full flex-col space-y-4">
               <FormLabel>Semester</FormLabel>
-              <Select onValueChange={field.onChange} value={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a semester" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {semesters?.map((semester) => (
-                    <SelectItem key={semester.id} value={semester.id}>
-                      {semester.semesterSequence}/{semester.year}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <FormControl>
+                    <Button
+                      variant="outline"
+                      role="combobox"
+                      className={cn(
+                        'w-[200px] justify-between',
+                        !field.value && 'text-muted-foreground',
+                      )}
+                    >
+                      {field.value && semesters
+                        ? semesters.find(
+                            (semester) => semester.id === field.value,
+                          )?.semesterSequence +
+                          '/' +
+                          semesters.find(
+                            (semester) => semester.id === field.value,
+                          )?.year
+                        : 'Select Semester'}
+                      <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                    </Button>
+                  </FormControl>
+                </PopoverTrigger>
+                <PopoverContent className=" w-[200px] p-0">
+                  <Command>
+                    <CommandInput placeholder="Search semester..." />
+                    <CommandEmpty>No Semester found.</CommandEmpty>
+                    <CommandGroup className="max-h-96 overflow-y-auto">
+                      {semesters &&
+                        semesters.map((semester) => (
+                          <CommandItem
+                            key={semester.id}
+                            value={semester.year.toString()}
+                            onSelect={() => {
+                              form.setValue('semesterId', semester.id);
+                            }}
+                          >
+                            <Check
+                              className={cn(
+                                'mr-2 h-4 w-4',
+                                semester.id === field.value
+                                  ? 'opacity-100'
+                                  : 'opacity-0',
+                              )}
+                            />
+                            {semester.semesterSequence}/{semester.year}
+                          </CommandItem>
+                        ))}
+                    </CommandGroup>
+                  </Command>
+                </PopoverContent>
+              </Popover>
               <FormMessage />
             </FormItem>
           )}

@@ -20,6 +20,8 @@ import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
 import { EnrollmentTableToolbar } from '@/components/features/course/enrollment/enrollment-table-toolbar';
+import { Badge } from '@/components/ui/badge';
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
 import {
@@ -30,11 +32,15 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
+import { EnrollmentResultPloPo } from '@/types/schema/course-portfolio-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  isCreateEnabled?: boolean;
+  outcomeData: EnrollmentResultPloPo[];
 }
 
 export const studentStatus: Option[] = [
@@ -61,6 +67,8 @@ const inputs: SelectorOption[] = [
 export function EnrollmentDataTable<TData, TValue>({
   columns,
   data,
+  isCreateEnabled = true,
+  outcomeData,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -112,8 +120,87 @@ export function EnrollmentDataTable<TData, TValue>({
     e.target.value = '';
   };
 
-  const handleCreateStudent = () => {
-    console.log('create student');
+  // {student?.plo.map((plo) => (
+  //   <div key={plo.ploName} className="flex justify-between">
+  //     <span>{plo.ploName}</span>
+  //     <span>{plo.pass ? 'Pass' : 'Fail'}</span>
+  //   </div>
+  // ))}
+  // {student?.po.map((po) => (
+  //   <div key={po.poName} className="flex justify-between">
+  //     <span>{po.poName}</span>
+  //     <span>{po.pass ? 'Pass' : 'Fail'}</span>
+  //   </div>
+  // ))}
+
+  const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
+    const student = outcomeData.find(
+      (student) => student.studentId === studentId,
+    );
+    return (
+      <td colSpan={7} className="space-y-3 divide-y-2 divide-orange-400">
+        <div className="p-5">
+          <Tabs defaultValue="plo" className="space-y-4">
+            <TabsList>
+              <TabsTrigger value="plo">Program Learning Outcome</TabsTrigger>
+              <TabsTrigger value="po">Program Outcome</TabsTrigger>
+            </TabsList>
+
+            <TabsContent
+              value="plo"
+              className=" space-y-3 rounded-xl bg-secondary p-3"
+            >
+              <div className="flex flex-col justify-center gap-5">
+                {/* make it nice table */}
+                {student ? (
+                  student.programLearningOutcomes.map((plo) => (
+                    <div key={plo.id} className="flex  gap-5  ">
+                      <span className="text-lg ">
+                        PLO{plo.code}-{plo.descriptionThai}:{' '}
+                      </span>
+                      <Badge
+                        className="text-lg"
+                        variant={plo.pass ? 'green' : 'destructive'}
+                      >
+                        {plo.pass ? 'Pass' : 'Fail'}
+                      </Badge>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex w-full items-center justify-center text-lg ">
+                    No data
+                  </div>
+                )}
+              </div>
+            </TabsContent>
+            <TabsContent
+              value="po"
+              className="space-y-3 rounded-xl bg-secondary p-3 "
+            >
+              <div className="flex flex-col justify-center gap-5">
+                {student ? (
+                  student.programOutcomes.map((po) => (
+                    <div key={po.id} className="flex gap-5">
+                      <span className="text-lg ">{po.name}: </span>
+                      <Badge
+                        className="text-lg"
+                        variant={po.pass ? 'green' : 'destructive'}
+                      >
+                        {po.pass ? 'Pass' : 'Fail'}
+                      </Badge>
+                    </div>
+                  ))
+                ) : (
+                  <div className="flex w-full items-center justify-center text-lg ">
+                    No data
+                  </div>
+                )}
+              </div>
+            </TabsContent>
+          </Tabs>
+        </div>
+      </td>
+    );
   };
 
   return (
@@ -122,6 +209,7 @@ export function EnrollmentDataTable<TData, TValue>({
         table={table}
         selectorOptions={inputs}
         handleImport={handleUploadEnrollment}
+        isCreateEnabled={isCreateEnabled}
       />
       <div className="rounded-md border">
         <Table>
@@ -146,19 +234,30 @@ export function EnrollmentDataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Collapsible key={row.id} asChild>
+                  <>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <CollapsibleContent asChild className="bg-black">
+                      <tr>
+                        <CollapsibleRowContent
+                          studentId={row.getValue('studentId')}
+                        />
+                      </tr>
+                    </CollapsibleContent>
+                  </>
+                </Collapsible>
               ))
             ) : (
               <TableRow>

@@ -16,12 +16,12 @@ import {
   useReactTable,
 } from '@tanstack/react-table';
 import { UserCircle } from 'lucide-react';
+import Link from 'next/link';
 import * as React from 'react';
 import { toast } from 'sonner';
 import * as XLSX from 'xlsx';
 
 import { UserTableToolbar } from '@/components/features/user/user-table-toolbar';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
@@ -34,6 +34,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useCourseListByUser } from '@/hooks/course-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import { UserColumn } from '@/types/schema/user-schema';
 
@@ -116,51 +117,46 @@ export function UserDataTable<TData extends UserColumn, TValue>({
     e.target.value = '';
   };
 
-  const mockData = [
-    {
-      code: 'CPE 100',
-      name: 'Computer Concepts and Programming',
-      student: 40,
-      task: 2,
-    },
-    {
-      code: 'CPE 101',
-      name: 'Introduction to Computer Engineering and Information Technology',
-      student: 41,
-      task: 2,
-    },
-  ];
+  const CollapsibleRowContent = ({ userId }: { userId: string }) => {
+    const { data: courses } = useCourseListByUser(userId);
+    if (!courses) {
+      return <div>Loading</div>;
+    }
+    return (
+      <td colSpan={7} className="space-y-3 divide-y-2 divide-orange-400">
+        {courses.map((data, key) => (
+          <div className="container" key={key}>
+            <div className="flex w-full items-center p-5">
+              <div className="w-3/4  space-y-2">
+                <div className="">
+                  {data.code}: {data.name}
+                </div>
 
-  var CollapsibleRowContent = ({ row }: { row: UserColumn }) => (
-    <td colSpan={7} className="space-y-3 divide-y-2 divide-orange-400">
-      {mockData.map((data, key) => (
-        <div className="container" key={key}>
-          <div className="flex w-full items-center p-5">
-            <div className="w-3/4  space-y-2">
-              <div className="">
-                {data.code}: {data.name}
-              </div>
-
-              <div className="flex items-center space-x-2">
-                <UserCircle className="h-5 w-5" />
-                <div>{data.student}</div>
-                <div>
-                  <Badge variant={'green'}>Task {data.task}</Badge>
+                <div className="flex items-center space-x-2">
+                  <UserCircle className="h-5 w-5" />
+                  <div>{data.curriculum}</div>
+                  <div>
+                    {/* <Badge variant={'green'}>Task {data.task}</Badge> */}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="flex w-1/4 justify-end space-x-3">
-              <Button size={'sm'}>Export file</Button>
-              <Button size={'sm'} variant={'secondary'}>
-                View Course
-              </Button>
+              <div className="flex w-1/4 justify-end space-x-3">
+                <Link href={`/course/${data.id}/portfolio`}>
+                  <Button size={'sm'}>Export file</Button>
+                </Link>
+                <Link href={`/course/${data.id}`}>
+                  <Button size={'sm'} variant={'secondary'}>
+                    View Course
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      ))}
-    </td>
-  );
+        ))}
+      </td>
+    );
+  };
 
   return (
     <div className="space-y-4">
@@ -209,7 +205,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({
                     </TableRow>
                     <CollapsibleContent asChild className="bg-black">
                       <tr>
-                        <CollapsibleRowContent row={row.original} />
+                        <CollapsibleRowContent userId={row.getValue('id')} />
                       </tr>
                     </CollapsibleContent>
                   </>

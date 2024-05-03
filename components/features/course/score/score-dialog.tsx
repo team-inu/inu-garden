@@ -20,7 +20,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -135,9 +134,6 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
                       </Command>
                     </PopoverContent>
                   </Popover>
-                  <FormDescription>
-                    This is the language that will be used in the dashboard.
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}

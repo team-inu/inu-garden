@@ -115,7 +115,7 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
               )}
             />
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               <FormField
                 control={form.control}
                 name="expectedPassingStudentPercentage"

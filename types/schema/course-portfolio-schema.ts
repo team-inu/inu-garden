@@ -162,3 +162,41 @@ export const CreateCoursePortfolioFillableDefaultValues: Partial<CreateCoursePor
       otherComment: '',
     },
   };
+
+//response
+export const GetStudentResultClo = z.object({
+  courseLearningOutcomeId: z.string(),
+  students: z.array(
+    z.object({
+      studentId: z.string(),
+      firstName: z.string(),
+      lastName: z.string(),
+      pass: z.boolean(),
+    }),
+  ),
+});
+
+export type StudentResultClo = z.infer<typeof GetStudentResultClo>;
+
+export const GetEnrollmentResultPloPo = z.object({
+  studentId: z.string(),
+  programLearningOutcomes: z.array(
+    z.object({
+      pass: z.boolean(),
+      code: z.string(),
+      id: z.string(),
+      descriptionThai: z.string(),
+      programYear: z.number(),
+    }),
+  ),
+  programOutcomes: z.array(
+    z.object({
+      pass: z.boolean(),
+      code: z.string(),
+      id: z.string(),
+      name: z.string(),
+    }),
+  ),
+});
+
+export type EnrollmentResultPloPo = z.infer<typeof GetEnrollmentResultPloPo>;

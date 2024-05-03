@@ -5,6 +5,7 @@ import { useParams } from 'next/navigation';
 import { columns } from '@/components/features/course/enrollment/enrollment-column';
 import { EnrollmentDataTable } from '@/components/features/course/enrollment/enrollment-table';
 import Loading from '@/components/features/loading-screen';
+import { useGetPloAndPoOutcomeEnrollment } from '@/hooks/course-portfolio-hook';
 import { useGetEnrollmentsByCourseId } from '@/hooks/enrollment-hook';
 
 const Enrollment = () => {
@@ -12,6 +13,7 @@ const Enrollment = () => {
 
   const { data: enrollments, isLoading } =
     useGetEnrollmentsByCourseId(courseId);
+  const { data: outcomeData } = useGetPloAndPoOutcomeEnrollment(courseId);
 
   return (
     <>
@@ -22,7 +24,18 @@ const Enrollment = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <EnrollmentDataTable columns={columns} data={enrollments ?? []} />
+          <EnrollmentDataTable
+            outcomeData={outcomeData ?? []}
+            columns={columns}
+            data={
+              enrollments?.map((enrollment) => {
+                return {
+                  ...enrollment,
+                  collapsibleContent: '',
+                };
+              }) ?? []
+            }
+          />
         )}
       </div>
     </>
