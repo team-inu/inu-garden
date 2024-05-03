@@ -13,9 +13,14 @@ import { ProgramOutcomeDataTable } from '@/components/features/tabee/po/po-table
 import { columns as subPloColumns } from '@/components/features/tabee/sub-plo/sub-plo-column';
 import { SubProgramLearningOutcomeDataTable } from '@/components/features/tabee/sub-plo/sub-plo-table';
 import TabeeImportDialog from '@/components/features/tabee/tabee-import-dialog';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useCreateManyPlos, useGetPloList } from '@/hooks/plo-hook';
-import { useCreateManyPos, useGetPoList } from '@/hooks/po-hook';
+import {
+  useCreateManyPos,
+  useGetCourseWithPo,
+  useGetPoList,
+} from '@/hooks/po-hook';
 import { useGetSubPloList } from '@/hooks/sub-plo-hook';
 import { CreateManyPloForm } from '@/types/schema/plo-schema';
 import { CreateManyPoForm } from '@/types/schema/po-schema';
@@ -24,6 +29,10 @@ import { CreateManySubPloType, SubPLO } from '@/types/schema/sub-plo-schema';
 const TABEE = () => {
   const [selectedRows, setSelectedRows] = useState<string>('');
   const [selectedCode, setSelectedCode] = useState<string>('');
+  const [selectedPo, setSelectedPoId] = useState({
+    id: '',
+    name: '',
+  });
   const { data: plos, isLoading: isPloLoading } = useGetPloList();
   const { data: splos, isLoading: isSubPloLoading } = useGetSubPloList();
   const { data: pos, isLoading: isPoLoading } = useGetPoList();
@@ -36,9 +45,15 @@ const TABEE = () => {
   const { mutate: createManyPos, isError: isCreateManyPosError } =
     useCreateManyPos();
 
+  const { data: coursePo } = useGetCourseWithPo();
+
   const getVales = (id: string, code: string) => {
     setSelectedRows(id);
     setSelectedCode(code);
+  };
+
+  const getValesPo = (id: string, name: string) => {
+    setSelectedPoId({ id, name });
   };
 
   const onSubmitPloImport = (value: CreateManyPloForm) => {
@@ -58,11 +73,6 @@ const TABEE = () => {
       setIsTabeeImportOpen(false);
     }
   };
-
-  // useEffect(() => {
-  //   console.log(selectedCode);
-  //   console.log(selectedRows);
-  // }, [selectedCode, selectedRows]);
 
   return (
     <div className="">
@@ -156,7 +166,60 @@ const TABEE = () => {
           {isPoLoading ? (
             <Loading />
           ) : (
-            <ProgramOutcomeDataTable columns={poColumns} data={pos ?? []} />
+            <ProgramOutcomeDataTable
+              columns={poColumns}
+              data={pos ?? []}
+              getValues={getValesPo}
+            />
+          )}
+
+          {selectedPo.id && coursePo && (
+            <div className="space-y-5">
+              <div>
+                <h1 className="mb-3 text-2xl font-bold ">
+                  Courses of Program Outcome {selectedPo.name}{' '}
+                  <span className="text-lg text-gray-400">
+                    (passing percentage)
+                  </span>
+                </h1>
+                <div>
+                  To show the courses that pass the program outcome, the passing
+                  percentage of the course should be more than 50%.{' '}
+                </div>
+              </div>
+              <div className="grid grid-cols-3 gap-5">
+                {coursePo
+                  .find((course) => course.programOutcomeId === selectedPo.id)
+                  ?.courses.map((course) => (
+                    <div
+                      key={course.id}
+                      className="rounded-lg border-2 border-white p-5 hover:bg-secondary"
+                    >
+                      <div className="flex justify-between">
+                        <div className="text-lg font-bold">
+                          {course.code
+                            ? course.code + ' - ' + course.name
+                            : 'No course available'}
+                        </div>
+                        <Badge
+                          variant={
+                            course.passingPercentage > 50
+                              ? 'green'
+                              : 'destructive'
+                          }
+                        >
+                          {course.passingPercentage}%
+                        </Badge>
+                      </div>
+                      <div className="">
+                        {course.year
+                          ? course.semesterSequence + '/' + course.year
+                          : ''}
+                      </div>
+                    </div>
+                  ))}
+              </div>
+            </div>
           )}
         </div>
       </div>

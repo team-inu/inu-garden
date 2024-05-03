@@ -82,3 +82,9 @@ export const useDeletePo = () => {
     },
   });
 };
+
+export const useGetCourseWithPo = () =>
+  useQuery({
+    queryKey: ['pos', 'courses'],
+    queryFn: () => poService.getCourseLinkPo(),
+  });

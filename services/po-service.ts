@@ -2,6 +2,7 @@ import { ApiService } from '@/services/api-service';
 import {
   CreateManyPoForm,
   CreatePoForm,
+  GetCourseWithPo,
   GetPoResponse,
   UpdatePoForm,
 } from '@/types/schema/po-schema';
@@ -42,6 +43,15 @@ class PoService extends ApiService {
     const url = `/pos/${id}`;
     return this.delete(url)
       .then(() => {})
+      .catch(this.throwError);
+  }
+
+  public async getCourseLinkPo(): Promise<GetCourseWithPo[]> {
+    const url = `/pos/courses`;
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as GetCourseWithPo[];
+      })
       .catch(this.throwError);
   }
 }

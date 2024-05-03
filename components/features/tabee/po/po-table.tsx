@@ -30,11 +30,13 @@ import {
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  getValues?: (poId: string, name: string) => void;
 }
 
 export function ProgramOutcomeDataTable<TData, TValue>({
   columns,
   data,
+  getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] =
@@ -95,6 +97,15 @@ export function ProgramOutcomeDataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
+                  onClick={() => {
+                    if (getValues) {
+                      getValues(
+                        row.getValue('id') as string,
+                        row.getValue('name') as string,
+                      );
+                    }
+                  }}
+                  className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
