@@ -2,7 +2,6 @@
 
 import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
-import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useRef, useState } from 'react';
 
@@ -115,32 +114,6 @@ export function AssignmentGroupTableToolbar<TData>({
                 defaultValues={{ courseId: courseId, name: '', weight: 0 }}
               />
             </Dialog>
-
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-              onClick={() => fileImportRef.current?.click()}
-            >
-              <ImportIcon className="mr-2 h-4 w-4" />
-              Import
-            </Button>
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
-              <a className="flex items-center" href="/template/assignment.xlsx">
-                <FolderDotIcon className="mr-2 h-4 w-4" />
-                Template
-              </a>
-            </Button>
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}
