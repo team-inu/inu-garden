@@ -14,7 +14,7 @@ const NoPermission = () => {
           <Button>Go back to course page</Button>
         </Link>
         <Image
-          src="/images/nopermission.png"
+          src="/images/inu_sleep.png"
           width={300}
           height={300}
           alt="No permission"

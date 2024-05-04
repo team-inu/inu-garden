@@ -32,7 +32,7 @@ const LoginPage = () => {
             alt={''}
           />
           <div className="relative z-20 flex items-center space-x-3 text-lg font-medium">
-            <Image src="/images/shiba.svg" width={40} height={40} alt="Inu" />
+            <Image src="/images/inu.png" width={40} height={40} alt="Inu" />
             <div className="text-secondary"> Inu</div>
           </div>
           <div className="relative z-20 mt-auto rounded-lg bg-secondary/80 p-5 hover:animate-pulse">

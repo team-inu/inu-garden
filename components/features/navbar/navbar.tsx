@@ -16,7 +16,7 @@ const Navbar = () => {
         <div className="flex h-16 items-center px-4">
           {/* <TeamSwitcher /> */}
           <div className="flex items-center space-x-1">
-            <Image src="/images/shiba.svg" width={40} height={40} alt="Inu" />
+            <Image src="/images/inu.png" width={40} height={40} alt="Inu" />
             <div className="text-lg">Inu</div>
           </div>
           <MainNav className="mx-6" role={user.data?.role.toUpperCase()} />

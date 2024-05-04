@@ -98,7 +98,7 @@ export default function Home() {
         >
           <Image
             priority
-            src="/images/shiba.svg"
+            src="/images/inu.png"
             alt="shiba"
             width={80}
             height={80}
