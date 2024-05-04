@@ -19,7 +19,7 @@ export const columns: ColumnDef<SubPloColumn>[] = [
   {
     accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="code" />
+      <DataTableColumnHeader column={column} title="Code" />
     ),
     cell: ({ row }) => <div className="">{row.getValue('code')}</div>,
     enableSorting: false,

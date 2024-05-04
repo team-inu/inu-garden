@@ -36,7 +36,7 @@ export const columns: ColumnDef<UserColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="id" className="hidden" />
+      <DataTableColumnHeader column={column} title="Id" className="hidden" />
     ),
     cell: ({ row }) => {
       return (
@@ -96,7 +96,7 @@ export const columns: ColumnDef<UserColumn>[] = [
   {
     accessorKey: 'role',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="role" />
+      <DataTableColumnHeader column={column} title="Role" />
     ),
     cell: ({ row }) => {
       return (

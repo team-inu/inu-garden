@@ -37,7 +37,7 @@ export const columns: ColumnDef<StudentColumn>[] = [
   {
     accessorKey: 'grade',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Grade" />
+      <DataTableColumnHeader column={column} title="Results" />
     ),
     cell: ({ row }) => {
       return (
@@ -55,7 +55,7 @@ export const columns: ColumnDef<StudentColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader className="" column={column} title="id" />
+      <DataTableColumnHeader className="" column={column} title="Student Id" />
     ),
     cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,

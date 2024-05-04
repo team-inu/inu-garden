@@ -15,7 +15,7 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="EnrollmentId"
+        title="Enrollment Id"
         className="hidden"
       />
     ),
@@ -28,7 +28,7 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
   {
     accessorKey: 'studentId',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="kmutt id" />
+      <DataTableColumnHeader column={column} title="Student Id" />
     ),
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue('studentId')}</div>
@@ -69,7 +69,7 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
   {
     accessorKey: 'status',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="status" />
+      <DataTableColumnHeader column={column} title="Status" />
     ),
     cell: ({ row }) => {
       const status = studentStatus.find(

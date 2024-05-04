@@ -61,7 +61,10 @@ export const columns: ColumnDef<AssignmentColumn>[] = [
   {
     accessorKey: 'expectedPassingStudentPercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ExpectedPassingStudent%" />
+      <DataTableColumnHeader
+        column={column}
+        title="Expected Passing Students %"
+      />
     ),
     cell: ({ row }) => {
       return <span>{row.getValue('expectedPassingStudentPercentage')}</span>;
@@ -70,7 +73,7 @@ export const columns: ColumnDef<AssignmentColumn>[] = [
   {
     accessorKey: 'expectedScorePercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="ExpecteScore%" />
+      <DataTableColumnHeader column={column} title="Expected Score %" />
     ),
     cell: ({ row }) => {
       return <span>{row.getValue('expectedScorePercentage')}</span>;
