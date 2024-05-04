@@ -1,7 +1,6 @@
-import { TimerIcon } from '@radix-ui/react-icons';
 import { FolderIcon, UserIcon } from 'lucide-react';
 
-import BadStudent from '@/components/bad-student';
+import GradeDistribution from '@/components/bad-student';
 import Overview from '@/components/overview';
 import { Badge } from '@/components/ui/badge';
 import {
@@ -11,25 +10,45 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { GetCourseList } from '@/types/schema/course-schema';
 
-export default function Dashboard() {
+type DashboardProps = {
+  courseData: GetCourseList;
+  scoreFrequency: {
+    score: number;
+    frequency: number;
+  }[];
+  studentAmount: string;
+  grade: number;
+  gradeFrequency: {
+    name: string;
+    gradeScore: number;
+    frequency: number;
+  }[];
+};
+
+export default function Dashboard({
+  courseData,
+  scoreFrequency,
+  studentAmount,
+  grade,
+  gradeFrequency,
+}: DashboardProps) {
   return (
     <>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="flex text-sm font-medium">
-              Latest Assessment
-            </CardTitle>
-            <TimerIcon className="h-4 w-4 text-muted-foreground" />
+            <CardTitle className="flex text-sm font-medium">Lecturer</CardTitle>
+            <Badge variant="green" className="ml-2">
+              {courseData?.user.role ?? '-'}
+            </Badge>
           </CardHeader>
           <CardContent>
             {/* Latest Assigment */}
-            <div className="flex items-center text-2xl font-bold">
-              -
-              <Badge variant="green" className="ml-2">
-                New
-              </Badge>
+            <div className="flex items-center  font-bold">
+              {courseData?.user.firstName ?? ''}{' '}
+              {courseData?.user.lastName ?? ''}
             </div>
           </CardContent>
         </Card>
@@ -41,31 +60,30 @@ export default function Dashboard() {
             <UserIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold"> - </div>
-            <p className="text-xs text-muted-foreground">-</p>
+            <div className="text-xl font-bold"> {studentAmount ?? '-'} </div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Assessments</CardTitle>
+            <CardTitle className="text-sm font-medium">Total grade</CardTitle>
             <FolderIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">-</div>
-            <p className="text-xs text-muted-foreground">-</p>
+            <div className="text-xl font-bold">
+              GPA: {grade.toFixed(2) ?? '-'}
+            </div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              CLO 1 Percentage
+              Expected Passing CLO
             </CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">-%</div>
-            <p className="text-xs text-muted-foreground">
-              - out of - students passed
-            </p>
+            <div className="text-xl font-bold">
+              {courseData.expectedPassingCloPercentage ?? '-'}%
+            </div>
           </CardContent>
         </Card>
       </div>
@@ -75,18 +93,16 @@ export default function Dashboard() {
             <CardTitle>Grade Overview</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview data={[]} />
+            <Overview data={scoreFrequency} />
           </CardContent>
         </Card>
         <Card className="col-span-3">
           <CardHeader>
-            <CardTitle>Bad Student</CardTitle>
-            <CardDescription>
-              The group of students who has the chance to fail this course
-            </CardDescription>
+            <CardTitle>Grade Distribution</CardTitle>
+            <CardDescription>Score distribution of students</CardDescription>
           </CardHeader>
           <CardContent>
-            <BadStudent data={[]} />
+            <GradeDistribution data={gradeFrequency} />
           </CardContent>
         </Card>
       </div>

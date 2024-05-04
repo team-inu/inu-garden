@@ -1,34 +1,43 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
+import { Avatar, AvatarFallback } from '@/components/ui/avatar';
+import { Badge, BadgeProps } from '@/components/ui/badge';
 
-type BadStudentProps = {
+type GradeDistributionProps = {
   data: {
-    studentId: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    fails: number;
+    name: string;
+    gradeScore: number;
+    frequency: number;
   }[];
 };
 
-const BadStudent: React.FC<BadStudentProps> = ({ data }) => {
+const GradeDistribution: React.FC<GradeDistributionProps> = ({ data }) => {
   return (
-    <div className="space-y-8">
-      {data.map((student, index) => {
+    <div className="grid grid-cols-3 gap-5  ">
+      {data.map((grade, index) => {
+        let variant: BadgeProps = { variant: 'green' };
+        if (grade.gradeScore >= 80) {
+          variant.variant = 'green';
+        } else if (grade.gradeScore >= 70) {
+          variant.variant = 'default';
+        } else {
+          variant.variant = 'destructive';
+        }
         return (
-          <div key={index} className="flex items-center">
+          <div
+            key={index}
+            className="flex items-center justify-around space-x-2 rounded-lg border p-2"
+          >
             <Avatar className="h-9 w-9">
               {/* <AvatarImage src="/avatars/01.png" alt="Avatar" /> */}
-              <AvatarFallback>{student.firstName[0]}</AvatarFallback>
+              <AvatarFallback>{grade.name}</AvatarFallback>
             </Avatar>
-            <div className="ml-4 space-y-1">
-              <p className="text-sm font-medium leading-none">
-                {student.firstName} {student.lastName} {student.studentId}
-              </p>
-              <p className="text-sm text-muted-foreground">{student.email}</p>
-            </div>
-            <div className="ml-auto font-medium">
-              <Badge variant="destructive">{student.fails} fails</Badge>
+
+            <p className="text-sm text-muted-foreground">
+              ( {'≥'}
+              {grade.gradeScore} )
+            </p>
+
+            <div className="font-medium">
+              <Badge variant={variant.variant}>{grade.frequency} </Badge>
             </div>
           </div>
         );
@@ -37,4 +46,4 @@ const BadStudent: React.FC<BadStudentProps> = ({ data }) => {
   );
 };
 
-export default BadStudent;
+export default GradeDistribution;

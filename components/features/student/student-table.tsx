@@ -189,7 +189,9 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                     <TableRow>
                       <TableCell colSpan={1} rowSpan={1}>
                         {/* PO */}
-                        <TableRow>{e.name}</TableRow>
+                        <TableRow>
+                          {e.code} - {e.name}
+                        </TableRow>
                       </TableCell>
                       <TableCell rowSpan={3} colSpan={1}>
                         {e.courses.map((course, i) => {
@@ -230,7 +232,8 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Program outcome</TableHead>
+                <TableHead>Program Learning Outcome</TableHead>
+                <TableHead>Program Year</TableHead>
                 <TableHead>Course</TableHead>
                 <TableHead>Pass</TableHead>
               </TableRow>
@@ -252,8 +255,11 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                     <TableRow>
                       <TableCell colSpan={1} rowSpan={1}>
                         {/* PO */}
-                        <TableRow>{e.descriptionThai}</TableRow>
+                        <TableRow>
+                          {e.code} - {e.descriptionThai}
+                        </TableRow>
                       </TableCell>
+                      <TableCell>{e.programYear}</TableCell>
                       <TableCell rowSpan={3} colSpan={1}>
                         {e.courses.map((course, i) => {
                           return (

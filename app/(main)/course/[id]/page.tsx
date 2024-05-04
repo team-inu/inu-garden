@@ -8,6 +8,7 @@ import Dashboard from '@/components/features/course/dashboard/dashboard';
 import Enrollment from '@/components/features/course/enrollment/enrollment';
 import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 import StreamCoures from '@/components/features/course/stream-course/stream-coures';
+import Loading from '@/components/features/loading-screen';
 import { Button } from '@/components/ui/button';
 import {
   Tabs,
@@ -16,6 +17,7 @@ import {
   TabsTrigger,
 } from '@/components/ui/tabs-api';
 import { useGetCourseById } from '@/hooks/course-hook';
+import { useGetCoursePortfolio } from '@/hooks/course-portfolio-hook';
 
 const HomePage = () => {
   const { id: courseId } = useParams<{ id: string }>();
@@ -23,6 +25,9 @@ const HomePage = () => {
   const handleCourseExport = async () => {
     // exportToWord(coursePortfolio);
   };
+  const { data, isLoading } = useGetCoursePortfolio(courseId);
+
+  if (!courseData || !data) return <Loading />;
 
   return (
     <>
@@ -58,7 +63,13 @@ const HomePage = () => {
               </div>
             </div>
             <TabsContent value="overview" className="space-y-4">
-              <Dashboard />
+              <Dashboard
+                courseData={courseData}
+                scoreFrequency={data.result.gradeDistribution.scoreFrequencies}
+                grade={data.result.gradeDistribution.GPA}
+                studentAmount={data.result.gradeDistribution.studentAmount}
+                gradeFrequency={data.result.gradeDistribution.gradeFrequencies}
+              />
             </TabsContent>
             <TabsContent value="outcome" className="space-y-4">
               <CourseLearningOutcome />
