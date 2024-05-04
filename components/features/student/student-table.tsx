@@ -176,45 +176,53 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
               </TableRow>
             </TableHeader>
 
-            {studentWithOutcome?.programOutcomes.map((e, i) => {
-              return (
-                <TableBody key={e.programOutcomeId} className="border-b">
-                  <TableRow>
-                    <TableCell colSpan={1} rowSpan={1}>
-                      {/* PO */}
-                      <TableRow>{e.name}</TableRow>
-                    </TableCell>
-                    <TableCell rowSpan={3} colSpan={1}>
-                      {e.courses.map((course, i) => {
-                        return (
-                          <TableRow key={i}>
-                            {course.code} - {course.name}
-                          </TableRow>
-                        );
-                      })}
-                    </TableCell>
+            {studentWithOutcomes?.length == 0 ? (
+              <td colSpan={2}>
+                <div className="flex w-full justify-center p-5 text-lg font-bold">
+                  No results found
+                </div>
+              </td>
+            ) : (
+              studentWithOutcome?.programOutcomes.map((e, i) => {
+                return (
+                  <TableBody key={e.programOutcomeId} className="border-b">
+                    <TableRow>
+                      <TableCell colSpan={1} rowSpan={1}>
+                        {/* PO */}
+                        <TableRow>{e.name}</TableRow>
+                      </TableCell>
+                      <TableCell rowSpan={3} colSpan={1}>
+                        {e.courses.map((course, i) => {
+                          return (
+                            <TableRow key={i}>
+                              {course.code} - {course.name}
+                            </TableRow>
+                          );
+                        })}
+                      </TableCell>
 
-                    <TableCell
-                      rowSpan={3}
-                      colSpan={1}
-                      className="flex flex-col gap-5"
-                    >
-                      {e.courses.map((course, i) => {
-                        return (
-                          <div key={i}>
-                            <Badge
-                              variant={course.pass ? 'green' : 'destructive'}
-                            >
-                              {course.pass ? 'PASSED' : 'FAILED'}
-                            </Badge>
-                          </div>
-                        );
-                      })}
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              );
-            })}
+                      <TableCell
+                        rowSpan={3}
+                        colSpan={1}
+                        className="flex flex-col gap-5"
+                      >
+                        {e.courses.map((course, i) => {
+                          return (
+                            <div key={i}>
+                              <Badge
+                                variant={course.pass ? 'green' : 'destructive'}
+                              >
+                                {course.pass ? 'PASSED' : 'FAILED'}
+                              </Badge>
+                            </div>
+                          );
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                );
+              })
+            )}
           </Table>
         </TabsContent>
 
@@ -228,44 +236,52 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
               </TableRow>
             </TableHeader>
 
-            {studentWithOutcome?.programLearningOutcomes.map((e, i) => {
-              return (
-                <TableBody
-                  key={e.programLearningOutcomeId}
-                  className="border-b"
-                >
-                  <TableRow>
-                    <TableCell colSpan={1} rowSpan={1}>
-                      {/* PO */}
-                      <TableRow>{e.descriptionThai}</TableRow>
-                    </TableCell>
-                    <TableCell rowSpan={3} colSpan={1}>
-                      {e.courses.map((course, i) => {
-                        return <TableRow key={i}>{course.name}</TableRow>;
-                      })}
-                    </TableCell>
+            {studentWithOutcomes?.length == 0 ? (
+              <td colSpan={2}>
+                <div className="flex w-full justify-center p-5 text-lg font-bold">
+                  No results found
+                </div>
+              </td>
+            ) : (
+              studentWithOutcome?.programLearningOutcomes.map((e, i) => {
+                return (
+                  <TableBody
+                    key={e.programLearningOutcomeId}
+                    className="border-b"
+                  >
+                    <TableRow>
+                      <TableCell colSpan={1} rowSpan={1}>
+                        {/* PO */}
+                        <TableRow>{e.descriptionThai}</TableRow>
+                      </TableCell>
+                      <TableCell rowSpan={3} colSpan={1}>
+                        {e.courses.map((course, i) => {
+                          return <TableRow key={i}>{course.name}</TableRow>;
+                        })}
+                      </TableCell>
 
-                    <TableCell
-                      rowSpan={3}
-                      colSpan={1}
-                      className="flex flex-col gap-5"
-                    >
-                      {e.courses.map((course, i) => {
-                        return (
-                          <div key={i}>
-                            <Badge
-                              variant={course.pass ? 'green' : 'destructive'}
-                            >
-                              {course.pass ? 'PASSED' : 'FAILED'}
-                            </Badge>
-                          </div>
-                        );
-                      })}
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              );
-            })}
+                      <TableCell
+                        rowSpan={3}
+                        colSpan={1}
+                        className="flex flex-col gap-5"
+                      >
+                        {e.courses.map((course, i) => {
+                          return (
+                            <div key={i}>
+                              <Badge
+                                variant={course.pass ? 'green' : 'destructive'}
+                              >
+                                {course.pass ? 'PASSED' : 'FAILED'}
+                              </Badge>
+                            </div>
+                          );
+                        })}
+                      </TableCell>
+                    </TableRow>
+                  </TableBody>
+                );
+              })
+            )}
           </Table>
         </TabsContent>
       </Tabs>
