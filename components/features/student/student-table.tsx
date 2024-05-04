@@ -80,7 +80,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
   const { mutate } = useDeleteGrade();
 
   const { data: studentWithOutcomes } = useGetStudentWithOutcomes(studentId);
-  console.log('x', studentWithOutcomes);
+
   const studentWithOutcome = studentWithOutcomes?.[0];
 
   const onDelete = (gradeId: string) => {
@@ -166,7 +166,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
             </Dialog>
           </>
         </TabsContent>
-        <TabsContent value="overview-po">
+        <TabsContent value="overview-po" className=" w-3/4">
           <Table>
             <TableHeader>
               <TableRow>
@@ -226,7 +226,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
           </Table>
         </TabsContent>
 
-        <TabsContent value="overview-plo">
+        <TabsContent value="overview-plo" className=" w-3/4">
           <Table>
             <TableHeader>
               <TableRow>
@@ -256,7 +256,11 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                       </TableCell>
                       <TableCell rowSpan={3} colSpan={1}>
                         {e.courses.map((course, i) => {
-                          return <TableRow key={i}>{course.name}</TableRow>;
+                          return (
+                            <TableRow key={i}>
+                              {course.code}-{course.name}
+                            </TableRow>
+                          );
                         })}
                       </TableCell>
 

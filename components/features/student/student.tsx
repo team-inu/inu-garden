@@ -23,7 +23,7 @@ const Student = () => {
               students?.map((student) => {
                 return {
                   ...student,
-                  grade: 'A',
+                  grade: '',
                 };
               }) ?? []
             }

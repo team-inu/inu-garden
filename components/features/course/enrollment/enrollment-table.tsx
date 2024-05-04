@@ -181,7 +181,9 @@ export function EnrollmentDataTable<TData, TValue>({
                 {student ? (
                   student.programOutcomes.map((po) => (
                     <div key={po.id} className="flex gap-5">
-                      <span className="text-lg ">{po.name}: </span>
+                      <span className="text-lg ">
+                        PO{po.code}-{po.name}:{' '}
+                      </span>
                       <Badge
                         className="text-lg"
                         variant={po.pass ? 'green' : 'destructive'}
