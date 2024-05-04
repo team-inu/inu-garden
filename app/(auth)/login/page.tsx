@@ -39,7 +39,7 @@ const LoginPage = () => {
             <blockquote className="space-y-2">
               <p className="text-secondary-foreground">
                 &ldquo;Inu is the best platform for managing your courses and
-                assignments. It has everything you need to manage your
+                assessments. It has everything you need to manage your
                 courses.&rdquo;
               </p>
               <footer className="text-secondary-foreground">Inu team</footer>

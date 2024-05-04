@@ -19,7 +19,7 @@ export default function Dashboard() {
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="flex text-sm font-medium">
-              Latest Assigment
+              Latest Assessment
             </CardTitle>
             <TimerIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
@@ -47,7 +47,7 @@ export default function Dashboard() {
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Assignments</CardTitle>
+            <CardTitle className="text-sm font-medium">Assessments</CardTitle>
             <FolderIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>

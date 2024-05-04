@@ -53,8 +53,8 @@ export function AssignmentTableToolbar<TData>({
 
   const HandleSubmitAssignment = (values: CreateAssignmentForm) => {
     if (!assignmentGroupId) {
-      return toast.error('Assignment Group is required.', {
-        description: 'Please select an assignment group to add an assignment.',
+      return toast.error('Assessment Group is required.', {
+        description: 'Please select an assessment group to add an assessment.',
       });
     }
     mutate({

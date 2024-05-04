@@ -81,7 +81,7 @@ const ScoreImportDialog: React.FC<ScoreImportDialogProps> = ({
 
   const onSubmit = (data: CreateBulkScoresForm) => {
     if (!assignmentId) {
-      return toast.error('assignment id not found');
+      return toast.error('assessment id not found');
     }
     createScores({ scores: data, assignmentId: assignmentId });
   };
