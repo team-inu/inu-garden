@@ -52,3 +52,19 @@ export const CreatePoFormDefaultValues: CreatePoForm = {
 export const CreateManyPoFormDefaultValues: CreateManyPoForm = {
   po: [],
 };
+
+export const GetCourseWithPo = z.object({
+  programOutcomeId: z.string(),
+  courses: z.array(
+    z.object({
+      id: z.string(),
+      code: z.string(),
+      name: z.string(),
+      passingPercentage: z.number(),
+      year: z.number(),
+      semesterSequence: z.number(),
+    }),
+  ),
+});
+
+export type GetCourseWithPo = z.infer<typeof GetCourseWithPo>;

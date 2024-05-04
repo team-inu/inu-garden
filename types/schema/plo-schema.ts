@@ -47,6 +47,18 @@ export const CreateManyPloFormSchema = z.object({
   plo: z.array(CreatePloFormSchema),
 });
 
+export type PloWithCourse = {
+  programLearningOutcomeId: string;
+  courses: {
+    id: string;
+    code: string;
+    name: string;
+    passingPercentage: number;
+    year: number;
+    semesterSequence: string;
+  }[];
+};
+
 export type CreatePloForm = z.infer<typeof CreatePloFormSchema>;
 export type CreateManyPloForm = z.infer<typeof CreateManyPloFormSchema>;
 export type UpdatePloForm = CreatePloForm;

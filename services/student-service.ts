@@ -2,15 +2,28 @@ import { ApiService } from '@/services/api-service';
 import {
   CreateStudentForm,
   GetStudentResponse,
+  GetStudentWithOutcomes,
   UpdateStudentForm,
 } from '@/types/schema/student-schema';
 
 class StudentService extends ApiService {
-  public async getStudentList(): Promise<any> {
+  public async getStudentList(): Promise<GetStudentResponse[]> {
     const url = '/students';
     return this.get(url)
       .then((response) => {
         return response.data.data as unknown as GetStudentResponse[];
+      })
+      .catch(this.throwError);
+  }
+
+  public async getStudentWithOutcomes(
+    studentId: string,
+  ): Promise<GetStudentWithOutcomes[]> {
+    const url = `/students/${studentId}/outcomes`;
+    console.log('===================================');
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as GetStudentWithOutcomes[];
       })
       .catch(this.throwError);
   }

@@ -64,7 +64,7 @@ export async function generatePortfolioDocument({
       },
       'summary.online_tool': {
         type: PatchType.PARAGRAPH,
-        children: [new TextRun(summary.onlineTool)],
+        children: [new TextRun(summary.onlineTools)],
       },
       'summary.objectives': {
         type: PatchType.DOCUMENT,

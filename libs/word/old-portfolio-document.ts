@@ -246,7 +246,7 @@ export async function generatePortfolioDocument({
           // }),
 
           createParagraph({
-            text: summary.onlineTool,
+            text: summary.onlineTools,
             style: 'boldStyle',
             numbering: {
               reference: 'summaryList',

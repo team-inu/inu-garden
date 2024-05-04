@@ -18,6 +18,8 @@ import {
 import * as React from 'react';
 
 import { PloTableToolbar } from '@/components/features/tabee/plo/plo-table-toolbar';
+import { Badge } from '@/components/ui/badge';
+import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
 import {
@@ -28,6 +30,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { useGetPloWithCourse } from '@/hooks/plo-hook';
 
 export const ploes: Option[] = [
   {
@@ -95,6 +98,53 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
+  const { data: plos } = useGetPloWithCourse();
+
+  const CollapsibleRowContent = ({ ploId }: { ploId: string }) => {
+    if (!plos) {
+      return <div>Loading</div>;
+    }
+
+    const plo = plos?.find((e) => e.programLearningOutcomeId === ploId);
+
+    if (plo?.courses.every((e) => e.code === '')) {
+      return (
+        <td colSpan={8}>
+          <div className="flex w-full justify-center p-5 text-lg font-bold">
+            No courses found
+          </div>
+        </td>
+      );
+    }
+
+    return (
+      <td colSpan={8} className="space-y-3 divide-y-2 p-5">
+        <div className="grid grid-cols-3 gap-5">
+          {plo?.courses.map((data, key) => {
+            if (data.code === '') {
+              return;
+            }
+
+            return (
+              <div className="flex justify-between border-2 p-5" key={key}>
+                <div>
+                  <div className="text-lg font-bold">
+                    {' '}
+                    {data.code}: {data.name}{' '}
+                  </div>
+                  <div>
+                    {data.year} / {data.semesterSequence}
+                  </div>
+                </div>
+                <Badge variant="green">{data.passingPercentage} %</Badge>
+              </div>
+            );
+          })}
+        </div>
+      </td>
+    );
+  };
+
   return (
     <div className="space-y-4">
       {!disableToolbar && (
@@ -128,23 +178,32 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                  onClick={() =>
-                    getValues(row.getValue('id'), row.getValue('code'))
-                  }
-                  className="cursor-pointer"
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <Collapsible key={row.id} asChild>
+                  <>
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                      onClick={() =>
+                        getValues(row.getValue('id'), row.getValue('code'))
+                      }
+                      className="cursor-pointer"
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                    <CollapsibleContent asChild className="bg-black">
+                      <tr>
+                        <CollapsibleRowContent ploId={row.getValue('id')} />
+                      </tr>
+                    </CollapsibleContent>
+                  </>
+                </Collapsible>
               ))
             ) : (
               <TableRow>

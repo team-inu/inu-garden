@@ -117,3 +117,44 @@ export const CreateStudentsFormDefaultValues: CreateStudentsForm = [];
 
 export const UpdateStudentFormDefaultValues: UpdateStudentForm =
   CreateStudentFormDefaultValues;
+
+export const GetStudentWithOutcomes = z.object({
+  studentId: z.string(),
+  programLearningOutcomes: z.array(
+    z.object({
+      programLearningOutcomeId: z.string(),
+      code: z.string(),
+      descriptionThai: z.string(),
+      programYear: z.number(),
+      courses: z.array(
+        z.object({
+          id: z.string(),
+          code: z.string(),
+          name: z.string(),
+          pass: z.boolean(),
+          year: z.number(),
+          semesterSequence: z.string(),
+        }),
+      ),
+    }),
+  ),
+  programOutcomes: z.array(
+    z.object({
+      programOutcomeId: z.string(),
+      code: z.string(),
+      name: z.string(),
+      courses: z.array(
+        z.object({
+          id: z.string(),
+          code: z.string(),
+          name: z.string(),
+          pass: z.boolean(),
+          year: z.number(),
+          semesterSequence: z.string(),
+        }),
+      ),
+    }),
+  ),
+});
+
+export type GetStudentWithOutcomes = z.infer<typeof GetStudentWithOutcomes>;

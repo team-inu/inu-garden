@@ -23,7 +23,10 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { useGetCoursePortfolio } from '@/hooks/course-portfolio-hook';
+import {
+  useGetCoursePortfolio,
+  useUpdateCoursePortfolio,
+} from '@/hooks/course-portfolio-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useScreenshot } from '@/hooks/screenshot-hook';
 import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
@@ -38,6 +41,11 @@ const CoursePortfolioPage = () => {
   const { id: courseId } = useParams<{ id: string }>();
 
   const { data, isLoading } = useGetCoursePortfolio(courseId);
+  const { mutate } = useUpdateCoursePortfolio();
+
+  //convert data array of string to realData array of object
+  let realData: CreateCoursePortfolioFillableSchema =
+    CreateCoursePortfolioFillableDefaultValues;
 
   const form = useStrictForm(
     CreateCoursePortfolioFillableSchema,
@@ -134,20 +142,41 @@ const CoursePortfolioPage = () => {
   const onSaved = () => {
     //get data from form
     const values = form.getValues();
+    //call mutation
+    console.log(values);
+    mutate({ courseId, data: values });
   };
 
   useEffect(() => {
     if (data) {
-      form.reset({
-        development: {
-          subjectComments: {
-            downstreamSubjects:
-              data.development.subjectComments.upstreamSubjects,
-            upstreamSubjects:
-              data.development.subjectComments.downstreamSubjects,
-          },
+      realData.development = {
+        plans: data?.development.plans?.map((e) => ({ name: e })) ?? [],
+        doAndChecks:
+          data?.development.doAndChecks?.map((e) => ({ name: e })) ?? [],
+        acts: data?.development.acts?.map((e) => ({ name: e })) ?? [],
+        subjectComments: {
+          other: data?.development.subjectComments.other ?? '',
+          upstreamSubjects:
+            data?.development.subjectComments.upstreamSubjects?.map((e) => ({
+              courseName: e.courseName,
+              comments: e.comments,
+            })) ?? [],
+          downstreamSubjects:
+            data?.development.subjectComments.downstreamSubjects?.map((e) => ({
+              courseName: e.courseName,
+              comments: e.comments,
+            })) ?? [],
         },
-      });
+        otherComment: data?.development.otherComment ?? '',
+      };
+
+      realData.summary = {
+        teachingMethods:
+          data?.summary.teachingMethods?.map((e) => ({ name: e })) ?? [],
+        objectives: data?.summary.objectives?.map((e) => ({ name: e })) ?? [],
+        onlineTools: data?.summary.onlineTools ?? '',
+      };
+      form.reset(realData);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
@@ -173,7 +202,7 @@ const CoursePortfolioPage = () => {
               </p>
             </div>
             {/* information */}
-            <div className="space-y-2 rounded-lg border-2 border-white/50 p-5">
+            <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">1. รายละเอียด</div>
               <Information label="ภาควิชา" value="วิศวกรรมคอมพิวเตอร์" />
               <Information label="หลักสูตร" value="ปกติ" />
@@ -203,7 +232,7 @@ const CoursePortfolioPage = () => {
               />
             </div>
             {/* Summary */}
-            <div className="space-y-2 rounded-lg border-2 border-white/50 p-5">
+            <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">2. สรุปผลการดำเนินงาน</div>
               <div className="flex items-center space-x-5 ">
                 <Label className="text-lg">
@@ -228,7 +257,7 @@ const CoursePortfolioPage = () => {
               <Label className="text-lg">2.2 ระบบออนไลน์</Label>
               <FormField
                 control={form.control}
-                name={`summary.onlineTool`}
+                name={`summary.onlineTools`}
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
@@ -279,14 +308,13 @@ const CoursePortfolioPage = () => {
                 <Label className="text-lg font-semibold">
                   3.2 ผลลัพธ์การศึกษาของหลักสูตร
                 </Label>
-                <Input type="string" />
               </div>
               <div className="">
                 <OutcomeTable tabeeOutcomes={data.result.tabeeOutcomes} />
               </div>
             </div>
             {/* Development */}
-            <div className="space-y-2 rounded-lg border-2 border-white/50 p-5">
+            <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">4. การพัฒนา</div>
               <div className="flex items-center space-x-5">
                 <Label className="text-lg">

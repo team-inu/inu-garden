@@ -15,6 +15,12 @@ export const useGetPloList = () =>
     queryFn: () => ploService.getPloList(),
   });
 
+export const useGetPloWithCourse = () =>
+  useQuery({
+    queryKey: ['plos-courses'],
+    queryFn: () => ploService.getPloWithCourses(),
+  });
+
 export const useCreatePlo = () => {
   const queryClient = useQueryClient();
   return useMutation({

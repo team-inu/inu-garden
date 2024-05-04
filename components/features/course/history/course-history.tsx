@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import CourseHistoryCard from '@/components/features/course/history/course-history-card';
 import Loading from '@/components/features/loading-screen';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCourseList } from '@/hooks/course-hook';
 import { GetCourseList } from '@/types/schema/course-schema';
 
@@ -58,17 +59,19 @@ const CourseHistory = () => {
             onChange={(e) => setSearchValue(e.target.value)}
           /> */}
         </div>
-        <div className="space-y-5">
-          {coursesSelect &&
-            coursesSelect.map((course) => (
-              <CourseHistoryCard
-                key={course.id}
-                courseData={course}
-                isSee={course.isSee}
-                handleIsSee={handleIsSee}
-              />
-            ))}
-        </div>
+        <ScrollArea className="h-[500px]">
+          <div className="space-y-5">
+            {coursesSelect &&
+              coursesSelect.map((course) => (
+                <CourseHistoryCard
+                  key={course.id}
+                  courseData={course}
+                  isSee={course.isSee}
+                  handleIsSee={handleIsSee}
+                />
+              ))}
+          </div>
+        </ScrollArea>
       </div>
     </div>
   );

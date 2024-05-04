@@ -3,6 +3,7 @@ import {
   CreateManyPloForm,
   CreatePloForm,
   GetProgramLearningOutcomeResponse,
+  PloWithCourse,
   UpdatePloForm,
 } from '@/types/schema/plo-schema';
 import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
@@ -14,6 +15,16 @@ class PloService extends ApiService {
       .then((response) => {
         return response.data
           .data as unknown as GetProgramLearningOutcomeResponse[];
+      })
+      .catch(this.throwError);
+  }
+
+  public async getPloWithCourses(): Promise<PloWithCourse[]> {
+    const url = '/plos/courses';
+
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as PloWithCourse[];
       })
       .catch(this.throwError);
   }

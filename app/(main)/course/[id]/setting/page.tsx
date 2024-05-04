@@ -41,7 +41,7 @@ const SettingPage = () => {
             criteriaGradeDP: courseData.criteriaGradeDP,
             criteriaGradeD: courseData.criteriaGradeD,
             criteriaGradeF: courseData.criteriaGradeF,
-            IsPortfolioCompleted: courseData.IsPortfolioCompleted,
+            IsPortfolioCompleted: courseData.isPortfolioCompleted,
           }}
         />
       )}

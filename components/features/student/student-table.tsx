@@ -21,6 +21,7 @@ import * as React from 'react';
 
 import StudentGradeForm from '@/components/features/student/student-grade-form';
 import { StudentTableToolbar } from '@/components/features/student/student-table-toolbar';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
@@ -41,7 +42,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDeleteGrade, useGetGradeByStudentId } from '@/hooks/grade-hook';
+import { useGetStudentWithOutcomes } from '@/hooks/student-hook';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -75,67 +78,198 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = React.useState(false);
   const [gradeId, setGradeId] = React.useState('');
   const { mutate } = useDeleteGrade();
+
+  const { data: studentWithOutcomes } = useGetStudentWithOutcomes(studentId);
+  console.log('x', studentWithOutcomes);
+  const studentWithOutcome = studentWithOutcomes?.[0];
+
   const onDelete = (gradeId: string) => {
     mutate(gradeId);
   };
   return (
-    <>
-      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
-        <StudentGradeForm studentId={studentId} />
-      </Dialog>
-      <td colSpan={16} className="mx-auto w-11/12 py-5">
-        <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
-          Add Grade
-        </Button>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead colSpan={1}>Semester</TableHead>
-              <TableHead colSpan={1}>Grade</TableHead>
-              <TableHead colSpan={1}></TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {grades?.map((e, index) => {
+    <td colSpan={16} className="p-5">
+      <Tabs>
+        <TabsList>
+          <TabsTrigger value="grade">Grades</TabsTrigger>
+          <TabsTrigger value="overview-po">
+            Overviews Program Outcome
+          </TabsTrigger>
+          <TabsTrigger value="overview-plo">
+            Overviews Program Learning Outcome
+          </TabsTrigger>
+        </TabsList>
+        <TabsContent value="grade">
+          <>
+            <Dialog
+              open={isCreateDialogOpen}
+              onOpenChange={setIsCreateDialogOpen}
+            >
+              <StudentGradeForm studentId={studentId} />
+            </Dialog>
+            <div className="mt-5">
+              <Button
+                variant="default"
+                onClick={() => setIsCreateDialogOpen(true)}
+              >
+                Add Grade
+              </Button>
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead colSpan={1}>Semester</TableHead>
+                    <TableHead colSpan={1}>Grade</TableHead>
+                    <TableHead colSpan={1}></TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {grades?.map((e, index) => {
+                    return (
+                      <TableRow key={index}>
+                        <TableCell>
+                          {e.semester?.semesterSequence} / {e.semester?.year}
+                        </TableCell>
+                        <TableCell>{e.grade}</TableCell>
+                        <TableCell>
+                          <TrashIcon
+                            onClick={() => {
+                              setIsDeleteDialogOpen(true);
+                              setGradeId(e.id);
+                            }}
+                            className="h-4 w-4 cursor-pointer hover:text-red-500"
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
+                </TableBody>
+              </Table>
+            </div>
+            <Dialog
+              open={isDeleteDialogOpen}
+              onOpenChange={setIsDeleteDialogOpen}
+            >
+              <DialogContent>
+                <DialogHeader>
+                  <DialogTitle>Are your sure to delete?</DialogTitle>
+                  <DialogDescription>
+                    {` You can't undo this action. This will permanently delete the.`}
+                  </DialogDescription>
+                </DialogHeader>
+
+                <DialogFooter>
+                  <DialogClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DialogClose>
+                  <Button onClick={() => onDelete(gradeId)}>Delete</Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          </>
+        </TabsContent>
+        <TabsContent value="overview-po">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Program outcome</TableHead>
+                <TableHead>Course</TableHead>
+                <TableHead>Pass</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            {studentWithOutcome?.programOutcomes.map((e, i) => {
               return (
-                <TableRow key={index}>
-                  <TableCell>
-                    {e.semester?.semesterSequence} / {e.semester?.year}
-                  </TableCell>
-                  <TableCell>{e.grade}</TableCell>
-                  <TableCell>
-                    <TrashIcon
-                      onClick={() => {
-                        setIsDeleteDialogOpen(true);
-                        setGradeId(e.id);
-                      }}
-                      className="h-4 w-4 cursor-pointer hover:text-red-500"
-                    />
-                  </TableCell>
-                </TableRow>
+                <TableBody key={e.programOutcomeId} className="border-b">
+                  <TableRow>
+                    <TableCell colSpan={1} rowSpan={1}>
+                      {/* PO */}
+                      <TableRow>{e.name}</TableRow>
+                    </TableCell>
+                    <TableCell rowSpan={3} colSpan={1}>
+                      {e.courses.map((course, i) => {
+                        return (
+                          <TableRow key={i}>
+                            {course.code} - {course.name}
+                          </TableRow>
+                        );
+                      })}
+                    </TableCell>
+
+                    <TableCell
+                      rowSpan={3}
+                      colSpan={1}
+                      className="flex flex-col gap-5"
+                    >
+                      {e.courses.map((course, i) => {
+                        return (
+                          <div key={i}>
+                            <Badge
+                              variant={course.pass ? 'green' : 'destructive'}
+                            >
+                              {course.pass ? 'PASSED' : 'FAILED'}
+                            </Badge>
+                          </div>
+                        );
+                      })}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
               );
             })}
-          </TableBody>
-        </Table>
-      </td>
-      <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
-          </DialogHeader>
+          </Table>
+        </TabsContent>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button onClick={() => onDelete(gradeId)}>Delete</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </>
+        <TabsContent value="overview-plo">
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Program outcome</TableHead>
+                <TableHead>Course</TableHead>
+                <TableHead>Pass</TableHead>
+              </TableRow>
+            </TableHeader>
+
+            {studentWithOutcome?.programLearningOutcomes.map((e, i) => {
+              return (
+                <TableBody
+                  key={e.programLearningOutcomeId}
+                  className="border-b"
+                >
+                  <TableRow>
+                    <TableCell colSpan={1} rowSpan={1}>
+                      {/* PO */}
+                      <TableRow>{e.descriptionThai}</TableRow>
+                    </TableCell>
+                    <TableCell rowSpan={3} colSpan={1}>
+                      {e.courses.map((course, i) => {
+                        return <TableRow key={i}>{course.name}</TableRow>;
+                      })}
+                    </TableCell>
+
+                    <TableCell
+                      rowSpan={3}
+                      colSpan={1}
+                      className="flex flex-col gap-5"
+                    >
+                      {e.courses.map((course, i) => {
+                        return (
+                          <div key={i}>
+                            <Badge
+                              variant={course.pass ? 'green' : 'destructive'}
+                            >
+                              {course.pass ? 'PASSED' : 'FAILED'}
+                            </Badge>
+                          </div>
+                        );
+                      })}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+              );
+            })}
+          </Table>
+        </TabsContent>
+      </Tabs>
+    </td>
   );
 };
 

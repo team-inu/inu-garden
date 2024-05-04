@@ -11,7 +11,7 @@ const CourseSchema = z.object({
   semesterId: z.string(),
   userId: z.string(),
   expectedPassingCloPercentage: z.number(),
-  IsPortfolioCompleted: z.boolean(),
+  isPortfolioCompleted: z.boolean(),
 
   criteriaGradeA: z.number(),
   criteriaGradeBP: z.number(),

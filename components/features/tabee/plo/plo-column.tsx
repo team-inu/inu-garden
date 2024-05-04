@@ -1,8 +1,10 @@
 'use client';
 
 import { ColumnDef } from '@tanstack/react-table';
+import { ChevronDown } from 'lucide-react';
 
 import { PloRowActions } from '@/components/features/tabee/plo/plo-row-action';
+import { CollapsibleTrigger } from '@/components/ui/collapsible';
 import { DataTableColumnHeader } from '@/components/ui/data-table-column-header';
 import { PloColumn } from '@/types/schema/plo-schema';
 
@@ -64,6 +66,24 @@ export const columns: ColumnDef<PloColumn>[] = [
     ),
     cell: ({ row }) => {
       return <div>{row.getValue('programmeName')}</div>;
+    },
+  },
+  {
+    accessorKey: 'course',
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Courses" />
+    ),
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          <CollapsibleTrigger>
+            <ChevronDown className="h-4 w-4" />
+          </CollapsibleTrigger>
+        </div>
+      );
+    },
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id));
     },
   },
 
