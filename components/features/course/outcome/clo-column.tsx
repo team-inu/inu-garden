@@ -23,7 +23,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <span className="truncate font-medium">{row.getValue('code')}</span>
+        <span className=" truncate font-medium">{row.getValue('code')}</span>
       );
     },
     filterFn: (row, id, value) => {
@@ -33,13 +33,11 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" />
+      <DataTableColumnHeader column={column} title="Description" className="" />
     ),
     cell: ({ row }) => {
       return (
-        <span className="truncate font-medium">
-          {row.getValue('description')}
-        </span>
+        <span className="w-20 font-medium">{row.getValue('description')}</span>
       );
     },
   },
@@ -54,7 +52,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <span className="truncate font-medium">
+        <span className=" flex items-center justify-center font-medium">
           {row.getValue('expectedPassingAssignmentPercentage')}
         </span>
       );
@@ -71,7 +69,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
     ),
     cell: ({ row }) => {
       return (
-        <span className="truncate font-medium">
+        <span className="flex items-center justify-center font-medium">
           {row.getValue('expectedPassingStudentPercentage')}
         </span>
       );
@@ -84,7 +82,9 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
       <DataTableColumnHeader column={column} title="PO" />
     ),
     cell: ({ row }) => {
-      return <span className="">{row.getValue('programOutcomeName')}</span>;
+      return (
+        <span className="truncate">{row.getValue('programOutcomeName')}</span>
+      );
     },
   },
   {
