@@ -44,9 +44,9 @@ const AssignmentGroupAddDialog: React.FC<AssignmentGroupAddDialogProps> = ({
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Add Assignment Group</DialogTitle>
+          <DialogTitle>Add Assessment Group</DialogTitle>
           <DialogDescription>
-            Fill in the assignment group information
+            Fill in the Assessment group information
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

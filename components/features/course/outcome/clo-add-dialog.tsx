@@ -166,9 +166,9 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 name="expectedPassingAssignmentPercentage"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Passing Assignment %</FormLabel>
+                    <FormLabel>Passing Assessment %</FormLabel>
                     <FormDescription>
-                      % of how many assignments a student need to pass to pass
+                      % of how many assessments a student need to pass to pass
                       this CLO
                     </FormDescription>
                     <FormControl>

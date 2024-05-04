@@ -18,7 +18,7 @@ export const columns: ColumnDef<EnrollmentCloColumn>[] = [
   {
     accessorKey: 'studentId',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="kmutt id" />
+      <DataTableColumnHeader column={column} title="Student Id" />
     ),
     cell: ({ row }) => (
       <div className="w-[80px]">{row.getValue('studentId')}</div>
@@ -65,7 +65,7 @@ export const columns: ColumnDef<EnrollmentCloColumn>[] = [
       return (
         <div className="flex space-x-2">
           <span className="truncate font-medium">
-            {row.getValue('pass') ? 'pass' : 'failed'}
+            {row.getValue('pass') ? 'Pass' : 'Failed'}
           </span>
         </div>
       );

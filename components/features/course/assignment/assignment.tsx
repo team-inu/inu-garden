@@ -99,11 +99,9 @@ const Assignment = () => {
     selectedAssignmentRows.assignmentId,
   );
 
-
-
   return (
     <div className="space-y-5">
-      <h1 className="mb-5 text-2xl font-bold">Assignment Groups</h1>
+      <h1 className="mb-5 text-2xl font-bold">Assessment Groups</h1>
       <div className="">
         <AssignmentGroupTable
           columns={assignmentGroupColumns}
@@ -113,7 +111,7 @@ const Assignment = () => {
       </div>
       {selectedAssignmentGroupRows.groupId ? (
         <>
-          <h1 className="mb-5 text-2xl font-bold">Assignments</h1>
+          <h1 className="mb-5 text-2xl font-bold">Assessments</h1>
           <div className="">
             <AssignmentDataTable
               columns={assignmentColumns}
@@ -136,7 +134,7 @@ const Assignment = () => {
               blurDataURL="/images/shiba.svg"
             />
             <h1 className="mb-5 text-xl font-bold text-slate-700">
-              Please select assignment group to see each assignment
+              Please select assessment group to see each assessment
             </h1>
           </div>
         </>
@@ -216,7 +214,7 @@ const Assignment = () => {
                 blurDataURL="/images/shiba.svg"
               />
               <h1 className="mb-5 text-xl font-bold text-slate-700">
-                Please select assignment to see score
+                Please select assessment to see score
               </h1>
             </div>
           )}

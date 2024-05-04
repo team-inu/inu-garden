@@ -17,7 +17,7 @@ export const columns: ColumnDef<PoColumn>[] = [
   {
     accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="code" />
+      <DataTableColumnHeader column={column} title="Code" />
     ),
     cell: ({ row }) => <div>{row.getValue('code')}</div>,
     enableSorting: false,
@@ -25,7 +25,7 @@ export const columns: ColumnDef<PoColumn>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="name" />
+      <DataTableColumnHeader column={column} title="Name" />
     ),
     cell: ({ row }) => <div>{row.getValue('name')}</div>,
     enableSorting: false,

@@ -23,12 +23,12 @@ export const useCreateAssignmentGroup = () => {
       queryClient.invalidateQueries({
         queryKey: ['assignment-groups'],
       });
-      toast.success('Assignment has been created', {
-        description: 'You can now use this assignment.',
+      toast.success('Assessment has been created', {
+        description: 'You can now use this assessment.',
       });
     },
     onError: (error) => {
-      toast.error('Failed to create assignment', {
+      toast.error('Failed to create assessment', {
         description: error.message,
       });
     },
@@ -44,10 +44,10 @@ export const useUpdateAssignmentGroup = () => {
       queryClient.invalidateQueries({
         queryKey: ['assignment-groups'],
       });
-      toast.success('Assignment status has been updated');
+      toast.success('Assessment status has been updated');
     },
     onError: (error) => {
-      toast.error('Failed to update assignment', {
+      toast.error('Failed to update assessment', {
         description: error.message,
       });
     },
@@ -63,10 +63,10 @@ export const useDeleteAssignmentGroup = () => {
       queryClient.invalidateQueries({
         queryKey: ['assignment-groups'],
       });
-      toast.success('assignment has been deleted', {});
+      toast.success('Assessment has been deleted', {});
     },
     onError: (error) => {
-      toast.error('Failed to delete assignment', {
+      toast.error('Failed to delete assessment', {
         description: error.message,
       });
     },

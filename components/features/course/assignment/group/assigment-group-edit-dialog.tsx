@@ -44,9 +44,9 @@ const AssignmentGroupEditDialog: React.FC<StudentEdotDialogProps> = ({
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Assignment</DialogTitle>
+          <DialogTitle>Edit Assessment</DialogTitle>
           <DialogDescription>
-            Fill in the assignment information
+            Fill in the assessment information
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

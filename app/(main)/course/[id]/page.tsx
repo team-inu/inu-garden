@@ -42,7 +42,7 @@ const HomePage = () => {
                 <TabsTrigger value="outcome">
                   Course Learning Outcome
                 </TabsTrigger>
-                <TabsTrigger value="assignment">Assignments</TabsTrigger>
+                <TabsTrigger value="assignment">Assessments</TabsTrigger>
                 <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
                 <TabsTrigger value="stream">
                   Up / Down Stream Course

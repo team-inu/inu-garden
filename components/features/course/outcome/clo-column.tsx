@@ -10,7 +10,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="id" />
+      <DataTableColumnHeader column={column} title="Id" />
     ),
     cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,
@@ -19,7 +19,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'code',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="code" />
+      <DataTableColumnHeader column={column} title="Code" />
     ),
     cell: ({ row }) => {
       return (
@@ -33,7 +33,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="description" />
+      <DataTableColumnHeader column={column} title="Description" />
     ),
     cell: ({ row }) => {
       return (
@@ -49,7 +49,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
     header: ({ column }) => (
       <DataTableColumnHeader
         column={column}
-        title="PassingAssignmentPercentage"
+        title="Expected Passing Assessments %"
       />
     ),
     cell: ({ row }) => {
@@ -64,7 +64,10 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'expectedPassingStudentPercentage',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="PassingStudentPercentage" />
+      <DataTableColumnHeader
+        column={column}
+        title="Expected Passing Students %"
+      />
     ),
     cell: ({ row }) => {
       return (

@@ -45,7 +45,7 @@ export function CloUnlinkAssignment<TData>({
     if (assignmentId) {
       mutate({ cloId: clo.id, assignmentId: assignmentId });
     } else {
-      toast.error('assignment id is not found');
+      toast.error('assessment id is not found');
     }
   };
 

@@ -45,9 +45,9 @@ const AssignmentEdotDialog: React.FC<StudentEdotDialogProps> = ({
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Edit Assignment</DialogTitle>
+          <DialogTitle>Edit Assessment</DialogTitle>
           <DialogDescription>
-            Fill in the assignment information
+            Fill in the Assessment information
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -119,7 +119,7 @@ const AssignmentEdotDialog: React.FC<StudentEdotDialogProps> = ({
                 <FormItem>
                   <FormLabel>Expected passing student percentage</FormLabel>
                   <FormDescription>
-                    % of how many students need to pass this assignment for it
+                    % of how many students need to pass this assessment for it
                     to succeed
                   </FormDescription>
                   <FormControl>
@@ -139,7 +139,7 @@ const AssignmentEdotDialog: React.FC<StudentEdotDialogProps> = ({
                   <FormLabel>Expected score percentage</FormLabel>
                   <FormDescription>
                     % of score of max score a student needed to pass this
-                    assignment
+                    assessment
                   </FormDescription>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
@@ -167,7 +167,7 @@ const AssignmentEdotDialog: React.FC<StudentEdotDialogProps> = ({
                   <div className="space-y-1 leading-none">
                     <FormLabel>Included In CLO?</FormLabel>
                     <FormDescription>
-                      is this assignment included when checking if the CLOs pass
+                      is this assessment included when checking if the CLOs pass
                       or not
                     </FormDescription>
                   </div>

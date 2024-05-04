@@ -227,7 +227,7 @@ const CoursePortfolioPage = () => {
                 </div>
               </div>
               <Information
-                label="ชื่ออาจารยฺ์ผู้สอน"
+                label="ชื่ออาจารย์ผู้สอน"
                 value={data?.info.lecturers[0] ?? '-'}
               />
             </div>

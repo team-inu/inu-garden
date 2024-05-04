@@ -78,7 +78,7 @@ export function CloTableToolbar<TData>({
         courseLearningOutcomeIds: values.clos.map((clo) => clo.value),
       });
     } else {
-      toast.error('Please select an assignment');
+      toast.error('Please select an assessment');
     }
   };
 
