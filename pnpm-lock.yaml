@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  '@fireworks-js/react':
+    specifier: ^2.10.7
+    version: 2.10.7(@types/react@18.2.20)(react@18.2.0)
   '@hookform/resolvers':
     specifier: ^3.3.1
     version: 3.3.1(react-hook-form@7.46.2)
@@ -410,6 +413,17 @@ packages:
       lodash.isnil: 4.0.0
       lodash.isundefined: 3.0.1
       lodash.uniq: 4.5.0
+    dev: false
+
+  /@fireworks-js/react@2.10.7(@types/react@18.2.20)(react@18.2.0):
+    resolution: {integrity: sha512-hxfEB0vRUX7nNznhc5SEw0W8jamgF32oUiMvd5c8dOAFZgkidF8qylRw/V1Xp6In1QsjUQXnv/gvOKCe2o8JOg==}
+    peerDependencies:
+      '@types/react': '>=16.8.0'
+      react: '>=16.8.0'
+    dependencies:
+      '@types/react': 18.2.20
+      fireworks-js: 2.10.7
+      react: 18.2.0
     dev: false
 
   /@floating-ui/core@1.4.2:
@@ -3026,6 +3040,10 @@ packages:
     dependencies:
       locate-path: 6.0.0
       path-exists: 4.0.0
+    dev: false
+
+  /fireworks-js@2.10.7:
+    resolution: {integrity: sha512-FyRNiqlgu9ZeFCjfN0UiGUlj5dUWNYLyFaWN/Q8sOMf0E+KGA4dMROaBZpCtym85fChgCspoa3jHoLTRZiy74A==}
     dev: false
 
   /flat-cache@3.0.4:

@@ -13,10 +13,28 @@ export const useGetStudentList = () =>
     queryFn: () => studentService.getStudentList(),
   });
 
+export const useGetStudentById = (studentId: string) =>
+  useQuery({
+    queryKey: ['student', studentId],
+    queryFn: () => studentService.getStudentById(studentId),
+  });
+
 export const useGetStudentWithOutcomes = (studentId: string) =>
   useQuery({
     queryKey: ['outcomes-student'],
     queryFn: () => studentService.getStudentWithOutcomes(studentId),
+  });
+
+export const useGetSchools = () =>
+  useQuery({
+    queryKey: ['p-schools'],
+    queryFn: () => studentService.getSchools(),
+  });
+
+export const useGetAdmissions = () =>
+  useQuery({
+    queryKey: ['p-admission'],
+    queryFn: () => studentService.getAdmissions(),
   });
 
 export const useCreateStudent = () => {
