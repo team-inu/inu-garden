@@ -16,6 +16,33 @@ class StudentService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async getStudentById(studentId: string): Promise<GetStudentResponse> {
+    const url = `/students/${studentId}`;
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as GetStudentResponse;
+      })
+      .catch(this.throwError);
+  }
+
+  public async getSchools(): Promise<{ schools: string[] }> {
+    const url = '/schools';
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as { schools: string[] };
+      })
+      .catch(this.throwError);
+  }
+
+  public async getAdmissions(): Promise<{ admissions: string[] }> {
+    const url = '/admissions';
+    return this.get(url)
+      .then((response) => {
+        return response.data.data as unknown as { admissions: string[] };
+      })
+      .catch(this.throwError);
+  }
+
   public async getStudentWithOutcomes(
     studentId: string,
   ): Promise<GetStudentWithOutcomes[]> {
