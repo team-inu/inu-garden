@@ -8,13 +8,19 @@ import {
 } from '@/types/schema/course-portfolio-schema';
 
 export class OutcomeTable {
+  private studentAmount: string = '0';
+
   private readonly tableHeader = [
     'TABEE outcomes',
     'Course outcomes',
     'Assessment Tasks',
     'Passing Criteria (%)',
-    'Percentage of Students with PASS outcome (98 total students)',
+    `Percentage of Students with PASS outcome (${this.studentAmount} total students)`,
   ];
+
+  public constructor(studentAmount: string) {
+    this.studentAmount = studentAmount;
+  }
 
   public generate(tabeeOutcomes: TabeeOutcome[]): TableRow[] {
     const contents = tabeeOutcomes.flatMap(

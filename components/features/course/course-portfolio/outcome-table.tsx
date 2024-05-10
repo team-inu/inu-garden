@@ -33,28 +33,66 @@ const OutcomeTable: React.FC<OutcomeTableProps> = ({ tabeeOutcomes }) => {
           <TableHead> Course Learning Outcome</TableHead>
         </TableRow>
       </TableHeader>
+
       {tabeeOutcomes.map((tabeeOutcome, i) => (
         <TableBody key={i}>
           <TableRow className="">
             <TableCell className="w-1/5">{tabeeOutcome.name}</TableCell>
             {tabeeOutcome.courseOutcomes.map((courseOutcome, i) => (
-              <TableRow className="w-4/5" key={i}>
-                <TableCell className="w-96"> {courseOutcome.name}</TableCell>
-                {courseOutcome.assessments &&
-                  courseOutcome.assessments.map((assessment, i) => (
-                    <TableRow key={i}>
-                      <TableHead>Assessment</TableHead>
-                      <TableCell>{assessment.assessmentTask}</TableCell>
-                      <TableHead>Passing Criteria</TableHead>
-                      <TableCell> {assessment.passingCriteria}</TableCell>
-                      <TableHead>Student Pass</TableHead>
-                      <TableCell>{assessment.studentPassPercentage}</TableCell>
-                    </TableRow>
-                  ))}
+              <TableRow className="w-4/5 border-b" key={i}>
+                <TableCell className="max-w-xs border">
+                  <TableRow>{courseOutcome.name} (25%)</TableRow>
+                </TableCell>
+                <TableBody>
+                  {courseOutcome.assessments &&
+                    courseOutcome.assessments.map((assessment, i) => (
+                      <TableRow key={i}>
+                        <TableHead>Assessment</TableHead>
+                        <TableCell className="truncate">
+                          {assessment.assessmentTask}
+                        </TableCell>
+                        <TableHead>Passing Criteria</TableHead>
+                        <TableCell> {assessment.passingCriteria}%</TableCell>
+                        <TableHead>Student Pass</TableHead>
+                        <TableCell>
+                          {assessment.studentPassPercentage}%
+                        </TableCell>
+                      </TableRow>
+                    ))}
+
+                  <TableRow>
+                    <TableHead className="truncate  bg-primary-foreground/20">
+                      students with pass clo
+                    </TableHead>
+                    <TableCell colSpan={2}>
+                      {tabeeOutcome.minimumPercentage}
+                    </TableCell>
+                  </TableRow>
+                </TableBody>
+
+                {/* <TableCell rowSpan={1}>
+                  {courseOutcome.assessments &&
+                    courseOutcome.assessments.map((assessment, i) => (
+                      <TableRow key={i}>
+                        <TableHead>Assessment</TableHead>
+                        <TableCell className="truncate">
+                          {assessment.assessmentTask}
+                        </TableCell>
+                        <TableHead>Passing Criteria</TableHead>
+                        <TableCell> {assessment.passingCriteria}%</TableCell>
+                        <TableHead>Student Pass</TableHead>
+                        <TableCell>
+                          {assessment.studentPassPercentage}%
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableCell> */}
               </TableRow>
             ))}
             <TableRow>
-              <TableHead>Percentage of students with pass outcome</TableHead>
+              <TableHead className="truncate  bg-primary/20">
+                Percentage of students with pass outcome
+              </TableHead>
               <TableCell colSpan={2}>
                 {tabeeOutcome.minimumPercentage}
               </TableCell>

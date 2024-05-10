@@ -76,7 +76,23 @@ const GradeDistributionSchema = z.object({
 
 // [3] Result
 
+// const
+
+const Outcome = z.object({
+  code: z.string(),
+  name: z.string(),
+});
+
+const NestedOutcome = z.object({
+  code: z.string(),
+  name: z.string(),
+  nested: z.array(Outcome),
+});
+
 const CourseResultSchema = z.object({
+  plos: z.array(NestedOutcome),
+  pos: z.array(Outcome),
+  clos: z.array(Outcome),
   tabeeOutcomes: z.array(TabeeOutcomeSchema),
   gradeDistribution: GradeDistributionSchema,
   gradeDistributionImage: z.string(),
