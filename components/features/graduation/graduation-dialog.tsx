@@ -59,7 +59,7 @@ const GraduationDialog: React.FC<GraduationDialogProps> = ({
               name="id"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>id</FormLabel>
+                  <FormLabel>Id</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} disabled />
@@ -89,7 +89,7 @@ const GraduationDialog: React.FC<GraduationDialogProps> = ({
               name="firstName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Firstname</FormLabel>
+                  <FormLabel>First Name</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -104,7 +104,7 @@ const GraduationDialog: React.FC<GraduationDialogProps> = ({
               name="lastName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Lastname</FormLabel>
+                  <FormLabel>Last Name</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
