@@ -42,7 +42,7 @@ const CoursePortfolioPage = () => {
 
   const { data, isLoading } = useGetCoursePortfolio(courseId);
   const { mutate } = useUpdateCoursePortfolio();
-
+  console.log(data);
   //convert data array of string to realData array of object
   let realData: CreateCoursePortfolioFillableSchema =
     CreateCoursePortfolioFillableDefaultValues;
@@ -309,13 +309,6 @@ const CoursePortfolioPage = () => {
                   3.2 ผลลัพธ์การศึกษาของหลักสูตร
                 </Label>
                 <div className="ml-5 flex flex-col">
-                  {data.result.pos.map((po) => (
-                    <Label key={po.code} className="text-lg">
-                      <span className="font-semibold">PO{po.code}:</span>{' '}
-                      {po.name}
-                    </Label>
-                  ))}
-
                   {data.result.plos.map((plo, i) => (
                     <div className="flex flex-col" key={i}>
                       <Label className="text-lg ">
@@ -338,6 +331,13 @@ const CoursePortfolioPage = () => {
                     <Label key={clo.code} className="text-lg">
                       <span className="font-semibold">{clo.code}:</span>{' '}
                       {clo.name}
+                    </Label>
+                  ))}
+
+                  {data.result.pos.map((po) => (
+                    <Label key={po.code} className="text-lg">
+                      <span className="font-semibold">PO{po.code}:</span>{' '}
+                      {po.name}
                     </Label>
                   ))}
                 </div>
