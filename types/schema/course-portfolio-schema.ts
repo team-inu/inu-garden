@@ -31,6 +31,17 @@ const CourseSummarySchema = z.object({
 export type CourseSummaryForm = z.infer<typeof CourseSummaryFormSchema>;
 export type CourseSummary = z.infer<typeof CourseSummarySchema>;
 
+const Outcome = z.object({
+  code: z.string(),
+  name: z.string(),
+});
+
+const NestedOutcome = z.object({
+  code: z.string(),
+  name: z.string(),
+  nested: z.array(Outcome),
+});
+
 // [3.1] Tabee Outcome
 
 const AssessmentSchema = z.object({
@@ -41,13 +52,19 @@ const AssessmentSchema = z.object({
 
 const CourseOutcomeSchema = z.object({
   name: z.string().min(1, { message: 'required' }),
+  code: z.string().min(1, { message: 'required' }),
   assessments: z.array(AssessmentSchema),
+  expectedPassingAssignmentPercentage: z.number(),
+  passingCloPercentage: z.number(),
 });
 
 const TabeeOutcomeSchema = z.object({
   name: z.string().min(1, { message: 'required' }),
+  code: z.string().min(1, { message: 'required' }),
   courseOutcomes: z.array(CourseOutcomeSchema),
+  expectedCloPercentage: z.number(),
   minimumPercentage: z.number(),
+  plos: z.array(NestedOutcome),
 });
 
 export type Assessment = z.infer<typeof AssessmentSchema>;
@@ -76,7 +93,12 @@ const GradeDistributionSchema = z.object({
 
 // [3] Result
 
+// const
+
 const CourseResultSchema = z.object({
+  plos: z.array(NestedOutcome),
+  pos: z.array(Outcome),
+  clos: z.array(Outcome),
   tabeeOutcomes: z.array(TabeeOutcomeSchema),
   gradeDistribution: GradeDistributionSchema,
   gradeDistributionImage: z.string(),

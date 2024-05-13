@@ -8,67 +8,103 @@ import {
 } from '@/types/schema/course-portfolio-schema';
 
 export class OutcomeTable {
-  private readonly tableHeader = [
-    'TABEE outcomes',
-    'Course outcomes',
-    'Assessment Tasks',
-    'Passing Criteria (%)',
-    'Percentage of Students with PASS outcome (98 total students)',
-  ];
+  public constructor(studentAmount: string) {
+    this.tableHeader = [
+      'PO/PLO',
+      'Course learning outcomes',
+      'Assessment Tasks',
+      'Passing Criteria (%)',
+      `Percentage of Students with PASS outcome (${studentAmount} total students)`,
+    ];
+  }
+
+  private tableHeader: string[] = [];
 
   public generate(tabeeOutcomes: TabeeOutcome[]): TableRow[] {
-    const contents = tabeeOutcomes.flatMap(
-      ({ courseOutcomes, name, minimumPercentage }) => {
-        const assessmentCount = courseOutcomes.flatMap(
-          (course) => course.assessments,
-        ).length;
+    const contents = tabeeOutcomes.flatMap((tabeeOutcome) => {
+      const assessmentCount = tabeeOutcome.courseOutcomes.flatMap(
+        (course) => course.assessments,
+      ).length;
 
-        const courseRows = courseOutcomes.flatMap((course, courseIndex) => {
+      const courseRows = tabeeOutcome.courseOutcomes.flatMap(
+        (course, courseIndex) => {
           if (!course.assessments) {
             toast.error('Please link the clo to assigment first');
             throw new Error('Please link the clo to assigment first');
           }
-          return course.assessments.flatMap((assessment, assessmentIndex) => {
-            return this.createRow(
-              name,
-              course,
-              assessment,
-              assessmentCount,
-              courseIndex,
-              assessmentIndex,
-            );
-          });
-        });
+          let assessments = course.assessments.flatMap(
+            (assessment, assessmentIndex) => {
+              let rowNames: string[] = [];
+              tabeeOutcome.plos.forEach((plo) => {
+                let rowName = 'PLO ' + plo.code + ' (PLO ';
+                plo.nested.forEach((splo) => {
+                  rowName += splo.code + ' ';
+                });
+                rowName += ')';
+                rowNames.push(rowName);
+              });
+              rowNames.push('PO ' + tabeeOutcome.code);
+              return this.createRow(
+                rowNames,
+                course,
+                tabeeOutcome.courseOutcomes.length,
+                assessment,
+                assessmentCount,
+                courseIndex,
+                assessmentIndex,
+              );
+            },
+          );
+          assessments.push(
+            new TableRow({
+              children: [
+                this.createCell(
+                  [
+                    `Students passing ${course.expectedPassingAssignmentPercentage}% of this CLO's assessments`,
+                  ],
+                  true,
+                  1,
+                  2,
+                ),
+                this.createCell([course.passingCloPercentage.toString()], true),
+              ],
+            }),
+          );
+          return assessments;
+        },
+      );
 
-        courseRows.push(
-          new TableRow({
-            children: [
-              this.createCell(
-                'percentage of students with PASS outcome for at least one assessment task',
-                true,
-                1,
-                3,
-              ),
-              this.createCell(minimumPercentage.toString(), true),
-            ],
-          }),
-        );
+      courseRows.push(
+        new TableRow({
+          children: [
+            this.createCell(
+              [
+                `Students passing ${tabeeOutcome.expectedCloPercentage}% of this PO's CLOs`,
+              ],
+              true,
+              1,
+              3,
+            ),
+            this.createCell([tabeeOutcome.minimumPercentage.toString()], true),
+          ],
+        }),
+      );
 
-        return courseRows;
-      },
-    );
+      return courseRows;
+    });
 
     return [
       new TableRow({
-        children: this.tableHeader.map((item) => this.createCell(item, true)),
+        children: this.tableHeader.map((item) => this.createCell([item], true)),
       }),
       ...contents,
     ];
   }
 
   private createRow(
-    tabeeOutcome: string,
+    tabeeOutcome: string[],
     course: CourseOutcome,
+    courseLearningOutcomeCount: number,
     assessment: Assessment,
     assessmentCount: number,
     courseIndex: number,
@@ -77,26 +113,36 @@ export class OutcomeTable {
     const children = [];
 
     if (assessmentIndex === 0 && courseIndex === 0) {
-      children.push(this.createCell(tabeeOutcome, true, assessmentCount + 1));
+      children.push(
+        this.createCell(
+          tabeeOutcome,
+          true,
+          assessmentCount + courseLearningOutcomeCount + 1,
+        ),
+      );
     }
 
     if (assessmentIndex === 0) {
       children.push(
-        this.createCell(course.name, false, course.assessments.length),
+        this.createCell(
+          [course.code + ': ' + course.name],
+          false,
+          course.assessments.length + 1,
+        ),
       );
     }
 
     children.push(
-      this.createCell(assessment.assessmentTask, false),
-      this.createCell(assessment.passingCriteria.toString(), false),
-      this.createCell(assessment.studentPassPercentage.toString(), false),
+      this.createCell([assessment.assessmentTask], false),
+      this.createCell([assessment.passingCriteria.toString()], false),
+      this.createCell([assessment.studentPassPercentage.toString()], false),
     );
 
     return new TableRow({ children });
   }
 
   private createCell(
-    text: string,
+    texts: string[],
     bold: boolean,
     rowSpan: number = 1,
     colSpan: number = 1,
@@ -104,7 +150,13 @@ export class OutcomeTable {
     return new TableCell({
       children: [
         new Paragraph({
-          children: [new TextRun({ text: text, bold: bold })],
+          children: texts.map((text, i) => {
+            return new TextRun({
+              break: i > 0 ? 1 : 0,
+              text: text,
+              bold: bold,
+            });
+          }),
         }),
       ],
       rowSpan: rowSpan,

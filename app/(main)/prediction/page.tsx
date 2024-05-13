@@ -211,7 +211,7 @@ const PredictionPage = () => {
             name="engGPA"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Eng GPA</FormLabel>
+                <FormLabel>English GPA</FormLabel>
                 <FormControl>
                   <div className="flex flex-col space-y-3">
                     <Input {...field} type="number" />
@@ -241,7 +241,7 @@ const PredictionPage = () => {
             name="sciGPA"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sci GPA</FormLabel>
+                <FormLabel>Science GPA</FormLabel>
                 <FormControl>
                   <div className="flex flex-col space-y-3">
                     <Input {...field} type="number" />
@@ -257,7 +257,7 @@ const PredictionPage = () => {
             name="school"
             render={({ field }) => (
               <FormItem className="flex flex-col">
-                <FormLabel>schools</FormLabel>
+                <FormLabel>School</FormLabel>
                 <Popover>
                   <PopoverTrigger asChild>
                     <FormControl>

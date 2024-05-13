@@ -128,7 +128,7 @@ const PloDialog: React.FC<PloDialogProps> = ({
               name="programmeName"
               render={({ field }) => (
                 <FormItem className="w-full">
-                  <FormLabel>programmeName</FormLabel>
+                  <FormLabel>Programme Name</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
                       <SelectTrigger>

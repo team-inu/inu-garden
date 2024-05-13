@@ -70,7 +70,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="kmuttId"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>kmutt id</FormLabel>
+                    <FormLabel>Student Id</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} disabled={isEdit} />
@@ -85,7 +85,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="firstName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>firstName</FormLabel>
+                    <FormLabel>First Name</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -101,7 +101,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="lastName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>lastName</FormLabel>
+                    <FormLabel>Last Name</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -117,7 +117,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="admission"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>admission</FormLabel>
+                    <FormLabel>Admission</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -133,7 +133,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>email</FormLabel>
+                    <FormLabel>Email</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -149,7 +149,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="gpax"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>gpax</FormLabel>
+                    <FormLabel>GPAX</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input type="number" step="0.01" {...field} />
@@ -165,7 +165,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="mathGPA"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>mathGPA</FormLabel>
+                    <FormLabel>Math GPA</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input type="number" step="0.01" {...field} />
@@ -181,7 +181,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="engGPA"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>engGPA</FormLabel>
+                    <FormLabel>English GPA</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input type="number" step="0.01" {...field} />
@@ -197,7 +197,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="sciGPA"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>sciGPA</FormLabel>
+                    <FormLabel>Science GPA</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input type="number" step="0.01" {...field} />
@@ -213,7 +213,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="school"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>school</FormLabel>
+                    <FormLabel>School</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -229,7 +229,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="city"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>city</FormLabel>
+                    <FormLabel>City</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -245,7 +245,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="year"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>year</FormLabel>
+                    <FormLabel>Year</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -261,7 +261,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="programmeName"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>programmeName</FormLabel>
+                    <FormLabel>Programme Name</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -287,7 +287,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="departmentName"
                 render={({ field }) => (
                   <FormItem className="w-full">
-                    <FormLabel>departmentName</FormLabel>
+                    <FormLabel>Department Name</FormLabel>
                     <Select onValueChange={field.onChange} value={field.value}>
                       <FormControl>
                         <SelectTrigger>
@@ -313,7 +313,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
                 name="remark"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>remark</FormLabel>
+                    <FormLabel>Remark</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />

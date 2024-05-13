@@ -42,7 +42,7 @@ const CoursePortfolioPage = () => {
 
   const { data, isLoading } = useGetCoursePortfolio(courseId);
   const { mutate } = useUpdateCoursePortfolio();
-
+  console.log(data);
   //convert data array of string to realData array of object
   let realData: CreateCoursePortfolioFillableSchema =
     CreateCoursePortfolioFillableDefaultValues;
@@ -308,6 +308,39 @@ const CoursePortfolioPage = () => {
                 <Label className="text-lg font-semibold">
                   3.2 ผลลัพธ์การศึกษาของหลักสูตร
                 </Label>
+                <div className="ml-5 flex flex-col">
+                  {data.result.plos.map((plo, i) => (
+                    <div className="flex flex-col" key={i}>
+                      <Label className="text-lg ">
+                        <span className="font-semibold">PLO{plo.code}:</span>{' '}
+                        {plo.name}
+                      </Label>
+                      {plo.nested.map((subPlo) => (
+                        <Label key={subPlo.code} className="text-lg">
+                          <span className="font-semibold">
+                            {' '}
+                            PLO ย่อย{subPlo.code}:
+                          </span>{' '}
+                          {subPlo.name}
+                        </Label>
+                      ))}
+                    </div>
+                  ))}
+
+                  {data.result.clos.map((clo) => (
+                    <Label key={clo.code} className="text-lg">
+                      <span className="font-semibold">{clo.code}:</span>{' '}
+                      {clo.name}
+                    </Label>
+                  ))}
+
+                  {data.result.pos.map((po) => (
+                    <Label key={po.code} className="text-lg">
+                      <span className="font-semibold">PO{po.code}:</span>{' '}
+                      {po.name}
+                    </Label>
+                  ))}
+                </div>
               </div>
               <div className="">
                 <OutcomeTable tabeeOutcomes={data.result.tabeeOutcomes} />

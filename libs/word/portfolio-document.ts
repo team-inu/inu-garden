@@ -98,21 +98,56 @@ export async function generatePortfolioDocument({
       },
       'summary.tabee_outcomes': {
         type: PatchType.DOCUMENT,
-        children: result.tabeeOutcomes.map(
-          (e, i) =>
-            new Paragraph({
-              text: `${i + 1}. ${e.name}`,
-              heading: HeadingLevel.TITLE,
+        children: [
+          ...result.plos.flatMap((e, i) => {
+            const plo = new Paragraph({
+              text: `PLO${e.code} ${e.name}`,
               wordWrap: true,
               indent: { firstLine: 1125 },
-            }),
-        ),
+            });
+
+            const splo = e.nested.map((subPlo) => {
+              return new Paragraph({
+                text: `PLO ย่อย${subPlo.code} ${subPlo.name}`,
+                wordWrap: true,
+                indent: { firstLine: 1125 },
+              });
+            });
+
+            return [plo, ...splo];
+          }),
+          ...result.clos.map((clo) => {
+            return new Paragraph({
+              text: `${clo.code} ${clo.name}`,
+              wordWrap: true,
+              indent: { firstLine: 1125 },
+            });
+          }),
+          ...result.pos.map((po) => {
+            return new Paragraph({
+              text: `PO${po.code} ${po.name}`,
+              wordWrap: true,
+              indent: { firstLine: 1125 },
+            });
+          }),
+        ],
+        // children: result.tabeeOutcomes.map(
+        //   (e, i) =>
+        //     new Paragraph({
+        //      text: `${i + 1}. ${e.name}`,
+        //     heading: HeadingLevel.TITLE,
+        //    wordWrap: true,
+        //       indent: { firstLine: 1125 },
+        //     }),
+        // ),
       },
       'summary.tabee_outcome_table': {
         type: PatchType.DOCUMENT,
         children: [
           new Table({
-            rows: new OutcomeTable().generate(result.tabeeOutcomes),
+            rows: new OutcomeTable(
+              result.gradeDistribution.studentAmount,
+            ).generate(result.tabeeOutcomes),
             alignment: 'center',
           }),
         ],
@@ -228,6 +263,6 @@ export async function generatePortfolioDocument({
   const link = document.createElement('a');
 
   link.href = window.URL.createObjectURL(blob);
-  link.download = 'my.docx';
+  link.download = `${info.courseCode}_course_portfolio.docx`;
   link.click();
 }
