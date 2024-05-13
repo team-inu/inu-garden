@@ -80,7 +80,7 @@ const OutcomeTable: React.FC<OutcomeTableProps> = ({ tabeeOutcomes }) => {
                     <TableHead className="truncate  bg-primary-foreground/20">
                       Students passing{' '}
                       {courseOutcome.expectedPassingAssignmentPercentage}% of
-                      this CLO's assessments
+                      {" this CLO's assessments"}
                     </TableHead>
                     <TableCell colSpan={2}>
                       {courseOutcome.passingCloPercentage}%
@@ -110,7 +110,7 @@ const OutcomeTable: React.FC<OutcomeTableProps> = ({ tabeeOutcomes }) => {
             <TableRow>
               <TableHead className="truncate  bg-primary/20">
                 Students passing {tabeeOutcome.expectedCloPercentage}% of this
-                PO's CLOs
+                {"  PO's CLOs"}
               </TableHead>
               <TableCell colSpan={2}>
                 {tabeeOutcome.minimumPercentage}%
