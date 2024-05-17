@@ -107,7 +107,7 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
                     </PopoverTrigger>
                     <PopoverContent className="w-[200px] p-0">
                       <Command>
-                        <CommandInput placeholder="Search language..." />
+                        <CommandInput placeholder="Search Student Id" />
                         <CommandEmpty>No language found.</CommandEmpty>
                         <CommandGroup>
                           {enrollmentsOptions &&
