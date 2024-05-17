@@ -17,7 +17,7 @@ const GradeTable: React.FC<GradeTableProps> = ({ gradeDistribution }) => {
   return (
     <Table>
       <TableCaption>Grade of students</TableCaption>
-      <TableHeader>
+      <TableHeader className="font-bold text-primary">
         <TableRow>
           <TableHead colSpan={3}>Number of student</TableHead>
           <TableHead colSpan={3}> {gradeDistribution.studentAmount}</TableHead>

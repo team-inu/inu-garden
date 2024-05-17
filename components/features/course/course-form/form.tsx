@@ -142,25 +142,33 @@ const CourseForm = () => {
                     <CommandEmpty>No Semester found.</CommandEmpty>
                     <CommandGroup className="max-h-96 overflow-y-auto">
                       {semesters &&
-                        semesters.map((semester) => (
-                          <CommandItem
-                            key={semester.id}
-                            value={semester.year.toString()}
-                            onSelect={() => {
-                              form.setValue('semesterId', semester.id);
-                            }}
-                          >
-                            <Check
-                              className={cn(
-                                'mr-2 h-4 w-4',
-                                semester.id === field.value
-                                  ? 'opacity-100'
-                                  : 'opacity-0',
-                              )}
-                            />
-                            {semester.semesterSequence}/{semester.year}
-                          </CommandItem>
-                        ))}
+                        semesters
+                          .sort((a, b) => {
+                            return a.year - b.year;
+                          })
+                          .map((semester) => (
+                            <CommandItem
+                              key={semester.id}
+                              value={
+                                semester.semesterSequence +
+                                '/' +
+                                semester.year.toString()
+                              }
+                              onSelect={() => {
+                                form.setValue('semesterId', semester.id);
+                              }}
+                            >
+                              <Check
+                                className={cn(
+                                  'mr-2 h-4 w-4',
+                                  semester.id === field.value
+                                    ? 'opacity-100'
+                                    : 'opacity-0',
+                                )}
+                              />
+                              {semester.semesterSequence}/{semester.year}
+                            </CommandItem>
+                          ))}
                     </CommandGroup>
                   </Command>
                 </PopoverContent>

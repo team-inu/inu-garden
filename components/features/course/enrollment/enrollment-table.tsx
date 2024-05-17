@@ -220,7 +220,11 @@ export function EnrollmentDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className="font-bold text-primary"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
