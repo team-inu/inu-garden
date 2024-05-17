@@ -48,7 +48,7 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
 
   return (
     <div>
-      <DialogContent>
+      <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Add Assessment</DialogTitle>
           <DialogDescription>
@@ -56,36 +56,27 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
-            <FormField
-              control={form.control}
-              name="name"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Name</FormLabel>
-                  <FormControl>
-                    <div className="flex flex-col space-y-3">
-                      <Input {...field} />
-                      <FormMessage />
-                    </div>
-                  </FormControl>
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="description"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Description</FormLabel>
-                  <FormControl>
-                    <Textarea {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="my-auto h-max space-y-3 overflow-auto"
+          >
             <div className="grid grid-cols-2 gap-3">
+              <FormField
+                control={form.control}
+                name="name"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Name</FormLabel>
+                    <FormControl>
+                      <div className="flex flex-col space-y-3">
+                        <Input {...field} />
+                        <FormMessage />
+                      </div>
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+
               <FormField
                 control={form.control}
                 name="maxScore"
@@ -102,6 +93,19 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
                 )}
               />
             </div>
+            <FormField
+              control={form.control}
+              name="description"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
 
             <FormField
               control={form.control}

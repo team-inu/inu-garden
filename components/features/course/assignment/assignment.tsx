@@ -65,6 +65,13 @@ const Assignment = () => {
     }
     setSelectedAssignmentRows({ assignmentName: name, assignmentId: id });
     router.push(`${pathName}/?assignmentId=${id}&clolength=&tab=assignment`);
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 500);
   };
 
   const [selectedAssignmentGroupRows, setSelectedAssignmentGroupRows] =
@@ -83,6 +90,14 @@ const Assignment = () => {
     router.push(
       `${pathName}/?assignmentGroupId=${groupId}&clolength=&tab=assignment`,
     );
+
+    //scroll smooth to bottom wait 1 sec for the table to render
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 500);
   };
 
   const { id: courseId } = useParams<{ id: string }>();
