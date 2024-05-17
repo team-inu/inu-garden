@@ -21,11 +21,18 @@ import { Role } from '@/types/auth-type';
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [curriculum, setCurriculum] = useState('none');
-  const [year, setYear] = useState('2023');
+  const [curriculum, setCurriculum] = useState('all programmes');
+  const [year, setYear] = useState('all years');
   const { user } = useAuth();
   const { data: courses, isLoading: isCourseLoading } = useCourseList();
-  const curriculumLists = ['international', 'regular', 'none'];
+  const curriculumLists = ['international', 'regular', 'all programmes'];
+
+  const yearSet = new Set<string>();
+  yearSet.add('all years');
+
+  courses?.forEach((course) => {
+    yearSet.add(String(course.semester.year));
+  });
 
   const handleYearChange = (e: string) => {
     setYear(e);
@@ -68,10 +75,13 @@ const CoursePage = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="2022">2022</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-                <SelectItem value="2025">2025</SelectItem>
+                {Array.from(yearSet)
+                  .sort((a, b) => {
+                    return Number(b) - Number(a);
+                  })
+                  .map((year) => {
+                    return <SelectItem value={year}>{year}</SelectItem>;
+                  })}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -110,10 +120,16 @@ const CoursePage = () => {
               );
             })
             .filter((e) => {
-              if (curriculum === 'none') {
+              if (curriculum === 'all programmes') {
                 return e;
               }
               return e.curriculum === curriculum;
+            })
+            .filter((e) => {
+              if (year === 'all years') {
+                return true;
+              }
+              return String(e.semester.year) === year;
             })
             .map((e, i) => {
               return (
