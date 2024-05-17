@@ -202,13 +202,17 @@ const Assignment = () => {
             <div>
               <Card>
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                  <CardTitle>Summary</CardTitle>
+                  <CardTitle>
+                    Sorted Scores (Full Score = {assignment?.maxScore})
+                  </CardTitle>
                   <CardDescription>
                     Score of {selectedAssignmentRows.assignmentName}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ScatterChartCustom />
+                  {scores && scores.scores.length != 0 && (
+                    <ScatterChartCustom data={scores} />
+                  )}
                 </CardContent>
               </Card>
             </div>
