@@ -5,6 +5,7 @@
   "semi": true,
   "tabWidth": 2,
   "useTabs": false,
+  "printWidth": 120,
   "importOrderSeparation": true,
   "importOrderSortSpecifiers": true,
   "importOrder": ["<THIRD_PARTY_MODULES>", "^@/(.*)$", "^[./]"],

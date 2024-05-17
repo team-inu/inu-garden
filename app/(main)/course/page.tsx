@@ -7,14 +7,7 @@ import CourseCard from '@/components/features/course/course-card';
 import Loading from '@/components/features/loading-screen';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/hooks/auth-hook';
 import { useCourseList } from '@/hooks/course-hook';
 import { Role } from '@/types/auth-type';
@@ -79,8 +72,12 @@ const CoursePage = () => {
                   .sort((a, b) => {
                     return Number(b) - Number(a);
                   })
-                  .map((year) => {
-                    return <SelectItem value={year}>{year}</SelectItem>;
+                  .map((year, i) => {
+                    return (
+                      <SelectItem key={i} value={year}>
+                        {year}
+                      </SelectItem>
+                    );
                   })}
               </SelectGroup>
             </SelectContent>
@@ -90,11 +87,7 @@ const CoursePage = () => {
 
         {user.data?.role === Role.HEAD_OF_CURRICULUM && (
           <Link href="/course/create" className="flex w-2/12 justify-end">
-            <Button
-              variant={'default'}
-              className="min-w-max text-base  font-bold"
-              size={'lg'}
-            >
+            <Button variant={'default'} className="min-w-max text-base  font-bold" size={'lg'}>
               Add course
             </Button>
           </Link>
@@ -115,8 +108,7 @@ const CoursePage = () => {
               const lowerCaseCourseId = e.code.toLowerCase();
 
               return (
-                lowerCaseCourseName.includes(lowerCaseSearchValue) ||
-                lowerCaseCourseId.includes(lowerCaseSearchValue)
+                lowerCaseCourseName.includes(lowerCaseSearchValue) || lowerCaseCourseId.includes(lowerCaseSearchValue)
               );
             })
             .filter((e) => {
