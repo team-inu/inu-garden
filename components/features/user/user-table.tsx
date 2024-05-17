@@ -233,7 +233,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
   );
 }

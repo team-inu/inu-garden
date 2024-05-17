@@ -399,7 +399,7 @@ export function StudentDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
   );
 }
