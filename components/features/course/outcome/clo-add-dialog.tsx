@@ -1,4 +1,5 @@
 import { DialogClose } from '@radix-ui/react-dialog';
+import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -26,6 +27,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useGetCourseById } from '@/hooks/course-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetPloList } from '@/hooks/plo-hook';
 import { useGetPoList } from '@/hooks/po-hook';
@@ -59,6 +61,8 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
   onSubmit,
   defaultValues,
 }) => {
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data: courseData } = useGetCourseById(courseId);
   const { data: plolist } = useGetPloList();
   const { data: polist } = useGetPoList();
 
@@ -69,10 +73,11 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
 
   const updatePlo = (ploId: string) => {
     form.setValue('programLearningOutcomeId', ploId);
-    form.setValue(
-      'subProgramLearningOutcomeId',
-      getSubPloOptions(plolist, ploId),
-    );
+    form.setValue('subProgramLearningOutcomeId', []);
+    // form.setValue(
+    //   'subProgramLearningOutcomeId',
+    //   getSubPloOptions(plolist, ploId),
+    // );
   };
 
   return (
@@ -223,11 +228,16 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                     </FormControl>
                     <SelectContent>
                       {plolist &&
-                        plolist.map((plo) => (
-                          <SelectItem key={plo.id} value={plo.id}>
-                            {plo.code} - {plo.descriptionThai}
-                          </SelectItem>
-                        ))}
+                        plolist
+                          .filter(
+                            (plo) =>
+                              plo.programmeName === courseData?.curriculum,
+                          )
+                          .map((plo) => (
+                            <SelectItem key={plo.id} value={plo.id}>
+                              {plo.code} - {plo.descriptionThai}
+                            </SelectItem>
+                          ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
