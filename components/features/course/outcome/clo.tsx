@@ -24,6 +24,12 @@ const CourseLearningOutcome = () => {
   const getVales = (id: string, code: string) => {
     setSelectedRows({ id, code });
     router.push(`${pathName}/?cloId=${id}&tab=outcome`);
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight - 750,
+        behavior: 'smooth',
+      });
+    }, 500);
   };
 
   const { id: courseId } = useParams<{ id: string }>();

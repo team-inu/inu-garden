@@ -10,11 +10,11 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'id',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
+      <DataTableColumnHeader column={column} className="hidden" title="Id" />
     ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+    cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
   {
     accessorKey: 'code',
@@ -33,7 +33,11 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'description',
     header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" className="" />
+      <DataTableColumnHeader
+        column={column}
+        title="CLO Description"
+        className=""
+      />
     ),
     cell: ({ row }) => {
       return (

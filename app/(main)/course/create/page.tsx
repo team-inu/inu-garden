@@ -1,5 +1,7 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { FormProvider } from 'react-hook-form';
 
 import CreateCourseHeader from '@/components/features/course/course-form/create-course-header';
@@ -15,11 +17,18 @@ import {
 } from '@/types/schema/course-schema';
 
 const CreateCoursePage = () => {
+  const rounter = useRouter();
   const form = useStrictForm(
     CreateCourseSchema,
     CreateCourseSchemaDefaultValues,
   );
-  const { mutate, isPending: isSubmitting } = useCreateCourse();
+  const { mutate, isSuccess } = useCreateCourse();
+
+  useEffect(() => {
+    if (isSuccess) {
+      rounter.push('/course');
+    }
+  }, [form, isSuccess, rounter]);
   const onSubmit = (values: CreateCourseSchemaValues) => {
     checkGrade(values);
     mutate(values);
