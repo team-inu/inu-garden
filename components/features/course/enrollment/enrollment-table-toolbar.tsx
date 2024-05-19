@@ -1,10 +1,12 @@
 'use client';
 
-import { Cross2Icon, PlusCircledIcon } from '@radix-ui/react-icons';
+import { Cross2Icon, FileTextIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table } from '@tanstack/react-table';
+import excel from 'exceljs';
 import { FolderDotIcon, ImportIcon } from 'lucide-react';
 import { useParams } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import { toast } from 'sonner';
 
 import EnrollmentAddDialog from '@/components/features/course/enrollment/enrollment-add-dialog';
 import EnrollmentImportDialog from '@/components/features/course/enrollment/enrollment-import-dialog';
@@ -14,10 +16,8 @@ import { DataTableViewOptions } from '@/components/ui/data-table-view-options';
 import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useCreateEnrollment } from '@/hooks/enrollment-hook';
-import {
-  CreateEnrollmentForm,
-  CreateEnrollmentPayload,
-} from '@/types/schema/enrollment-schema';
+import { EnrollmentResults } from '@/types/schema/course-portfolio-schema';
+import { CreateEnrollmentForm, CreateEnrollmentPayload } from '@/types/schema/enrollment-schema';
 
 export type Option = {
   value: string;
@@ -37,6 +37,7 @@ interface DataTableToolbarProps<TData> {
   isViewOptions?: boolean;
   isCreateEnabled?: boolean;
   handleImport?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  outcomeData: EnrollmentResults[];
 }
 
 export function EnrollmentTableToolbar<TData>({
@@ -45,6 +46,7 @@ export function EnrollmentTableToolbar<TData>({
   isViewOptions = true,
   isCreateEnabled = true,
   handleImport,
+  outcomeData,
 }: DataTableToolbarProps<TData>) {
   const hasOption = something.length > 0;
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false);
@@ -68,6 +70,115 @@ export function EnrollmentTableToolbar<TData>({
 
   const onSubmitImport = (value: CreateEnrollmentPayload) => {
     mutate(value);
+  };
+
+  const generate = async () => {
+    if (outcomeData === undefined || outcomeData.length == 0) {
+      return;
+    }
+
+    const workbook = new excel.Workbook();
+
+    const cloSheet = workbook.addWorksheet('CLO');
+    const ploSheet = workbook.addWorksheet('PLO');
+    const poSheet = workbook.addWorksheet('PO');
+
+    const cloHeaders = ['Student Id'];
+    const ploHeaders = ['Student Id'];
+    const poHeaders = ['Student Id'];
+
+    const cloData: string[][] = [];
+    const ploData: string[][] = [];
+    const poData: string[][] = [];
+
+    const cloWidth: { width: number }[] = [];
+    const ploWidth: { width: number }[] = [];
+    const poWidth: { width: number }[] = [];
+
+    outcomeData
+      .sort((a, b) => {
+        return Number(a.studentId) - Number(b.studentId);
+      })
+      .forEach((outcome, i) => {
+        let cloRow: string[] = [];
+        cloRow.push(outcome.studentId);
+        outcome.courseLearningOutcomes
+          .sort((a, b) => {
+            return Number(a.code.split('CLO').pop()) - Number(b.code.split('CLO').pop());
+          })
+          .forEach((clo) => {
+            if (i == 0) {
+              cloHeaders.push(clo.code + ' - ' + clo.description);
+              cloWidth.push({ width: 15 });
+            }
+            cloRow.push(clo.pass ? '1' : '0');
+          });
+        cloData.push(cloRow);
+
+        let ploRow: string[] = [];
+        ploRow.push(outcome.studentId);
+        outcome.programLearningOutcomes
+          .sort((a, b) => {
+            return Number(a.code) - Number(b.code);
+          })
+          .forEach((plo) => {
+            if (i == 0) {
+              ploWidth.push({ width: 15 });
+              ploHeaders.push('PLO' + plo.code + ' - ' + plo.descriptionThai);
+            }
+            ploRow.push(plo.pass ? '1' : '0');
+          });
+        ploData.push(ploRow);
+
+        let poRow: string[] = [];
+        poRow.push(outcome.studentId);
+        outcome.programOutcomes
+          .sort((a, b) => {
+            return Number(a.code) - Number(b.code);
+          })
+          .forEach((po) => {
+            if (i == 0) {
+              poWidth.push({ width: 15 });
+              poHeaders.push('PO' + po.code + ' - ' + po.name);
+            }
+            poRow.push(po.pass ? '1' : '0');
+          });
+        poData.push(poRow);
+      });
+
+    cloSheet.addRow(cloHeaders);
+    cloSheet.addRows(cloData);
+    cloSheet.columns = cloWidth;
+
+    ploSheet.addRow(ploHeaders);
+    ploSheet.addRows(ploData);
+    ploSheet.columns = ploWidth;
+
+    poSheet.addRow(poHeaders);
+    poSheet.addRows(poData);
+    poSheet.columns = poWidth;
+
+    return workbook;
+  };
+
+  const onDownloadOutcomesReport = async () => {
+    const workbook = await generate();
+
+    if (workbook === undefined) {
+      toast.error('Failed to generate outcomes report');
+      return;
+    }
+
+    const buffer = await workbook.xlsx.writeBuffer();
+
+    const blob = new Blob([buffer], {
+      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    });
+    const a = document.createElement('a');
+
+    a.href = URL.createObjectURL(blob);
+    a.download = 'outcomes_report.xlsx';
+    a.click();
   };
 
   return (
@@ -98,11 +209,7 @@ export function EnrollmentTableToolbar<TData>({
           })}
 
         {hasOption && isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
@@ -111,6 +218,15 @@ export function EnrollmentTableToolbar<TData>({
       <div className="flex space-x-2">
         {isCreateEnabled && (
           <div className="flex space-x-2">
+            <Button
+              className="ml-auto hidden h-8 bg-green-600 lg:flex"
+              variant="outline"
+              size="sm"
+              onClick={onDownloadOutcomesReport}
+            >
+              <FileTextIcon className="mr-2 h-4 w-4" />
+              Export Outcomes Report
+            </Button>
             <Button
               variant="outline"
               size="sm"
@@ -132,12 +248,7 @@ export function EnrollmentTableToolbar<TData>({
               />
             </Dialog>
 
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
+            <Input type="file" className="hidden" ref={fileImportRef} onChange={handleImport} />
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"
@@ -147,21 +258,14 @@ export function EnrollmentTableToolbar<TData>({
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
             </Button>
-            <Dialog
-              open={isImportDialogOpen}
-              onOpenChange={setIsImportDialogOpen}
-            >
+            <Dialog open={isImportDialogOpen} onOpenChange={setIsImportDialogOpen}>
               <EnrollmentImportDialog
                 open={isImportDialogOpen}
                 setIsOnOpenChange={setIsImportDialogOpen}
                 onSubmit={onSubmitImport}
               />
             </Dialog>
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="ml-auto hidden h-8 lg:flex" variant="outline" size="sm">
               <a className="flex items-center" href="/template/enrollment.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
