@@ -68,44 +68,58 @@ export function PloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+          <DropdownMenuItem
+            onClick={(e) => {
+              setIsEditDialogOpen(true);
+              e.stopPropagation();
+            }}
+          >
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
+          <DropdownMenuItem
+            onClick={(e) => {
+              setIsDeleteDialogOpen(true);
+              e.stopPropagation();
+            }}
+          >
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <PloDialog
-          isEdit
-          onSubmit={onSubmit}
-          defaultValues={{
-            code: plo.code,
-            descriptionThai: plo.descriptionThai,
-            descriptionEng: plo.descriptionEng,
-            programYear: plo.programYear,
-            programmeName: plo.programmeName,
-          }}
-        />
+        <div onClick={(e) => e.stopPropagation()}>
+          <PloDialog
+            isEdit
+            onSubmit={onSubmit}
+            defaultValues={{
+              code: plo.code,
+              descriptionThai: plo.descriptionThai,
+              descriptionEng: plo.descriptionEng,
+              programYear: plo.programYear,
+              programmeName: plo.programmeName,
+            }}
+          />
+        </div>
       )}
 
       {isDeleteDialogOpen && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
-          </DialogHeader>
+        <div onClick={(e) => e.stopPropagation()}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are your sure to delete?</DialogTitle>
+              <DialogDescription>
+                {` You can't undo this action. This will permanently delete the.`}
+              </DialogDescription>
+            </DialogHeader>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
-          </DialogFooter>
-        </DialogContent>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button onClick={onDelete}>Delete</Button>
+            </DialogFooter>
+          </DialogContent>
+        </div>
       )}
     </Dialog>
   );

@@ -68,42 +68,56 @@ export function PoRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+          <DropdownMenuItem
+            onClick={(e) => {
+              setIsEditDialogOpen(true);
+              e.stopPropagation();
+            }}
+          >
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
+          <DropdownMenuItem
+            onClick={(e) => {
+              setIsDeleteDialogOpen(true);
+              e.stopPropagation();
+            }}
+          >
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <PoDialog
-          isEdit
-          onSubmit={onSubmit}
-          defaultValues={{
-            code: po.code,
-            name: po.name,
-            description: po.description,
-          }}
-        />
+        <div onClick={(e) => e.stopPropagation()}>
+          <PoDialog
+            isEdit
+            onSubmit={onSubmit}
+            defaultValues={{
+              code: po.code,
+              name: po.name,
+              description: po.description,
+            }}
+          />
+        </div>
       )}
 
       {isDeleteDialogOpen && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
-          </DialogHeader>
+        <div onClick={(e) => e.stopPropagation()}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are your sure to delete?</DialogTitle>
+              <DialogDescription>
+                {` You can't undo this action. This will permanently delete the.`}
+              </DialogDescription>
+            </DialogHeader>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
-          </DialogFooter>
-        </DialogContent>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button onClick={onDelete}>Delete</Button>
+            </DialogFooter>
+          </DialogContent>
+        </div>
       )}
     </Dialog>
   );
