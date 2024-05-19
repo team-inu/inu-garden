@@ -64,7 +64,7 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Code</FormLabel>
+                  <FormLabel>Sub-Plo Number</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} placeholder="ex: 1.1" />
@@ -79,7 +79,7 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
               name="descriptionThai"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description Thai</FormLabel>
+                  <FormLabel>Sub-Plo Thai Description</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -94,7 +94,7 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
               name="descriptionEng"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description English</FormLabel>
+                  <FormLabel>Sub-Plo English Description</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />

@@ -68,7 +68,7 @@ const PloDialog: React.FC<PloDialogProps> = ({
               name="code"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Code</FormLabel>
+                  <FormLabel>Plo Number</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -83,7 +83,7 @@ const PloDialog: React.FC<PloDialogProps> = ({
               name="descriptionThai"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description Thai</FormLabel>
+                  <FormLabel>Plo Thai Description</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -98,7 +98,7 @@ const PloDialog: React.FC<PloDialogProps> = ({
               name="descriptionEng"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description English</FormLabel>
+                  <FormLabel>Plo English Description</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />

@@ -21,7 +21,10 @@ export class GradeTable {
 
     rows.push(
       new TableRow({
-        children: [createCell('GPA', 1, 2), createCell(String(grade.GPA))],
+        children: [
+          createCell('Average GPA', 1, 2),
+          createCell(String(grade.GPA.toFixed(2))),
+        ],
       }),
     );
 

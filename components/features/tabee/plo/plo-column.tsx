@@ -18,9 +18,7 @@ export const columns: ColumnDef<PloColumn>[] = [
   },
   {
     accessorKey: 'code',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Code" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Number" />,
     cell: ({ row }) => {
       return (
         <>
@@ -34,49 +32,39 @@ export const columns: ColumnDef<PloColumn>[] = [
   },
   {
     accessorKey: 'descriptionThai',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Thai Description" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Thai Description" />,
     cell: ({ row }) => {
       return <div>{row.getValue('descriptionThai')}</div>;
     },
   },
   {
     accessorKey: 'descriptionEng',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="English Description" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="English Description" />,
     cell: ({ row }) => {
       return <div>{row.getValue('descriptionEng')}</div>;
     },
   },
   {
     accessorKey: 'programYear',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Program Year" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Program Year" />,
     cell: ({ row }) => {
       return <div>{row.getValue('programYear')}</div>;
     },
   },
   {
     accessorKey: 'programmeName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Curriculum" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Curriculum" />,
     cell: ({ row }) => {
       return <div>{row.getValue('programmeName')}</div>;
     },
   },
   {
     accessorKey: 'course',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Courses" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Courses" />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">
-          <CollapsibleTrigger>
+          <CollapsibleTrigger onClick={(e) => e.stopPropagation()}>
             <ChevronDown className="h-4 w-4" />
           </CollapsibleTrigger>
         </div>
