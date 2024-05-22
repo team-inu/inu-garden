@@ -98,10 +98,10 @@ const CourseImporterDialog = () => {
       console.log(courseLearningOutcomes);
 
       // assignment and assignment group
+      let latestTopics = '';
       for (let assignment of assignmentInfo) {
         if (
           assignment.Assessment === undefined ||
-          assignment.Topics === undefined ||
           assignment['Raw full score'] === undefined ||
           assignment.Item === undefined ||
           assignment.CLO === undefined
@@ -109,11 +109,17 @@ const CourseImporterDialog = () => {
           continue;
         }
 
+        if (assignment.Topics === undefined) {
+          assignment.Topics = latestTopics;
+        } else {
+          latestTopics = assignment.Topics;
+        }
+
         let assignmentGroup = assignmentGroupByGroupName.get(assignment.Assessment);
         if (assignmentGroup === undefined) {
           const value = assignmentPercentage.find((e) => e.Item === assignment.Assessment)?.Value;
           if (value === undefined) {
-            toast.error(`Assignment percentage of '${assignment.Assessment}' not found`);
+            toast.error(`Assessment percentage of '${assignment.Assessment}' not found`);
             return;
           }
           assignmentGroup = {
@@ -127,7 +133,7 @@ const CourseImporterDialog = () => {
 
         if (!courseLearningOutcomes.find((e) => e.code === assignment.CLO)) {
           toast.error(
-            `clo of ${assignment.CLO} in assignment ${assignment['Item']} not found in "PO and PLO" sheet excel`,
+            `Clo of ${assignment.CLO} in assessment ${assignment['Item']} not found in "PO and PLO" sheet excel`,
           );
           return;
         }
@@ -155,7 +161,7 @@ const CourseImporterDialog = () => {
           const studentScore = score[assignmentName];
 
           if (studentScore === undefined) {
-            toast.error(`assignment ${assignmentName} not found while parsing score of ${score.Name} `);
+            toast.error(`Assessment ${assignmentName} is empty while parsing score of ${score.ID} ${score.Name} `);
             console.log(assignmentName, score);
             return;
           }
@@ -180,14 +186,13 @@ const CourseImporterDialog = () => {
 
       const data: ImportCourse = {
         courseId: courseId,
-        programYear: courseInfo.ProgramYear,
         assignmentGroups: assignmentGroups,
         studentIds: studentIds,
         courseLearningOutcomes: courseLearningOutcomes,
       };
       form.reset(data);
 
-      toast.success('parse data from excel file successfully');
+      toast.success('Parse data from excel file successfully');
     } catch (e) {
       if (e instanceof ZodError) {
         console.log(e);

@@ -35,7 +35,6 @@ const ImportCourseLearningOutcomeSchema = z.object({
 
 export const ImportCourseSchema = z.object({
   courseId: z.coerce.string(),
-  programYear: z.coerce.string(),
   studentIds: z.coerce.string().array(),
   courseLearningOutcomes: ImportCourseLearningOutcomeSchema.array(),
   assignmentGroups: ImportAssignmentGroupSchema.array(),
@@ -50,7 +49,6 @@ export type ImportCourse = z.infer<typeof ImportCourseSchema>;
 
 export const ImportCourseDefaultValue: ImportCourse = {
   courseId: '',
-  programYear: '',
   studentIds: [],
   assignmentGroups: [],
   courseLearningOutcomes: [],
