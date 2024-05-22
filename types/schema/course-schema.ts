@@ -69,6 +69,11 @@ export const CreateCourseSchema = z.object({
 export type CreateCourseSchemaValues = z.infer<typeof CreateCourseSchema>;
 
 export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> = {
+  academicYear: new Date().getFullYear() + 543,
+  graduateYear: new Date().getFullYear() + 543,
+  programYear: new Date().getFullYear() + 543,
+  description: 'This description can be changed later by the lecturer',
+  expectedPassingCloPercentage: 65,
   criteriaGradeA: 80,
   criteriaGradeBP: 75,
   criteriaGradeB: 70,
