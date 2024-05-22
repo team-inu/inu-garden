@@ -12,6 +12,9 @@ const CourseSchema = z.object({
   userId: z.string(),
   expectedPassingCloPercentage: z.number(),
   isPortfolioCompleted: z.boolean(),
+  academicYear: z.number(),
+  graduateYear: z.number(),
+  programYear: z.number(),
 
   criteriaGradeA: z.number(),
   criteriaGradeBP: z.number(),
@@ -35,33 +38,18 @@ export type GetCourseList = Course & {
 };
 
 export const CreateCourseSchema = z.object({
-  name: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  description: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  code: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  userId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  name: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  description: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  code: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  userId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   expectedPassingCloPercentage: z.coerce.number({
     required_error: 'require expectedPassingCloPercentage',
   }),
-  curriculum: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  semesterId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  academicYear: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  graduateYear: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  curriculum: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  semesterId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  academicYear: z.coerce.number({ required_error: 'required' }).min(2500, { message: 'Must be in Buddhist year' }),
+  graduateYear: z.coerce.number({ required_error: 'required' }).min(2500, { message: 'Must be in Buddhist year' }),
+  programYear: z.coerce.number({ required_error: 'required' }).min(2500, { message: 'Must be in Buddhist year' }),
   criteriaGradeA: z.coerce.number({ required_error: 'Please enter A grade' }),
   criteriaGradeBP: z.coerce.number({
     required_error: 'Please enter BP grade',
@@ -80,17 +68,21 @@ export const CreateCourseSchema = z.object({
 
 export type CreateCourseSchemaValues = z.infer<typeof CreateCourseSchema>;
 
-export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> =
-  {
-    criteriaGradeA: 80,
-    criteriaGradeBP: 75,
-    criteriaGradeB: 70,
-    criteriaGradeCP: 65,
-    criteriaGradeC: 60,
-    criteriaGradeDP: 55,
-    criteriaGradeD: 50,
-    criteriaGradeF: 45,
-  };
+export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> = {
+  academicYear: new Date().getFullYear() + 543,
+  graduateYear: new Date().getFullYear() + 543,
+  programYear: new Date().getFullYear() + 543,
+  description: 'This description can be changed later by the lecturer',
+  expectedPassingCloPercentage: 65,
+  criteriaGradeA: 80,
+  criteriaGradeBP: 75,
+  criteriaGradeB: 70,
+  criteriaGradeCP: 65,
+  criteriaGradeC: 60,
+  criteriaGradeDP: 55,
+  criteriaGradeD: 50,
+  criteriaGradeF: 45,
+};
 
 export const UpdateCourseSchema = CreateCourseSchema.pick({
   name: true,
@@ -98,6 +90,9 @@ export const UpdateCourseSchema = CreateCourseSchema.pick({
   code: true,
   curriculum: true,
   expectedPassingCloPercentage: true,
+  academicYear: true,
+  graduateYear: true,
+  programYear: true,
   criteriaGradeA: true,
   criteriaGradeBP: true,
   criteriaGradeB: true,
@@ -120,6 +115,9 @@ export const UpdateCourseDefaultValues: UpdateCourseFormValues = {
   code: '',
   curriculum: '',
   expectedPassingCloPercentage: 0,
+  academicYear: 0,
+  graduateYear: 0,
+  programYear: 0,
   criteriaGradeA: 80,
   criteriaGradeBP: 75,
   criteriaGradeB: 70,

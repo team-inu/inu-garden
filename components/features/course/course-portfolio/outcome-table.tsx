@@ -27,7 +27,7 @@ const OutcomeTable: React.FC<OutcomeTableProps> = ({ tabeeOutcomes }) => {
 
   return (
     <Table>
-      <TableHeader>
+      <TableHeader className="font-bold text-primary">
         <TableRow>
           <TableHead>PLO/PO</TableHead>
           <TableHead> Course Learning Outcome</TableHead>

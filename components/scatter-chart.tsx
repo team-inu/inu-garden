@@ -2,60 +2,91 @@
 
 import {
   CartesianGrid,
-  Legend,
   ResponsiveContainer,
   Scatter,
   ScatterChart,
-  Tooltip,
   XAxis,
   YAxis,
-  ZAxis,
 } from 'recharts';
+import {
+  maxSorted,
+  mean,
+  minSorted,
+  quantile,
+  standardDeviation,
+} from 'simple-statistics';
 
-const data01 = [
-  {
-    x: 100,
-    y: 200,
-    z: 200,
-  },
-  {
-    x: 120,
-    y: 100,
-    z: 260,
-  },
-  {
-    x: 170,
-    y: 300,
-    z: 400,
-  },
-  {
-    x: 140,
-    y: 250,
-    z: 280,
-  },
-  {
-    x: 150,
-    y: 400,
-    z: 500,
-  },
-  {
-    x: 110,
-    y: 280,
-    z: 200,
-  },
-];
-const ScatterChartCustom = () => {
+import { GetScoreByAssignmentResponse } from '@/types/schema/score-schema';
+
+type ScatterProps = {
+  data: GetScoreByAssignmentResponse;
+};
+
+const ScatterChartCustom: React.FC<ScatterProps> = ({ data }) => {
+  const scores = data.scores
+    .map((score) => {
+      return score.score;
+    })
+    .sort((a, b) => a - b);
+
+  const maxScore = maxSorted(scores);
+  const minScore = minSorted(scores);
+  const stdScore = Math.round(standardDeviation(scores) * 100) / 100;
+  const meanScore = Math.round(mean(scores) * 100) / 100;
+  const firstQuartileScore = quantile(scores, 0.25);
+  const secondQuartileScore = quantile(scores, 0.5);
+  const thirdQuartileScore = quantile(scores, 0.75);
+  const count = data.submittedAmount;
+
+  const graphData = scores.map((score, i) => {
+    return { index: i + 1, score: score };
+  });
+
+  const xTicks = [];
+  for (let i = 0; i <= count + 5; i += 10) {
+    xTicks.push(i);
+  }
+
+  const yTicks = [];
+  for (let i = 0; i <= maxScore + 5; i += 10) {
+    yTicks.push(i);
+  }
+
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <ScatterChart width={730} height={250}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="x" type="number" name="stature" unit="cm" />
-        <YAxis dataKey="y" type="number" name="weight" unit="kg" />
-        <Tooltip cursor={{ strokeDasharray: '3 3' }} />
-        <Legend />
-        <Scatter name="A school" data={data01} fill="#adfa1d" />
-      </ScatterChart>
-    </ResponsiveContainer>
+    <div>
+      <ResponsiveContainer width="100%" height={300}>
+        <ScatterChart width={730} height={250}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis
+            dataKey="index"
+            type="number"
+            name="students"
+            domain={[0, count]}
+            ticks={xTicks}
+          />
+          <YAxis
+            dataKey="score"
+            type="number"
+            name="score"
+            domain={[0, maxScore]}
+            ticks={yTicks}
+          />
+          {/* <Tooltip cursor={{ strokeDasharray: '3 3' }} /> */}
+          {/* <Legend /> */}
+          <Scatter data={graphData} fill="#adfa1d" />
+        </ScatterChart>
+      </ResponsiveContainer>
+      <div className="grid grid-cols-4 grid-rows-2 justify-items-center gap-y-1">
+        <div>Count: {count}</div>
+        <div>Mean: {meanScore}</div>
+        <div>STD: {stdScore}</div>
+        <div>Min: {minScore}</div>
+        <div>25%: {firstQuartileScore}</div>
+        <div>50%: {secondQuartileScore}</div>
+        <div>75%: {thirdQuartileScore}</div>
+        <div>Max: {maxScore}</div>
+      </div>
+    </div>
   );
 };
 

@@ -9,22 +9,16 @@ import { CloColumn } from '@/types/schema/clo-shema';
 export const cloColumn: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
-    ),
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+    header: ({ column }) => <DataTableColumnHeader column={column} className="hidden" title="Id" />,
+    cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
     enableSorting: false,
-    enableHiding: false,
+    enableHiding: true,
   },
   {
     accessorKey: 'code',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Code" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Number" />,
     cell: ({ row }) => {
-      return (
-        <span className=" truncate font-medium">{row.getValue('code')}</span>
-      );
+      return <span className=" truncate font-medium">{row.getValue('code')}</span>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -32,24 +26,15 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
   },
   {
     accessorKey: 'description',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description" className="" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="CLO Description" className="" />,
     cell: ({ row }) => {
-      return (
-        <span className="w-20 font-medium">{row.getValue('description')}</span>
-      );
+      return <span className="w-20 font-medium">{row.getValue('description')}</span>;
     },
   },
 
   {
     accessorKey: 'expectedPassingAssignmentPercentage',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Expected Passing Assessments %"
-      />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Expected Passing Assessments %" />,
     cell: ({ row }) => {
       return (
         <span className=" flex items-center justify-center font-medium">
@@ -61,12 +46,7 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
 
   {
     accessorKey: 'expectedPassingStudentPercentage',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Expected Passing Students %"
-      />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Expected Passing Students %" />,
     cell: ({ row }) => {
       return (
         <span className="flex items-center justify-center font-medium">
@@ -78,20 +58,14 @@ export const cloColumn: ColumnDef<CloColumn>[] = [
 
   {
     accessorKey: 'programOutcomeName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="PO" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="PO" />,
     cell: ({ row }) => {
-      return (
-        <span className="truncate">{row.getValue('programOutcomeName')}</span>
-      );
+      return <span className="truncate">{row.getValue('programOutcomeName')}</span>;
     },
   },
   {
     accessorKey: 'status',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
       return <span className="">{row.getValue('status')}</span>;
     },

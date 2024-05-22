@@ -87,7 +87,11 @@ export function ScoreDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className="font-bold text-primary"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -135,7 +139,7 @@ export function ScoreDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
   );
 }

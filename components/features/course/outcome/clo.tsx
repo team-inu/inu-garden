@@ -23,15 +23,20 @@ const CourseLearningOutcome = () => {
   });
   const getVales = (id: string, code: string) => {
     setSelectedRows({ id, code });
-    router.push(`${pathName}/?cloId=${id}&tab=outcome`);
+    router.push(`${pathName}/?cloId=${id}&tab=outcome`, { scroll: false });
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight - 750,
+        behavior: 'smooth',
+      });
+    }, 500);
   };
 
   const { id: courseId } = useParams<{ id: string }>();
 
   const { data: clos, isLoading } = useGetCloByCourseId(courseId);
   const { data: clo, isLoading: isCloLoading } = useGetCloById(selectedRows.id);
-  const { data: passStudents } =
-    useGetCloAndPassingCourseLearningOutcome(courseId);
+  const { data: passStudents } = useGetCloAndPassingCourseLearningOutcome(courseId);
 
   return (
     <>
@@ -40,27 +45,20 @@ const CourseLearningOutcome = () => {
         {isLoading ? (
           <Loading />
         ) : (
-          <CourseLearningOutcomeDataTable
-            columns={cloColumn}
-            data={clos ?? []}
-            getValues={getVales}
-          />
+          <CourseLearningOutcomeDataTable columns={cloColumn} data={clos ?? []} getValues={getVales} />
         )}
       </div>
       <div>
         {selectedRows.id && (
           <div>
-            <h1 className="mb-5 text-2xl font-bold ">
-              Students status of CLO:{selectedRows.code}
-            </h1>
+            <h1 className="mb-5 text-2xl font-bold ">Students status of CLO:{selectedRows.code}</h1>
             <EnrollmentDataTable
               outcomeData={[]}
               columns={columns}
               data={
                 ((passStudents &&
-                  passStudents.find(
-                    (data) => data.courseLearningOutcomeId === selectedRows.id,
-                  )?.students) as unknown as EnrollmentCloColumn[]) ?? []
+                  passStudents.find((data) => data.courseLearningOutcomeId === selectedRows.id)
+                    ?.students) as unknown as EnrollmentCloColumn[]) ?? []
               }
               isCreateEnabled={false}
             />
@@ -68,9 +66,7 @@ const CourseLearningOutcome = () => {
         )}
         {selectedRows.id && (
           <div>
-            <h1 className="mb-5 text-2xl font-bold ">
-              Sub program learning outcome of CLO:{selectedRows.code}
-            </h1>
+            <h1 className="mb-5 text-2xl font-bold ">Sub program learning outcome of CLO:{selectedRows.code}</h1>
             {isCloLoading ? (
               <Loading />
             ) : (
@@ -78,11 +74,7 @@ const CourseLearningOutcome = () => {
                 <SubProgramLearningOutcomeDataTable
                   columns={subPloStaticColumn}
                   data={clo?.subProgramLearningOutcomes ?? []}
-                  subPloId={
-                    clo?.subProgramLearningOutcomes.map(
-                      (subPlo) => subPlo.id,
-                    ) ?? []
-                  }
+                  subPloId={clo?.subProgramLearningOutcomes.map((subPlo) => subPlo.id) ?? []}
                   isTabee={false}
                 />
               </>

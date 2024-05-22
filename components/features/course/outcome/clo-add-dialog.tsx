@@ -1,39 +1,17 @@
 import { DialogClose } from '@radix-ui/react-dialog';
+import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import MultipleSelector from '@/components/ui/muti-select';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useGetCourseById } from '@/hooks/course-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetPloList } from '@/hooks/plo-hook';
 import { useGetPoList } from '@/hooks/po-hook';
-import {
-  CreateCloForm,
-  CreateCloFormDefaultValues,
-  CreateCloFormSchema,
-} from '@/types/schema/clo-shema';
+import { CreateCloForm, CreateCloFormDefaultValues, CreateCloFormSchema } from '@/types/schema/clo-shema';
 import { OptionaType } from '@/types/schema/form-schema';
 import { GetProgramLearningOutcomeResponse } from '@/types/schema/plo-schema';
 
@@ -42,10 +20,7 @@ type PloDialogProps = {
   defaultValues?: CreateCloForm;
 };
 
-const getSubPloOptions = (
-  ploList: GetProgramLearningOutcomeResponse[] | undefined,
-  ploId: string,
-) =>
+const getSubPloOptions = (ploList: GetProgramLearningOutcomeResponse[] | undefined, ploId: string) =>
   ploList
     ?.find((plo) => plo.id === ploId)
     ?.subProgramLearningOutcomes.map(
@@ -55,24 +30,21 @@ const getSubPloOptions = (
       }),
     ) as OptionaType[];
 
-const CloAddDialog: React.FC<PloDialogProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
+const CloAddDialog: React.FC<PloDialogProps> = ({ onSubmit, defaultValues }) => {
+  const { id: courseId } = useParams<{ id: string }>();
+  const { data: courseData } = useGetCourseById(courseId);
   const { data: plolist } = useGetPloList();
   const { data: polist } = useGetPoList();
 
-  const form = useStrictForm(
-    CreateCloFormSchema,
-    defaultValues ?? CreateCloFormDefaultValues,
-  );
+  const form = useStrictForm(CreateCloFormSchema, defaultValues ?? CreateCloFormDefaultValues);
 
   const updatePlo = (ploId: string) => {
     form.setValue('programLearningOutcomeId', ploId);
-    form.setValue(
-      'subProgramLearningOutcomeId',
-      getSubPloOptions(plolist, ploId),
-    );
+    form.setValue('subProgramLearningOutcomeId', []);
+    // form.setValue(
+    //   'subProgramLearningOutcomeId',
+    //   getSubPloOptions(plolist, ploId),
+    // );
   };
 
   return (
@@ -80,9 +52,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
       <DialogContent className="min-w-[75%]">
         <DialogHeader>
           <DialogTitle>Add Course learning outcome</DialogTitle>
-          <DialogDescription>
-            Fill in the course learning outcome information
-          </DialogDescription>
+          <DialogDescription>Fill in the course learning outcome information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -92,7 +62,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Code</FormLabel>
+                    <FormLabel>CLO Number</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -115,9 +85,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="from curriculum">
-                          From curriculum
-                        </SelectItem>
+                        <SelectItem value="from curriculum">From curriculum</SelectItem>
                         <SelectItem value="modified">Modified</SelectItem>
                       </SelectContent>
                     </Select>
@@ -130,7 +98,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>CLO Description</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -148,10 +116,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Passing Student %</FormLabel>
-                    <FormDescription>
-                      % of how many students need to pass this CLO for it to
-                      succeed
-                    </FormDescription>
+                    <FormDescription>% of how many students need to pass this CLO for it to succeed</FormDescription>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} type="number" min={0} max={100} />
@@ -167,10 +132,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Passing Assessment %</FormLabel>
-                    <FormDescription>
-                      % of how many assessments a student need to pass to pass
-                      this CLO
-                    </FormDescription>
+                    <FormDescription>% of how many assessments a student need to pass to pass this CLO</FormDescription>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -215,19 +177,18 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                   <Select onValueChange={updatePlo} value={field.value}>
                     <FormControl>
                       <SelectTrigger className="h-24">
-                        <SelectValue
-                          className="h-24"
-                          placeholder="Select Program learning outcome"
-                        />
+                        <SelectValue className="h-24" placeholder="Select Program learning outcome" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
                       {plolist &&
-                        plolist.map((plo) => (
-                          <SelectItem key={plo.id} value={plo.id}>
-                            {plo.code} - {plo.descriptionThai}
-                          </SelectItem>
-                        ))}
+                        plolist
+                          .filter((plo) => plo.programmeName === courseData?.curriculum)
+                          .map((plo) => (
+                            <SelectItem key={plo.id} value={plo.id}>
+                              {plo.code} - {plo.descriptionThai}
+                            </SelectItem>
+                          ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -244,10 +205,7 @@ const CloAddDialog: React.FC<PloDialogProps> = ({
                     <MultipleSelector
                       value={field.value}
                       onChange={field.onChange}
-                      options={getSubPloOptions(
-                        plolist,
-                        form.getValues('programLearningOutcomeId'),
-                      )}
+                      options={getSubPloOptions(plolist, form.getValues('programLearningOutcomeId'))}
                       emptyIndicator={
                         <p className="text-center text-lg leading-10 text-gray-600 dark:text-gray-400">
                           no results found.

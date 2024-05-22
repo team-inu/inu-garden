@@ -17,9 +17,7 @@ const CourseSummaryFormSchema = z.object({
     .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
     .min(1, { message: 'required' }),
   onlineTools: z.string().min(1, { message: 'required' }),
-  objectives: z
-    .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
-    .min(1, { message: 'required' }),
+  objectives: z.array(z.object({ name: z.string().min(1, { message: 'required' }) })).min(1, { message: 'required' }),
 });
 
 const CourseSummarySchema = z.object({
@@ -112,15 +110,9 @@ export type CourseResult = z.infer<typeof CourseResultSchema>;
 // [4] Development
 
 const CourseDevelopmentFormSchema = z.object({
-  plans: z
-    .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
-    .min(1, { message: 'required' }),
-  doAndChecks: z
-    .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
-    .min(1, { message: 'required' }),
-  acts: z
-    .array(z.object({ name: z.string().min(1, { message: 'required' }) }))
-    .min(1, { message: 'required' }),
+  plans: z.array(z.object({ name: z.string().min(1, { message: 'required' }) })).min(1, { message: 'required' }),
+  doAndChecks: z.array(z.object({ name: z.string().min(1, { message: 'required' }) })).min(1, { message: 'required' }),
+  acts: z.array(z.object({ name: z.string().min(1, { message: 'required' }) })).min(1, { message: 'required' }),
   subjectComments: z.object({
     upstreamSubjects: z.array(
       z.object({
@@ -191,47 +183,37 @@ export const SaveCoursePortfolioFormSchema = CoursePortfolioFormSchema.pick({
 export const GetCoursePortfolioFormSchema = CoursePortfolioSchema;
 export const CreateCoursePortfolioFormSchema = CoursePortfolioFormSchema;
 
-export type GetCoursePortfolioForm = z.infer<
-  typeof GetCoursePortfolioFormSchema
->;
+export type GetCoursePortfolioForm = z.infer<typeof GetCoursePortfolioFormSchema>;
 
-export type CreateCoursePortfolioForm = z.infer<
-  typeof CreateCoursePortfolioFormSchema
->;
+export type CreateCoursePortfolioForm = z.infer<typeof CreateCoursePortfolioFormSchema>;
 
-export const CreateCoursePortfolioFillableSchema =
-  CreateCoursePortfolioFormSchema.pick({
-    summary: true,
-    development: true,
-  });
+export const CreateCoursePortfolioFillableSchema = CreateCoursePortfolioFormSchema.pick({
+  summary: true,
+  development: true,
+});
 
-export type CreateCoursePortfolioFillableSchema = z.infer<
-  typeof CreateCoursePortfolioFillableSchema
->;
+export type CreateCoursePortfolioFillableSchema = z.infer<typeof CreateCoursePortfolioFillableSchema>;
 
-export type SaveCoursePortfolioForm = z.infer<
-  typeof SaveCoursePortfolioFormSchema
->;
+export type SaveCoursePortfolioForm = z.infer<typeof SaveCoursePortfolioFormSchema>;
 
-export const CreateCoursePortfolioFillableDefaultValues: CreateCoursePortfolioFillableSchema =
-  {
-    summary: {
-      teachingMethods: [{ name: '' }],
-      onlineTools: '',
-      objectives: [{ name: '' }],
+export const CreateCoursePortfolioFillableDefaultValues: CreateCoursePortfolioFillableSchema = {
+  summary: {
+    teachingMethods: [{ name: '' }],
+    onlineTools: '',
+    objectives: [{ name: '' }],
+  },
+  development: {
+    plans: [{ name: '' }],
+    doAndChecks: [{ name: '' }],
+    acts: [{ name: '' }],
+    subjectComments: {
+      upstreamSubjects: [{ courseName: '', comments: '' }],
+      downstreamSubjects: [{ courseName: '', comments: '' }],
+      other: '',
     },
-    development: {
-      plans: [{ name: '' }],
-      doAndChecks: [{ name: '' }],
-      acts: [{ name: '' }],
-      subjectComments: {
-        upstreamSubjects: [{ courseName: '', comments: '' }],
-        downstreamSubjects: [{ courseName: '', comments: '' }],
-        other: '',
-      },
-      otherComment: '',
-    },
-  };
+    otherComment: '',
+  },
+};
 
 //response
 export const GetStudentResultClo = z.object({
@@ -248,7 +230,7 @@ export const GetStudentResultClo = z.object({
 
 export type StudentResultClo = z.infer<typeof GetStudentResultClo>;
 
-export const GetEnrollmentResultPloPo = z.object({
+export const GetEnrollmentResults = z.object({
   studentId: z.string(),
   programLearningOutcomes: z.array(
     z.object({
@@ -267,6 +249,14 @@ export const GetEnrollmentResultPloPo = z.object({
       name: z.string(),
     }),
   ),
+  courseLearningOutcomes: z.array(
+    z.object({
+      pass: z.boolean(),
+      courseLearningOutcomeId: z.string(),
+      code: z.string(),
+      description: z.string(),
+    }),
+  ),
 });
 
-export type EnrollmentResultPloPo = z.infer<typeof GetEnrollmentResultPloPo>;
+export type EnrollmentResults = z.infer<typeof GetEnrollmentResults>;

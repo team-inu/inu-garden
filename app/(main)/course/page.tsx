@@ -7,25 +7,25 @@ import CourseCard from '@/components/features/course/course-card';
 import Loading from '@/components/features/loading-screen';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAuth } from '@/hooks/auth-hook';
 import { useCourseList } from '@/hooks/course-hook';
 import { Role } from '@/types/auth-type';
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [curriculum, setCurriculum] = useState('none');
-  const [year, setYear] = useState('2023');
+  const [curriculum, setCurriculum] = useState('all programmes');
+  const [year, setYear] = useState('all years');
   const { user } = useAuth();
   const { data: courses, isLoading: isCourseLoading } = useCourseList();
-  const curriculumLists = ['international', 'regular', 'none'];
+  const curriculumLists = ['international', 'regular', 'all programmes'];
+
+  const yearSet = new Set<string>();
+  yearSet.add('all years');
+
+  courses?.forEach((course) => {
+    yearSet.add(String(course.semester.year));
+  });
 
   const handleYearChange = (e: string) => {
     setYear(e);
@@ -68,10 +68,17 @@ const CoursePage = () => {
             </SelectTrigger>
             <SelectContent>
               <SelectGroup>
-                <SelectItem value="2022">2022</SelectItem>
-                <SelectItem value="2023">2023</SelectItem>
-                <SelectItem value="2024">2024</SelectItem>
-                <SelectItem value="2025">2025</SelectItem>
+                {Array.from(yearSet)
+                  .sort((a, b) => {
+                    return Number(b) - Number(a);
+                  })
+                  .map((year, i) => {
+                    return (
+                      <SelectItem key={i} value={year}>
+                        {year}
+                      </SelectItem>
+                    );
+                  })}
               </SelectGroup>
             </SelectContent>
           </Select>
@@ -80,11 +87,7 @@ const CoursePage = () => {
 
         {user.data?.role === Role.HEAD_OF_CURRICULUM && (
           <Link href="/course/create" className="flex w-2/12 justify-end">
-            <Button
-              variant={'default'}
-              className="min-w-max text-base  font-bold"
-              size={'lg'}
-            >
+            <Button variant={'default'} className="min-w-max text-base  font-bold" size={'lg'}>
               Add course
             </Button>
           </Link>
@@ -105,15 +108,20 @@ const CoursePage = () => {
               const lowerCaseCourseId = e.code.toLowerCase();
 
               return (
-                lowerCaseCourseName.includes(lowerCaseSearchValue) ||
-                lowerCaseCourseId.includes(lowerCaseSearchValue)
+                lowerCaseCourseName.includes(lowerCaseSearchValue) || lowerCaseCourseId.includes(lowerCaseSearchValue)
               );
             })
             .filter((e) => {
-              if (curriculum === 'none') {
+              if (curriculum === 'all programmes') {
                 return e;
               }
               return e.curriculum === curriculum;
+            })
+            .filter((e) => {
+              if (year === 'all years') {
+                return true;
+              }
+              return String(e.semester.year) === year;
             })
             .map((e, i) => {
               return (

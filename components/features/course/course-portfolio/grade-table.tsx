@@ -17,14 +17,14 @@ const GradeTable: React.FC<GradeTableProps> = ({ gradeDistribution }) => {
   return (
     <Table>
       <TableCaption>Grade of students</TableCaption>
-      <TableHeader>
+      <TableHeader className="font-bold text-primary">
         <TableRow>
           <TableHead colSpan={3}>Number of student</TableHead>
           <TableHead colSpan={3}> {gradeDistribution.studentAmount}</TableHead>
         </TableRow>
         <TableRow>
-          <TableHead colSpan={3}>GPA</TableHead>
-          <TableHead colSpan={3}>{gradeDistribution.GPA}</TableHead>
+          <TableHead colSpan={3}>Average GPA</TableHead>
+          <TableHead colSpan={3}>{gradeDistribution.GPA.toFixed(2)}</TableHead>
         </TableRow>
         <TableRow>
           <TableHead colSpan={2}>Grade</TableHead>

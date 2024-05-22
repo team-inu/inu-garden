@@ -9,54 +9,40 @@ import { ScoreColumn } from '@/types/schema/score-schema';
 export const columns: ColumnDef<ScoreColumn>[] = [
   {
     accessorKey: 'studentId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="studentId" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Student Id" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('studentId')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('studentId')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'firstName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="firstName" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="First Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('firstName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('firstName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'lastName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="lastName" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Last Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('lastName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('lastName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'score',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="score" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Score" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">

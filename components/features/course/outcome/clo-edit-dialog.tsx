@@ -1,62 +1,30 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetPoList } from '@/hooks/po-hook';
-import {
-  EditCloForm,
-  EditCloFormDefaultValues,
-  EditCloFormSchema,
-} from '@/types/schema/clo-shema';
+import { EditCloForm, EditCloFormDefaultValues, EditCloFormSchema } from '@/types/schema/clo-shema';
 
 type PloDialogProps = {
   onSubmit: (values: EditCloForm) => void;
   defaultValues?: EditCloForm;
 };
 
-const CloEditDialog: React.FC<PloDialogProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
+const CloEditDialog: React.FC<PloDialogProps> = ({ onSubmit, defaultValues }) => {
   const { data: polist } = useGetPoList();
 
-  const form = useStrictForm(
-    EditCloFormSchema,
-    defaultValues ?? EditCloFormDefaultValues,
-  );
+  const form = useStrictForm(EditCloFormSchema, defaultValues ?? EditCloFormDefaultValues);
 
   return (
     <div>
       <DialogContent className="min-w-[75%]">
         <DialogHeader>
           <DialogTitle>Edit Course learning outcome</DialogTitle>
-          <DialogDescription>
-            Edit the course learning outcome by filling the form.
-          </DialogDescription>
+          <DialogDescription>Edit the course learning outcome by filling the form.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -66,7 +34,7 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
                 name="code"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Code</FormLabel>
+                    <FormLabel>CLO Number</FormLabel>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />
@@ -89,9 +57,7 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="from curriculum">
-                          From curriculum
-                        </SelectItem>
+                        <SelectItem value="from curriculum">From curriculum</SelectItem>
                         <SelectItem value="modified">Modified</SelectItem>
                       </SelectContent>
                     </Select>
@@ -104,7 +70,7 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>CLO Description</FormLabel>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} />
@@ -122,10 +88,7 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Passing Student %</FormLabel>
-                    <FormDescription>
-                      % of how many students need to pass this CLO for it to
-                      succeed
-                    </FormDescription>
+                    <FormDescription>% of how many students need to pass this CLO for it to succeed</FormDescription>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} type="number" min={0} max={100} />
@@ -141,10 +104,7 @@ const CloEditDialog: React.FC<PloDialogProps> = ({
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Passing Assessment %</FormLabel>
-                    <FormDescription>
-                      % of how many assessments a student need to pass to pass
-                      this CLO
-                    </FormDescription>
+                    <FormDescription>% of how many assessments a student need to pass to pass this CLO</FormDescription>
                     <FormControl>
                       <div className="flex flex-col space-y-3">
                         <Input {...field} />

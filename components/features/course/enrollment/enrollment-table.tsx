@@ -24,23 +24,16 @@ import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import { EnrollmentResultPloPo } from '@/types/schema/course-portfolio-schema';
+import { EnrollmentResults } from '@/types/schema/course-portfolio-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
   isCreateEnabled?: boolean;
-  outcomeData: EnrollmentResultPloPo[];
+  outcomeData: EnrollmentResults[];
 }
 
 export const studentStatus: Option[] = [
@@ -71,11 +64,8 @@ export function EnrollmentDataTable<TData, TValue>({
   outcomeData,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -100,9 +90,7 @@ export function EnrollmentDataTable<TData, TValue>({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadEnrollment = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleUploadEnrollment = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
       return toast.error('Can not read file');
@@ -134,68 +122,81 @@ export function EnrollmentDataTable<TData, TValue>({
   // ))}
 
   const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
-    const student = outcomeData.find(
-      (student) => student.studentId === studentId,
-    );
+    const student = outcomeData.find((student) => student.studentId === studentId);
     return (
       <td colSpan={7} className="space-y-3 divide-y-2 divide-orange-400">
         <div className="p-5">
-          <Tabs defaultValue="plo" className="space-y-4">
+          <Tabs defaultValue="clo" className="space-y-4">
             <TabsList>
+              <TabsTrigger value="clo">Course Learning Outcome</TabsTrigger>
               <TabsTrigger value="plo">Program Learning Outcome</TabsTrigger>
               <TabsTrigger value="po">Program Outcome</TabsTrigger>
             </TabsList>
 
-            <TabsContent
-              value="plo"
-              className=" space-y-3 rounded-xl bg-secondary p-3"
-            >
+            <TabsContent value="clo" className="space-y-3 rounded-xl bg-secondary p-3 ">
               <div className="flex flex-col justify-center gap-5">
-                {/* make it nice table */}
                 {student ? (
-                  student.programLearningOutcomes.map((plo) => (
-                    <div key={plo.id} className="flex  gap-5  ">
-                      <span className="text-lg ">
-                        PLO{plo.code}-{plo.descriptionThai}:{' '}
-                      </span>
-                      <Badge
-                        className="text-lg"
-                        variant={plo.pass ? 'green' : 'destructive'}
-                      >
-                        {plo.pass ? 'Pass' : 'Fail'}
-                      </Badge>
-                    </div>
-                  ))
+                  student.courseLearningOutcomes
+                    .sort((a, b) => {
+                      return Number(a.code.split('CLO').pop()) - Number(b.code.split('CLO').pop());
+                    })
+                    .map((clo) => (
+                      <div key={clo.courseLearningOutcomeId} className="flex gap-5">
+                        <span className="text-lg ">
+                          {clo.code}-{clo.description}:{' '}
+                        </span>
+                        <Badge className="text-lg" variant={clo.pass ? 'green' : 'destructive'}>
+                          {clo.pass ? 'Pass' : 'Fail'}
+                        </Badge>
+                      </div>
+                    ))
                 ) : (
-                  <div className="flex w-full items-center justify-center text-lg ">
-                    No data
-                  </div>
+                  <div className="flex w-full items-center justify-center text-lg ">No data</div>
                 )}
               </div>
             </TabsContent>
-            <TabsContent
-              value="po"
-              className="space-y-3 rounded-xl bg-secondary p-3 "
-            >
+            <TabsContent value="plo" className=" space-y-3 rounded-xl bg-secondary p-3">
+              <div className="flex flex-col justify-center gap-5">
+                {/* make it nice table */}
+                {student ? (
+                  student.programLearningOutcomes
+                    .sort((a, b) => {
+                      return Number(a.code) - Number(b.code);
+                    })
+                    .map((plo) => (
+                      <div key={plo.id} className="flex  gap-5  ">
+                        <span className="text-lg ">
+                          PLO{plo.code}-{plo.descriptionThai}:{' '}
+                        </span>
+                        <Badge className="text-lg" variant={plo.pass ? 'green' : 'destructive'}>
+                          {plo.pass ? 'Pass' : 'Fail'}
+                        </Badge>
+                      </div>
+                    ))
+                ) : (
+                  <div className="flex w-full items-center justify-center text-lg ">No data</div>
+                )}
+              </div>
+            </TabsContent>
+            <TabsContent value="po" className="space-y-3 rounded-xl bg-secondary p-3 ">
               <div className="flex flex-col justify-center gap-5">
                 {student ? (
-                  student.programOutcomes.map((po) => (
-                    <div key={po.id} className="flex gap-5">
-                      <span className="text-lg ">
-                        PO{po.code}-{po.name}:{' '}
-                      </span>
-                      <Badge
-                        className="text-lg"
-                        variant={po.pass ? 'green' : 'destructive'}
-                      >
-                        {po.pass ? 'Pass' : 'Fail'}
-                      </Badge>
-                    </div>
-                  ))
+                  student.programOutcomes
+                    .sort((a, b) => {
+                      return Number(a.code) - Number(b.code);
+                    })
+                    .map((po) => (
+                      <div key={po.id} className="flex gap-5">
+                        <span className="text-lg ">
+                          PO{po.code}-{po.name}:{' '}
+                        </span>
+                        <Badge className="text-lg" variant={po.pass ? 'green' : 'destructive'}>
+                          {po.pass ? 'Pass' : 'Fail'}
+                        </Badge>
+                      </div>
+                    ))
                 ) : (
-                  <div className="flex w-full items-center justify-center text-lg ">
-                    No data
-                  </div>
+                  <div className="flex w-full items-center justify-center text-lg ">No data</div>
                 )}
               </div>
             </TabsContent>
@@ -212,6 +213,7 @@ export function EnrollmentDataTable<TData, TValue>({
         selectorOptions={inputs}
         handleImport={handleUploadEnrollment}
         isCreateEnabled={isCreateEnabled}
+        outcomeData={outcomeData}
       />
       <div className="rounded-md border">
         <Table>
@@ -220,13 +222,8 @@ export function EnrollmentDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                    <TableHead key={header.id} colSpan={header.colSpan} className="font-bold text-primary">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -238,24 +235,14 @@ export function EnrollmentDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <Collapsible key={row.id} asChild>
                   <>
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && 'selected'}
-                    >
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
+                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
                     <CollapsibleContent asChild className="bg-black">
                       <tr>
-                        <CollapsibleRowContent
-                          studentId={row.getValue('studentId')}
-                        />
+                        <CollapsibleRowContent studentId={row.getValue('studentId')} />
                       </tr>
                     </CollapsibleContent>
                   </>
@@ -263,10 +250,7 @@ export function EnrollmentDataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -274,7 +258,7 @@ export function EnrollmentDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
   );
 }

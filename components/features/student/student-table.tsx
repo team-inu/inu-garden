@@ -114,7 +114,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                 Add Grade
               </Button>
               <Table>
-                <TableHeader>
+                <TableHeader className="font-bold text-primary">
                   <TableRow>
                     <TableHead colSpan={1}>Semester</TableHead>
                     <TableHead colSpan={1}>Grade</TableHead>
@@ -168,7 +168,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
         </TabsContent>
         <TabsContent value="overview-po" className=" w-3/4">
           <Table>
-            <TableHeader>
+            <TableHeader className="font-bold text-primary">
               <TableRow>
                 <TableHead>Program outcome</TableHead>
                 <TableHead>Course</TableHead>
@@ -230,7 +230,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
 
         <TabsContent value="overview-plo" className=" w-3/4">
           <Table>
-            <TableHeader>
+            <TableHeader className="font-bold text-primary">
               <TableRow>
                 <TableHead>Program Learning Outcome</TableHead>
                 <TableHead>Program Year</TableHead>
@@ -343,7 +343,11 @@ export function StudentDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className="font-bold text-primary"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -395,7 +399,7 @@ export function StudentDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
   );
 }

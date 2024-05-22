@@ -19,11 +19,6 @@ import * as React from 'react';
 import { GraduationTableToolbar } from '@/components/features/graduation/graduation-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import {
-  DataTableToolbar,
-  Option,
-  SelectorOption,
-} from '@/components/ui/data-table-toolbar';
-import {
   Table,
   TableBody,
   TableCell,
@@ -108,7 +103,11 @@ export function GraduationDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id} colSpan={header.colSpan}>
+                    <TableHead
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className="font-bold text-primary"
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -151,7 +150,7 @@ export function GraduationDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination table={table} isRowSelectionEnabled={false} />
     </div>
   );
 }

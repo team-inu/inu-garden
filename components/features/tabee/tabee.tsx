@@ -33,10 +33,13 @@ const TABEE = () => {
     id: '',
     name: '',
   });
+  //useRef to get height of the table
+  const subPloTableRef = useRef<HTMLDivElement>(null);
+  const poTableRef = useRef<HTMLDivElement>(null);
   const { data: plos, isLoading: isPloLoading } = useGetPloList();
   const { data: splos, isLoading: isSubPloLoading } = useGetSubPloList();
   const { data: pos, isLoading: isPoLoading } = useGetPoList();
-  const fileImportRef = useRef<HTMLInputElement>(null);
+  const fileImportRef = useRef(null);
   const [isPloImportOpen, setIsPloImportOpen] = useState(false);
   const [isTabeeImportOpen, setIsTabeeImportOpen] = useState(false);
   const [sploValues, setSploValues] = useState<CreateManySubPloType>();
@@ -50,10 +53,18 @@ const TABEE = () => {
   const getVales = (id: string, code: string) => {
     setSelectedRows(id);
     setSelectedCode(code);
+
+    //set time out to scroll to sub plo table
+    setTimeout(() => {
+      subPloTableRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 500);
   };
 
   const getValesPo = (id: string, name: string) => {
     setSelectedPoId({ id, name });
+    setTimeout(() => {
+      poTableRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, 500);
   };
 
   const onSubmitPloImport = (value: CreateManyPloForm) => {
@@ -115,7 +126,7 @@ const TABEE = () => {
         <div>
           {selectedRows && (
             <div>
-              <h1 className="mb-5 text-2xl font-bold ">
+              <h1 className="mb-5 text-2xl font-bold " ref={subPloTableRef}>
                 Sub program learning outcome of PLO {selectedCode}
               </h1>
               {isSubPloLoading ? (
@@ -176,7 +187,7 @@ const TABEE = () => {
           {selectedPo.id && coursePo && (
             <div className="space-y-5">
               <div>
-                <h1 className="mb-3 text-2xl font-bold ">
+                <h1 className="mb-3 text-2xl font-bold " ref={poTableRef}>
                   Courses of Program Outcome {selectedPo.name}{' '}
                   <span className="text-lg text-gray-400">
                     (passing percentage)

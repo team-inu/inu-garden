@@ -69,47 +69,61 @@ export function CloRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
+          <DropdownMenuItem
+            onClick={(e) => {
+              setIsEditDialogOpen(true);
+              e.stopPropagation();
+            }}
+          >
             Edit
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
+          <DropdownMenuItem
+            onClick={(e) => {
+              setIsDeleteDialogOpen(true);
+              e.stopPropagation();
+            }}
+          >
             Delete
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       {isEditDialogOpen && (
-        <CloEditDialog
-          onSubmit={onSubmit}
-          defaultValues={{
-            id: clo.id,
-            code: clo.code,
-            description: clo.description,
-            expectedPassingAssignmentPercentage:
-              clo.expectedPassingAssignmentPercentage,
-            expectedPassingStudentPercentage:
-              clo.expectedPassingStudentPercentage,
-            status: clo.status,
-            programOutcomeId: clo.programOutcomeId,
-          }}
-        />
+        <div onClick={(e) => e.stopPropagation()}>
+          <CloEditDialog
+            onSubmit={onSubmit}
+            defaultValues={{
+              id: clo.id,
+              code: clo.code,
+              description: clo.description,
+              expectedPassingAssignmentPercentage:
+                clo.expectedPassingAssignmentPercentage,
+              expectedPassingStudentPercentage:
+                clo.expectedPassingStudentPercentage,
+              status: clo.status,
+              programOutcomeId: clo.programOutcomeId,
+            }}
+          />
+        </div>
       )}
 
       {isDeleteDialogOpen && (
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
-          </DialogHeader>
+        <div onClick={(e) => e.stopPropagation()}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Are your sure to delete?</DialogTitle>
+              <DialogDescription>
+                {` You can't undo this action. This will permanently delete the.`}
+              </DialogDescription>
+            </DialogHeader>
 
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <Button onClick={onDelete}>Delete</Button>
-          </DialogFooter>
-        </DialogContent>
+            <DialogFooter>
+              <DialogClose asChild>
+                <Button variant="outline">Cancel</Button>
+              </DialogClose>
+              <Button onClick={onDelete}>Delete</Button>
+            </DialogFooter>
+          </DialogContent>
+        </div>
       )}
     </Dialog>
   );
