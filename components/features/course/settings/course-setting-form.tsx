@@ -3,39 +3,20 @@
 import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useUpdateCourse } from '@/hooks/course-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
-import {
-  UpdateCourseFormValues,
-  UpdateCourseSchema,
-} from '@/types/schema/course-schema';
+import { UpdateCourseFormValues, UpdateCourseSchema } from '@/types/schema/course-schema';
 
 type CourseSettingFormProps = {
   defaultValues: UpdateCourseFormValues;
 };
 
-const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
-  defaultValues,
-}) => {
+const CourseSettingForm: React.FC<CourseSettingFormProps> = ({ defaultValues }) => {
   const { id: courseId } = useParams<{ id: string }>();
   const { data: programmeData } = useGetProgrammeList();
   const { mutate } = useUpdateCourse();
@@ -81,7 +62,20 @@ const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
             />
           );
         })}
+        <FormField
+          control={form.control}
+          name={'description'}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Description</FormLabel>
+              <FormControl>
+                <Textarea className="w-full" {...field} />
+              </FormControl>
 
+              <FormMessage />
+            </FormItem>
+          )}
+        />
         <FormField
           name="curriculum"
           render={({ field }) => (
@@ -113,10 +107,46 @@ const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
           render={({ field }) => (
             <FormItem>
               <FormLabel>Expected Passing CLO Percentage</FormLabel>
-              <FormDescription>
-                % of how many CLOs a student need to pass to pass each PLO and
-                PO
-              </FormDescription>
+              <FormDescription>% of how many CLOs a student need to pass to pass each PLO and PO</FormDescription>
+              <FormControl>
+                <Input {...field} type="number" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="academicYear"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Academic Year</FormLabel>
+              <FormControl>
+                <Input {...field} type="number" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="graduateYear"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Graduate Year</FormLabel>
+              <FormControl>
+                <Input {...field} type="number" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="programYear"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Program Year</FormLabel>
               <FormControl>
                 <Input {...field} type="number" />
               </FormControl>
@@ -194,20 +224,6 @@ const CourseSettingForm: React.FC<CourseSettingFormProps> = ({
             );
           })}
         </div>
-        <FormField
-          control={form.control}
-          name={'description'}
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea className="w-full" {...field} />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <Button type="submit">Update account</Button>
       </form>
     </Form>

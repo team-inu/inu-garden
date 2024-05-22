@@ -6,34 +6,11 @@ import { useFormContext } from 'react-hook-form';
 import CourseFormGrade from '@/components/features/course/course-form/form-grade';
 import Loading from '@/components/features/loading-screen';
 import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command';
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
 import { useGetSemesterList } from '@/hooks/semester-hook';
@@ -44,10 +21,8 @@ import { CreateCourseSchemaValues } from '@/types/schema/course-schema';
 const CourseForm = () => {
   const form = useFormContext<CreateCourseSchemaValues>();
   const { data: users, isLoading: isUsersLoading } = useGetUserList();
-  const { data: semesters, isLoading: isSemesterLoading } =
-    useGetSemesterList();
-  const { data: programmes, isLoading: isProgrammeLoading } =
-    useGetProgrammeList();
+  const { data: semesters, isLoading: isSemesterLoading } = useGetSemesterList();
+  const { data: programmes, isLoading: isProgrammeLoading } = useGetProgrammeList();
 
   if (isUsersLoading || isSemesterLoading || isProgrammeLoading) {
     return <Loading />;
@@ -118,19 +93,12 @@ const CourseForm = () => {
                     <Button
                       variant="outline"
                       role="combobox"
-                      className={cn(
-                        'w-[200px] justify-between',
-                        !field.value && 'text-muted-foreground',
-                      )}
+                      className={cn('w-[200px] justify-between', !field.value && 'text-muted-foreground')}
                     >
                       {field.value && semesters
-                        ? semesters.find(
-                            (semester) => semester.id === field.value,
-                          )?.semesterSequence +
+                        ? semesters.find((semester) => semester.id === field.value)?.semesterSequence +
                           '/' +
-                          semesters.find(
-                            (semester) => semester.id === field.value,
-                          )?.year
+                          semesters.find((semester) => semester.id === field.value)?.year
                         : 'Select Semester'}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -149,11 +117,7 @@ const CourseForm = () => {
                           .map((semester) => (
                             <CommandItem
                               key={semester.id}
-                              value={
-                                semester.semesterSequence +
-                                '/' +
-                                semester.year.toString()
-                              }
+                              value={semester.semesterSequence + '/' + semester.year.toString()}
                               onSelect={() => {
                                 form.setValue('semesterId', semester.id);
                               }}
@@ -161,9 +125,7 @@ const CourseForm = () => {
                               <Check
                                 className={cn(
                                   'mr-2 h-4 w-4',
-                                  semester.id === field.value
-                                    ? 'opacity-100'
-                                    : 'opacity-0',
+                                  semester.id === field.value ? 'opacity-100' : 'opacity-0',
                                 )}
                               />
                               {semester.semesterSequence}/{semester.year}
@@ -196,6 +158,19 @@ const CourseForm = () => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Graduate Year</FormLabel>
+              <FormControl>
+                <Input {...field} type="text" />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="programYear"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Program Year</FormLabel>
               <FormControl>
                 <Input {...field} type="text" />
               </FormControl>
@@ -249,9 +224,7 @@ const CourseForm = () => {
         render={({ field }) => (
           <FormItem>
             <FormLabel>Expected Passing CLO Percentage</FormLabel>
-            <FormDescription>
-              % of how many CLOs a student need to pass to pass each PLO and PO
-            </FormDescription>
+            <FormDescription>% of how many CLOs a student need to pass to pass each PLO and PO</FormDescription>
             <FormControl>
               <Input {...field} type="number" />
             </FormControl>
