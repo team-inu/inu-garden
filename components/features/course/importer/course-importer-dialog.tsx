@@ -95,7 +95,6 @@ const CourseImporterDialog = () => {
           programOutcomeCode: clo['TABEE PO'],
         });
       }
-      console.log(courseLearningOutcomes);
 
       // assignment and assignment group
       let latestTopics = '';
@@ -168,7 +167,7 @@ const CourseImporterDialog = () => {
 
           assignment.scores.push({
             score: studentScore as number,
-            studentId: score.ID,
+            studentId: String(score.ID),
           });
         }
       }
@@ -181,8 +180,6 @@ const CourseImporterDialog = () => {
       for (let [_, value] of assignmentGroupByGroupName.entries()) {
         assignmentGroups.push(value);
       }
-
-      console.log(assignmentGroups);
 
       const data: ImportCourse = {
         courseId: courseId,
@@ -227,7 +224,9 @@ const CourseImporterDialog = () => {
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmitImport)}></form>
       </Form>
+
       <DialogFooter>
+        {/* get error from form */}
         <Button
           variant="outline"
           onClick={() => {
