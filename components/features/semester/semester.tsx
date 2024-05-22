@@ -17,7 +17,18 @@ const Semester = () => {
         {isLoading && semesters ? (
           <Loading />
         ) : (
-          <SemesterDataTable columns={columns} data={semesters ?? []} />
+          <SemesterDataTable
+            columns={columns}
+            data={
+              semesters
+                ? semesters.sort((a, b) => {
+                    return a.year == b.year
+                      ? a.semesterSequence.charCodeAt(0) - b.semesterSequence.charCodeAt(0)
+                      : b.year - a.year;
+                  })
+                : []
+            }
+          />
         )}
       </div>
     </>

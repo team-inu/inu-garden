@@ -112,7 +112,9 @@ const CourseForm = () => {
                       {semesters &&
                         semesters
                           .sort((a, b) => {
-                            return a.year - b.year;
+                            return a.year == b.year
+                              ? a.semesterSequence.charCodeAt(0) - b.semesterSequence.charCodeAt(0)
+                              : b.year - a.year;
                           })
                           .map((semester) => (
                             <CommandItem
