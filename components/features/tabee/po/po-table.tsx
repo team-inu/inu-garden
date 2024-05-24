@@ -18,32 +18,25 @@ import * as React from 'react';
 
 import { PoTableToolbar } from '@/components/features/tabee/po/po-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { GetCourseWithPo, GetPoResponse } from '@/types/schema/po-schema';
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  poResult: GetCourseWithPo[];
   getValues?: (poId: string, name: string) => void;
 }
 
 export function ProgramOutcomeDataTable<TData, TValue>({
   columns,
   data,
+  poResult,
   getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -70,7 +63,7 @@ export function ProgramOutcomeDataTable<TData, TValue>({
 
   return (
     <div className="space-y-4">
-      <PoTableToolbar table={table} selectorOptions={[]} />
+      <PoTableToolbar table={table} selectorOptions={[]} pos={data as GetPoResponse[]} poResults={poResult} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -78,17 +71,8 @@ export function ProgramOutcomeDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="font-bold text-primary"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                    <TableHead key={header.id} colSpan={header.colSpan} className="font-bold text-primary">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -103,30 +87,19 @@ export function ProgramOutcomeDataTable<TData, TValue>({
                   data-state={row.getIsSelected() && 'selected'}
                   onClick={() => {
                     if (getValues) {
-                      getValues(
-                        row.getValue('id') as string,
-                        row.getValue('name') as string,
-                      );
+                      getValues(row.getValue('id') as string, row.getValue('name') as string);
                     }
                   }}
                   className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>

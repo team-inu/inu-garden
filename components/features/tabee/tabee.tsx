@@ -16,11 +16,7 @@ import TabeeImportDialog from '@/components/features/tabee/tabee-import-dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useCreateManyPlos, useGetPloList } from '@/hooks/plo-hook';
-import {
-  useCreateManyPos,
-  useGetCourseWithPo,
-  useGetPoList,
-} from '@/hooks/po-hook';
+import { useCreateManyPos, useGetCourseWithPo, useGetPoList } from '@/hooks/po-hook';
 import { useGetSubPloList } from '@/hooks/sub-plo-hook';
 import { CreateManyPloForm } from '@/types/schema/plo-schema';
 import { CreateManyPoForm } from '@/types/schema/po-schema';
@@ -43,10 +39,8 @@ const TABEE = () => {
   const [isPloImportOpen, setIsPloImportOpen] = useState(false);
   const [isTabeeImportOpen, setIsTabeeImportOpen] = useState(false);
   const [sploValues, setSploValues] = useState<CreateManySubPloType>();
-  const { mutate: createManyPlos, isError: isCreateManyPlosError } =
-    useCreateManyPlos();
-  const { mutate: createManyPos, isError: isCreateManyPosError } =
-    useCreateManyPos();
+  const { mutate: createManyPlos, isError: isCreateManyPlosError } = useCreateManyPlos();
+  const { mutate: createManyPos, isError: isCreateManyPosError } = useCreateManyPos();
 
   const { data: coursePo } = useGetCourseWithPo();
 
@@ -91,22 +85,14 @@ const TABEE = () => {
         <div className="mx-auto flex w-full items-center justify-between space-x-3">
           <h1 className="mb-5 text-2xl font-bold">Program Learning Outcome</h1>
           <div className="w-1/10 flex flex-row space-x-2">
-            <Button
-              className="ml-auto hidden h-10 lg:flex"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="ml-auto hidden h-10 lg:flex" variant="outline" size="sm">
               <a className="flex items-center" href="/template/plo.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>
             </Button>
 
-            <Button
-              variant={'default'}
-              className="text-base font-bold"
-              onClick={() => setIsPloImportOpen(true)}
-            >
+            <Button variant={'default'} className="text-base font-bold" onClick={() => setIsPloImportOpen(true)}>
               <FilePlusIcon className="mr-2 h-4 w-4" />
               Import File
             </Button>
@@ -116,11 +102,7 @@ const TABEE = () => {
           {isPloLoading ? (
             <Loading />
           ) : (
-            <ProgramLearningOutcomeDataTable
-              columns={ploColumns}
-              data={plos ?? []}
-              getValues={getVales}
-            />
+            <ProgramLearningOutcomeDataTable columns={ploColumns} data={plos ?? []} getValues={getVales} />
           )}
         </div>
         <div>
@@ -135,12 +117,7 @@ const TABEE = () => {
                 <SubProgramLearningOutcomeDataTable
                   currentPlo={selectedRows}
                   columns={subPloColumns}
-                  data={
-                    splos?.filter(
-                      (splo: SubPLO) =>
-                        splo.programLearningOutcomeId === selectedRows,
-                    ) ?? []
-                  }
+                  data={splos?.filter((splo: SubPLO) => splo.programLearningOutcomeId === selectedRows) ?? []}
                   isTabee={true}
                   // currentPlo={selectedRows}
                 />
@@ -152,22 +129,14 @@ const TABEE = () => {
         <div className="mx-auto flex w-full items-center justify-between space-x-3">
           <h1 className="mb-5 text-2xl font-bold ">Program Outcome</h1>
           <div className="w-1/10 flex flex-row space-x-2">
-            <Button
-              className="ml-auto hidden h-10 lg:flex"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="ml-auto hidden h-10 lg:flex" variant="outline" size="sm">
               <a className="flex items-center" href="/template/po.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>
             </Button>
 
-            <Button
-              variant={'default'}
-              className="text-base font-bold"
-              onClick={() => setIsTabeeImportOpen(true)}
-            >
+            <Button variant={'default'} className="text-base font-bold" onClick={() => setIsTabeeImportOpen(true)}>
               <FilePlusIcon className="mr-2 h-4 w-4" />
               Import File
             </Button>
@@ -180,6 +149,7 @@ const TABEE = () => {
             <ProgramOutcomeDataTable
               columns={poColumns}
               data={pos ?? []}
+              poResult={coursePo ?? []}
               getValues={getValesPo}
             />
           )}
@@ -189,44 +159,27 @@ const TABEE = () => {
               <div>
                 <h1 className="mb-3 text-2xl font-bold " ref={poTableRef}>
                   Courses of Program Outcome {selectedPo.name}{' '}
-                  <span className="text-lg text-gray-400">
-                    (passing percentage)
-                  </span>
+                  <span className="text-lg text-gray-400">(passing percentage)</span>
                 </h1>
                 <div>
-                  To show the courses that pass the program outcome, the passing
-                  percentage of the course should be more than 50%.{' '}
+                  To show the courses that pass the program outcome, the passing percentage of the course should be more
+                  than 50%.{' '}
                 </div>
               </div>
               <div className="grid grid-cols-3 gap-5">
                 {coursePo
                   .find((course) => course.programOutcomeId === selectedPo.id)
                   ?.courses.map((course) => (
-                    <div
-                      key={course.id}
-                      className="rounded-lg border-2 border-white p-5 hover:bg-secondary"
-                    >
+                    <div key={course.id} className="rounded-lg border-2 border-white p-5 hover:bg-secondary">
                       <div className="flex justify-between">
                         <div className="text-lg font-bold">
-                          {course.code
-                            ? course.code + ' - ' + course.name
-                            : 'No course available'}
+                          {course.code ? course.code + ' - ' + course.name : 'No course available'}
                         </div>
-                        <Badge
-                          variant={
-                            course.passingPercentage > 50
-                              ? 'green'
-                              : 'destructive'
-                          }
-                        >
+                        <Badge variant={course.passingPercentage > 50 ? 'green' : 'destructive'}>
                           {course.passingPercentage}%
                         </Badge>
                       </div>
-                      <div className="">
-                        {course.year
-                          ? course.semesterSequence + '/' + course.year
-                          : ''}
-                      </div>
+                      <div className="">{course.year ? course.semesterSequence + '/' + course.year : ''}</div>
                     </div>
                   ))}
               </div>
@@ -240,11 +193,7 @@ const TABEE = () => {
         open={isPloImportOpen}
         isOnOpenChange={setIsPloImportOpen}
       />
-      <TabeeImportDialog
-        onSubmit={onSubmitPoImport}
-        open={isTabeeImportOpen}
-        isOnOpenChange={setIsTabeeImportOpen}
-      />
+      <TabeeImportDialog onSubmit={onSubmitPoImport} open={isTabeeImportOpen} isOnOpenChange={setIsTabeeImportOpen} />
     </div>
   );
 };

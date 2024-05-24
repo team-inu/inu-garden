@@ -20,15 +20,9 @@ export type PoColumn = z.infer<typeof PoSchema>;
 // form
 
 export const CreatePoFormSchema = z.object({
-  code: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  name: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  description: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  code: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  name: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  description: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
 export const CreateManyPoSchema = z.object({
@@ -68,3 +62,11 @@ export const GetCourseWithPo = z.object({
 });
 
 export type GetCourseWithPo = z.infer<typeof GetCourseWithPo>;
+
+export const PoReportFilterSchema = z.object({
+  passingCriteria: z.coerce.number(),
+  fromYear: z.coerce.number(),
+  toYear: z.coerce.number(),
+});
+
+export type PoReportFilter = z.infer<typeof PoReportFilterSchema>;
