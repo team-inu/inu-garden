@@ -28,19 +28,11 @@ export type PloColumn = Plo;
 // form
 
 export const CreatePloFormSchema = z.object({
-  code: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  descriptionThai: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  code: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  descriptionThai: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   descriptionEng: z.string(),
-  programYear: z.coerce
-    .number({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  programmeName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  programYear: z.coerce.number({ required_error: 'required' }).min(1, { message: 'required' }),
+  programmeName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
 export const CreateManyPloFormSchema = z.object({
@@ -77,3 +69,11 @@ export const CreatePloFormDefaultValues: CreatePloForm = {
 export const CreateManyPloFormDefaultValues: CreateManyPloForm = {
   plo: [],
 };
+
+export const PloReportFilterSchema = z.object({
+  passingCriteria: z.coerce.number(),
+  programYear: z.coerce.number(),
+  programme: z.string(),
+});
+
+export type PloReportFilter = z.infer<typeof PloReportFilterSchema>;
