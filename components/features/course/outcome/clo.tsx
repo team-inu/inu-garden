@@ -1,7 +1,7 @@
 'use client';
 
 import { useParams, usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import { columns } from '@/components/features/course/enrollment/enrollment-clo-column';
 import { EnrollmentDataTable } from '@/components/features/course/enrollment/enrollment-table';
@@ -25,10 +25,7 @@ const CourseLearningOutcome = () => {
     setSelectedRows({ id, code });
     router.push(`${pathName}/?cloId=${id}&tab=outcome`, { scroll: false });
     setTimeout(() => {
-      window.scrollTo({
-        top: document.body.scrollHeight - 750,
-        behavior: 'smooth',
-      });
+      subPloTableRef.current?.scrollIntoView({ behavior: 'smooth' });
     }, 500);
   };
 
@@ -37,6 +34,8 @@ const CourseLearningOutcome = () => {
   const { data: clos, isLoading } = useGetCloByCourseId(courseId);
   const { data: clo, isLoading: isCloLoading } = useGetCloById(selectedRows.id);
   const { data: passStudents } = useGetCloAndPassingCourseLearningOutcome(courseId);
+
+  const subPloTableRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -51,22 +50,9 @@ const CourseLearningOutcome = () => {
       <div>
         {selectedRows.id && (
           <div>
-            <h1 className="mb-5 text-2xl font-bold ">Students status of CLO:{selectedRows.code}</h1>
-            <EnrollmentDataTable
-              outcomeData={[]}
-              columns={columns}
-              data={
-                ((passStudents &&
-                  passStudents.find((data) => data.courseLearningOutcomeId === selectedRows.id)
-                    ?.students) as unknown as EnrollmentCloColumn[]) ?? []
-              }
-              isCreateEnabled={false}
-            />
-          </div>
-        )}
-        {selectedRows.id && (
-          <div>
-            <h1 className="mb-5 text-2xl font-bold ">Sub program learning outcome of CLO:{selectedRows.code}</h1>
+            <h1 className="mb-5 text-2xl font-bold " ref={subPloTableRef}>
+              Sub program learning outcome of CLO:{selectedRows.code}
+            </h1>
             {isCloLoading ? (
               <Loading />
             ) : (
@@ -79,6 +65,21 @@ const CourseLearningOutcome = () => {
                 />
               </>
             )}
+          </div>
+        )}
+        {selectedRows.id && (
+          <div>
+            <h1 className="mb-5 text-2xl font-bold ">Students status of CLO:{selectedRows.code}</h1>
+            <EnrollmentDataTable
+              outcomeData={[]}
+              columns={columns}
+              data={
+                ((passStudents &&
+                  passStudents.find((data) => data.courseLearningOutcomeId === selectedRows.id)
+                    ?.students) as unknown as EnrollmentCloColumn[]) ?? []
+              }
+              isCreateEnabled={false}
+            />
           </div>
         )}
       </div>
