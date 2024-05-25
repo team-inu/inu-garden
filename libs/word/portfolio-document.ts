@@ -1,13 +1,4 @@
-import {
-  HeadingLevel,
-  ImageRun,
-  Paragraph,
-  PatchDocumentOptions,
-  PatchType,
-  Table,
-  TextRun,
-  patchDocument,
-} from 'docx';
+import { ImageRun, Paragraph, PatchDocumentOptions, PatchType, Table, TextRun, patchDocument } from 'docx';
 
 import { GradeTable } from '@/libs/word/table/grade-table';
 import { OutcomeTable } from '@/libs/word/table/outcome-table';
@@ -51,7 +42,7 @@ export async function generatePortfolioDocument({ info, summary, result, develop
           (e, i) =>
             new Paragraph({
               text: `${i + 1}. ${e.name}`,
-              heading: HeadingLevel.TITLE,
+              // heading: HeadingLevel.TITLE,
               wordWrap: true,
               indent: { firstLine: 1125 },
             }),
@@ -67,7 +58,7 @@ export async function generatePortfolioDocument({ info, summary, result, develop
           (e, i) =>
             new Paragraph({
               text: `${i + 1}. ${e.name}`,
-              heading: HeadingLevel.TITLE,
+              // heading: HeadingLevel.TITLE,
               wordWrap: true,
               indent: { firstLine: 1125 },
             }),
