@@ -7,42 +7,15 @@ import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import { usePredictGrade } from '@/hooks/prediction-hook';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
-import {
-  useGetAdmissions,
-  useGetSchools,
-  useGetStudentById,
-} from '@/hooks/student-hook';
+import { useGetAdmissions, useGetSchools, useGetStudentById } from '@/hooks/student-hook';
 import { cn } from '@/libs/utils';
 import {
   PredictGradeForm,
@@ -53,23 +26,18 @@ import {
 const PredictionPage = () => {
   const [studentId, setStudentId] = useState<string>('');
   const [result, setResult] = useState<string>('');
+  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
   const { data: programmes } = useGetProgrammeList();
   const { data: schoolList } = useGetSchools();
   const { data: admissionList } = useGetAdmissions();
   const { data } = useGetStudentById(result);
 
-  const {
-    mutate: predictGrade,
-    data: gradeResult,
-    isSuccess,
-  } = usePredictGrade();
+  const { mutate: predictGrade, data: gradeResult, isSuccess } = usePredictGrade();
   const onSubmit = (value: PredictGradeForm) => {
+    setIsSubmitted(true);
     predictGrade(value);
   };
-  const form = useStrictForm(
-    PredictGradeFormSchema,
-    PredictGradeRequestDefaultValue,
-  );
+  const form = useStrictForm(PredictGradeFormSchema, PredictGradeRequestDefaultValue);
   const ref = useRef<FireworksHandlers>(null);
 
   const admissionsOptions = admissionList?.admissions?.map((admission) => ({
@@ -137,17 +105,14 @@ const PredictionPage = () => {
         <span className="text-primary"> grade</span> for student
       </motion.div>
       {/* description */}
-      <div className="text-lg font-bold text-input">
-        For each student, predict the score they will get .
-      </div>
+      <div className="text-lg font-bold text-input">For each student, predict the score they will get .</div>
       {/* <button onClick={() => toggle()}>Toggle</button> */}
       <div>
         <div className="space-y-2">
           <div>
             It old student?{' '}
             <span>
-              please enter <span className="text-primary">student ID</span> to
-              predict the grade for you.
+              please enter <span className="text-primary">student ID</span> to predict the grade for you.
             </span>
           </div>
           <div className="flex gap-3">
@@ -264,15 +229,10 @@ const PredictionPage = () => {
                       <Button
                         variant="outline"
                         role="combobox"
-                        className={cn(
-                          ' justify-between',
-                          !field.value && 'text-muted-foreground',
-                        )}
+                        className={cn(' justify-between', !field.value && 'text-muted-foreground')}
                       >
                         {field.value && schoolsOptions
-                          ? schoolsOptions.find(
-                              (student) => student.value === field.value,
-                            )?.label
+                          ? schoolsOptions.find((student) => student.value === field.value)?.label
                           : 'Select admission'}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -295,9 +255,7 @@ const PredictionPage = () => {
                               <Check
                                 className={cn(
                                   'mr-2 h-4 w-4',
-                                  school.value === field.value
-                                    ? 'opacity-100'
-                                    : 'opacity-0',
+                                  school.value === field.value ? 'opacity-100' : 'opacity-0',
                                 )}
                               />
                               {school.label}
@@ -324,15 +282,10 @@ const PredictionPage = () => {
                       <Button
                         variant="outline"
                         role="combobox"
-                        className={cn(
-                          ' justify-between',
-                          !field.value && 'text-muted-foreground',
-                        )}
+                        className={cn(' justify-between', !field.value && 'text-muted-foreground')}
                       >
                         {field.value && admissionsOptions
-                          ? admissionsOptions.find(
-                              (student) => student.value === field.value,
-                            )?.label
+                          ? admissionsOptions.find((student) => student.value === field.value)?.label
                           : 'Select admission'}
                         <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                       </Button>
@@ -355,9 +308,7 @@ const PredictionPage = () => {
                               <Check
                                 className={cn(
                                   'mr-2 h-4 w-4',
-                                  student.value === field.value
-                                    ? 'opacity-100'
-                                    : 'opacity-0',
+                                  student.value === field.value ? 'opacity-100' : 'opacity-0',
                                 )}
                               />
                               {student.label}
@@ -375,33 +326,29 @@ const PredictionPage = () => {
         </form>
       </Form>
       <div className="container w-full border-t-4 border-foreground/50 py-5"></div>
-      <div className="flex flex-col items-center gap-5">
-        <div className="flex flex-col items-center">
-          <div className="text-3xl font-bold">Result</div>
-          <div className="text-lg font-bold text-input">
-            The server will predict the grade for you, please wait a moment.
+      {isSubmitted && (
+        <div className="flex flex-col items-center gap-5">
+          <div className="flex flex-col items-center">
+            <div className="text-3xl font-bold">Result</div>
+            <div className="text-lg font-bold text-input">
+              The server will predict the grade for you, please wait a moment.
+            </div>
           </div>
-        </div>
 
-        {gradeResult ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ ease: 'anticipate', duration: 0.5 }}
-            className="text-3xl font-bold"
-          >
-            {gradeResult.predictedGPAX}
-          </motion.div>
-        ) : (
-          <Image
-            src="/images/inu_sleep.png"
-            width={250}
-            height={250}
-            alt="inu_sleep"
-            className="animate-pulse"
-          />
-        )}
-      </div>
+          {gradeResult ? (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ ease: 'anticipate', duration: 0.5 }}
+              className="text-3xl font-bold"
+            >
+              {gradeResult.predictedGPAX}
+            </motion.div>
+          ) : (
+            <Image src="/images/inu_sleep.png" width={250} height={250} alt="inu_sleep" className="animate-pulse" />
+          )}
+        </div>
+      )}
     </div>
   );
 };
