@@ -34,7 +34,7 @@ const CoursePortfolioPage = () => {
 
   const { data, isLoading } = useGetCoursePortfolio(courseId);
   const { mutate } = useUpdateCoursePortfolio();
-  console.log(data);
+
   //convert data array of string to realData array of object
   let realData: CreateCoursePortfolioFillableSchema = CreateCoursePortfolioFillableDefaultValues;
 
@@ -187,7 +187,7 @@ const CoursePortfolioPage = () => {
             <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">1. รายละเอียด</div>
               <Information label="ภาควิชา" value="วิศวกรรมคอมพิวเตอร์" />
-              <Information label="หลักสูตร" value="ปกติ" />
+              <Information label="หลักสูตร" value={data?.info.programme == 'regular' ? 'ปกติ' : 'นานาชาติ'} />
               <div className="w-4/5 space-y-2">
                 <div className="grid grid-cols-3">
                   <Information label="รหัสวิชา" value={data?.info.courseCode ?? '-'} />
