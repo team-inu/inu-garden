@@ -9,11 +9,7 @@ type AssessmentSectionProps = {
   form: UseFormReturn<any>;
 };
 
-const AssessmentSection: React.FC<AssessmentSectionProps> = ({
-  resultIndex,
-  cloIndex,
-  form,
-}) => {
+const AssessmentSection: React.FC<AssessmentSectionProps> = ({ resultIndex, cloIndex, form }) => {
   const { control } = form;
   const { fields, append, remove } = useFieldArray({
     control,

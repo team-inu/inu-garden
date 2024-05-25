@@ -24,14 +24,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
@@ -48,15 +41,8 @@ type UserImportDialogProps = {
   isOnOpenChange: (open: boolean) => void;
 };
 
-const UserImportDialog: React.FC<UserImportDialogProps> = ({
-  onSubmit,
-  open,
-  isOnOpenChange,
-}) => {
-  const form = useStrictForm(
-    CreateManyUserFormSchema,
-    CreateManyUserFormDefaultValues,
-  );
+const UserImportDialog: React.FC<UserImportDialogProps> = ({ onSubmit, open, isOnOpenChange }) => {
+  const form = useStrictForm(CreateManyUserFormSchema, CreateManyUserFormDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -115,21 +101,10 @@ const UserImportDialog: React.FC<UserImportDialogProps> = ({
       >
         <DialogHeader>
           <DialogTitle>Import User</DialogTitle>
-          <DialogDescription>
-            Import user from a file. The file should be in .csv format.
-          </DialogDescription>
+          <DialogDescription>Import user from a file. The file should be in .csv format.</DialogDescription>
         </DialogHeader>
-        <Input
-          type="file"
-          className="hidden"
-          ref={fileImportRef}
-          onChange={handleUploadUser}
-        />
-        <Button
-          className="w-full"
-          variant="outline"
-          onClick={() => fileImportRef.current?.click()}
-        >
+        <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUploadUser} />
+        <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
           <ImportIcon className="mr-2 h-4 w-4" />
           Import
         </Button>

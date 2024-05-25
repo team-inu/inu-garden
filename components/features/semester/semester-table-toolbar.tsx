@@ -79,11 +79,7 @@ export function SemesterTableToolbar<TData>({
           })}
 
         {hasOption && isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
@@ -91,12 +87,7 @@ export function SemesterTableToolbar<TData>({
       </div>
       <div className="flex space-x-2">
         <div className="flex space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            className="ml-auto hidden h-8 lg:flex"
-            onClick={() => setIsOpen(true)}
-          >
+          <Button variant="outline" size="sm" className="ml-auto hidden h-8 lg:flex" onClick={() => setIsOpen(true)}>
             <PlusCircledIcon className="mr-2 h-4 w-4" />
             Add Semester
           </Button>

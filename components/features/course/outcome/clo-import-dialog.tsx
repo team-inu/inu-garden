@@ -29,11 +29,7 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import {
-  CreateManyCloForm,
-  CreateManyCloFormDefaultValues,
-  CreateManyCloFormSchema,
-} from '@/types/schema/clo-shema';
+import { CreateManyCloForm, CreateManyCloFormDefaultValues, CreateManyCloFormSchema } from '@/types/schema/clo-shema';
 
 type CloImportDialogProps = {
   onSubmit: (values: CreateManyCloForm) => void;
@@ -41,15 +37,8 @@ type CloImportDialogProps = {
   isOnOpenChange: (open: boolean) => void;
 };
 
-const CloImportDialog: React.FC<CloImportDialogProps> = ({
-  onSubmit,
-  open,
-  isOnOpenChange,
-}) => {
-  const form = useStrictForm(
-    CreateManyCloFormSchema,
-    CreateManyCloFormDefaultValues,
-  );
+const CloImportDialog: React.FC<CloImportDialogProps> = ({ onSubmit, open, isOnOpenChange }) => {
+  const form = useStrictForm(CreateManyCloFormSchema, CreateManyCloFormDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -92,8 +81,7 @@ const CloImportDialog: React.FC<CloImportDialogProps> = ({
           code: e._code,
           weight: e.weight,
           description: e.description,
-          expectedPassingAssignmentPercentage:
-            e.expectedPassingAssignmentPercentage,
+          expectedPassingAssignmentPercentage: e.expectedPassingAssignmentPercentage,
           expectedScorePercentage: e.expectedScorePercentage,
           expectedPassingStudentPercentage: e.expectedPassingStudentPercentage,
           courseId: e.courseId,
@@ -115,21 +103,10 @@ const CloImportDialog: React.FC<CloImportDialogProps> = ({
       >
         <DialogHeader>
           <DialogTitle>Import Course Learning Outcome (CLO)</DialogTitle>
-          <DialogDescription>
-            Import CLOs from a file. The file should be in .csv format.
-          </DialogDescription>
+          <DialogDescription>Import CLOs from a file. The file should be in .csv format.</DialogDescription>
         </DialogHeader>
-        <Input
-          type="file"
-          className="hidden"
-          ref={fileImportRef}
-          onChange={handleUploadClo}
-        />
-        <Button
-          className="w-full"
-          variant="outline"
-          onClick={() => fileImportRef.current?.click()}
-        >
+        <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUploadClo} />
+        <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
           <ImportIcon className="mr-2 h-4 w-4" />
           Import
         </Button>
@@ -145,11 +122,7 @@ const CloImportDialog: React.FC<CloImportDialogProps> = ({
                 {fields.map((item, index) => {
                   return (
                     <CarouselItem key={index}>
-                      <CourseFormLink
-                        index={index}
-                        remove={remove}
-                        courseFormLinkLength={fields.length}
-                      />
+                      <CourseFormLink index={index} remove={remove} courseFormLinkLength={fields.length} />
                     </CarouselItem>
                   );
                 })}

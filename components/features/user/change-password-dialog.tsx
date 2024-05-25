@@ -1,21 +1,8 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { PassowrdInput } from '@/components/ui/password-input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
@@ -28,13 +15,8 @@ type ChangePasswordDialogProps = {
   onSubmit: (values: ChangePasswordForm) => void;
 };
 
-const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({
-  onSubmit,
-}) => {
-  const form = useStrictForm(
-    ChangePasswordFormSchema,
-    ChangePasswordFormDefaultValues,
-  );
+const ChangePasswordDialog: React.FC<ChangePasswordDialogProps> = ({ onSubmit }) => {
+  const form = useStrictForm(ChangePasswordFormSchema, ChangePasswordFormDefaultValues);
   return (
     <div>
       <DialogContent>

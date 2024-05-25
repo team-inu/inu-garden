@@ -1,36 +1,14 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useCreateGrade } from '@/hooks/grade-hook';
 import { useGetSemesterList } from '@/hooks/semester-hook';
-import {
-  CreateGradeSchema,
-  CreateGradeType,
-} from '@/types/schema/grade-schema';
+import { CreateGradeSchema, CreateGradeType } from '@/types/schema/grade-schema';
 
 type StudentGradeFormProps = {
   studentId: string;
@@ -97,10 +75,7 @@ const StudentGradeForm: React.FC<StudentGradeFormProps> = ({ studentId }) => {
                   </FormControl>
                   <SelectContent>
                     {semesters?.map((semester) => (
-                      <SelectItem
-                        key={semester.id}
-                        value={semester.semesterSequence + '.' + semester.year}
-                      >
+                      <SelectItem key={semester.id} value={semester.semesterSequence + '.' + semester.year}>
                         {semester.semesterSequence}/{semester.year}
                       </SelectItem>
                     ))}

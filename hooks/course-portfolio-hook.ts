@@ -13,27 +13,20 @@ export const useGetCoursePortfolio = (courseId: string) =>
 export const useGetCloAndPassingCourseLearningOutcome = (courseId: string) =>
   useQuery({
     queryKey: ['clo-and-passing-clo', 'clo', courseId],
-    queryFn: () =>
-      coursePortfolioService.getCloAndPassingCourseLearningOutcome(courseId),
+    queryFn: () => coursePortfolioService.getCloAndPassingCourseLearningOutcome(courseId),
   });
 
 export const useGetPloAndPoOutcomeEnrollment = (courseId: string) =>
   useQuery({
     queryKey: ['plo-and-po-outcome-enrollment', courseId],
-    queryFn: () =>
-      coursePortfolioService.getPloandPoOutcomeEnrollment(courseId),
+    queryFn: () => coursePortfolioService.getPloandPoOutcomeEnrollment(courseId),
   });
 
 export const useUpdateCoursePortfolio = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      courseId,
-      data,
-    }: {
-      courseId: string;
-      data: SaveCoursePortfolioForm;
-    }) => coursePortfolioService.editCoursePortfolio(data, courseId),
+    mutationFn: ({ courseId, data }: { courseId: string; data: SaveCoursePortfolioForm }) =>
+      coursePortfolioService.editCoursePortfolio(data, courseId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['course-portfolio'] });
       toast.success('Course portfolio has been updated');

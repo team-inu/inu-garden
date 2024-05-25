@@ -6,9 +6,7 @@ import {
 } from '@/types/schema/assignment-group-schema';
 
 class AssignmentGroupService extends ApiService {
-  public async createAssignmentGroup(
-    assignment: CreateAssignmentGroupForm,
-  ): Promise<CreateAssignmentGroupForm> {
+  public async createAssignmentGroup(assignment: CreateAssignmentGroupForm): Promise<CreateAssignmentGroupForm> {
     const url = '/assignment-groups';
 
     return this.post(url, assignment)
@@ -16,9 +14,7 @@ class AssignmentGroupService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateAssignmentGroup(
-    assignment: UpdateAssignmentGroupForm,
-  ): Promise<UpdateAssignmentGroupForm> {
+  public async updateAssignmentGroup(assignment: UpdateAssignmentGroupForm): Promise<UpdateAssignmentGroupForm> {
     const url = `/assignment-groups/${assignment.id}`;
 
     return this.patch(url, assignment)
@@ -26,15 +22,10 @@ class AssignmentGroupService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getAssignmentGroupsByCourseId(
-    courseId: string,
-  ): Promise<GetAssignmentGroupResponse[]> {
+  public async getAssignmentGroupsByCourseId(courseId: string): Promise<GetAssignmentGroupResponse[]> {
     const url = `/courses/${courseId}/assignment-groups`;
     return this.get(url)
-      .then(
-        (response) =>
-          response.data.data as unknown as GetAssignmentGroupResponse[],
-      )
+      .then((response) => response.data.data as unknown as GetAssignmentGroupResponse[])
       .catch(this.throwError);
   }
 

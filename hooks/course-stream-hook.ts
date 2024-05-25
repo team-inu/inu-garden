@@ -48,8 +48,7 @@ export const useCreateCourseStreamComment = () => {
 export const useDeleteCourseStreamComment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (courseId: string) =>
-      courseStreamService.deleteCourseStream(courseId),
+    mutationFn: (courseId: string) => courseStreamService.deleteCourseStream(courseId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['history-course-streams'],

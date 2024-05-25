@@ -2,11 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { ploService } from '@/services/plo-service';
-import {
-  CreateManyPloForm,
-  CreatePloForm,
-  UpdatePloForm,
-} from '@/types/schema/plo-schema';
+import { CreateManyPloForm, CreatePloForm, UpdatePloForm } from '@/types/schema/plo-schema';
 import { CreateManySubPloType } from '@/types/schema/sub-plo-schema';
 
 export const useGetPloList = () =>
@@ -42,10 +38,8 @@ export const useCreatePlo = () => {
 export const useCreateManyPlos = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (outcomes: {
-      plos: CreateManyPloForm;
-      splos: CreateManySubPloType;
-    }) => ploService.createManyPlos(outcomes.plos, outcomes.splos),
+    mutationFn: (outcomes: { plos: CreateManyPloForm; splos: CreateManySubPloType }) =>
+      ploService.createManyPlos(outcomes.plos, outcomes.splos),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plos'] });
       toast.success('PLOs have been created', {
@@ -63,8 +57,7 @@ export const useCreateManyPlos = () => {
 export const useUpdatePlo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ plo, id }: { plo: UpdatePloForm; id: string }) =>
-      ploService.updatePlo(plo, id),
+    mutationFn: ({ plo, id }: { plo: UpdatePloForm; id: string }) => ploService.updatePlo(plo, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['plos'] });
       toast.success('PLO has been updated');

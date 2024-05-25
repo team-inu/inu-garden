@@ -20,14 +20,7 @@ import * as React from 'react';
 import { CloTableToolbar } from '@/components/features/course/outcome/clo-table-toolbar';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 
 export const ploes: Option[] = [
   {
@@ -70,11 +63,8 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
   cloId,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -118,17 +108,8 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="font-bold text-primary"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                    <TableHead key={header.id} colSpan={header.colSpan} className="font-bold text-primary">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -149,21 +130,13 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
                   className="cursor-pointer"
                 >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
+                    <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                   ))}
                 </TableRow>
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -171,9 +144,7 @@ export function CourseLearningOutcomeDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {!disablePagination && (
-        <DataTablePagination table={table} isRowSelectionEnabled={false} />
-      )}
+      {!disablePagination && <DataTablePagination table={table} isRowSelectionEnabled={false} />}
     </div>
   );
 }

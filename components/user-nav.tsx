@@ -20,9 +20,7 @@ export function UserNav() {
           <Avatar className="h-8 w-8">
             {/* <AvatarImage src="/avatars/01.png" alt="@shadcn" /> */}
             <AvatarFallback>
-              {user.data &&
-                user.data?.firstName.charAt(0).toUpperCase() +
-                  user.data?.lastName.charAt(0).toUpperCase()}
+              {user.data && user.data?.firstName.charAt(0).toUpperCase() + user.data?.lastName.charAt(0).toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -33,9 +31,7 @@ export function UserNav() {
             <p className="text-sm font-medium leading-none">
               {user.data?.firstName} {user.data?.lastName}
             </p>
-            <p className="text-xs leading-none text-muted-foreground">
-              {user.data?.email}
-            </p>
+            <p className="text-xs leading-none text-muted-foreground">{user.data?.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

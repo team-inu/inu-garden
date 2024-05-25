@@ -14,8 +14,4 @@ const AdmissionPage = () => {
   );
 };
 
-export default withAuth(AdmissionPage, [
-  Role.HEAD_OF_CURRICULUM,
-  Role.MODERATOR,
-  Role.TABEE_MANAGER,
-]);
+export default withAuth(AdmissionPage, [Role.HEAD_OF_CURRICULUM, Role.MODERATOR, Role.TABEE_MANAGER]);

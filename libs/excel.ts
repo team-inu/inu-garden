@@ -22,9 +22,7 @@ export const tableToObject = (headers: string[], rows: Table) => {
 };
 
 // TODO: refactor
-export const worksheetToTables = async (
-  worksheet: XLSX.WorkSheet,
-): Promise<Table[]> => {
+export const worksheetToTables = async (worksheet: XLSX.WorkSheet): Promise<Table[]> => {
   // convert worksheet to 'value by column by row map', and 'positions of headers'
   const valueByColumnByRow: Map<string, Map<string, any>> = new Map();
 
@@ -55,9 +53,7 @@ export const worksheetToTables = async (
 
       headerPositions.push(headerPosition);
     } else {
-      const headerPosition = headerPositions[headerPositions.length - 1] as
-        | HeaderPosition
-        | undefined;
+      const headerPosition = headerPositions[headerPositions.length - 1] as HeaderPosition | undefined;
       if (!headerPosition) return;
 
       const prevCol = headerPosition.toColumn;
@@ -66,9 +62,7 @@ export const worksheetToTables = async (
       // TODO: handle AA AB ...
       const isSameAsPrevRow = Number(rowIndex) === Number(prevRow);
       const isNextToPrevColumn =
-        columnIndex.charCodeAt(columnIndex.length - 1) -
-          prevCol.charCodeAt(columnIndex.length - 1) ===
-        1;
+        columnIndex.charCodeAt(columnIndex.length - 1) - prevCol.charCodeAt(columnIndex.length - 1) === 1;
 
       if (isSameAsPrevRow && isNextToPrevColumn) {
         headerPosition.toColumn = columnIndex;
@@ -83,36 +77,21 @@ export const worksheetToTables = async (
   for (const { fromColumn, toColumn, fromRow } of headerPositions) {
     const table: Table = [];
 
-    const columnAmount =
-      toColumn.charCodeAt(toColumn.length - 1) -
-      fromColumn.charCodeAt(fromColumn.length - 1) +
-      1;
+    const columnAmount = toColumn.charCodeAt(toColumn.length - 1) - fromColumn.charCodeAt(fromColumn.length - 1) + 1;
 
-    rowLoop: for (
-      let currentRow = 0;
-      currentRow < MAX_EXCEL_ROWS;
-      currentRow++
-    ) {
+    rowLoop: for (let currentRow = 0; currentRow < MAX_EXCEL_ROWS; currentRow++) {
       const columnData = [];
-      for (
-        let currentColumn = 0;
-        currentColumn < columnAmount;
-        currentColumn++
-      ) {
+      for (let currentColumn = 0; currentColumn < columnAmount; currentColumn++) {
         const from = fromColumn.charCodeAt(fromColumn.length - 1);
         const columnPosition = String.fromCharCode(from + currentColumn);
-        const value = valueByColumnByRow
-          .get(String(Number(fromRow) + currentRow))
-          ?.get(columnPosition);
+        const value = valueByColumnByRow.get(String(Number(fromRow) + currentRow))?.get(columnPosition);
 
         columnData.push(value);
       }
 
       const isOutOfTable = columnData.every((e) => e === undefined);
       const isFirstHeaderOfOtherTable =
-        currentRow != 0 &&
-        typeof columnData[0] === 'string' &&
-        columnData[0].startsWith('_');
+        currentRow != 0 && typeof columnData[0] === 'string' && columnData[0].startsWith('_');
       if (isOutOfTable || isFirstHeaderOfOtherTable) {
         break rowLoop;
       }

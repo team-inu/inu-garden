@@ -35,14 +35,7 @@ const Overview: React.FC<OverviewProps> = ({ data }) => {
   return (
     <ResponsiveContainer width="100%" height={350}>
       <BarChart data={shownData}>
-        <XAxis
-          dataKey="score"
-          scale="band"
-          stroke="#888888"
-          fontSize={5}
-          tickLine={false}
-          axisLine={false}
-        />
+        <XAxis dataKey="score" scale="band" stroke="#888888" fontSize={5} tickLine={false} axisLine={false} />
         <XAxis dataKey="score" hide />
         <YAxis
           stroke="#888888"

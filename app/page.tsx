@@ -32,10 +32,7 @@ export default function Home() {
   const emojiComponent = useMemo(() => {
     if (!isInView) {
       return (
-        <div
-          className="animate-bounce select-none text-xl"
-          onClick={() => setIsInView(!isInView)}
-        >
+        <div className="animate-bounce select-none text-xl" onClick={() => setIsInView(!isInView)}>
           <motion.div
             whileTap={{ scale: 3 }}
             whileHover={{
@@ -46,13 +43,7 @@ export default function Home() {
             initial={{ opacity: 0, scale: 0, rotate: 0 }}
             animate={{ opacity: 1, scale: 1, rotate: 360 }}
           >
-            <div className="text-2xl">
-              {
-                emojiCharacters[
-                  Math.floor(Math.random() * emojiCharacters.length)
-                ]
-              }
-            </div>
+            <div className="text-2xl">{emojiCharacters[Math.floor(Math.random() * emojiCharacters.length)]}</div>
           </motion.div>
         </div>
       );
@@ -91,18 +82,8 @@ export default function Home() {
   return (
     <div className="flex h-screen w-full items-center justify-center overflow-hidden bg-black">
       <div className="flex flex-row items-center space-x-5">
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ rotate: 360, scale: 1 }}
-          whileTap={{ scale: 0.5 }}
-        >
-          <Image
-            priority
-            src="/images/inu.png"
-            alt="shiba"
-            width={80}
-            height={80}
-          />
+        <motion.div initial={{ scale: 0 }} animate={{ rotate: 360, scale: 1 }} whileTap={{ scale: 0.5 }}>
+          <Image priority src="/images/inu.png" alt="shiba" width={80} height={80} />
         </motion.div>
         <div className="flex flex-col items-start">
           <div className="flex flex-row">
@@ -111,9 +92,7 @@ export default function Home() {
             </div>
             {emojiComponent}
           </div>
-          <div className="animate-pulse select-none text-zinc-400">
-            のホームページです。
-          </div>
+          <div className="animate-pulse select-none text-zinc-400">のホームページです。</div>
         </div>
       </div>
     </div>

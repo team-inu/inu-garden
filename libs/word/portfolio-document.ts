@@ -25,12 +25,7 @@ const base64ToImageBuffer = (base64: string) => {
   return bytes.buffer;
 };
 
-export async function generatePortfolioDocument({
-  info,
-  summary,
-  result,
-  development,
-}: CreateCoursePortfolioForm) {
+export async function generatePortfolioDocument({ info, summary, result, development }: CreateCoursePortfolioForm) {
   const mockImageBuffer = base64ToImageBuffer(result.gradeDistributionImage);
 
   const template = await fetch('/template.docx');
@@ -145,9 +140,7 @@ export async function generatePortfolioDocument({
         type: PatchType.DOCUMENT,
         children: [
           new Table({
-            rows: new OutcomeTable(
-              result.gradeDistribution.studentAmount,
-            ).generate(result.tabeeOutcomes),
+            rows: new OutcomeTable(result.gradeDistribution.studentAmount).generate(result.tabeeOutcomes),
             alignment: 'center',
           }),
         ],

@@ -34,9 +34,7 @@ export const columns: ColumnDef<SemesterColumn>[] = [
 
   {
     accessorKey: 'year',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Year" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Year" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
@@ -47,15 +45,11 @@ export const columns: ColumnDef<SemesterColumn>[] = [
   },
   {
     accessorKey: 'semesterSequence',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Semester" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Semester" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('semesterSequence')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('semesterSequence')}</span>
         </div>
       );
     },

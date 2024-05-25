@@ -1,21 +1,8 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
@@ -30,24 +17,15 @@ type SemesterDialogProps = {
   isEdit?: boolean;
 };
 
-const SemesterDialog: React.FC<SemesterDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreateSemesterFormSchema,
-    defaultValues ?? CreateSemesterFormDefaultValues,
-  );
+const SemesterDialog: React.FC<SemesterDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreateSemesterFormSchema, defaultValues ?? CreateSemesterFormDefaultValues);
   return (
     <div>
       <DialogContent className="min-w-max">
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit Semester' : 'Add Semester'}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the semester information'
-              : 'Fill in the form to add a new semester'}
+            {isEdit ? 'Edit the semester information' : 'Fill in the form to add a new semester'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

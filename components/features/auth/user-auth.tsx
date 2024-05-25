@@ -3,24 +3,13 @@
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PassowrdInput } from '@/components/ui/password-input';
 import { useAuth } from '@/hooks/auth-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { cn } from '@/libs/utils';
-import {
-  SigninDefaultValues,
-  SigninSchema,
-  SigninType,
-} from '@/types/schema/auth';
+import { SigninDefaultValues, SigninSchema, SigninType } from '@/types/schema/auth';
 
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -35,17 +24,10 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
   return (
     <div className={cn('grid gap-6', className)} {...props}>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 rounded-lg border px-8 py-12 shadow-md"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 rounded-lg border px-8 py-12 shadow-md">
           <div>
-            <h1 className="text-3xl font-semibold tracking-tight">
-              Welcome back
-            </h1>
-            <p className="text-secondary-foreground">
-              Sign in to your account to continue
-            </p>
+            <h1 className="text-3xl font-semibold tracking-tight">Welcome back</h1>
+            <p className="text-secondary-foreground">Sign in to your account to continue</p>
           </div>
 
           <FormField
@@ -55,12 +37,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
               <FormItem>
                 <FormLabel>Email</FormLabel>
                 <FormControl>
-                  <Input
-                    placeholder=""
-                    autoComplete="username"
-                    className="h-9"
-                    {...field}
-                  />
+                  <Input placeholder="" autoComplete="username" className="h-9" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

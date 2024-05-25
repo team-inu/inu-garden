@@ -25,9 +25,7 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function SubPloUnlinkClo<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function SubPloUnlinkClo<TData>({ row }: DataTableRowActionsProps<TData>) {
   const subPlo = SubPLOSchema.parse(row.original);
   const [open, setOpen] = useState(false);
 
@@ -57,9 +55,7 @@ export function SubPloUnlinkClo<TData>({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
+            <DialogDescription>{` You can't undo this action. This will permanently delete the.`}</DialogDescription>
           </DialogHeader>
 
           <DialogFooter>

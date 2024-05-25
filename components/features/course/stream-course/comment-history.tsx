@@ -1,16 +1,12 @@
 import { useParams } from 'next/navigation';
 
 import CommentCardHistory from '@/components/features/course/stream-course/comment-card-history';
-import {
-  useDeleteCourseStreamComment,
-  useGetHistoryCourseStreamByCourseId,
-} from '@/hooks/course-stream-hook';
+import { useDeleteCourseStreamComment, useGetHistoryCourseStreamByCourseId } from '@/hooks/course-stream-hook';
 
 const CommentHistory = () => {
   const { id: courseId } = useParams<{ id: string }>();
 
-  const { data: historyCourseStreams } =
-    useGetHistoryCourseStreamByCourseId(courseId);
+  const { data: historyCourseStreams } = useGetHistoryCourseStreamByCourseId(courseId);
 
   const { mutate: deleteCourseStream } = useDeleteCourseStreamComment();
 
@@ -36,9 +32,7 @@ const CommentHistory = () => {
               );
             })
           ) : (
-            <div className="text-center text-lg font-semibold">
-              No comments yet
-            </div>
+            <div className="text-center text-lg font-semibold">No comments yet</div>
           )}
         </div>
       </div>

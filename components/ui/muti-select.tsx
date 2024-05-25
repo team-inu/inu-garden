@@ -6,13 +6,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 
 import { Badge } from '@/components/ui/badge';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandItem,
-  CommandList,
-} from '@/components/ui/command';
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList } from '@/components/ui/command';
 import { cn } from '@/libs/utils';
 
 export interface Option {
@@ -121,17 +115,12 @@ function removePickedOption(groupOption: GroupOption, picked: Option[]) {
   const cloneOption = JSON.parse(JSON.stringify(groupOption)) as GroupOption;
 
   for (const [key, value] of Object.entries(cloneOption)) {
-    cloneOption[key] = value.filter(
-      (val) => !picked.find((p) => p.value === val.value),
-    );
+    cloneOption[key] = value.filter((val) => !picked.find((p) => p.value === val.value));
   }
   return cloneOption;
 }
 
-const MultipleSelector = React.forwardRef<
-  MultipleSelectorRef,
-  MultipleSelectorProps
->(
+const MultipleSelector = React.forwardRef<MultipleSelectorRef, MultipleSelectorProps>(
   (
     {
       value,
@@ -163,9 +152,7 @@ const MultipleSelector = React.forwardRef<
     const [isLoading, setIsLoading] = React.useState(false);
 
     const [selected, setSelected] = React.useState<Option[]>(value || []);
-    const [options, setOptions] = React.useState<GroupOption>(
-      transToGroupOption(arrayDefaultOptions, groupBy),
-    );
+    const [options, setOptions] = React.useState<GroupOption>(transToGroupOption(arrayDefaultOptions, groupBy));
     const [inputValue, setInputValue] = React.useState('');
     const debouncedSearchTerm = useDebounce(inputValue, delay || 500);
 
@@ -297,10 +284,7 @@ const MultipleSelector = React.forwardRef<
       return <CommandEmpty>{emptyIndicator}</CommandEmpty>;
     }, [creatable, emptyIndicator, onSearch, options]);
 
-    const selectables = React.useMemo<GroupOption>(
-      () => removePickedOption(options, selected),
-      [options, selected],
-    );
+    const selectables = React.useMemo<GroupOption>(() => removePickedOption(options, selected), [options, selected]);
 
     /** Avoid Creatable Selector freezing or lagging when paste a long string. */
     const commandFilter = React.useCallback(() => {
@@ -324,15 +308,8 @@ const MultipleSelector = React.forwardRef<
           handleKeyDown(e);
           commandProps?.onKeyDown?.(e);
         }}
-        className={cn(
-          'overflow-visible bg-transparent',
-          commandProps?.className,
-        )}
-        shouldFilter={
-          commandProps?.shouldFilter !== undefined
-            ? commandProps.shouldFilter
-            : !onSearch
-        } // When onSearch is provided, we don't want to filter the options. You can still override it.
+        className={cn('overflow-visible bg-transparent', commandProps?.className)}
+        shouldFilter={commandProps?.shouldFilter !== undefined ? commandProps.shouldFilter : !onSearch} // When onSearch is provided, we don't want to filter the options. You can still override it.
         filter={commandFilter()}
       >
         <div
@@ -395,11 +372,7 @@ const MultipleSelector = React.forwardRef<
                 triggerSearchOnFocus && onSearch?.(debouncedSearchTerm);
                 inputProps?.onFocus?.(event);
               }}
-              placeholder={
-                hidePlaceholderWhenSelected && selected.length !== 0
-                  ? ''
-                  : placeholder
-              }
+              placeholder={hidePlaceholderWhenSelected && selected.length !== 0 ? '' : placeholder}
               className={cn(
                 'ml-2 flex-1 bg-transparent outline-none placeholder:text-muted-foreground',
                 inputProps?.className,
@@ -416,15 +389,9 @@ const MultipleSelector = React.forwardRef<
                 <>
                   {EmptyItem()}
                   {CreatableItem()}
-                  {!selectFirstItem && (
-                    <CommandItem value="-" className="hidden" />
-                  )}
+                  {!selectFirstItem && <CommandItem value="-" className="hidden" />}
                   {Object.entries(selectables).map(([key, dropdowns]) => (
-                    <CommandGroup
-                      key={key}
-                      heading={key}
-                      className="h-full overflow-auto"
-                    >
+                    <CommandGroup key={key} heading={key} className="h-full overflow-auto">
                       <>
                         {dropdowns.map((option) => {
                           return (
@@ -446,11 +413,7 @@ const MultipleSelector = React.forwardRef<
                                 setSelected(newOptions);
                                 onChange?.(newOptions);
                               }}
-                              className={cn(
-                                'cursor-pointer',
-                                option.disable &&
-                                  'cursor-default text-muted-foreground',
-                              )}
+                              className={cn('cursor-pointer', option.disable && 'cursor-default text-muted-foreground')}
                             >
                               {option.label}
                             </CommandItem>

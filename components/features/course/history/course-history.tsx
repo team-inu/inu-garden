@@ -63,12 +63,7 @@ const CourseHistory = () => {
           <div className="space-y-5">
             {coursesSelect &&
               coursesSelect.map((course) => (
-                <CourseHistoryCard
-                  key={course.id}
-                  courseData={course}
-                  isSee={course.isSee}
-                  handleIsSee={handleIsSee}
-                />
+                <CourseHistoryCard key={course.id} courseData={course} isSee={course.isSee} handleIsSee={handleIsSee} />
               ))}
           </div>
         </ScrollArea>

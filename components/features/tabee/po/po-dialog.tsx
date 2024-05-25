@@ -1,28 +1,11 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
-import {
-  CreatePoForm,
-  CreatePoFormDefaultValues,
-  CreatePoFormSchema,
-} from '@/types/schema/po-schema';
+import { CreatePoForm, CreatePoFormDefaultValues, CreatePoFormSchema } from '@/types/schema/po-schema';
 
 type PoDialogProps = {
   onSubmit: (values: CreatePoForm) => void;
@@ -30,23 +13,14 @@ type PoDialogProps = {
   isEdit?: boolean;
 };
 
-const PoDialog: React.FC<PoDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreatePoFormSchema,
-    defaultValues ?? CreatePoFormDefaultValues,
-  );
+const PoDialog: React.FC<PoDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreatePoFormSchema, defaultValues ?? CreatePoFormDefaultValues);
   return (
     <div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit PO' : 'Add PO'}</DialogTitle>
-          <DialogDescription>
-            {isEdit ? 'Edit the PO information' : 'Fill in the PO information'}
-          </DialogDescription>
+          <DialogDescription>{isEdit ? 'Edit the PO information' : 'Fill in the PO information'}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

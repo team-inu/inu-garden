@@ -35,9 +35,7 @@ export const columns: ColumnDef<UserColumn>[] = [
   // },
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" className="hidden" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Id" className="hidden" />,
     cell: ({ row }) => {
       return (
         <div className="hidden space-x-2">
@@ -49,39 +47,29 @@ export const columns: ColumnDef<UserColumn>[] = [
 
   {
     accessorKey: 'firstName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="First Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="First Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('firstName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('firstName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'lastName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Last Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('lastName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('lastName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'email',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Email" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Email" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
@@ -95,9 +83,7 @@ export const columns: ColumnDef<UserColumn>[] = [
   },
   {
     accessorKey: 'role',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Role" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Role" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
@@ -111,9 +97,7 @@ export const columns: ColumnDef<UserColumn>[] = [
   },
   {
     accessorKey: 'course',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Courses" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Courses" />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">

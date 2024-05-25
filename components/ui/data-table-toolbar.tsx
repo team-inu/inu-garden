@@ -1,10 +1,6 @@
 'use client';
 
-import {
-  Cross2Icon,
-  MixerHorizontalIcon,
-  PlusCircledIcon,
-} from '@radix-ui/react-icons';
+import { Cross2Icon, MixerHorizontalIcon, PlusCircledIcon } from '@radix-ui/react-icons';
 import { Table, useReactTable } from '@tanstack/react-table';
 import { ImportIcon } from 'lucide-react';
 import { ChangeEvent, useRef, useState } from 'react';
@@ -76,11 +72,7 @@ export function DataTableToolbar<TData>({
           })}
 
         {hasOption && isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
@@ -89,21 +81,12 @@ export function DataTableToolbar<TData>({
       <div className="flex space-x-2">
         {isCreateEnabled && (
           <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="ml-auto hidden h-8 lg:flex"
-            >
+            <Button variant="outline" size="sm" className="ml-auto hidden h-8 lg:flex">
               <PlusCircledIcon className="mr-2 h-4 w-4" />
               Add
             </Button>
 
-            <Input
-              type="file"
-              className="hidden"
-              ref={fileImportRef}
-              onChange={handleImport}
-            />
+            <Input type="file" className="hidden" ref={fileImportRef} onChange={handleImport} />
             <Button
               className="ml-auto hidden h-8 lg:flex"
               variant="outline"

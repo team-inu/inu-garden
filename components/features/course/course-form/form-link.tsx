@@ -3,13 +3,7 @@
 import { XIcon } from 'lucide-react';
 import { UseFieldArrayRemove } from 'react-hook-form';
 
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/libs/utils';
@@ -20,11 +14,7 @@ type CourseFormLinkProps = {
   courseFormLinkLength: number;
 };
 
-const CourseFormLink: React.FC<CourseFormLinkProps> = ({
-  index,
-  remove,
-  courseFormLinkLength,
-}) => {
+const CourseFormLink: React.FC<CourseFormLinkProps> = ({ index, remove, courseFormLinkLength }) => {
   const disableRemove = courseFormLinkLength === 1;
   return (
     <div className="relative  space-y-2 border p-5 pb-7">

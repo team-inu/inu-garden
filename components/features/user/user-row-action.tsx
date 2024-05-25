@@ -30,16 +30,13 @@ interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function UserRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function UserRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const user = UserColumnSchema.omit({
     collapsibleContent: true,
   }).parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] =
-    useState(false);
+  const [isChangePasswordDialogOpen, setIsChangePasswordDialogOpen] = useState(false);
 
   const { mutate: updateUser, isError: isUpdateError } = useUpdateUser();
   const { mutate: deleteUser, isError: isDeleteError } = useDeleteUser();
@@ -60,9 +57,7 @@ export function UserRowActions<TData>({
 
   return (
     <Dialog
-      open={
-        isEditDialogOpen || isDeleteDialogOpen || isChangePasswordDialogOpen
-      }
+      open={isEditDialogOpen || isDeleteDialogOpen || isChangePasswordDialogOpen}
       onOpenChange={(isOpen) => {
         if (!isOpen) {
           setIsEditDialogOpen(false);
@@ -73,29 +68,18 @@ export function UserRowActions<TData>({
     >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-          >
+          <Button variant="ghost" className="flex h-8 w-8 p-0 data-[state=open]:bg-muted">
             <DotsHorizontalIcon className="h-4 w-4" />
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsChangePasswordDialogOpen(true)}>
-            Change password
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsChangePasswordDialogOpen(true)}>Change password</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
-      {isChangePasswordDialogOpen && (
-        <ChangePasswordDialog onSubmit={() => {}} />
-      )}
+      {isChangePasswordDialogOpen && <ChangePasswordDialog onSubmit={() => {}} />}
       {isEditDialogOpen && (
         <UserEditDialog
           onSubmit={onSubmit}
@@ -113,9 +97,7 @@ export function UserRowActions<TData>({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {`You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
+            <DialogDescription>{`You can't undo this action. This will permanently delete the.`}</DialogDescription>
           </DialogHeader>
 
           <DialogFooter>

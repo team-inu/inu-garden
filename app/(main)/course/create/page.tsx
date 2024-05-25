@@ -18,10 +18,7 @@ import {
 
 const CreateCoursePage = () => {
   const rounter = useRouter();
-  const form = useStrictForm(
-    CreateCourseSchema,
-    CreateCourseSchemaDefaultValues,
-  );
+  const form = useStrictForm(CreateCourseSchema, CreateCourseSchemaDefaultValues);
   const { mutate, isSuccess } = useCreateCourse();
 
   useEffect(() => {

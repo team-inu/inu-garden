@@ -48,8 +48,7 @@ export function UserTableToolbar<TData>({
   const [searchValue, setSearchValue] = useState<string>('');
   const isFiltered = table.getState().columnFilters.length > 0;
   const { mutate: createUser, isError: isCreateUserError } = useCreateUser();
-  const { mutate: createManyUsers, isError: isCreateManyUserError } =
-    useCreateManyUsers();
+  const { mutate: createManyUsers, isError: isCreateManyUserError } = useCreateManyUsers();
 
   const onSubmitAddUser = (value: CreateUserForm) => {
     createUser(value);
@@ -93,11 +92,7 @@ export function UserTableToolbar<TData>({
           })}
 
         {hasOption && isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
@@ -129,21 +124,13 @@ export function UserTableToolbar<TData>({
               <ImportIcon className="mr-2 h-4 w-4" />
               Import
             </Button>
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="ml-auto hidden h-8 lg:flex" variant="outline" size="sm">
               <a className="flex items-center" href="/template/user.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Template
               </a>
             </Button>
-            <UserImportDialog
-              open={isImportOpen}
-              isOnOpenChange={setIsImportOpen}
-              onSubmit={onSubmitImport}
-            />
+            <UserImportDialog open={isImportOpen} isOnOpenChange={setIsImportOpen} onSubmit={onSubmitImport} />
           </div>
         )}
         {isViewOptions && <DataTableViewOptions table={table} />}

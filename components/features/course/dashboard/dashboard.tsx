@@ -3,13 +3,7 @@ import { FolderIcon, UserIcon } from 'lucide-react';
 import GradeDistribution from '@/components/bad-student';
 import Overview from '@/components/overview';
 import { Badge } from '@/components/ui/badge';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { GetCourseList } from '@/types/schema/course-schema';
 
 type DashboardProps = {
@@ -47,16 +41,13 @@ export default function Dashboard({
           <CardContent>
             {/* Latest Assigment */}
             <div className="flex items-center  font-bold">
-              {courseData?.user.firstName ?? ''}{' '}
-              {courseData?.user.lastName ?? ''}
+              {courseData?.user.firstName ?? ''} {courseData?.user.lastName ?? ''}
             </div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Enrolled Students
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Enrolled Students</CardTitle>
             <UserIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
@@ -69,21 +60,15 @@ export default function Dashboard({
             <FolderIcon className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-xl font-bold">
-              GPA: {grade.toFixed(2) ?? '-'}
-            </div>
+            <div className="text-xl font-bold">GPA: {grade.toFixed(2) ?? '-'}</div>
           </CardContent>
         </Card>
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">
-              Expected Passing CLO
-            </CardTitle>
+            <CardTitle className="text-sm font-medium">Expected Passing CLO</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="text-xl font-bold">
-              {courseData.expectedPassingCloPercentage ?? '-'}%
-            </div>
+            <div className="text-xl font-bold">{courseData.expectedPassingCloPercentage ?? '-'}%</div>
           </CardContent>
         </Card>
       </div>

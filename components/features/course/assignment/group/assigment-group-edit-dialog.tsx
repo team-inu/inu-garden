@@ -2,21 +2,8 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
@@ -30,24 +17,16 @@ type StudentEdotDialogProps = {
   defaultValues?: UpdateAssignmentGroupForm;
 };
 
-const AssignmentGroupEditDialog: React.FC<StudentEdotDialogProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
+const AssignmentGroupEditDialog: React.FC<StudentEdotDialogProps> = ({ onSubmit, defaultValues }) => {
   const { id: courseId } = useParams<{ id: string }>();
-  const form = useStrictForm(
-    UpdateAssignmentGroupFormSchema,
-    defaultValues ?? UpdateAssignmentGroupFormDefaultValues,
-  );
+  const form = useStrictForm(UpdateAssignmentGroupFormSchema, defaultValues ?? UpdateAssignmentGroupFormDefaultValues);
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Edit Assessment</DialogTitle>
-          <DialogDescription>
-            Fill in the assessment information
-          </DialogDescription>
+          <DialogDescription>Fill in the assessment information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">

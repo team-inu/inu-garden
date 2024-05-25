@@ -9,13 +9,7 @@ import * as XLSX from 'xlsx';
 
 import { Button } from '@/components/ui/button';
 import { CarouselApi } from '@/components/ui/carousel';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -29,10 +23,7 @@ import {
 } from '@/types/schema/grade-schema';
 
 const GradeImportDialog: React.FC = () => {
-  const form = useStrictForm(
-    PayloadCreateGradeSchema,
-    PayloadCreateGradeTypeDefaultValues,
-  );
+  const form = useStrictForm(PayloadCreateGradeSchema, PayloadCreateGradeTypeDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { fields, append, remove } = useFieldArray({
     control: form.control,
@@ -98,21 +89,10 @@ const GradeImportDialog: React.FC = () => {
     >
       <DialogHeader>
         <DialogTitle>Import Grade</DialogTitle>
-        <DialogDescription>
-          Import grade from a file. The file should be in .xlsx format.
-        </DialogDescription>
+        <DialogDescription>Import grade from a file. The file should be in .xlsx format.</DialogDescription>
       </DialogHeader>
-      <Input
-        type="file"
-        className="hidden"
-        ref={fileImportRef}
-        onChange={handleUploadUser}
-      />
-      <Button
-        className="w-full"
-        variant="outline"
-        onClick={() => fileImportRef.current?.click()}
-      >
+      <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUploadUser} />
+      <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
         <ImportIcon className="mr-2 h-4 w-4" />
         Import
       </Button>
@@ -130,11 +110,7 @@ const GradeImportDialog: React.FC = () => {
             <div>-----------------</div>
             <div>studentId | grade</div>
             <div>-----------------</div>
-            {form
-              .getValues(`studentGrade`)
-              ?.map((e, i) => (
-                <div key={i}>{`${e.studentId}  ${e.grade}`}</div>
-              ))}
+            {form.getValues(`studentGrade`)?.map((e, i) => <div key={i}>{`${e.studentId}  ${e.grade}`}</div>)}
           </ScrollArea>
         </form>
       </Form>

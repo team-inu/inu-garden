@@ -11,8 +11,7 @@ import { useGetEnrollmentsByCourseId } from '@/hooks/enrollment-hook';
 const Enrollment = () => {
   const { id: courseId } = useParams<{ id: string }>();
 
-  const { data: enrollments, isLoading } =
-    useGetEnrollmentsByCourseId(courseId);
+  const { data: enrollments, isLoading } = useGetEnrollmentsByCourseId(courseId);
   const { data: outcomeData } = useGetPloAndPoOutcomeEnrollment(courseId);
 
   return (

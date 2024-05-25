@@ -12,10 +12,7 @@ export const columns: ColumnDef<GraduationColumn>[] = [
     id: 'select',
     header: ({ table }) => (
       <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && 'indeterminate')
-        }
+        checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
@@ -34,59 +31,43 @@ export const columns: ColumnDef<GraduationColumn>[] = [
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Id" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Id" />,
     cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'studentId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Student Id" />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue('studentId')}</div>
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Student Id" />,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue('studentId')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'firstName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="First Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="First Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('firstName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('firstName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'lastName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Last Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('lastName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('lastName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'year',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Year" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Year" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
@@ -100,15 +81,11 @@ export const columns: ColumnDef<GraduationColumn>[] = [
   },
   {
     accessorKey: 'workPlace',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="WorkPlace" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="WorkPlace" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('workPlace')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('workPlace')}</span>
         </div>
       );
     },
@@ -118,15 +95,11 @@ export const columns: ColumnDef<GraduationColumn>[] = [
   },
   {
     accessorKey: 'remarks',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Remarks" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Remarks" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('remarks')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('remarks')}</span>
         </div>
       );
     },

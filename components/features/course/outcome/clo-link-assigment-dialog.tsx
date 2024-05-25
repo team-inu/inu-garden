@@ -2,20 +2,8 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import MultipleSelector from '@/components/ui/muti-select';
 import { useGetCloByCourseId } from '@/hooks/clo-hook';
 import { useStrictForm } from '@/hooks/form-hook';
@@ -31,16 +19,9 @@ type CloDialogProps = {
   cloId?: string[];
 };
 
-const CloLinkAssignmentDialog: React.FC<CloDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  cloId,
-}) => {
+const CloLinkAssignmentDialog: React.FC<CloDialogProps> = ({ onSubmit, defaultValues, cloId }) => {
   const { id: courseId } = useParams<{ id: string }>();
-  const form = useStrictForm(
-    CreateCloLinkAssignmentSchema,
-    defaultValues ?? CreateCloLinkAssignmentDefaultValues,
-  );
+  const form = useStrictForm(CreateCloLinkAssignmentSchema, defaultValues ?? CreateCloLinkAssignmentDefaultValues);
   const { data: closData } = useGetCloByCourseId(courseId);
 
   return (
@@ -48,9 +29,7 @@ const CloLinkAssignmentDialog: React.FC<CloDialogProps> = ({
       <DialogContent className="min-w-[50%]">
         <DialogHeader>
           <DialogTitle>Add Coures learning outcome</DialogTitle>
-          <DialogDescription>
-            Please select the course learning outcome you want to link with
-          </DialogDescription>
+          <DialogDescription>Please select the course learning outcome you want to link with</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

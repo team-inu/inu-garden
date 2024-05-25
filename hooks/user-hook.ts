@@ -2,11 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { userService } from '@/services/user-service';
-import {
-  CreateManyUserForm,
-  CreateUserForm,
-  EditUserForm,
-} from '@/types/schema/user-schema';
+import { CreateManyUserForm, CreateUserForm, EditUserForm } from '@/types/schema/user-schema';
 
 export const useGetUserList = () =>
   useQuery({
@@ -37,8 +33,7 @@ export const useCreateUser = () => {
 export const useCreateManyUsers = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (users: CreateManyUserForm) =>
-      userService.createManyUser(users),
+    mutationFn: (users: CreateManyUserForm) => userService.createManyUser(users),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lecturers'] });
       toast.success('Users have been created', {

@@ -1,20 +1,7 @@
 'use client';
 
-import {
-  CartesianGrid,
-  ResponsiveContainer,
-  Scatter,
-  ScatterChart,
-  XAxis,
-  YAxis,
-} from 'recharts';
-import {
-  maxSorted,
-  mean,
-  minSorted,
-  quantile,
-  standardDeviation,
-} from 'simple-statistics';
+import { CartesianGrid, ResponsiveContainer, Scatter, ScatterChart, XAxis, YAxis } from 'recharts';
+import { maxSorted, mean, minSorted, quantile, standardDeviation } from 'simple-statistics';
 
 import { GetScoreByAssignmentResponse } from '@/types/schema/score-schema';
 
@@ -57,20 +44,8 @@ const ScatterChartCustom: React.FC<ScatterProps> = ({ data }) => {
       <ResponsiveContainer width="100%" height={300}>
         <ScatterChart width={730} height={250}>
           <CartesianGrid strokeDasharray="3 3" />
-          <XAxis
-            dataKey="index"
-            type="number"
-            name="students"
-            domain={[0, count]}
-            ticks={xTicks}
-          />
-          <YAxis
-            dataKey="score"
-            type="number"
-            name="score"
-            domain={[0, maxScore]}
-            ticks={yTicks}
-          />
+          <XAxis dataKey="index" type="number" name="students" domain={[0, count]} ticks={xTicks} />
+          <YAxis dataKey="score" type="number" name="score" domain={[0, maxScore]} ticks={yTicks} />
           {/* <Tooltip cursor={{ strokeDasharray: '3 3' }} /> */}
           {/* <Legend /> */}
           <Scatter data={graphData} fill="#adfa1d" />

@@ -18,8 +18,7 @@ class AssignmentService extends ApiService {
       description: assignment.description,
       maxScore: assignment.maxScore,
       expectedScorePercentage: assignment.expectedScorePercentage,
-      expectedPassingStudentPercentage:
-        assignment.expectedPassingStudentPercentage,
+      expectedPassingStudentPercentage: assignment.expectedPassingStudentPercentage,
       courseLearningOutcomeIds: assignment.clo.map((clo) => clo.value),
       isIncludedInClo: assignment.isIncludedInClo,
       assignmentGroupId,
@@ -29,9 +28,7 @@ class AssignmentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateAssignment(
-    assignment: UpdateAssignmentForm,
-  ): Promise<UpdateAssignmentForm> {
+  public async updateAssignment(assignment: UpdateAssignmentForm): Promise<UpdateAssignmentForm> {
     const url = `/assignments/${assignment.id}`;
 
     return this.patch(url, assignment)
@@ -39,25 +36,17 @@ class AssignmentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getAssignmentsByCourseId(
-    courseId: string,
-  ): Promise<GetAssignmentResponse[]> {
+  public async getAssignmentsByCourseId(courseId: string): Promise<GetAssignmentResponse[]> {
     const url = `/courses/${courseId}/assignments`;
     return this.get(url)
-      .then(
-        (response) => response.data.data as unknown as GetAssignmentResponse[],
-      )
+      .then((response) => response.data.data as unknown as GetAssignmentResponse[])
       .catch(this.throwError);
   }
 
-  public async getAssignmentsByGroupId(
-    groupId: string,
-  ): Promise<GetAssignmentResponse[]> {
+  public async getAssignmentsByGroupId(groupId: string): Promise<GetAssignmentResponse[]> {
     const url = `/assignment-groups/${groupId}/assignments`;
     return this.get(url)
-      .then(
-        (response) => response.data.data as unknown as GetAssignmentResponse[],
-      )
+      .then((response) => response.data.data as unknown as GetAssignmentResponse[])
       .catch(this.throwError);
   }
 
@@ -66,21 +55,14 @@ class AssignmentService extends ApiService {
     return this.delete(url).catch(this.throwError);
   }
 
-  public async getAssignmentById(
-    assignmentId: string,
-  ): Promise<GetAssignmentByIdResponse> {
+  public async getAssignmentById(assignmentId: string): Promise<GetAssignmentByIdResponse> {
     const url = `/assignments/${assignmentId}`;
     return this.get(url)
-      .then(
-        (response) =>
-          response.data.data as unknown as GetAssignmentByIdResponse,
-      )
+      .then((response) => response.data.data as unknown as GetAssignmentByIdResponse)
       .catch(this.throwError);
   }
 
-  public async linkClo(
-    value: CreateAssigmentLinkCloPayload,
-  ): Promise<CreateAssigmentLinkCloPayload> {
+  public async linkClo(value: CreateAssigmentLinkCloPayload): Promise<CreateAssigmentLinkCloPayload> {
     const url = `/assignments/${value.assignmentId}/clos`;
     const result = {
       courseLearningOutcomeIds: value.courseLearningOutcomeIds,

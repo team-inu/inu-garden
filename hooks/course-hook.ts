@@ -4,16 +4,12 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { courseService } from '@/services/course-service';
-import {
-  CreateCourseSchemaValues,
-  UpdateCourseFormValues,
-} from '@/types/schema/course-schema';
+import { CreateCourseSchemaValues, UpdateCourseFormValues } from '@/types/schema/course-schema';
 
 export const useCreateCourse = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (course: CreateCourseSchemaValues) =>
-      courseService.createCourse(course),
+    mutationFn: (course: CreateCourseSchemaValues) => courseService.createCourse(course),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['courses'],
@@ -33,13 +29,8 @@ export const useCreateCourse = () => {
 export const useUpdateCourse = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      course,
-      courseId,
-    }: {
-      course: UpdateCourseFormValues;
-      courseId: string;
-    }) => courseService.updateCourse(course, courseId),
+    mutationFn: ({ course, courseId }: { course: UpdateCourseFormValues; courseId: string }) =>
+      courseService.updateCourse(course, courseId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['courses'],

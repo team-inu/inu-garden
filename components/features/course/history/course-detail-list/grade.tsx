@@ -59,10 +59,7 @@ const GradeHistory: React.FC<GradeHistoryProps> = ({
       <div className="rounded-lg  p-3">
         <div className="inline-grid w-full grid-cols-8 gap-3">
           {grade.map((g, i) => (
-            <div
-              key={i}
-              className=" inline-flex items-center space-x-2 border border-l-0"
-            >
+            <div key={i} className=" inline-flex items-center space-x-2 border border-l-0">
               <div className="w-12 rounded-l-lg  bg-primary p-3">{g.name}</div>
               <div className=" w-full items-end ">{g.value}</div>
             </div>

@@ -18,26 +18,20 @@ export const subPloStaticColumn: ColumnDef<SubPloColumn>[] = [
   // },
   {
     accessorKey: 'code',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Code" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Code" />,
     cell: ({ row }) => <div className="">{row.getValue('code')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'descriptionThai',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description Thai" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Description Thai" />,
     cell: ({ row }) => <div>{row.getValue('descriptionThai')}</div>,
     enableSorting: false,
   },
   {
     accessorKey: 'descriptionEng',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Description English" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Description English" />,
     cell: ({ row }) => <div>{row.getValue('descriptionEng')}</div>,
     enableSorting: false,
   },

@@ -11,7 +11,5 @@
     "source.organizeImports": "always"
   },
   "typescript.preferences.importModuleSpecifier": "non-relative",
-  "cSpell.words": [
-    "Tabee"
-  ]
+  "cSpell.words": ["Tabee"]
 }

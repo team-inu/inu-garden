@@ -1,29 +1,10 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
   EditEnrollmentDefaultValues,
@@ -36,14 +17,8 @@ type EnrollmentDialogProps = {
   defaultValues?: EditEnrollmentForm;
 };
 
-const EnrollmentEditDialog: React.FC<EnrollmentDialogProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
-  const form = useStrictForm(
-    EditEnrollmentFormSchema,
-    defaultValues ?? EditEnrollmentDefaultValues,
-  );
+const EnrollmentEditDialog: React.FC<EnrollmentDialogProps> = ({ onSubmit, defaultValues }) => {
+  const form = useStrictForm(EditEnrollmentFormSchema, defaultValues ?? EditEnrollmentDefaultValues);
 
   return (
     <div>

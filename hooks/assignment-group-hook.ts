@@ -2,23 +2,18 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { assignmentGroupService } from '@/services/assignment-groups-service';
-import {
-  CreateAssignmentGroupForm,
-  UpdateAssignmentGroupForm,
-} from '@/types/schema/assignment-group-schema';
+import { CreateAssignmentGroupForm, UpdateAssignmentGroupForm } from '@/types/schema/assignment-group-schema';
 
 export const useGetAssignmentGroupsByCourseId = (courseId: string) =>
   useQuery({
     queryKey: ['assignment-groups'],
-    queryFn: () =>
-      assignmentGroupService.getAssignmentGroupsByCourseId(courseId),
+    queryFn: () => assignmentGroupService.getAssignmentGroupsByCourseId(courseId),
   });
 
 export const useCreateAssignmentGroup = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignment: CreateAssignmentGroupForm) =>
-      assignmentGroupService.createAssignmentGroup(assignment),
+    mutationFn: (assignment: CreateAssignmentGroupForm) => assignmentGroupService.createAssignmentGroup(assignment),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignment-groups'],
@@ -38,8 +33,7 @@ export const useCreateAssignmentGroup = () => {
 export const useUpdateAssignmentGroup = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignment: UpdateAssignmentGroupForm) =>
-      assignmentGroupService.updateAssignmentGroup(assignment),
+    mutationFn: (assignment: UpdateAssignmentGroupForm) => assignmentGroupService.updateAssignmentGroup(assignment),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignment-groups'],
@@ -57,8 +51,7 @@ export const useUpdateAssignmentGroup = () => {
 export const useDeleteAssignmentGroup = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignmentId: string) =>
-      assignmentGroupService.deleteAssignmentGroup(assignmentId),
+    mutationFn: (assignmentId: string) => assignmentGroupService.deleteAssignmentGroup(assignmentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignment-groups'],

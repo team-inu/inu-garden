@@ -23,13 +23,9 @@ const mockCLO = [
 const columns: ColumnDef<CloColumn>[] = [
   {
     accessorKey: 'code',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="code" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="code" />,
     cell: ({ row }) => {
-      return (
-        <span className="truncate font-medium">{row.getValue('code')}</span>
-      );
+      return <span className="truncate font-medium">{row.getValue('code')}</span>;
     },
     filterFn: (row, id, value) => {
       return value.includes(row.getValue(id));
@@ -37,15 +33,9 @@ const columns: ColumnDef<CloColumn>[] = [
   },
   {
     accessorKey: 'description',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="description" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="description" />,
     cell: ({ row }) => {
-      return (
-        <span className="truncate font-medium">
-          {row.getValue('description')}
-        </span>
-      );
+      return <span className="truncate font-medium">{row.getValue('description')}</span>;
     },
   },
 ];
@@ -55,12 +45,7 @@ const CourseLearningOutcomeHistory = () => {
     <div className="space-y-3">
       <div className="text-lg font-bold">Course learning outcome</div>
       <div>
-        <CourseLearningOutcomeDataTable
-          disablePagination
-          disableToolbar
-          columns={columns}
-          data={mockCLO}
-        />
+        <CourseLearningOutcomeDataTable disablePagination disableToolbar columns={columns} data={mockCLO} />
       </div>
     </div>
   );

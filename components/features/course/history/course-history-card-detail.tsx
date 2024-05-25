@@ -1,12 +1,7 @@
 import CourseDescription from '@/components/features/course/history/course-detail-list/description';
 import GradeHistory from '@/components/features/course/history/course-detail-list/grade';
 import { CollapsibleContent } from '@/components/ui/collapsible';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs-api';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs-api';
 
 type CourseHistoryCardDetailProps = {
   courseId: string;

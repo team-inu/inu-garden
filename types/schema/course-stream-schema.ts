@@ -30,9 +30,7 @@ export const CreateCourseStreamPayload = CourseStream.pick({
 
 export type CreateCourseStream = z.infer<typeof CreateCourseStream>;
 
-export type CreateCourseStreamPayload = z.infer<
-  typeof CreateCourseStreamPayload
->;
+export type CreateCourseStreamPayload = z.infer<typeof CreateCourseStreamPayload>;
 
 export const CreateCourseStreamDefaultValue: CreateCourseStream = {
   targetCourseId: '',

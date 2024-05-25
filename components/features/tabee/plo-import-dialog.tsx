@@ -24,29 +24,13 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs-api';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs-api';
 import { Textarea } from '@/components/ui/textarea';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import {
-  CreateManyPloForm,
-  CreateManyPloFormDefaultValues,
-  CreateManyPloFormSchema,
-} from '@/types/schema/plo-schema';
+import { CreateManyPloForm, CreateManyPloFormDefaultValues, CreateManyPloFormSchema } from '@/types/schema/plo-schema';
 import {
   CreateManySubPloDefaultValues,
   CreateManySubPloSchema,
@@ -60,21 +44,10 @@ type PloImportDialogProps = {
   isOnOpenChange: (open: boolean) => void;
 };
 
-const PloImportDialog: React.FC<PloImportDialogProps> = ({
-  onPloSubmit,
-  onSubPloSubmit,
-  open,
-  isOnOpenChange,
-}) => {
-  const ploForm = useStrictForm(
-    CreateManyPloFormSchema,
-    CreateManyPloFormDefaultValues,
-  );
+const PloImportDialog: React.FC<PloImportDialogProps> = ({ onPloSubmit, onSubPloSubmit, open, isOnOpenChange }) => {
+  const ploForm = useStrictForm(CreateManyPloFormSchema, CreateManyPloFormDefaultValues);
 
-  const sploForm = useStrictForm(
-    CreateManySubPloSchema,
-    CreateManySubPloDefaultValues,
-  );
+  const sploForm = useStrictForm(CreateManySubPloSchema, CreateManySubPloDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const {
     fields: ploFields,
@@ -168,21 +141,11 @@ const PloImportDialog: React.FC<PloImportDialogProps> = ({
         <DialogHeader>
           <DialogTitle>Import Learning Outcomes (PLO, Sub-PLO)</DialogTitle>
           <DialogDescription>
-            Import learning outcomes from a file. The file should be in .csv
-            format.
+            Import learning outcomes from a file. The file should be in .csv format.
           </DialogDescription>
         </DialogHeader>
-        <Input
-          type="file"
-          className="hidden"
-          ref={fileImportRef}
-          onChange={handleUpload}
-        />
-        <Button
-          className="w-full"
-          variant="outline"
-          onClick={() => fileImportRef.current?.click()}
-        >
+        <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUpload} />
+        <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
           <ImportIcon className="mr-2 h-4 w-4" />
           Import
         </Button>
@@ -221,12 +184,7 @@ const PloImportDialog: React.FC<PloImportDialogProps> = ({
                                   <FormItem>
                                     <FormLabel>Program Year</FormLabel>
                                     <FormControl>
-                                      <Input
-                                        {...field}
-                                        type="number"
-                                        min="0"
-                                        max="3000"
-                                      />
+                                      <Input {...field} type="number" min="0" max="3000" />
                                     </FormControl>
                                     <FormMessage />
                                   </FormItem>

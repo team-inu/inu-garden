@@ -35,12 +35,8 @@ const optionSchema = z.object({
 });
 
 export const CreateAssignmentFormSchema = z.object({
-  name: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  description: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  name: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  description: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   clo: z.array(optionSchema).min(1, { message: 'required' }),
   maxScore: z.coerce.number({ required_error: 'required' }),
   expectedScorePercentage: z.coerce.number({ required_error: 'required' }),

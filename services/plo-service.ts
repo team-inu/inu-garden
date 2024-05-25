@@ -13,8 +13,7 @@ class PloService extends ApiService {
     const url = '/plos';
     return this.get(url)
       .then((response) => {
-        return response.data
-          .data as unknown as GetProgramLearningOutcomeResponse[];
+        return response.data.data as unknown as GetProgramLearningOutcomeResponse[];
       })
       .catch(this.throwError);
   }
@@ -37,28 +36,20 @@ class PloService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createManyPlos(
-    plos: CreateManyPloForm,
-    splos: CreateManySubPloType,
-  ): Promise<CreateManyPloForm> {
+  public async createManyPlos(plos: CreateManyPloForm, splos: CreateManySubPloType): Promise<CreateManyPloForm> {
     const url = '/plos';
 
     let payload: any = [...plos.plo];
 
     plos.plo.forEach((plo, i) => {
-      payload[i].subProgramLearningOutcomes = splos.splo.filter(
-        (splo) => splo.code.split('.')[0] === plo.code,
-      );
+      payload[i].subProgramLearningOutcomes = splos.splo.filter((splo) => splo.code.split('.')[0] === plo.code);
     });
     return this.post(url, { programLearningOutcomes: payload })
       .then(() => plos)
       .catch(this.throwError);
   }
 
-  public async updatePlo(
-    plo: CreatePloForm,
-    id: string,
-  ): Promise<UpdatePloForm> {
+  public async updatePlo(plo: CreatePloForm, id: string): Promise<UpdatePloForm> {
     const url = `/plos/${id}`;
     return this.patch(url, plo)
       .then(() => plo)

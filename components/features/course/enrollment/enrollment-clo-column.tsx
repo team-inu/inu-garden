@@ -17,56 +17,40 @@ export const columns: ColumnDef<EnrollmentCloColumn>[] = [
   // },
   {
     accessorKey: 'studentId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Student Id" />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue('studentId')}</div>
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Student Id" />,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue('studentId')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'firstName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="First Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="First Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('firstName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('firstName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'lastName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Last Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('lastName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('lastName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'pass',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('pass') ? 'Pass' : 'Failed'}
-          </span>
+          <span className="truncate font-medium">{row.getValue('pass') ? 'Pass' : 'Failed'}</span>
         </div>
       );
     },

@@ -1,36 +1,13 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
-import {
-  CreatePloForm,
-  CreatePloFormDefaultValues,
-  CreatePloFormSchema,
-} from '@/types/schema/plo-schema';
+import { CreatePloForm, CreatePloFormDefaultValues, CreatePloFormSchema } from '@/types/schema/plo-schema';
 
 type PloDialogProps = {
   onSubmit: (values: CreatePloForm) => void;
@@ -38,15 +15,8 @@ type PloDialogProps = {
   isEdit?: boolean;
 };
 
-const PloDialog: React.FC<PloDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreatePloFormSchema,
-    defaultValues ?? CreatePloFormDefaultValues,
-  );
+const PloDialog: React.FC<PloDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreatePloFormSchema, defaultValues ?? CreatePloFormDefaultValues);
 
   const { data: programmes } = useGetProgrammeList();
 
@@ -55,11 +25,7 @@ const PloDialog: React.FC<PloDialogProps> = ({
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit Plo' : 'Add Plo'}</DialogTitle>
-          <DialogDescription>
-            {isEdit
-              ? 'Edit the plo information'
-              : 'Fill in the plo information'}
-          </DialogDescription>
+          <DialogDescription>{isEdit ? 'Edit the plo information' : 'Fill in the plo information'}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

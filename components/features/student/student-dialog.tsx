@@ -1,29 +1,10 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useGetDepartments } from '@/hooks/department-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetProgrammeList } from '@/hooks/programme-hook';
@@ -39,15 +20,8 @@ type StudentDialogProps = {
   isEdit?: boolean;
 };
 
-const StudentDialog: React.FC<StudentDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreateStudentFormSchema,
-    defaultValues ?? CreateStudentFormDefaultValues,
-  );
+const StudentDialog: React.FC<StudentDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreateStudentFormSchema, defaultValues ?? CreateStudentFormDefaultValues);
 
   const { data: departments } = useGetDepartments();
   const { data: programmes } = useGetProgrammeList();
@@ -57,9 +31,7 @@ const StudentDialog: React.FC<StudentDialogProps> = ({
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit Student' : 'Add Student'}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the student information'
-              : 'Fill in the student information'}
+            {isEdit ? 'Edit the student information' : 'Fill in the student information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

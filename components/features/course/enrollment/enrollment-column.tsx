@@ -12,69 +12,45 @@ import { EnrollmentColumn } from '@/types/schema/enrollment-schema';
 export const columns: ColumnDef<EnrollmentColumn>[] = [
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        title="Enrollment Id"
-        className="hidden"
-      />
-    ),
-    cell: ({ row }) => (
-      <div className="hidden w-[80px]">{row.getValue('id')}</div>
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Enrollment Id" className="hidden" />,
+    cell: ({ row }) => <div className="hidden w-[80px]">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'studentId',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Student Id" />
-    ),
-    cell: ({ row }) => (
-      <div className="w-[80px]">{row.getValue('studentId')}</div>
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Student Id" />,
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue('studentId')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'firstName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="First Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="First Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('firstName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('firstName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'lastName',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Last Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Last Name" />,
     cell: ({ row }) => {
       return (
         <div className="flex space-x-2">
-          <span className="truncate font-medium">
-            {row.getValue('lastName')}
-          </span>
+          <span className="truncate font-medium">{row.getValue('lastName')}</span>
         </div>
       );
     },
   },
   {
     accessorKey: 'status',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
-      const status = studentStatus.find(
-        (status) => status.value === row.getValue('status'),
-      );
+      const status = studentStatus.find((status) => status.value === row.getValue('status'));
 
       if (!status) {
         return null;
@@ -107,9 +83,7 @@ export const columns: ColumnDef<EnrollmentColumn>[] = [
   // },
   {
     accessorKey: 'outcome',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Outcome" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Outcome" />,
     cell: ({ row }) => {
       return (
         <div className="flex items-center">

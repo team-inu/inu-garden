@@ -6,8 +6,7 @@ import { PredictGradeForm } from '@/types/schema/prediction-schema';
 
 export const usePredictGrade = () => {
   return useMutation({
-    mutationFn: (inputPrediction: PredictGradeForm) =>
-      predictionService.predictGrade(inputPrediction),
+    mutationFn: (inputPrediction: PredictGradeForm) => predictionService.predictGrade(inputPrediction),
     onError: (error) => {
       toast.error('Failed to predict grade', {
         description: error.message,

@@ -27,11 +27,7 @@ const useScreenshot = ({ type, quality }: X) => {
         croppedCanvas.width = cropWidth;
         croppedCanvas.height = cropHeight;
 
-        croppedCanvasContext?.drawImage(
-          canvas,
-          cropPositionLeft,
-          cropPositionTop,
-        );
+        croppedCanvasContext?.drawImage(canvas, cropPositionLeft, cropPositionTop);
 
         const base64Image = croppedCanvas.toDataURL(type, quality);
 

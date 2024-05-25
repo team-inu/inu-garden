@@ -38,15 +38,9 @@ export type EnrollmentCloColumn = z.infer<typeof EnrollmentClo>;
 // form
 
 export const CreateEnrollmentFormSchema = z.object({
-  courseId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  studentId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  status: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  courseId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  studentId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  status: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
 export const EditEnrollmentFormSchema = EnrollmentSchema.pick({
@@ -65,10 +59,7 @@ export type EditEnrollmentForm = z.infer<typeof EditEnrollmentFormSchema>;
 export const CreateEnrollmentPayloadSchema = CreateEnrollmentFormSchema.omit({
   studentId: true,
 }).extend({
-  studentIds: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' })
-    .array(),
+  studentIds: z.string({ required_error: 'required' }).min(1, { message: 'required' }).array(),
 });
 
 export const EditEnrollmentPayloadSchema = EditEnrollmentFormSchema.pick({
@@ -76,9 +67,7 @@ export const EditEnrollmentPayloadSchema = EditEnrollmentFormSchema.pick({
   status: true,
 });
 
-export type CreateEnrollmentPayload = z.infer<
-  typeof CreateEnrollmentPayloadSchema
->;
+export type CreateEnrollmentPayload = z.infer<typeof CreateEnrollmentPayloadSchema>;
 
 export type EditEnrollmentPayload = z.infer<typeof EditEnrollmentPayloadSchema>;
 

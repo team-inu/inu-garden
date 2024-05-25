@@ -14,16 +14,10 @@ export type WithAuthProps = {
 
 export function withAuth<T extends WithAuthProps = WithAuthProps>(
   WrappedComponent: ComponentType<T>,
-  role: Role[] = [
-    Role.LECTURER,
-    Role.MODERATOR,
-    Role.HEAD_OF_CURRICULUM,
-    Role.TABEE_MANAGER,
-  ],
+  role: Role[] = [Role.LECTURER, Role.MODERATOR, Role.HEAD_OF_CURRICULUM, Role.TABEE_MANAGER],
   herf: string = '/login',
 ) {
-  const displayName =
-    WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
 
   const ComponentWithAuth = (props: Omit<T, keyof WithAuthProps>) => {
     const { user } = useAuth();
@@ -52,11 +46,7 @@ export function withAuth<T extends WithAuthProps = WithAuthProps>(
       return <NoPermission />;
     }
 
-    return user.isError ? (
-      router.replace(herf)
-    ) : (
-      <WrappedComponent {...(props as T)} />
-    );
+    return user.isError ? router.replace(herf) : <WrappedComponent {...(props as T)} />;
   };
   ComponentWithAuth.displayName = `withAuth(${displayName})`;
 

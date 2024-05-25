@@ -3,42 +3,15 @@ import { Check, ChevronsUpDown } from 'lucide-react';
 import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from '@/components/ui/command';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem } from '@/components/ui/command';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from '@/components/ui/popover';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { useGetEnrollmentsByCourseId } from '@/hooks/enrollment-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { cn } from '@/libs/utils';
-import {
-  CreateScoreForm,
-  CreateScoreFormDefaultValues,
-  CreateScoreFormSchema,
-} from '@/types/schema/score-schema';
+import { CreateScoreForm, CreateScoreFormDefaultValues, CreateScoreFormSchema } from '@/types/schema/score-schema';
 
 type ScoreDialogProps = {
   onSubmit: (values: CreateScoreForm) => void;
@@ -46,18 +19,10 @@ type ScoreDialogProps = {
   isEdit?: boolean;
 };
 
-const ScoreDialog: React.FC<ScoreDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
+const ScoreDialog: React.FC<ScoreDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
   const { id: courseId } = useParams<{ id: string }>();
-  const { data: enrollments, isLoading } =
-    useGetEnrollmentsByCourseId(courseId);
-  const form = useStrictForm(
-    CreateScoreFormSchema,
-    defaultValues ?? CreateScoreFormDefaultValues,
-  );
+  const { data: enrollments, isLoading } = useGetEnrollmentsByCourseId(courseId);
+  const form = useStrictForm(CreateScoreFormSchema, defaultValues ?? CreateScoreFormDefaultValues);
 
   if (isLoading) return null;
 
@@ -72,9 +37,7 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit Score' : 'Add Score'}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the score information'
-              : 'Fill in the score information'}
+            {isEdit ? 'Edit the score information' : 'Fill in the score information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -91,15 +54,10 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
                         <Button
                           variant="outline"
                           role="combobox"
-                          className={cn(
-                            'w-[200px] justify-between',
-                            !field.value && 'text-muted-foreground',
-                          )}
+                          className={cn('w-[200px] justify-between', !field.value && 'text-muted-foreground')}
                         >
                           {field.value && enrollmentsOptions
-                            ? enrollmentsOptions.find(
-                                (student) => student.value === field.value,
-                              )?.label
+                            ? enrollmentsOptions.find((student) => student.value === field.value)?.label
                             : 'Select StudentId'}
                           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
@@ -122,9 +80,7 @@ const ScoreDialog: React.FC<ScoreDialogProps> = ({
                                 <Check
                                   className={cn(
                                     'mr-2 h-4 w-4',
-                                    student.value === field.value
-                                      ? 'opacity-100'
-                                      : 'opacity-0',
+                                    student.value === field.value ? 'opacity-100' : 'opacity-0',
                                   )}
                                 />
                                 {student.label}

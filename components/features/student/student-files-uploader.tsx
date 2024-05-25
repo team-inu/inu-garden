@@ -8,28 +8,14 @@ import { toast } from 'sonner';
 import * as xlsx from 'xlsx';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs-api';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs-api';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useCreateStudentBulk } from '@/hooks/student-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import {
-  ApplicantSpreadsheetRow,
-  FirstDataHeaderRow,
-} from '@/libs/spreadsheet/applicant-spreadsheet';
+import { ApplicantSpreadsheetRow, FirstDataHeaderRow } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
 import {
   CreateStudentForm,
@@ -71,12 +57,8 @@ const SinfoFormatDialog = () => {
       const indexByHeaderFirstRow = new Map<string, number>();
       const indexByHeaderSecondRow = new Map<string, number>();
 
-      headerFirstRow.forEach((header, index) =>
-        indexByHeaderFirstRow.set(header, index),
-      );
-      headerSecondRow.forEach((header, index) =>
-        indexByHeaderSecondRow.set(header, index),
-      );
+      headerFirstRow.forEach((header, index) => indexByHeaderFirstRow.set(header, index));
+      headerSecondRow.forEach((header, index) => indexByHeaderSecondRow.set(header, index));
 
       const rawData = dataWithHeaders.slice(2) as string[];
 
@@ -84,18 +66,13 @@ const SinfoFormatDialog = () => {
         const test = FirstDataHeaderRow.reduce((previousResult, header) => {
           return {
             ...previousResult,
-            [header]:
-              indexByHeaderFirstRow.get(header) === undefined
-                ? ''
-                : row[indexByHeaderFirstRow.get(header)!],
+            [header]: indexByHeaderFirstRow.get(header) === undefined ? '' : row[indexByHeaderFirstRow.get(header)!],
           };
         }, {});
 
         let secondRow = {};
 
-        const indexScore = indexByHeaderFirstRow.get(
-          'รายการคะแนนกลุ่มสาระวิชา',
-        );
+        const indexScore = indexByHeaderFirstRow.get('รายการคะแนนกลุ่มสาระวิชา');
         if (indexScore === undefined) {
           secondRow = {
             รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์: '',
@@ -172,8 +149,7 @@ const SinfoFormatDialog = () => {
   const exportFile = () => {
     type ExtendedEligible = EligibleSpreadsheetRow & { year: string };
 
-    type ExtendedEligibleWithPartialyApplicant = ExtendedEligible &
-      Partial<ApplicantSpreadsheetRow>;
+    type ExtendedEligibleWithPartialyApplicant = ExtendedEligible & Partial<ApplicantSpreadsheetRow>;
 
     const extendedEligibleWithApplicantToPyaoResult = (
       e: ExtendedEligibleWithPartialyApplicant,
@@ -200,12 +176,9 @@ const SinfoFormatDialog = () => {
         admission: e['ประเภทการเข้า'],
         email: e['อีเมล์'] ?? '-',
         gpax: parseFloat(e['GPAX'] ?? '0') ?? 0,
-        mathGPA:
-          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '0') ?? 0,
-        engGPA:
-          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_ภาษาต่างประเทศ'] ?? '0') ?? 0,
-        sciGPA:
-          parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_วิทยาศาสตร์'] ?? '0') ?? 0,
+        mathGPA: parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_คณิตศาสตร์'] ?? '0') ?? 0,
+        engGPA: parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_ภาษาต่างประเทศ'] ?? '0') ?? 0,
+        sciGPA: parseFloat(e['รายการคะแนนกลุ่มสาระวิชา_วิทยาศาสตร์'] ?? '0') ?? 0,
         school: e['ชื่อสถานศึกษา'] ?? '-',
         city: e['จังหวัด'] ?? '-',
         year: e.year,
@@ -218,10 +191,7 @@ const SinfoFormatDialog = () => {
     const workBook = xlsx.utils.book_new();
 
     const applicantByName = new Map<string, ApplicantSpreadsheetRow>();
-    const extendedEligibleWithPartialyApplicantByName = new Map<
-      string,
-      ExtendedEligibleWithPartialyApplicant
-    >();
+    const extendedEligibleWithPartialyApplicantByName = new Map<string, ExtendedEligibleWithPartialyApplicant>();
 
     for (const applicant of applicants) {
       let name;
@@ -235,17 +205,9 @@ const SinfoFormatDialog = () => {
       const engFirstName = applicant['ชื่อ(อังกฤษ)'];
 
       if (thaiFirstName !== undefined && thaiFirstName !== '') {
-        name =
-          applicant['คำนำหน้านาม(ไทย)'] +
-          applicant['ชื่อ(ไทย)'] +
-          ' ' +
-          applicant['นามสกุล(ไทย)'];
+        name = applicant['คำนำหน้านาม(ไทย)'] + applicant['ชื่อ(ไทย)'] + ' ' + applicant['นามสกุล(ไทย)'];
       } else if (engFirstName !== undefined && engFirstName !== '') {
-        name =
-          applicant['คำนำหน้านาม(อังกฤษ)'] +
-          applicant['ชื่อ(อังกฤษ)'] +
-          ' ' +
-          applicant['นามสกุล(อังกฤษ)'];
+        name = applicant['คำนำหน้านาม(อังกฤษ)'] + applicant['ชื่อ(อังกฤษ)'] + ' ' + applicant['นามสกุล(อังกฤษ)'];
       } else {
         name = 'no name';
       }
@@ -274,19 +236,12 @@ const SinfoFormatDialog = () => {
         },
       };
 
-      extendedEligibleWithPartialyApplicantByName.set(
-        eligible['ชื่อ - สกุล'],
-        value,
-      );
+      extendedEligibleWithPartialyApplicantByName.set(eligible['ชื่อ - สกุล'], value);
     }
 
-    const extendedEligibleWithPartialyApplicants = Array.from(
-      extendedEligibleWithPartialyApplicantByName.values(),
-    );
+    const extendedEligibleWithPartialyApplicants = Array.from(extendedEligibleWithPartialyApplicantByName.values());
 
-    const filteredArr = extendedEligibleWithPartialyApplicants.filter((o) =>
-      o.hasOwnProperty('ประเภทการเข้า'),
-    );
+    const filteredArr = extendedEligibleWithPartialyApplicants.filter((o) => o.hasOwnProperty('ประเภทการเข้า'));
     const regStudents = filteredArr.filter((student) => {
       // return student["สาขาวิชาที่สมัคร"] === "วิศวกรรมคอมพิวเตอร์ - วศ.บ. 4 ปี"
       return student['รหัสนักศึกษา'].substring(7, 9) === '10';
@@ -300,9 +255,8 @@ const SinfoFormatDialog = () => {
     const reg = regStudents.map((e: ExtendedEligibleWithPartialyApplicant) =>
       extendedEligibleWithApplicantToPyaoResult(e, 'regular'),
     );
-    const inter = interStudents.map(
-      (e: ExtendedEligibleWithPartialyApplicant) =>
-        extendedEligibleWithApplicantToPyaoResult(e, 'international'),
+    const inter = interStudents.map((e: ExtendedEligibleWithPartialyApplicant) =>
+      extendedEligibleWithApplicantToPyaoResult(e, 'international'),
     );
 
     const result = reg.concat(inter);
@@ -323,15 +277,9 @@ const SinfoFormatDialog = () => {
           <Dropzone onDrop={onApplicantFilesDrop}>
             {({ getRootProps, getInputProps }) => (
               <section>
-                <div
-                  {...getRootProps()}
-                  className="flex cursor-pointer items-center justify-center bg-green-400 p-10"
-                >
+                <div {...getRootProps()} className="flex cursor-pointer items-center justify-center bg-green-400 p-10">
                   <input {...getInputProps()} />
-                  <p className="font-mono">
-                    Drag drop some files here, or click to select files
-                    (Applicant student)
-                  </p>
+                  <p className="font-mono">Drag drop some files here, or click to select files (Applicant student)</p>
                 </div>
               </section>
             )}
@@ -340,15 +288,9 @@ const SinfoFormatDialog = () => {
           <Dropzone onDrop={onEligibleFilesDrop}>
             {({ getRootProps, getInputProps }) => (
               <section>
-                <div
-                  {...getRootProps()}
-                  className="flex cursor-pointer items-center justify-center bg-pink-400 p-10"
-                >
+                <div {...getRootProps()} className="flex cursor-pointer items-center justify-center bg-pink-400 p-10">
                   <input {...getInputProps()} />
-                  <p className="font-mono">
-                    Drag drop some files here, or click to select files
-                    (Eligible student)
-                  </p>
+                  <p className="font-mono">Drag drop some files here, or click to select files (Eligible student)</p>
                 </div>
               </section>
             )}
@@ -359,8 +301,7 @@ const SinfoFormatDialog = () => {
           <ul className="h-32 overflow-y-auto  scrollbar scrollbar-track-white/10 scrollbar-thumb-blue-900 ">
             {applicantFiles.map((file, i) => (
               <li key={i}>
-                [{(file as any).path}] [{file.type}] {file.name} - {file.size}{' '}
-                bytes
+                [{(file as any).path}] [{file.type}] {file.name} - {file.size} bytes
               </li>
             ))}
           </ul>
@@ -370,8 +311,7 @@ const SinfoFormatDialog = () => {
           <ul className="h-32 overflow-y-auto  scrollbar scrollbar-track-white/10 scrollbar-thumb-blue-900">
             {eligibleFiles.map((file, i) => (
               <li key={i}>
-                [{(file as any).path}] [{file.type}] {file.name} - {file.size}{' '}
-                bytes
+                [{(file as any).path}] [{file.type}] {file.name} - {file.size} bytes
               </li>
             ))}
           </ul>
@@ -405,18 +345,13 @@ const SinfoFormatDialog = () => {
 };
 
 const InuFormatDialog = () => {
-  const form = useStrictForm(
-    CreateStudentsFormSchema,
-    CreateStudentsFormDefaultValues,
-  );
+  const form = useStrictForm(CreateStudentsFormSchema, CreateStudentsFormDefaultValues);
 
   const fileImportRef = useRef<HTMLInputElement>(null);
 
   const { mutate, isPending: isSubmitting } = useCreateStudentBulk();
 
-  const handleUploadStudent = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleUploadStudent = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) {
       return toast.error('Can not read file');
@@ -453,9 +388,7 @@ const InuFormatDialog = () => {
       }),
     );
 
-    toast.success(
-      'Students excel parsed successfully, please review the data before submit',
-    );
+    toast.success('Students excel parsed successfully, please review the data before submit');
   };
 
   const onSubmit = (data: CreateStudentsForm) => {
@@ -465,17 +398,8 @@ const InuFormatDialog = () => {
 
   return (
     <div className="">
-      <Input
-        type="file"
-        className="hidden"
-        ref={fileImportRef}
-        onChange={handleUploadStudent}
-      />
-      <Button
-        className="w-full"
-        variant="outline"
-        onClick={() => fileImportRef.current?.click()}
-      >
+      <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUploadStudent} />
+      <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
         <ImportIcon className="mr-2 h-4 w-4" />
         Import
       </Button>
@@ -522,9 +446,7 @@ const StudentFilesUploader = () => {
     <DialogContent className="min-w-fit">
       <DialogHeader>
         <DialogTitle>Import students</DialogTitle>
-        <DialogDescription>
-          Import students from spreadsheet files.
-        </DialogDescription>
+        <DialogDescription>Import students from spreadsheet files.</DialogDescription>
       </DialogHeader>
       <Tabs defaultValue="overview" className="space-y-4">
         <div className="flex justify-between">

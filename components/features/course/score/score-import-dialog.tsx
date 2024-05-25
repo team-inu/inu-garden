@@ -33,14 +33,8 @@ type ScoreImportDialogProps = {
   setIsOnOpenChange: (open: boolean) => void;
 };
 
-const ScoreImportDialog: React.FC<ScoreImportDialogProps> = ({
-  open,
-  setIsOnOpenChange: isOnOpenChange,
-}) => {
-  const form = useStrictForm(
-    CreateBulkScoresFormSchema,
-    CreateBulkScoresFormDefaultValues,
-  );
+const ScoreImportDialog: React.FC<ScoreImportDialogProps> = ({ open, setIsOnOpenChange: isOnOpenChange }) => {
+  const form = useStrictForm(CreateBulkScoresFormSchema, CreateBulkScoresFormDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
 
   const { mutate: createScores } = useCreateBulkScore();
@@ -74,9 +68,7 @@ const ScoreImportDialog: React.FC<ScoreImportDialogProps> = ({
       studentScores: payload,
     });
 
-    toast.success(
-      'scores excel parsed successfully, please review the data before submit',
-    );
+    toast.success('scores excel parsed successfully, please review the data before submit');
   };
 
   const onSubmit = (data: CreateBulkScoresForm) => {
@@ -91,21 +83,10 @@ const ScoreImportDialog: React.FC<ScoreImportDialogProps> = ({
       <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Import Score</DialogTitle>
-          <DialogDescription>
-            Import score from a file. The file should be in .xlsx format.
-          </DialogDescription>
+          <DialogDescription>Import score from a file. The file should be in .xlsx format.</DialogDescription>
         </DialogHeader>
-        <Input
-          type="file"
-          className="hidden"
-          ref={fileImportRef}
-          onChange={handleUploadScore}
-        />
-        <Button
-          className="w-full"
-          variant="outline"
-          onClick={() => fileImportRef.current?.click()}
-        >
+        <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUploadScore} />
+        <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
           <ImportIcon className="mr-2 h-4 w-4" />
           Import
         </Button>

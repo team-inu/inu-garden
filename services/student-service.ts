@@ -43,9 +43,7 @@ class StudentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async getStudentWithOutcomes(
-    studentId: string,
-  ): Promise<GetStudentWithOutcomes[]> {
+  public async getStudentWithOutcomes(studentId: string): Promise<GetStudentWithOutcomes[]> {
     const url = `/students/${studentId}/outcomes`;
     console.log('===================================');
     return this.get(url)
@@ -55,9 +53,7 @@ class StudentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createStudent(
-    student: CreateStudentForm,
-  ): Promise<CreateStudentForm> {
+  public async createStudent(student: CreateStudentForm): Promise<CreateStudentForm> {
     const url = '/students';
 
     return this.post(url, student)
@@ -65,9 +61,7 @@ class StudentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createStudentBulk(
-    students: CreateStudentForm[],
-  ): Promise<CreateStudentForm[]> {
+  public async createStudentBulk(students: CreateStudentForm[]): Promise<CreateStudentForm[]> {
     const url = '/students/bulk';
     const result = {
       students: students,
@@ -77,10 +71,7 @@ class StudentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateStudent(
-    studentId: string,
-    student: UpdateStudentForm,
-  ): Promise<UpdateStudentForm> {
+  public async updateStudent(studentId: string, student: UpdateStudentForm): Promise<UpdateStudentForm> {
     const url = `/students/${studentId}`;
 
     return this.patch(url, student)

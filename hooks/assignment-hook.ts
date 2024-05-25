@@ -2,10 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { assignmentService } from '@/services/assignment-service';
-import {
-  CreateAssignmentForm,
-  UpdateAssignmentForm,
-} from '@/types/schema/assignment-schema';
+import { CreateAssignmentForm, UpdateAssignmentForm } from '@/types/schema/assignment-schema';
 
 export const useGetAssignmentByCourseId = (courseId: string) =>
   useQuery({
@@ -28,13 +25,8 @@ export const useGetAssignmentById = (assignmentId: string) =>
 export const useCreateAssignment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      assignment,
-      assignmentGroupId,
-    }: {
-      assignment: CreateAssignmentForm;
-      assignmentGroupId: string;
-    }) => assignmentService.createAssignment(assignment, assignmentGroupId),
+    mutationFn: ({ assignment, assignmentGroupId }: { assignment: CreateAssignmentForm; assignmentGroupId: string }) =>
+      assignmentService.createAssignment(assignment, assignmentGroupId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignments'],
@@ -54,8 +46,7 @@ export const useCreateAssignment = () => {
 export const useUpdateAssignment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignment: UpdateAssignmentForm) =>
-      assignmentService.updateAssignment(assignment),
+    mutationFn: (assignment: UpdateAssignmentForm) => assignmentService.updateAssignment(assignment),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignments'],
@@ -73,8 +64,7 @@ export const useUpdateAssignment = () => {
 export const useDeleteAssignment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignmentId: string) =>
-      assignmentService.deleteAssignment(assignmentId),
+    mutationFn: (assignmentId: string) => assignmentService.deleteAssignment(assignmentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignments'],
@@ -120,13 +110,8 @@ export const useLinkClo = () => {
 export const useUnLinkClo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      assignmentId,
-      cloId: cloId,
-    }: {
-      assignmentId: string;
-      cloId: string;
-    }) => assignmentService.unLinkClo(assignmentId, cloId),
+    mutationFn: ({ assignmentId, cloId: cloId }: { assignmentId: string; cloId: string }) =>
+      assignmentService.unLinkClo(assignmentId, cloId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['assignmentsClo'],

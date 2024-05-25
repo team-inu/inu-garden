@@ -1,21 +1,8 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
@@ -29,23 +16,15 @@ type EnrollmentDialogProps = {
   defaultValues?: CreateEnrollmentForm;
 };
 
-const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
-  const form = useStrictForm(
-    CreateEnrollmentFormSchema,
-    defaultValues ?? CreateEnrollmentFormDefaultValues,
-  );
+const EnrollmentAddDialog: React.FC<EnrollmentDialogProps> = ({ onSubmit, defaultValues }) => {
+  const form = useStrictForm(CreateEnrollmentFormSchema, defaultValues ?? CreateEnrollmentFormDefaultValues);
 
   return (
     <div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Add Enrollment</DialogTitle>
-          <DialogDescription>
-            Fill in the enrollment information
-          </DialogDescription>
+          <DialogDescription>Fill in the enrollment information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form>

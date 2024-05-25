@@ -13,14 +13,7 @@ const CommentCourse = () => {
       <div className="h-[500px] overflow-y-auto scrollbar scrollbar-thumb-primary ">
         <div className="space-y-6 rounded-md bg-black p-5 py-0">
           {courseStreams?.map((e, i) => {
-            return (
-              <CommentCard
-                key={i}
-                comment={e.comment}
-                streamType={e.streamType}
-                courseId={e.targetCourseId}
-              />
-            );
+            return <CommentCard key={i} comment={e.comment} streamType={e.streamType} courseId={e.targetCourseId} />;
           })}
         </div>
       </div>

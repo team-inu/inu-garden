@@ -13,8 +13,7 @@ export const useGetGradeByStudentId = (studentId: string) =>
 export const useCreateGrade = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (grade: PayloadCreateGradeType) =>
-      gradeService.createGrade(grade),
+    mutationFn: (grade: PayloadCreateGradeType) => gradeService.createGrade(grade),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['grades'],

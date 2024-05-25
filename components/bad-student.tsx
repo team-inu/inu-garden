@@ -22,10 +22,7 @@ const GradeDistribution: React.FC<GradeDistributionProps> = ({ data }) => {
           variant.variant = 'destructive';
         }
         return (
-          <div
-            key={index}
-            className="flex items-center justify-around space-x-2 rounded-lg border p-2"
-          >
+          <div key={index} className="flex items-center justify-around space-x-2 rounded-lg border p-2">
             <Avatar className="h-9 w-9">
               {/* <AvatarImage src="/avatars/01.png" alt="Avatar" /> */}
               <AvatarFallback>{grade.name}</AvatarFallback>

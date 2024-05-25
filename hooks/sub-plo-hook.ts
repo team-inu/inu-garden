@@ -33,8 +33,7 @@ export const useCreateSubPlo = () => {
 export const useUpdateSubPlo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ splo, id }: { splo: CreateSubPloType; id: string }) =>
-      subPloService.updateSubPlo(splo, id),
+    mutationFn: ({ splo, id }: { splo: CreateSubPloType; id: string }) => subPloService.updateSubPlo(splo, id),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['splos'],

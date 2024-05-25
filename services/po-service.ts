@@ -1,11 +1,5 @@
 import { ApiService } from '@/services/api-service';
-import {
-  CreateManyPoForm,
-  CreatePoForm,
-  GetCourseWithPo,
-  GetPoResponse,
-  UpdatePoForm,
-} from '@/types/schema/po-schema';
+import { CreateManyPoForm, CreatePoForm, GetCourseWithPo, GetPoResponse, UpdatePoForm } from '@/types/schema/po-schema';
 
 class PoService extends ApiService {
   public async getPoList(): Promise<GetPoResponse[]> {

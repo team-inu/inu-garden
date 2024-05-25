@@ -2,11 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { enrollmentService } from '@/services/enrollment-service';
-import {
-  CreateEnrollmentForm,
-  CreateEnrollmentPayload,
-  EditEnrollmentForm,
-} from '@/types/schema/enrollment-schema';
+import { CreateEnrollmentForm, CreateEnrollmentPayload, EditEnrollmentForm } from '@/types/schema/enrollment-schema';
 
 export const useGetEnrollmentsByCourseId = (courseId: string) =>
   useQuery({
@@ -38,8 +34,7 @@ export const useCreateEnrollment = () => {
 export const useUpdateEnrollment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (enrollment: EditEnrollmentForm) =>
-      enrollmentService.editEnrollment(enrollment),
+    mutationFn: (enrollment: EditEnrollmentForm) => enrollmentService.editEnrollment(enrollment),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['enrollments'],
@@ -57,8 +52,7 @@ export const useUpdateEnrollment = () => {
 export const useDeleteEnrollment = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (assignmentId: string) =>
-      enrollmentService.deleteEnrollment(assignmentId),
+    mutationFn: (assignmentId: string) => enrollmentService.deleteEnrollment(assignmentId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['enrollments'],

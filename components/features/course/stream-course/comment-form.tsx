@@ -1,39 +1,20 @@
 import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { useCourseList } from '@/hooks/course-hook';
 import { useCreateCourseStreamComment } from '@/hooks/course-stream-hook';
 import { useStrictForm } from '@/hooks/form-hook';
-import {
-  CreateCourseStream,
-  CreateCourseStreamDefaultValue,
-} from '@/types/schema/course-stream-schema';
+import { CreateCourseStream, CreateCourseStreamDefaultValue } from '@/types/schema/course-stream-schema';
 
 const CommentForm = () => {
   const { id: courseId } = useParams<{ id: string }>();
   const { data: courses } = useCourseList();
   const { mutate, isSuccess } = useCreateCourseStreamComment();
 
-  const form = useStrictForm(
-    CreateCourseStream,
-    CreateCourseStreamDefaultValue,
-  );
+  const form = useStrictForm(CreateCourseStream, CreateCourseStreamDefaultValue);
 
   const onSubmit = (values: CreateCourseStream) => {
     mutate({
@@ -46,10 +27,7 @@ const CommentForm = () => {
   return (
     <div className="space-y-5 p-5">
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-4 rounded-lg border px-8 py-12 shadow-md"
-        >
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 rounded-lg border px-8 py-12 shadow-md">
           <div className="space-y-3">
             <FormField
               control={form.control}

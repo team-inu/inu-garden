@@ -53,26 +53,12 @@ const CourseFormHeader = () => {
 
   return (
     <div className="space-x-5">
-      <Input
-        type="file"
-        className="hidden"
-        ref={fileImportRef}
-        onChange={handleUpload}
-      />
-      <Button
-        variant={'secondary'}
-        className="space-x-3"
-        onClick={() => fileImportRef.current?.click()}
-      >
+      <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUpload} />
+      <Button variant={'secondary'} className="space-x-3" onClick={() => fileImportRef.current?.click()}>
         <ImportIcon className="h-5 w-5" />
         <div className="">Import</div>
       </Button>
-      <Button
-        onClick={() => setIsOpen(true)}
-        type="button"
-        variant={'secondary'}
-        className="space-x-3"
-      >
+      <Button onClick={() => setIsOpen(true)} type="button" variant={'secondary'} className="space-x-3">
         <TimerIcon className="h-5 w-5" />
         <div className="">History</div>
       </Button>
@@ -82,8 +68,7 @@ const CourseFormHeader = () => {
           <DialogHeader>
             <DialogTitle>Course History</DialogTitle>
             <DialogDescription>
-              this page is for showing the history of the course that the user
-              has taken in the past.
+              this page is for showing the history of the course that the user has taken in the past.
             </DialogDescription>
           </DialogHeader>
           <CourseHistory />

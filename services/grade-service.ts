@@ -1,8 +1,5 @@
 import { ApiService } from '@/services/api-service';
-import {
-  GradeSemester,
-  PayloadCreateGradeType,
-} from '@/types/schema/grade-schema';
+import { GradeSemester, PayloadCreateGradeType } from '@/types/schema/grade-schema';
 
 class GradeService extends ApiService {
   public async getGradeByStudentId(studentId: string) {
@@ -14,9 +11,7 @@ class GradeService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createGrade(
-    payload: PayloadCreateGradeType,
-  ): Promise<PayloadCreateGradeType> {
+  public async createGrade(payload: PayloadCreateGradeType): Promise<PayloadCreateGradeType> {
     const url = '/grades';
     return this.post(url, payload)
       .then(() => payload)
