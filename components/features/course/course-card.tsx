@@ -1,31 +1,22 @@
 'use client';
 
-import { BackpackIcon, FileTextIcon, PersonIcon } from '@radix-ui/react-icons';
 import Link from 'next/link';
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 
 export type CourseCardProps = {
   href: string;
   courseId: string;
   courseName: string;
-  studentAmount: number;
-  teacherAmount: number;
-  finishedTask: number;
-  totalTask: number;
   curriculum: string;
+  lecturer: string;
+  semester: string;
 };
 
 const CourseCard: React.FC<CourseCardProps> = (props) => {
   return (
     <Link href={`/course/${props.href}`}>
-      <div className="h-40 rounded-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
+      <div className="h-50 rounded-md bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-1">
         <Card className="cursor-pointer transition-opacity duration-300 ease-in-out hover:opacity-70 ">
           <CardHeader>
             <CardTitle className="flex items-center space-x-2">
@@ -39,21 +30,9 @@ const CourseCard: React.FC<CourseCardProps> = (props) => {
             </CardTitle>
           </CardHeader>
           <CardContent className="">
-            <div className="flex space-x-5 px-5 text-sm">
-              <div className="flex items-center space-x-2">
-                <PersonIcon />
-                <div>Students: {props.studentAmount}</div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <BackpackIcon />
-                <div>Teachers: {props.teacherAmount}</div>
-              </div>
-              <div className="flex items-center space-x-2">
-                <FileTextIcon />
-                <div>
-                  Task: {props.finishedTask}/{props.totalTask}
-                </div>
-              </div>
+            <div className="flex flex-row justify-between space-x-5  text-sm">
+              <div>{props.lecturer}</div>
+              <div>{props.semester}</div>
             </div>
           </CardContent>
         </Card>
