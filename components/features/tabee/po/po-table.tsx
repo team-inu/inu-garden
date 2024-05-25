@@ -59,6 +59,11 @@ export function ProgramOutcomeDataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
+    initialState: {
+      pagination: {
+        pageSize: 11,
+      },
+    },
   });
 
   return (
