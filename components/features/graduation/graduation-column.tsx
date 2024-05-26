@@ -31,8 +31,8 @@ export const columns: ColumnDef<GraduationColumn>[] = [
   },
   {
     accessorKey: 'id',
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Id" />,
-    cell: ({ row }) => <div className="">{row.getValue('id')}</div>,
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Id" className="hidden" />,
+    cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },

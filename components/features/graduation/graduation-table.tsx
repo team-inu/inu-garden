@@ -23,9 +23,10 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
+  handleUpload: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export function GraduationDataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
+export function GraduationDataTable<TData, TValue>({ columns, data, handleUpload }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
@@ -53,30 +54,9 @@ export function GraduationDataTable<TData, TValue>({ columns, data }: DataTableP
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
 
-  const handleUploadStudent = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    // const file = e.target.files?.[0];
-    // if (!file) {
-    //   return toast.error("Can not read file");
-    // }
-
-    // const buffer = await file.arrayBuffer();
-    // const workBook = XLSX.read(buffer, { type: "buffer" });
-
-    // const sheet = workBook.Sheets[workBook.SheetNames[1]];
-
-    // const [studentTable] = await worksheetToTables(sheet);
-
-    // const student = tableToObject(studentTable[0], studentTable.slice(1));
-
-    // TODO: push to backend
-    // console.log(student);
-
-    e.target.value = '';
-  };
-
   return (
     <div className="space-y-4">
-      <GraduationTableToolbar table={table} selectorOptions={[]} handleImport={handleUploadStudent} />
+      <GraduationTableToolbar table={table} selectorOptions={[]} handleImport={handleUpload} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
