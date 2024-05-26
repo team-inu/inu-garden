@@ -7,7 +7,7 @@ export const GraduationSchema = z.object({
   studentId: z.string(),
   firstName: z.string(),
   lastName: z.string(),
-  year: z.number(),
+  year: z.string(),
   workPlace: z.string(),
   remarks: z.string(),
 });
@@ -25,7 +25,7 @@ export const CreateGraduationSchema = z.object({
   studentId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   firstName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   lastName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
-  year: z.number({ required_error: 'required' }).min(1, { message: 'required' }),
+  year: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   workplace: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   remarks: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
@@ -41,7 +41,7 @@ export const CreateGraduationDefaultValues: CreateGraduationType = {
   studentId: '',
   firstName: '',
   lastName: '',
-  year: 0,
+  year: '',
   workplace: '',
   remarks: '',
 };
