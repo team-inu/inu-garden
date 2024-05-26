@@ -22,15 +22,9 @@ import { Badge } from '@/components/ui/badge';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option, SelectorOption } from '@/components/ui/data-table-toolbar';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useGetPloWithCourse } from '@/hooks/plo-hook';
+import { Plo } from '@/types/schema/plo-schema';
 
 export const ploes: Option[] = [
   {
@@ -69,11 +63,8 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
   getValues,
 }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -110,9 +101,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
     if (plo?.courses.every((e) => e.code === '')) {
       return (
         <td colSpan={8}>
-          <div className="flex w-full justify-center p-5 text-lg font-bold">
-            No courses found
-          </div>
+          <div className="flex w-full justify-center p-5 text-lg font-bold">No courses found</div>
         </td>
       );
     }
@@ -153,6 +142,8 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
           selectorOptions={[]}
           isCreateEnabled={true}
           isViewOptions={true}
+          plos={data as Plo[]}
+          ploResults={plos ?? []}
         />
       )}
       <div className="rounded-md border">
@@ -162,17 +153,8 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="font-bold text-primary"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                    <TableHead key={header.id} colSpan={header.colSpan} className="font-bold text-primary">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -187,18 +169,11 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
                     <TableRow
                       key={row.id}
                       data-state={row.getIsSelected() && 'selected'}
-                      onClick={() =>
-                        getValues(row.getValue('id'), row.getValue('code'))
-                      }
+                      onClick={() => getValues(row.getValue('id'), row.getValue('code'))}
                       className="cursor-pointer"
                     >
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
+                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
                     <CollapsibleContent asChild className="bg-black">
@@ -211,10 +186,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>
@@ -222,9 +194,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      {!disablePagination && (
-        <DataTablePagination table={table} isRowSelectionEnabled={false} />
-      )}
+      {!disablePagination && <DataTablePagination table={table} isRowSelectionEnabled={false} />}
     </div>
   );
 }

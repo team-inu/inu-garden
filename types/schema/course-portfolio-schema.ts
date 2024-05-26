@@ -8,6 +8,7 @@ const CourseInfoSchema = z.object({
   lecturers: z.array(z.string().min(1, { message: 'required' })).min(1, {
     message: 'required',
   }),
+  programme: z.string(),
 });
 
 // [2] Summary

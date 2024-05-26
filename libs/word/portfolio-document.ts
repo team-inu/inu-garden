@@ -1,13 +1,4 @@
-import {
-  HeadingLevel,
-  ImageRun,
-  Paragraph,
-  PatchDocumentOptions,
-  PatchType,
-  Table,
-  TextRun,
-  patchDocument,
-} from 'docx';
+import { ImageRun, Paragraph, PatchDocumentOptions, PatchType, Table, TextRun, patchDocument } from 'docx';
 
 import { GradeTable } from '@/libs/word/table/grade-table';
 import { OutcomeTable } from '@/libs/word/table/outcome-table';
@@ -25,12 +16,7 @@ const base64ToImageBuffer = (base64: string) => {
   return bytes.buffer;
 };
 
-export async function generatePortfolioDocument({
-  info,
-  summary,
-  result,
-  development,
-}: CreateCoursePortfolioForm) {
+export async function generatePortfolioDocument({ info, summary, result, development }: CreateCoursePortfolioForm) {
   const mockImageBuffer = base64ToImageBuffer(result.gradeDistributionImage);
 
   const template = await fetch('/template.docx');
@@ -56,7 +42,7 @@ export async function generatePortfolioDocument({
           (e, i) =>
             new Paragraph({
               text: `${i + 1}. ${e.name}`,
-              heading: HeadingLevel.TITLE,
+              // heading: HeadingLevel.TITLE,
               wordWrap: true,
               indent: { firstLine: 1125 },
             }),
@@ -72,7 +58,7 @@ export async function generatePortfolioDocument({
           (e, i) =>
             new Paragraph({
               text: `${i + 1}. ${e.name}`,
-              heading: HeadingLevel.TITLE,
+              // heading: HeadingLevel.TITLE,
               wordWrap: true,
               indent: { firstLine: 1125 },
             }),
@@ -145,9 +131,7 @@ export async function generatePortfolioDocument({
         type: PatchType.DOCUMENT,
         children: [
           new Table({
-            rows: new OutcomeTable(
-              result.gradeDistribution.studentAmount,
-            ).generate(result.tabeeOutcomes),
+            rows: new OutcomeTable(result.gradeDistribution.studentAmount).generate(result.tabeeOutcomes),
             alignment: 'center',
           }),
         ],

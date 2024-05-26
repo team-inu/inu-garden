@@ -38,10 +38,7 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
   open,
   setIsOnOpenChange: isOnOpenChange,
 }) => {
-  const form = useStrictForm(
-    CreateEnrollmentPayloadSchema,
-    CreateEnrollmentPayloadDefaultValues,
-  );
+  const form = useStrictForm(CreateEnrollmentPayloadSchema, CreateEnrollmentPayloadDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const { id: courseId } = useParams<{ id: string }>();
 
@@ -58,10 +55,7 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
 
     const [enrollmentTable] = await worksheetToTables(enrollmentSheet);
 
-    const enrollments = tableToObject(
-      enrollmentTable[0],
-      enrollmentTable.slice(1),
-    );
+    const enrollments = tableToObject(enrollmentTable[0], enrollmentTable.slice(1));
 
     form.reset({
       courseId: courseId,
@@ -69,9 +63,7 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
       studentIds: enrollments.map((e) => String(e._studentId)),
     });
 
-    toast.success(
-      'Enrollments excel parsed successfully, please review the data before submit',
-    );
+    toast.success('Enrollments excel parsed successfully, please review the data before submit');
   };
 
   return (
@@ -79,21 +71,10 @@ const EnrollmentImportDialog: React.FC<EnrollmentImportDialogProps> = ({
       <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Import Enrollment</DialogTitle>
-          <DialogDescription>
-            Import enrollment from a file. The file should be in .csv format.
-          </DialogDescription>
+          <DialogDescription>Import enrollment from a file. The file should be in .csv format.</DialogDescription>
         </DialogHeader>
-        <Input
-          type="file"
-          className="hidden"
-          ref={fileImportRef}
-          onChange={handleUploadClo}
-        />
-        <Button
-          className="w-full"
-          variant="outline"
-          onClick={() => fileImportRef.current?.click()}
-        >
+        <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUploadClo} />
+        <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
           <ImportIcon className="mr-2 h-4 w-4" />
           Import
         </Button>

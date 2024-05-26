@@ -15,9 +15,7 @@ export const ploColumns: ColumnDef<PloColumn>[] = [
   },
   {
     accessorKey: 'code',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="code" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="code" />,
     cell: ({ row }) => {
       return (
         <>
@@ -31,9 +29,7 @@ export const ploColumns: ColumnDef<PloColumn>[] = [
   },
   {
     accessorKey: 'descriptionThai',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="descriptionThai" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="descriptionThai" />,
     cell: ({ row }) => {
       return <div>{row.getValue('descriptionThai')}</div>;
     },

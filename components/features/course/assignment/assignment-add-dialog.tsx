@@ -3,22 +3,8 @@ import { useParams } from 'next/navigation';
 
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import MultipleSelector from '@/components/ui/muti-select';
 import { Textarea } from '@/components/ui/textarea';
@@ -35,15 +21,9 @@ type StudentAddDialogProps = {
   defaultValues?: CreateAssignmentForm;
 };
 
-const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
-  onSubmit,
-  defaultValues,
-}) => {
+const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({ onSubmit, defaultValues }) => {
   const { id: courseId } = useParams();
-  const form = useStrictForm(
-    CreateAssignmentFormSchema,
-    defaultValues ?? CreateAssignmentFormDefaultValues,
-  );
+  const form = useStrictForm(CreateAssignmentFormSchema, defaultValues ?? CreateAssignmentFormDefaultValues);
   const { data: cloList } = useGetCloByCourseId(courseId as string);
 
   return (
@@ -51,15 +31,10 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
       <DialogContent className="">
         <DialogHeader>
           <DialogTitle>Add Assessment</DialogTitle>
-          <DialogDescription>
-            Fill in the assessment information
-          </DialogDescription>
+          <DialogDescription>Fill in the assessment information</DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="my-auto h-max space-y-3 overflow-auto"
-          >
+          <form onSubmit={form.handleSubmit(onSubmit)} className="my-auto h-max space-y-3 overflow-auto">
             <div className="grid grid-cols-2 gap-3">
               <FormField
                 control={form.control}
@@ -139,8 +114,7 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
                 <FormItem>
                   <FormLabel>Expected passing student percentage</FormLabel>
                   <FormDescription>
-                    % of how many students need to pass this assessment for it
-                    to succeed
+                    % of how many students need to pass this assessment for it to succeed
                   </FormDescription>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
@@ -157,10 +131,7 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Expected score percentage</FormLabel>
-                  <FormDescription>
-                    % of score of max score a student needed to pass this
-                    assessment
-                  </FormDescription>
+                  <FormDescription>% of score of max score a student needed to pass this assessment</FormDescription>
                   <FormControl>
                     <div className="flex flex-col space-y-3">
                       <Input {...field} type="number" min={0} max={100} />
@@ -177,19 +148,13 @@ const AssignmentAddDialog: React.FC<StudentAddDialogProps> = ({
                 <FormItem className="flex flex-row items-start space-x-3 space-y-0 rounded-md border p-4">
                   <FormControl>
                     <div className="flex flex-col space-y-3">
-                      <Checkbox
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
+                      <Checkbox checked={field.value} onCheckedChange={field.onChange} />
                       <FormMessage />
                     </div>
                   </FormControl>
                   <div className="space-y-1 leading-none">
                     <FormLabel>Included In CLO?</FormLabel>
-                    <FormDescription>
-                      is this assessment included when checking if the CLOs pass
-                      or not
-                    </FormDescription>
+                    <FormDescription>is this assessment included when checking if the CLOs pass or not</FormDescription>
                   </div>
                 </FormItem>
               )}

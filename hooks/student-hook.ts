@@ -2,10 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { studentService } from '@/services/student-service';
-import {
-  CreateStudentForm,
-  UpdateStudentForm,
-} from '@/types/schema/student-schema';
+import { CreateStudentForm, UpdateStudentForm } from '@/types/schema/student-schema';
 
 export const useGetStudentList = () =>
   useQuery({
@@ -40,8 +37,7 @@ export const useGetAdmissions = () =>
 export const useCreateStudent = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (student: CreateStudentForm) =>
-      studentService.createStudent(student),
+    mutationFn: (student: CreateStudentForm) => studentService.createStudent(student),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       toast.success('Student has been created', {
@@ -59,8 +55,7 @@ export const useCreateStudent = () => {
 export const useCreateStudentBulk = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (students: CreateStudentForm[]) =>
-      studentService.createStudentBulk(students),
+    mutationFn: (students: CreateStudentForm[]) => studentService.createStudentBulk(students),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       toast.success('Students have been created', {
@@ -78,8 +73,7 @@ export const useCreateStudentBulk = () => {
 export const useUpdateStudent = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (student: UpdateStudentForm) =>
-      studentService.updateStudent(student.kmuttId, student),
+    mutationFn: (student: UpdateStudentForm) => studentService.updateStudent(student.kmuttId, student),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['students'] });
       toast.success('Student has been updated');

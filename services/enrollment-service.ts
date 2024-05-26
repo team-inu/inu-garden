@@ -7,9 +7,7 @@ import {
 } from '@/types/schema/enrollment-schema';
 
 class EnrollmentService extends ApiService {
-  public async getEnrollmentsByCourseId(
-    courseId: string,
-  ): Promise<GetEnrollmentResponse[]> {
+  public async getEnrollmentsByCourseId(courseId: string): Promise<GetEnrollmentResponse[]> {
     const url = `/courses/${courseId}/enrollments`;
     return this.get(url)
       .then((response) => {
@@ -39,9 +37,7 @@ class EnrollmentService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async editEnrollment(
-    enrollment: EditEnrollmentPayload,
-  ): Promise<EditEnrollmentPayload> {
+  public async editEnrollment(enrollment: EditEnrollmentPayload): Promise<EditEnrollmentPayload> {
     const url = `/enrollments/${enrollment.id}`;
 
     return this.patch(url, enrollment)

@@ -9,32 +9,21 @@ import { AssignmentGroupColumn } from '@/types/schema/assignment-group-schema';
 export const columns: ColumnDef<AssignmentGroupColumn>[] = [
   {
     accessorKey: 'id',
-    header: ({ column }) => (
-      <DataTableColumnHeader
-        column={column}
-        className="hidden"
-        hidden
-        title="Task"
-      />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} className="hidden" hidden title="Task" />,
     cell: ({ row }) => <div className="hidden">{row.getValue('id')}</div>,
     enableSorting: false,
     enableHiding: false,
   },
   {
     accessorKey: 'name',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Name" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Name" />,
     cell: ({ row }) => {
       return <span>{row.getValue('name')}</span>;
     },
   },
   {
     accessorKey: 'weight',
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Weight" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Weight" />,
     cell: ({ row }) => {
       return (
         <div>

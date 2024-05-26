@@ -2,11 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { cloService } from '@/services/clo-service';
-import {
-  CreateCloForm,
-  CreateCloLinkSubPloPayload,
-  EditCloForm,
-} from '@/types/schema/clo-shema';
+import { CreateCloForm, CreateCloLinkSubPloPayload, EditCloForm } from '@/types/schema/clo-shema';
 
 export const useGetCloList = () =>
   useQuery({
@@ -29,13 +25,8 @@ export const useGetCloById = (cloId: string) =>
 export const useCreateClo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({
-      clo,
-      courseId,
-    }: {
-      clo: CreateCloForm;
-      courseId: string | string[];
-    }) => cloService.createClo(clo, courseId),
+    mutationFn: async ({ clo, courseId }: { clo: CreateCloForm; courseId: string | string[] }) =>
+      cloService.createClo(clo, courseId),
 
     onSuccess: () => {
       queryClient.invalidateQueries({
@@ -92,8 +83,7 @@ export const useDeleteClo = () => {
 export const useLinkSubPlo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (value: CreateCloLinkSubPloPayload) =>
-      cloService.createLinkSubPlo(value),
+    mutationFn: (value: CreateCloLinkSubPloPayload) => cloService.createLinkSubPlo(value),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['clo'],
@@ -111,8 +101,7 @@ export const useLinkSubPlo = () => {
 export const useUnLinkSubPlo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ cloId, subPloId }: { cloId: string; subPloId: string }) =>
-      cloService.unLinkSubPlo(cloId, subPloId),
+    mutationFn: ({ cloId, subPloId }: { cloId: string; subPloId: string }) => cloService.unLinkSubPlo(cloId, subPloId),
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ['clo'],

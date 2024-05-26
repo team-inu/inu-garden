@@ -84,11 +84,7 @@ export function StudentTableToolbar<TData>({
           })}
 
         {hasOption && isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
@@ -97,12 +93,7 @@ export function StudentTableToolbar<TData>({
       <div className="flex space-x-2">
         {isCreateEnabled && (
           <div className="flex space-x-2">
-            <Button
-              variant="outline"
-              size="sm"
-              className="ml-auto hidden h-8 lg:flex"
-              onClick={() => setIsOpen(true)}
-            >
+            <Button variant="outline" size="sm" className="ml-auto hidden h-8 lg:flex" onClick={() => setIsOpen(true)}>
               <PlusCircledIcon className="mr-2 h-4 w-4" />
               Add Student
             </Button>
@@ -121,10 +112,7 @@ export function StudentTableToolbar<TData>({
               Import Student
             </Button>
 
-            <Dialog
-              open={isImportStudentOpen}
-              onOpenChange={setIsImportStudentOpen}
-            >
+            <Dialog open={isImportStudentOpen} onOpenChange={setIsImportStudentOpen}>
               <StudentFilesUploader />
             </Dialog>
 
@@ -138,29 +126,18 @@ export function StudentTableToolbar<TData>({
               Import Grade
             </Button>
 
-            <Dialog
-              open={isImportGradeOpen}
-              onOpenChange={setIsImportGradeOpen}
-            >
+            <Dialog open={isImportGradeOpen} onOpenChange={setIsImportGradeOpen}>
               <GradeImportDialog />
             </Dialog>
 
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="ml-auto hidden h-8 lg:flex" variant="outline" size="sm">
               <a className="flex items-center" href="/template/student.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Student Template
               </a>
             </Button>
 
-            <Button
-              className="ml-auto hidden h-8 lg:flex"
-              variant="outline"
-              size="sm"
-            >
+            <Button className="ml-auto hidden h-8 lg:flex" variant="outline" size="sm">
               <a className="flex items-center" href="/template/grade.xlsx">
                 <FolderDotIcon className="mr-2 h-4 w-4" />
                 Grade Template

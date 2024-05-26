@@ -17,10 +17,7 @@ import { Dialog } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { useLinkClo } from '@/hooks/assignment-hook';
 import { useCreateClo } from '@/hooks/clo-hook';
-import {
-  CreateCloForm,
-  CreateCloLinkAssignment,
-} from '@/types/schema/clo-shema';
+import { CreateCloForm, CreateCloLinkAssignment } from '@/types/schema/clo-shema';
 
 export type Option = {
   value: string;
@@ -110,11 +107,7 @@ export function CloTableToolbar<TData>({
           })}
 
         {hasOption && isFiltered && (
-          <Button
-            variant="ghost"
-            onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
-          >
+          <Button variant="ghost" onClick={() => table.resetColumnFilters()} className="h-8 px-2 lg:px-3">
             Reset
             <Cross2Icon className="ml-2 h-4 w-4" />
           </Button>
@@ -135,10 +128,7 @@ export function CloTableToolbar<TData>({
 
             {isAssignmentLink ? (
               <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
-                <CloLinkAssignmentDialog
-                  onSubmit={handleLinkClo}
-                  cloId={cloId}
-                />
+                <CloLinkAssignmentDialog onSubmit={handleLinkClo} cloId={cloId} />
               </Dialog>
             ) : (
               <Dialog open={isAddOpen} onOpenChange={setIsAddOpen}>
@@ -157,22 +147,14 @@ export function CloTableToolbar<TData>({
                   <PlusCircledIcon className="mr-2 h-4 w-4" />
                   Import
                 </Button>
-                <Button
-                  className="ml-auto hidden h-8 lg:flex"
-                  variant="outline"
-                  size="sm"
-                >
+                <Button className="ml-auto hidden h-8 lg:flex" variant="outline" size="sm">
                   <a className="flex items-center" href="/template/score.xlsx">
                     <FolderDotIcon className="mr-2 h-4 w-4" />
                     Template
                   </a>
                 </Button>
 
-                <CloImportDialog
-                  onSubmit={() => {}}
-                  open={isImportOpen}
-                  isOnOpenChange={setIsImportOpen}
-                />
+                <CloImportDialog onSubmit={() => {}} open={isImportOpen} isOnOpenChange={setIsImportOpen} />
               </>
             )}
           </div>

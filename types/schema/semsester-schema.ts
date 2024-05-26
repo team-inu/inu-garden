@@ -21,9 +21,7 @@ export type SemesterColumn = z.infer<typeof SemesterColumnSchema>;
 //form
 const SemesterFormSchema = z.object({
   year: z.coerce.number({ required_error: 'required' }).min(1),
-  semesterSequence: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  semesterSequence: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
 export const CreateSemesterFormSchema = SemesterFormSchema;

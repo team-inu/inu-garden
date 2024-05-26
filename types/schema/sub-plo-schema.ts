@@ -27,16 +27,10 @@ export type SubPloColumn = SubPlo;
 export type GetSubPloResponse = SubPlo;
 
 export const CreateSubPloSchema = z.object({
-  code: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  descriptionThai: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  code: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  descriptionThai: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   descriptionEng: z.string(),
-  programLearningOutcomeId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  programLearningOutcomeId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
 export type CreateSubPloType = z.infer<typeof CreateSubPloSchema>;

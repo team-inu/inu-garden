@@ -2,10 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { semesterService } from '@/services/semester-service';
-import {
-  CreateSemesterForm,
-  UpdateSemesterForm,
-} from '@/types/schema/semsester-schema';
+import { CreateSemesterForm, UpdateSemesterForm } from '@/types/schema/semsester-schema';
 
 export const useGetSemesterList = () =>
   useQuery({
@@ -16,8 +13,7 @@ export const useGetSemesterList = () =>
 export const useCreateSemester = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (semester: CreateSemesterForm) =>
-      semesterService.createSemester(semester),
+    mutationFn: (semester: CreateSemesterForm) => semesterService.createSemester(semester),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['semesters'] });
       toast.success('semester has been created', {
@@ -35,13 +31,8 @@ export const useCreateSemester = () => {
 export const useUpdateSemester = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({
-      semester,
-      id,
-    }: {
-      semester: UpdateSemesterForm;
-      id: string;
-    }) => semesterService.updateSemester(semester, id),
+    mutationFn: ({ semester, id }: { semester: UpdateSemesterForm; id: string }) =>
+      semesterService.updateSemester(semester, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['semesters'] });
       toast.success('semester has been updated');

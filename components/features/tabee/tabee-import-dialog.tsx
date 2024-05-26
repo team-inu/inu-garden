@@ -24,31 +24,14 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useStrictForm } from '@/hooks/form-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
-import {
-  CreateManyPloFormDefaultValues,
-  CreateManyPloFormSchema,
-} from '@/types/schema/plo-schema';
-import {
-  CreateManyPoForm,
-  CreateManyPoFormDefaultValues,
-  CreateManyPoSchema,
-} from '@/types/schema/po-schema';
-import {
-  CreateManySubPloDefaultValues,
-  CreateManySubPloSchema,
-} from '@/types/schema/sub-plo-schema';
+import { CreateManyPloFormDefaultValues, CreateManyPloFormSchema } from '@/types/schema/plo-schema';
+import { CreateManyPoForm, CreateManyPoFormDefaultValues, CreateManyPoSchema } from '@/types/schema/po-schema';
+import { CreateManySubPloDefaultValues, CreateManySubPloSchema } from '@/types/schema/sub-plo-schema';
 
 type TabeeImportDialogProps = {
   onSubmit: (values: CreateManyPoForm) => void;
@@ -56,20 +39,10 @@ type TabeeImportDialogProps = {
   isOnOpenChange: (open: boolean) => void;
 };
 
-const TabeeImportDialog: React.FC<TabeeImportDialogProps> = ({
-  onSubmit,
-  open,
-  isOnOpenChange,
-}) => {
-  const ploForm = useStrictForm(
-    CreateManyPloFormSchema,
-    CreateManyPloFormDefaultValues,
-  );
+const TabeeImportDialog: React.FC<TabeeImportDialogProps> = ({ onSubmit, open, isOnOpenChange }) => {
+  const ploForm = useStrictForm(CreateManyPloFormSchema, CreateManyPloFormDefaultValues);
 
-  const sploForm = useStrictForm(
-    CreateManySubPloSchema,
-    CreateManySubPloDefaultValues,
-  );
+  const sploForm = useStrictForm(CreateManySubPloSchema, CreateManySubPloDefaultValues);
   const form = useStrictForm(CreateManyPoSchema, CreateManyPoFormDefaultValues);
   const fileImportRef = useRef<HTMLInputElement>(null);
   const {
@@ -135,22 +108,10 @@ const TabeeImportDialog: React.FC<TabeeImportDialogProps> = ({
       >
         <DialogHeader>
           <DialogTitle>Import TABEE PO</DialogTitle>
-          <DialogDescription>
-            Import program outcomes from a file. The file should be in .csv
-            format.
-          </DialogDescription>
+          <DialogDescription>Import program outcomes from a file. The file should be in .csv format.</DialogDescription>
         </DialogHeader>
-        <Input
-          type="file"
-          className="hidden"
-          ref={fileImportRef}
-          onChange={handleUpload}
-        />
-        <Button
-          className="w-full"
-          variant="outline"
-          onClick={() => fileImportRef.current?.click()}
-        >
+        <Input type="file" className="hidden" ref={fileImportRef} onChange={handleUpload} />
+        <Button className="w-full" variant="outline" onClick={() => fileImportRef.current?.click()}>
           <ImportIcon className="mr-2 h-4 w-4" />
           Import
         </Button>

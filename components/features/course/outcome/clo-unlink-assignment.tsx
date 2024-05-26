@@ -26,9 +26,7 @@ interface DataTableRowActionsProps<TData> {
   column: Column<TData>;
 }
 
-export function CloUnlinkAssignment<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function CloUnlinkAssignment<TData>({ row }: DataTableRowActionsProps<TData>) {
   const clo = CloSchema.parse(row.original);
   const [open, setOpen] = useState(false);
 
@@ -58,9 +56,7 @@ export function CloUnlinkAssignment<TData>({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {` You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
+            <DialogDescription>{` You can't undo this action. This will permanently delete the.`}</DialogDescription>
           </DialogHeader>
 
           <DialogFooter>

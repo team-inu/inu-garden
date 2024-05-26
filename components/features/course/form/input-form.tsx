@@ -1,13 +1,6 @@
 import { UseFormReturn } from 'react-hook-form';
 
-import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 
 type InputFormProps = {
@@ -18,13 +11,7 @@ type InputFormProps = {
   description?: string;
 };
 
-const InputForm: React.FC<InputFormProps> = ({
-  name,
-  lable,
-  placeholder,
-  form,
-  description,
-}) => {
+const InputForm: React.FC<InputFormProps> = ({ name, lable, placeholder, form, description }) => {
   return (
     <FormField
       control={form.control}

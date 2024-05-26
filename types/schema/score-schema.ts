@@ -33,12 +33,8 @@ export type ScoreColumn = z.infer<typeof ScoreSchema>;
 // form
 
 export const CreateScoreFormSchema = z.object({
-  studentId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  score: z.coerce
-    .number({ required_error: 'required' })
-    .min(0, { message: 'required' }),
+  studentId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  score: z.coerce.number({ required_error: 'required' }).min(0, { message: 'required' }),
 });
 
 export const CreateBulkScoresFormSchema = z.object({
@@ -46,9 +42,7 @@ export const CreateBulkScoresFormSchema = z.object({
 });
 
 export const UpdateScoreFormSchema = z.object({
-  score: z.coerce
-    .number({ required_error: 'required' })
-    .min(0, { message: 'required' }),
+  score: z.coerce.number({ required_error: 'required' }).min(0, { message: 'required' }),
 });
 
 export type CreateScoreForm = z.infer<typeof CreateScoreFormSchema>;

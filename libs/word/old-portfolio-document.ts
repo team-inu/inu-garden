@@ -1,29 +1,15 @@
-import {
-  CharacterSet,
-  Document,
-  IParagraphOptions,
-  Packer,
-  Paragraph,
-  TextRun,
-} from 'docx';
+import { CharacterSet, Document, IParagraphOptions, Packer, Paragraph, TextRun } from 'docx';
 
 import { CreateCoursePortfolioForm } from '@/types/schema/course-portfolio-schema';
 
 const INDENT = 300;
 
-export async function generatePortfolioDocument({
-  info,
-  summary,
-  result,
-  development,
-}: CreateCoursePortfolioForm) {
+export async function generatePortfolioDocument({ info, summary, result, development }: CreateCoursePortfolioForm) {
   const font = await fetch('/fonts/THSarabunNew/THSarabunNew.ttf');
   const buff = Buffer.from(await font.arrayBuffer());
 
   const doc = new Document({
-    fonts: [
-      { name: 'THSarabunNew', data: buff, characterSet: CharacterSet.ANSI },
-    ],
+    fonts: [{ name: 'THSarabunNew', data: buff, characterSet: CharacterSet.ANSI }],
     styles: {
       paragraphStyles: [
         {
@@ -206,10 +192,7 @@ export async function generatePortfolioDocument({
             alignment: 'center',
           }),
           createParagraph({
-            children: [
-              new TextRun({ text: 'รายวิชา: \t', bold: true }),
-              new TextRun({ text: info.courseName }),
-            ],
+            children: [new TextRun({ text: 'รายวิชา: \t', bold: true }), new TextRun({ text: info.courseName })],
           }),
           createParagraph({
             children: [
@@ -401,16 +384,14 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.subjectComments.upstreamSubjects.map(
-            (upstreamSubject) => {
-              return createParagraph({
-                text: `${upstreamSubject.courseName}: ${upstreamSubject.comments}`,
-                bullet: {
-                  level: 1,
-                },
-              });
-            },
-          ),
+          ...development.subjectComments.upstreamSubjects.map((upstreamSubject) => {
+            return createParagraph({
+              text: `${upstreamSubject.courseName}: ${upstreamSubject.comments}`,
+              bullet: {
+                level: 1,
+              },
+            });
+          }),
           createParagraph({
             text: 'วิชา Downstream',
             style: 'boldStyle',
@@ -419,16 +400,14 @@ export async function generatePortfolioDocument({
             },
           }),
 
-          ...development.subjectComments.downstreamSubjects.map(
-            (downstream) => {
-              return createParagraph({
-                text: `${downstream.courseName}: ${downstream.comments}`,
-                bullet: {
-                  level: 1,
-                },
-              });
-            },
-          ),
+          ...development.subjectComments.downstreamSubjects.map((downstream) => {
+            return createParagraph({
+              text: `${downstream.courseName}: ${downstream.comments}`,
+              bullet: {
+                level: 1,
+              },
+            });
+          }),
           createParagraph({
             text: 'วิชาอื่นๆ (ถ้ามี)',
             style: 'boldStyle',

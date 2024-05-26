@@ -12,7 +12,6 @@ import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useStrictForm } from '@/hooks/form-hook';
-import { useImportCourse } from '@/hooks/importer-hook';
 import { PlanSheet } from '@/libs/spreadsheet/plansheet/PlanSheet';
 import { CreateEnrollmentPayloadDefaultValues } from '@/types/schema/enrollment-schema';
 import {
@@ -25,6 +24,10 @@ import {
 } from '@/types/schema/importer-schema';
 
 // const onSubmit = () => {};
+
+type CourseImporterDialogProp = {
+  onSubmit: (values: ImportCourse) => void;
+};
 
 const convertFileToBuffer = (file: File): Promise<ArrayBuffer> => {
   return new Promise((resolve, reject) => {
@@ -43,13 +46,11 @@ const convertFileToBuffer = (file: File): Promise<ArrayBuffer> => {
   });
 };
 
-const CourseImporterDialog = () => {
+const CourseImporterDialog: React.FC<CourseImporterDialogProp> = ({ onSubmit }) => {
   const fileImportRef = useRef<HTMLInputElement>(null);
 
   const { id: courseId } = useParams<{ id: string }>();
   const form = useStrictForm(ImportCourseSchema, ImportCourseDefaultValue);
-
-  const { mutate } = useImportCourse();
 
   const handleUploadExcel = async (e: React.ChangeEvent<HTMLInputElement>) => {
     toast.warning('Parsing the file to data....');
@@ -198,10 +199,6 @@ const CourseImporterDialog = () => {
     }
   };
 
-  const handleSubmitImport = async (value: ImportCourse) => {
-    mutate(value);
-  };
-
   return (
     <DialogContent className="">
       <DialogHeader>
@@ -222,7 +219,7 @@ const CourseImporterDialog = () => {
       </ScrollArea>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmitImport)}></form>
+        <form onSubmit={form.handleSubmit(onSubmit)}></form>
       </Form>
 
       <DialogFooter>
@@ -245,7 +242,7 @@ const CourseImporterDialog = () => {
             Cancel
           </Button>
         </DialogClose>
-        <Button type="submit" onClick={form.handleSubmit(handleSubmitImport)}>
+        <Button type="submit" onClick={form.handleSubmit(onSubmit)}>
           Save
         </Button>
       </DialogFooter>

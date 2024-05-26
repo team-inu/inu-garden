@@ -1,10 +1,5 @@
 import { ApiService } from '@/services/api-service';
-import {
-  CreateManyUserForm,
-  CreateUserForm,
-  EditUserForm,
-  GetUserResponse,
-} from '@/types/schema/user-schema';
+import { CreateManyUserForm, CreateUserForm, EditUserForm, GetUserResponse } from '@/types/schema/user-schema';
 
 class UserService extends ApiService {
   public async getUserList(): Promise<GetUserResponse[]> {
@@ -24,9 +19,7 @@ class UserService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createManyUser(
-    users: CreateManyUserForm,
-  ): Promise<CreateManyUserForm> {
+  public async createManyUser(users: CreateManyUserForm): Promise<CreateManyUserForm> {
     const url = '/users/bulk';
 
     return this.post(url, users)
@@ -34,10 +27,7 @@ class UserService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateUser(
-    userId: string,
-    user: EditUserForm,
-  ): Promise<EditUserForm> {
+  public async updateUser(userId: string, user: EditUserForm): Promise<EditUserForm> {
     const url = `/users/${userId}`;
 
     return this.patch(url, user)

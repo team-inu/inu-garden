@@ -7,26 +7,18 @@ import {
 } from '@/types/schema/score-schema';
 
 class ScoreService extends ApiService {
-  public async getScoresByAssignmentId(
-    assignmentId: string,
-  ): Promise<GetScoreByAssignmentResponse> {
+  public async getScoresByAssignmentId(assignmentId: string): Promise<GetScoreByAssignmentResponse> {
     if (assignmentId === '') {
       return { enrolledAmount: 0, submittedAmount: 0, scores: [] };
     }
 
     const url = `/assignments/${assignmentId}/scores/`;
     return this.get(url)
-      .then(
-        (response) =>
-          response.data.data as unknown as GetScoreByAssignmentResponse,
-      )
+      .then((response) => response.data.data as unknown as GetScoreByAssignmentResponse)
       .catch(this.throwError);
   }
 
-  public async createScore(
-    data: CreateScoreForm,
-    assignmentId: string,
-  ): Promise<CreateScoreForm> {
+  public async createScore(data: CreateScoreForm, assignmentId: string): Promise<CreateScoreForm> {
     const url = '/scores';
     const result = {
       studentScores: [data],
@@ -37,10 +29,7 @@ class ScoreService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createBulkScores(
-    data: CreateBulkScoresForm,
-    assignmentId: string,
-  ): Promise<CreateBulkScoresForm> {
+  public async createBulkScores(data: CreateBulkScoresForm, assignmentId: string): Promise<CreateBulkScoresForm> {
     const url = '/scores';
     const result = {
       studentScores: data.studentScores,
@@ -52,10 +41,7 @@ class ScoreService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateScore(
-    score: UpdateScoreForm,
-    id: string,
-  ): Promise<UpdateScoreForm> {
+  public async updateScore(score: UpdateScoreForm, id: string): Promise<UpdateScoreForm> {
     const url = `/scores/${id}`;
     return this.patch(url, score)
       .then(() => score)

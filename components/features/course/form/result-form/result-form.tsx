@@ -104,18 +104,8 @@ export function ResultForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <InputForm
-          name="courseId"
-          lable="Course ID"
-          placeholder="eg. CPE111"
-          form={form}
-        />
-        <InputForm
-          name="name"
-          lable="Course Name"
-          placeholder="Course Name"
-          form={form}
-        />
+        <InputForm name="courseId" lable="Course ID" placeholder="eg. CPE111" form={form} />
+        <InputForm name="name" lable="Course Name" placeholder="Course Name" form={form} />
         <SelectForm
           name="faculty"
           lable="Faculty"
@@ -172,12 +162,7 @@ export function ResultForm() {
             },
           ]}
         />
-        <InputForm
-          name="courseCreadit"
-          lable="Course Credit"
-          placeholder="Course Credit"
-          form={form}
-        />
+        <InputForm name="courseCreadit" lable="Course Credit" placeholder="Course Credit" form={form} />
         <MultiSelectionForm
           name="studentDegree"
           lable={'Student Degree'}
@@ -218,12 +203,7 @@ export function ResultForm() {
             },
           ]}
         />
-        <InputForm
-          name="studentAmount"
-          lable="Student Amount"
-          placeholder="Student Amount"
-          form={form}
-        />
+        <InputForm name="studentAmount" lable="Student Amount" placeholder="Student Amount" form={form} />
 
         <InputForm name="user" lable="User" placeholder="User" form={form} />
         <Button
@@ -239,14 +219,9 @@ export function ResultForm() {
           <div className="flex flex-col items-center space-y-5">
             {fields.map((item, index) => {
               return (
-                <div
-                  key={item.id}
-                  className="flex w-full flex-col border-2 p-5"
-                >
+                <div key={item.id} className="flex w-full flex-col border-2 p-5">
                   <div className="mb-7 flex w-full items-center justify-between">
-                    <div className="self-start rounded-full border-2 p-1 px-3 dark:border-white">
-                      {index + 1}
-                    </div>
+                    <div className="self-start rounded-full border-2 p-1 px-3 dark:border-white">{index + 1}</div>
                     {fields.length > 1 && (
                       <Button
                         className="self-end"

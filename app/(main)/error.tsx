@@ -7,13 +7,7 @@ import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
 
-export default function Error({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
     // Log the error to an error reporting service
     console.error(error);
@@ -26,13 +20,7 @@ export default function Error({
         <Link href="/course">
           <Button>Try again</Button>
         </Link>
-        <Image
-          className=""
-          src="https://media.tenor.com/O_x4UCmt5p0AAAAi/among-us-twerk.gif"
-          alt={''}
-          width={160}
-          height={160}
-        />
+        <Image className="" src="/images/inu_sleep.png" alt={''} width={160} height={160} />
       </div>
     </div>
   );

@@ -1,21 +1,8 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
@@ -30,26 +17,15 @@ type GraduationDialogProps = {
   isEdit?: boolean;
 };
 
-const GraduationDialog: React.FC<GraduationDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreateGraduationSchema,
-    defaultValues ?? CreateGraduationDefaultValues,
-  );
+const GraduationDialog: React.FC<GraduationDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreateGraduationSchema, defaultValues ?? CreateGraduationDefaultValues);
   return (
     <div>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>
-            {isEdit ? 'Edit Graduated Student' : 'Add Graduated Student'}
-          </DialogTitle>
+          <DialogTitle>{isEdit ? 'Edit Graduated Student' : 'Add Graduated Student'}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the graduated student information'
-              : 'Fill in the graduated student information'}
+            {isEdit ? 'Edit the graduated student information' : 'Fill in the graduated student information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

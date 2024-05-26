@@ -34,14 +34,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useDeleteGrade, useGetGradeByStudentId } from '@/hooks/grade-hook';
 import { useGetStudentWithOutcomes } from '@/hooks/student-hook';
@@ -91,26 +84,16 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
       <Tabs>
         <TabsList>
           <TabsTrigger value="grade">Grades</TabsTrigger>
-          <TabsTrigger value="overview-po">
-            Overviews Program Outcome
-          </TabsTrigger>
-          <TabsTrigger value="overview-plo">
-            Overviews Program Learning Outcome
-          </TabsTrigger>
+          <TabsTrigger value="overview-po">Overviews Program Outcome</TabsTrigger>
+          <TabsTrigger value="overview-plo">Overviews Program Learning Outcome</TabsTrigger>
         </TabsList>
         <TabsContent value="grade">
           <>
-            <Dialog
-              open={isCreateDialogOpen}
-              onOpenChange={setIsCreateDialogOpen}
-            >
+            <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
               <StudentGradeForm studentId={studentId} />
             </Dialog>
             <div className="mt-5">
-              <Button
-                variant="default"
-                onClick={() => setIsCreateDialogOpen(true)}
-              >
+              <Button variant="default" onClick={() => setIsCreateDialogOpen(true)}>
                 Add Grade
               </Button>
               <Table>
@@ -144,10 +127,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                 </TableBody>
               </Table>
             </div>
-            <Dialog
-              open={isDeleteDialogOpen}
-              onOpenChange={setIsDeleteDialogOpen}
-            >
+            <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
               <DialogContent>
                 <DialogHeader>
                   <DialogTitle>Are your sure to delete?</DialogTitle>
@@ -178,9 +158,7 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
 
             {studentWithOutcomes?.length == 0 ? (
               <td colSpan={2}>
-                <div className="flex w-full justify-center p-5 text-lg font-bold">
-                  No results found
-                </div>
+                <div className="flex w-full justify-center p-5 text-lg font-bold">No results found</div>
               </td>
             ) : (
               studentWithOutcome?.programOutcomes.map((e, i) => {
@@ -203,17 +181,11 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                         })}
                       </TableCell>
 
-                      <TableCell
-                        rowSpan={3}
-                        colSpan={1}
-                        className="flex flex-col gap-5"
-                      >
+                      <TableCell rowSpan={3} colSpan={1} className="flex flex-col gap-5">
                         {e.courses.map((course, i) => {
                           return (
                             <div key={i}>
-                              <Badge
-                                variant={course.pass ? 'green' : 'destructive'}
-                              >
+                              <Badge variant={course.pass ? 'green' : 'destructive'}>
                                 {course.pass ? 'PASSED' : 'FAILED'}
                               </Badge>
                             </div>
@@ -241,17 +213,12 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
 
             {studentWithOutcomes?.length == 0 ? (
               <td colSpan={2}>
-                <div className="flex w-full justify-center p-5 text-lg font-bold">
-                  No results found
-                </div>
+                <div className="flex w-full justify-center p-5 text-lg font-bold">No results found</div>
               </td>
             ) : (
               studentWithOutcome?.programLearningOutcomes.map((e, i) => {
                 return (
-                  <TableBody
-                    key={e.programLearningOutcomeId}
-                    className="border-b"
-                  >
+                  <TableBody key={e.programLearningOutcomeId} className="border-b">
                     <TableRow>
                       <TableCell colSpan={1} rowSpan={1}>
                         {/* PO */}
@@ -270,17 +237,11 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
                         })}
                       </TableCell>
 
-                      <TableCell
-                        rowSpan={3}
-                        colSpan={1}
-                        className="flex flex-col gap-5"
-                      >
+                      <TableCell rowSpan={3} colSpan={1} className="flex flex-col gap-5">
                         {e.courses.map((course, i) => {
                           return (
                             <div key={i}>
-                              <Badge
-                                variant={course.pass ? 'green' : 'destructive'}
-                              >
+                              <Badge variant={course.pass ? 'green' : 'destructive'}>
                                 {course.pass ? 'PASSED' : 'FAILED'}
                               </Badge>
                             </div>
@@ -299,16 +260,10 @@ const CollapsibleRowContent = ({ studentId }: { studentId: string }) => {
   );
 };
 
-export function StudentDataTable<TData, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function StudentDataTable<TData, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -343,17 +298,8 @@ export function StudentDataTable<TData, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="font-bold text-primary"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                    <TableHead key={header.id} colSpan={header.colSpan} className="font-bold text-primary">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -365,17 +311,9 @@ export function StudentDataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <Collapsible key={row.id} asChild>
                   <>
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && 'selected'}
-                    >
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
+                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
                     <CollapsibleContent asChild className="bg-black">
@@ -388,10 +326,7 @@ export function StudentDataTable<TData, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>

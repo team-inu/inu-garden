@@ -25,34 +25,18 @@ export type UserColumn = z.infer<typeof UserColumnSchema>;
 // form
 
 const UserFormSchema = z.object({
-  firstName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  lastName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  email: z
-    .string({ required_error: 'required' })
-    .email()
-    .min(1, { message: 'required' }),
-  role: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  password: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  confirmPassword: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  firstName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  lastName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  email: z.string({ required_error: 'required' }).email().min(1, { message: 'required' }),
+  role: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  password: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  confirmPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
-export const CreateUserFormSchema = UserFormSchema.refine(
-  (data) => data.password === data.confirmPassword,
-  {
-    message: "Password doesn't match",
-    path: ['confirmPassword'],
-  },
-);
+export const CreateUserFormSchema = UserFormSchema.refine((data) => data.password === data.confirmPassword, {
+  message: "Password doesn't match",
+  path: ['confirmPassword'],
+});
 
 export const CreateManyUserFormSchema = z.object({
   users: UserFormSchema.omit({ confirmPassword: true }).array(),
@@ -69,15 +53,9 @@ export const EditUserFormSchema = UserFormSchema.pick({
 
 export const ChangePasswordFormSchema = z
   .object({
-    oldPassword: z
-      .string({ required_error: 'required' })
-      .min(1, { message: 'required' }),
-    newPassword: z
-      .string({ required_error: 'required' })
-      .min(1, { message: 'required' }),
-    confirmNewPassword: z
-      .string({ required_error: 'required' })
-      .min(1, { message: 'required' }),
+    oldPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+    newPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+    confirmNewPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   })
   .refine((data) => data.newPassword === data.confirmNewPassword, {
     message: "Password doesn't match",

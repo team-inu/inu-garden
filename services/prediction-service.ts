@@ -1,13 +1,8 @@
 import { ApiService } from '@/services/api-service';
-import {
-  PredictGradeForm,
-  PredictionGradeResponse,
-} from '@/types/schema/prediction-schema';
+import { PredictGradeForm, PredictionGradeResponse } from '@/types/schema/prediction-schema';
 
 class PredictionService extends ApiService {
-  public async predictGrade(
-    inputPrediction: PredictGradeForm,
-  ): Promise<PredictionGradeResponse> {
+  public async predictGrade(inputPrediction: PredictGradeForm): Promise<PredictionGradeResponse> {
     const url = '/prediction/predict';
     return this.post(url, inputPrediction)
       .then((response) => {

@@ -22,18 +22,13 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  CreateGraduationType,
-  GraduationSchema,
-} from '@/types/schema/graduation-schema';
+import { CreateGraduationType, GraduationSchema } from '@/types/schema/graduation-schema';
 
 interface DataTableRowActionsProps<TData> {
   row: Row<TData>;
 }
 
-export function GraduationRowActions<TData>({
-  row,
-}: DataTableRowActionsProps<TData>) {
+export function GraduationRowActions<TData>({ row }: DataTableRowActionsProps<TData>) {
   const graduation = GraduationSchema.parse(row.original);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
@@ -49,27 +44,18 @@ export function GraduationRowActions<TData>({
   return (
     <Dialog
       open={isEditDialogOpen || isDeleteDialogOpen}
-      onOpenChange={
-        isEditDialogOpen ? setIsEditDialogOpen : setIsDeleteDialogOpen
-      }
+      onOpenChange={isEditDialogOpen ? setIsEditDialogOpen : setIsDeleteDialogOpen}
     >
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="ghost"
-            className="flex h-8 w-8 p-0 data-[state=open]:bg-muted"
-          >
+          <Button variant="ghost" className="flex h-8 w-8 p-0 data-[state=open]:bg-muted">
             <DotsHorizontalIcon className="h-4 w-4" />
             <span className="sr-only">Open menu</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" className="w-[160px]">
-          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>
-            Edit
-          </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>
-            Delete
-          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsEditDialogOpen(true)}>Edit</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => setIsDeleteDialogOpen(true)}>Delete</DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
@@ -93,9 +79,7 @@ export function GraduationRowActions<TData>({
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Are your sure to delete?</DialogTitle>
-            <DialogDescription>
-              {`You can't undo this action. This will permanently delete the.`}
-            </DialogDescription>
+            <DialogDescription>{`You can't undo this action. This will permanently delete the.`}</DialogDescription>
           </DialogHeader>
 
           <DialogFooter>

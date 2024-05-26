@@ -17,7 +17,4 @@ const TABEEPage = () => {
   );
 };
 
-export default withAuth(TABEEPage, [
-  Role.HEAD_OF_CURRICULUM,
-  Role.TABEE_MANAGER,
-]);
+export default withAuth(TABEEPage, [Role.HEAD_OF_CURRICULUM, Role.TABEE_MANAGER]);

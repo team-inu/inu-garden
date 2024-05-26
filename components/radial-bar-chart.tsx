@@ -1,12 +1,6 @@
 'use client';
 
-import {
-  Legend,
-  RadialBar,
-  RadialBarChart,
-  ResponsiveContainer,
-  Tooltip,
-} from 'recharts';
+import { Legend, RadialBar, RadialBarChart, ResponsiveContainer, Tooltip } from 'recharts';
 
 const data = [
   {
@@ -56,26 +50,9 @@ const data = [
 const RadialBarChartCustom = () => {
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <RadialBarChart
-        innerRadius="10%"
-        outerRadius="80%"
-        data={data}
-        startAngle={180}
-        endAngle={0}
-      >
-        <RadialBar
-          label={{ fill: '#666', position: 'insideStart' }}
-          background
-          dataKey="uv"
-        />
-        <Legend
-          iconSize={10}
-          width={120}
-          height={200}
-          layout="vertical"
-          verticalAlign="middle"
-          align="right"
-        />
+      <RadialBarChart innerRadius="10%" outerRadius="80%" data={data} startAngle={180} endAngle={0}>
+        <RadialBar label={{ fill: '#666', position: 'insideStart' }} background dataKey="uv" />
+        <Legend iconSize={10} width={120} height={200} layout="vertical" verticalAlign="middle" align="right" />
         <Tooltip />
       </RadialBarChart>
     </ResponsiveContainer>

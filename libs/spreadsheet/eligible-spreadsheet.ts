@@ -1,9 +1,4 @@
-export const baseEligibleSpreadsheetHeader = [
-  'รหัสนักศึกษา',
-  'ชื่อ - สกุล',
-  'ประเภทการเข้า',
-  'หมายเหตุ',
-];
+export const baseEligibleSpreadsheetHeader = ['รหัสนักศึกษา', 'ชื่อ - สกุล', 'ประเภทการเข้า', 'หมายเหตุ'];
 
 // export type EligibleSpreadsheetRow = {
 //   [key in (typeof baseEligibleSpreadsheetHeader)[number]]: string;

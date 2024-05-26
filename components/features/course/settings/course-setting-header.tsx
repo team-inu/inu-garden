@@ -1,16 +1,10 @@
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-} from '@/components/ui/breadcrumb';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink } from '@/components/ui/breadcrumb';
 
 type CourseSettingHeaderProps = {
   courseId: string;
 };
 
-const CourseSettingHeader: React.FC<CourseSettingHeaderProps> = ({
-  courseId,
-}) => {
+const CourseSettingHeader: React.FC<CourseSettingHeaderProps> = ({ courseId }) => {
   return (
     <Breadcrumb>
       <BreadcrumbItem>

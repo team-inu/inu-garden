@@ -9,10 +9,7 @@ type LinkedSectionProps = {
   form: UseFormReturn<any>;
 };
 
-const LinkedSection: React.FC<LinkedSectionProps> = ({
-  index: resultIndex,
-  form,
-}) => {
+const LinkedSection: React.FC<LinkedSectionProps> = ({ index: resultIndex, form }) => {
   const { control } = form;
   const {
     fields: cloFields,
@@ -102,11 +99,7 @@ const LinkedSection: React.FC<LinkedSectionProps> = ({
                   },
                 ]}
               />
-              <AssessmentSection
-                form={form}
-                resultIndex={resultIndex}
-                cloIndex={index}
-              />
+              <AssessmentSection form={form} resultIndex={resultIndex} cloIndex={index} />
             </div>
           );
         })}

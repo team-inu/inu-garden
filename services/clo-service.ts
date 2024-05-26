@@ -8,22 +8,16 @@ import {
 } from '@/types/schema/clo-shema';
 
 class CourseLearningOutcomeService extends ApiService {
-  public async createClo(
-    data: CreateCloForm,
-    courseId: string | string[],
-  ): Promise<void> {
+  public async createClo(data: CreateCloForm, courseId: string | string[]): Promise<void> {
     const url = '/clos';
     const result = {
       code: data.code,
       description: data.description,
       status: data.status,
-      expectedPassingAssignmentPercentage:
-        data.expectedPassingAssignmentPercentage,
+      expectedPassingAssignmentPercentage: data.expectedPassingAssignmentPercentage,
       expectedPassingStudentPercentage: data.expectedPassingStudentPercentage,
       programOutcomeId: data.programOutcomeId,
-      subProgramLearningOutcomeId: data.subProgramLearningOutcomeId.map(
-        (item) => item.value,
-      ),
+      subProgramLearningOutcomeId: data.subProgramLearningOutcomeId.map((item) => item.value),
       courseId: courseId,
     };
 
@@ -34,9 +28,7 @@ class CourseLearningOutcomeService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createLinkSubPlo(
-    value: CreateCloLinkSubPloPayload,
-  ): Promise<CreateCloLinkSubPloPayload> {
+  public async createLinkSubPlo(value: CreateCloLinkSubPloPayload): Promise<CreateCloLinkSubPloPayload> {
     const url = `/clos/${value.cloId}/subplos`;
     const result = {
       subProgramLearningOutcomeId: value.subProgramLearningOutcomeId,

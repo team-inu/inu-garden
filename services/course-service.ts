@@ -1,14 +1,8 @@
 import { ApiService } from '@/services/api-service';
-import {
-  CreateCourseSchemaValues,
-  GetCourseList,
-  UpdateCourseFormValues,
-} from '@/types/schema/course-schema';
+import { CreateCourseSchemaValues, GetCourseList, UpdateCourseFormValues } from '@/types/schema/course-schema';
 
 class CourseService extends ApiService {
-  public async createCourse(
-    course: CreateCourseSchemaValues,
-  ): Promise<CreateCourseSchemaValues> {
+  public async createCourse(course: CreateCourseSchemaValues): Promise<CreateCourseSchemaValues> {
     const url = '/courses';
 
     return this.post(url, course)
@@ -16,10 +10,7 @@ class CourseService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async updateCourse(
-    course: UpdateCourseFormValues,
-    courseId: string,
-  ): Promise<UpdateCourseFormValues> {
+  public async updateCourse(course: UpdateCourseFormValues, courseId: string): Promise<UpdateCourseFormValues> {
     const url = `/courses/${courseId}`;
 
     return this.patch(url, course)

@@ -1,30 +1,11 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { PassowrdInput } from '@/components/ui/password-input';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
 import {
   CreateUserForm,
@@ -39,25 +20,14 @@ type UserDialogProps = {
   isEdit?: boolean;
 };
 
-const UserDialog: React.FC<UserDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreateUserFormSchema,
-    defaultValues ?? CreateUserFormDefaultValues,
-  );
+const UserDialog: React.FC<UserDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreateUserFormSchema, defaultValues ?? CreateUserFormDefaultValues);
   return (
     <div>
       <DialogContent>
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit User' : 'Add User'}</DialogTitle>
-          <DialogDescription>
-            {isEdit
-              ? 'Edit the user information'
-              : 'Fill in the user information'}
-          </DialogDescription>
+          <DialogDescription>{isEdit ? 'Edit the user information' : 'Fill in the user information'}</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -122,12 +92,8 @@ const UserDialog: React.FC<UserDialogProps> = ({
                     <SelectContent>
                       <SelectItem value="LECTURER">Lecturer</SelectItem>
                       <SelectItem value="MODERATOR">Moderator</SelectItem>
-                      <SelectItem value="TABEE_MANAGER">
-                        Tabee Manager
-                      </SelectItem>
-                      <SelectItem value="HEAD_OF_CURRICULUM">
-                        Head of Curriculum
-                      </SelectItem>
+                      <SelectItem value="TABEE_MANAGER">Tabee Manager</SelectItem>
+                      <SelectItem value="HEAD_OF_CURRICULUM">Head of Curriculum</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

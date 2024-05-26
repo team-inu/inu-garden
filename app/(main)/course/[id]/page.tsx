@@ -10,12 +10,7 @@ import CourseLearningOutcome from '@/components/features/course/outcome/clo';
 import StreamCoures from '@/components/features/course/stream-course/stream-coures';
 import Loading from '@/components/features/loading-screen';
 import { Button } from '@/components/ui/button';
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from '@/components/ui/tabs-api';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs-api';
 import { useGetCourseById } from '@/hooks/course-hook';
 import { useGetCoursePortfolio } from '@/hooks/course-portfolio-hook';
 
@@ -36,22 +31,16 @@ const HomePage = () => {
           <div className="text-3xl font-bold tracking-tight">
             {courseData?.code} - {courseData?.name}
           </div>
-          <div className="text-xl font-bold tracking-tight">
-            {courseData?.curriculum}
-          </div>
+          <div className="text-xl font-bold tracking-tight">{courseData?.curriculum}</div>
 
           <Tabs defaultValue="overview" className="space-y-4">
             <div className="flex justify-between">
               <TabsList>
                 <TabsTrigger value="overview">Overview</TabsTrigger>
-                <TabsTrigger value="outcome">
-                  Course Learning Outcome
-                </TabsTrigger>
-                <TabsTrigger value="assignment">Assessments</TabsTrigger>
                 <TabsTrigger value="enrollment">Enrollments</TabsTrigger>
-                <TabsTrigger value="stream">
-                  Up / Down Stream Course
-                </TabsTrigger>
+                <TabsTrigger value="outcome">Course Learning Outcome</TabsTrigger>
+                <TabsTrigger value="assignment">Assessments</TabsTrigger>
+                <TabsTrigger value="stream">Up / Down Stream Course</TabsTrigger>
               </TabsList>
               <div className="space-x-3">
                 <Link href={`/course/${courseId}/portfolio`}>

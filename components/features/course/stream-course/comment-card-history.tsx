@@ -10,13 +10,7 @@ type CommentCardProps = {
   onDelete: (id: string) => void;
 };
 
-const CommentCardHistory = ({
-  comment,
-  courseId,
-  courseStreamId,
-  streamType,
-  onDelete,
-}: CommentCardProps) => {
+const CommentCardHistory = ({ comment, courseId, courseStreamId, streamType, onDelete }: CommentCardProps) => {
   const { data: course } = useGetCourseById(courseId);
 
   return (
@@ -34,10 +28,7 @@ const CommentCardHistory = ({
           </div>
           <div className="text-sm text-secondary-foreground">{streamType}</div>
         </div>
-        <Trash2Icon
-          onClick={() => onDelete(courseStreamId)}
-          className="h-6 w-6 cursor-pointer hover:text-red-500"
-        />
+        <Trash2Icon onClick={() => onDelete(courseStreamId)} className="h-6 w-6 cursor-pointer hover:text-red-500" />
       </div>
       <div className="mt-3">
         <p>{comment}</p>

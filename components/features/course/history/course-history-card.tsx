@@ -9,10 +9,7 @@ import CourseHistoryCardDetail from '@/components/features/course/history/course
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleTrigger } from '@/components/ui/collapsible';
-import {
-  CreateCourseSchemaValues,
-  GetCourseList,
-} from '@/types/schema/course-schema';
+import { CreateCourseSchemaValues, GetCourseList } from '@/types/schema/course-schema';
 
 type CourseHistoryCardProps = {
   courseData: GetCourseList;
@@ -20,11 +17,7 @@ type CourseHistoryCardProps = {
   handleIsSee: (id: string) => void;
 };
 
-const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
-  courseData,
-  isSee,
-  handleIsSee,
-}) => {
+const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({ courseData, isSee, handleIsSee }) => {
   const formCtx = useFormContext<CreateCourseSchemaValues>();
 
   const handleImportCourse = () => {
@@ -49,8 +42,7 @@ const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
                 <span className="text-sm font-semibold">regular</span>
               </div>
               <Badge className="text-sm font-bold">
-                {courseData.semester.semesterSequence}/
-                {courseData.semester.year}
+                {courseData.semester.semesterSequence}/{courseData.semester.year}
               </Badge>
             </div>
             <div className="text-gray-400 ">{courseData.name}</div>
@@ -73,11 +65,7 @@ const CourseHistoryCard: React.FC<CourseHistoryCardProps> = ({
           </div>
           <div className="space-x-5">
             <CollapsibleTrigger asChild>
-              <Button
-                size={'sm'}
-                variant={'ghost'}
-                onClick={() => handleIsSee(courseData.id)}
-              >
+              <Button size={'sm'} variant={'ghost'} onClick={() => handleIsSee(courseData.id)}>
                 See more
               </Button>
             </CollapsibleTrigger>

@@ -44,8 +44,4 @@ const GraduationPage = () => {
   );
 };
 
-export default withAuth(GraduationPage, [
-  Role.HEAD_OF_CURRICULUM,
-  Role.MODERATOR,
-  Role.TABEE_MANAGER,
-]);
+export default withAuth(GraduationPage, [Role.HEAD_OF_CURRICULUM, Role.MODERATOR, Role.TABEE_MANAGER]);

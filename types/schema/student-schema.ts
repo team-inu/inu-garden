@@ -35,21 +35,11 @@ export type StudentColumn = z.infer<typeof StudentColumnSchema>;
 // form
 
 export const CreateStudentFormSchema = z.object({
-  kmuttId: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  firstName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  lastName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  admission: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  email: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  kmuttId: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  firstName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  lastName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  admission: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  email: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   gpax: z.coerce
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
@@ -66,21 +56,11 @@ export const CreateStudentFormSchema = z.object({
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
     .max(4, { message: 'value could less than 4' }),
-  school: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  city: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  year: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  programmeName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  departmentName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  school: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  city: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  year: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  programmeName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  departmentName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   remark: z.string().optional(),
 });
 
@@ -115,8 +95,7 @@ export const CreateStudentFormDefaultValues: CreateStudentForm = {
 
 export const CreateStudentsFormDefaultValues: CreateStudentsForm = [];
 
-export const UpdateStudentFormDefaultValues: UpdateStudentForm =
-  CreateStudentFormDefaultValues;
+export const UpdateStudentFormDefaultValues: UpdateStudentForm = CreateStudentFormDefaultValues;
 
 export const GetStudentWithOutcomes = z.object({
   studentId: z.string(),

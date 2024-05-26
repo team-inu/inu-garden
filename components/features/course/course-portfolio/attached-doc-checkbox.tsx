@@ -4,9 +4,7 @@ type AttachedDocumentCheckboxProps = {
   lable: string;
 };
 
-const AttachedDocumentCheckbox: React.FC<AttachedDocumentCheckboxProps> = ({
-  lable,
-}) => {
+const AttachedDocumentCheckbox: React.FC<AttachedDocumentCheckboxProps> = ({ lable }) => {
   return (
     <div className="flex items-center space-x-2">
       <Checkbox id="terms" />

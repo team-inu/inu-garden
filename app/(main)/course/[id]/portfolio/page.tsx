@@ -15,18 +15,10 @@ import OutcomeTable from '@/components/features/course/course-portfolio/outcome-
 import Loading from '@/components/features/loading-screen';
 import Overview from '@/components/overview';
 import { Button } from '@/components/ui/button';
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from '@/components/ui/form';
+import { FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import {
-  useGetCoursePortfolio,
-  useUpdateCoursePortfolio,
-} from '@/hooks/course-portfolio-hook';
+import { useGetCoursePortfolio, useUpdateCoursePortfolio } from '@/hooks/course-portfolio-hook';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useScreenshot } from '@/hooks/screenshot-hook';
 import { generatePortfolioDocument } from '@/libs/word/portfolio-document';
@@ -42,15 +34,11 @@ const CoursePortfolioPage = () => {
 
   const { data, isLoading } = useGetCoursePortfolio(courseId);
   const { mutate } = useUpdateCoursePortfolio();
-  console.log(data);
-  //convert data array of string to realData array of object
-  let realData: CreateCoursePortfolioFillableSchema =
-    CreateCoursePortfolioFillableDefaultValues;
 
-  const form = useStrictForm(
-    CreateCoursePortfolioFillableSchema,
-    CreateCoursePortfolioFillableDefaultValues,
-  );
+  //convert data array of string to realData array of object
+  let realData: CreateCoursePortfolioFillableSchema = CreateCoursePortfolioFillableDefaultValues;
+
+  const form = useStrictForm(CreateCoursePortfolioFillableSchema, CreateCoursePortfolioFillableDefaultValues);
   const {
     fields: teachingMethodFields,
     append: teachingAppend,
@@ -151,8 +139,7 @@ const CoursePortfolioPage = () => {
     if (data) {
       realData.development = {
         plans: data?.development.plans?.map((e) => ({ name: e })) ?? [],
-        doAndChecks:
-          data?.development.doAndChecks?.map((e) => ({ name: e })) ?? [],
+        doAndChecks: data?.development.doAndChecks?.map((e) => ({ name: e })) ?? [],
         acts: data?.development.acts?.map((e) => ({ name: e })) ?? [],
         subjectComments: {
           other: data?.development.subjectComments.other ?? '',
@@ -171,8 +158,7 @@ const CoursePortfolioPage = () => {
       };
 
       realData.summary = {
-        teachingMethods:
-          data?.summary.teachingMethods?.map((e) => ({ name: e })) ?? [],
+        teachingMethods: data?.summary.teachingMethods?.map((e) => ({ name: e })) ?? [],
         objectives: data?.summary.objectives?.map((e) => ({ name: e })) ?? [],
         onlineTools: data?.summary.onlineTools ?? '',
       };
@@ -194,54 +180,33 @@ const CoursePortfolioPage = () => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <div className=" space-y-7  pt-6 text-lg ">
             <div className="space-y-0.5">
-              <h2 className="text-2xl font-bold tracking-tight">
-                Course portfolio
-              </h2>
-              <p className="text-muted-foreground">
-                Edit and submit your course portfolio.
-              </p>
+              <h2 className="text-2xl font-bold tracking-tight">Course portfolio</h2>
+              <p className="text-muted-foreground">Edit and submit your course portfolio.</p>
             </div>
             {/* information */}
             <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">1. รายละเอียด</div>
               <Information label="ภาควิชา" value="วิศวกรรมคอมพิวเตอร์" />
-              <Information label="หลักสูตร" value="ปกติ" />
+              <Information label="หลักสูตร" value={data?.info.programme == 'regular' ? 'ปกติ' : 'นานาชาติ'} />
               <div className="w-4/5 space-y-2">
                 <div className="grid grid-cols-3">
-                  <Information
-                    label="รหัสวิชา"
-                    value={data?.info.courseCode ?? '-'}
-                  />
-                  <Information
-                    label="ชื่อวิชา"
-                    value={data?.info.courseName ?? '-'}
-                  />
+                  <Information label="รหัสวิชา" value={data?.info.courseCode ?? '-'} />
+                  <Information label="ชื่อวิชา" value={data?.info.courseName ?? '-'} />
                   <Information label="จำนวนหน่วยกิต" value="3" />
                 </div>
                 <div className="grid grid-cols-3">
                   <Information label="นักศึกษาระดับ" value="ป.ตรี" />
-                  <Information
-                    label="จำนวนนักศึกษา"
-                    value={data.result.gradeDistribution.studentAmount}
-                  />
+                  <Information label="จำนวนนักศึกษา" value={data.result.gradeDistribution.studentAmount} />
                 </div>
               </div>
-              <Information
-                label="ชื่ออาจารย์ผู้สอน"
-                value={data?.info.lecturers[0] ?? '-'}
-              />
+              <Information label="ชื่ออาจารย์ผู้สอน" value={data?.info.lecturers[0] ?? '-'} />
             </div>
             {/* Summary */}
             <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">2. สรุปผลการดำเนินงาน</div>
               <div className="flex items-center space-x-5 ">
-                <Label className="text-lg">
-                  2.1 วิธีการสอนและการประเมินผล{' '}
-                </Label>
-                <PlusCircleIcon
-                  className="h-5 w-5 cursor-pointer"
-                  onClick={() => teachingAppend({ name: '' })}
-                />
+                <Label className="text-lg">2.1 วิธีการสอนและการประเมินผล </Label>
+                <PlusCircleIcon className="h-5 w-5 cursor-pointer" onClick={() => teachingAppend({ name: '' })} />
               </div>
               {teachingMethodFields.map((item, index) => {
                 return (
@@ -269,10 +234,7 @@ const CoursePortfolioPage = () => {
               />
               <div className="flex items-center space-x-5">
                 <Label className="text-lg">2.3 วัตถุประสงค์การสอน</Label>
-                <PlusCircleIcon
-                  className="h-5 w-5 cursor-pointer"
-                  onClick={() => objectiveAppend({ name: '' })}
-                />
+                <PlusCircleIcon className="h-5 w-5 cursor-pointer" onClick={() => objectiveAppend({ name: '' })} />
               </div>
               {objectiveFields.map((item, index) => {
                 return (
@@ -293,35 +255,24 @@ const CoursePortfolioPage = () => {
                 <Label className="text-lg font-semibold">3.1 เกรด</Label>
                 <div className="">
                   <div ref={ref}>
-                    <Overview
-                      data={data.result.gradeDistribution.scoreFrequencies}
-                    />
+                    <Overview data={data.result.gradeDistribution.scoreFrequencies} />
                   </div>
                   <div className="mx-auto w-3/4">
-                    <GradeTable
-                      gradeDistribution={data.result.gradeDistribution}
-                    />
+                    <GradeTable gradeDistribution={data.result.gradeDistribution} />
                   </div>
                 </div>
               </div>
               <div className="grid w-full items-center gap-2">
-                <Label className="text-lg font-semibold">
-                  3.2 ผลลัพธ์การศึกษาของหลักสูตร
-                </Label>
+                <Label className="text-lg font-semibold">3.2 ผลลัพธ์การศึกษาของหลักสูตร</Label>
                 <div className="ml-5 flex flex-col">
                   {data.result.plos.map((plo, i) => (
                     <div className="flex flex-col" key={i}>
                       <Label className="text-lg ">
-                        <span className="font-semibold">PLO{plo.code}:</span>{' '}
-                        {plo.name}
+                        <span className="font-semibold">PLO{plo.code}:</span> {plo.name}
                       </Label>
                       {plo.nested.map((subPlo) => (
                         <Label key={subPlo.code} className="text-lg">
-                          <span className="font-semibold">
-                            {' '}
-                            PLO ย่อย{subPlo.code}:
-                          </span>{' '}
-                          {subPlo.name}
+                          <span className="font-semibold"> PLO ย่อย{subPlo.code}:</span> {subPlo.name}
                         </Label>
                       ))}
                     </div>
@@ -329,15 +280,13 @@ const CoursePortfolioPage = () => {
 
                   {data.result.clos.map((clo) => (
                     <Label key={clo.code} className="text-lg">
-                      <span className="font-semibold">{clo.code}:</span>{' '}
-                      {clo.name}
+                      <span className="font-semibold">{clo.code}:</span> {clo.name}
                     </Label>
                   ))}
 
                   {data.result.pos.map((po) => (
                     <Label key={po.code} className="text-lg">
-                      <span className="font-semibold">PO{po.code}:</span>{' '}
-                      {po.name}
+                      <span className="font-semibold">PO{po.code}:</span> {po.name}
                     </Label>
                   ))}
                 </div>
@@ -350,13 +299,8 @@ const CoursePortfolioPage = () => {
             <div className="space-y-2 rounded-lg ">
               <div className="text-xl font-semibold">4. การพัฒนา</div>
               <div className="flex items-center space-x-5">
-                <Label className="text-lg">
-                  4.1 การพัฒนาจากรอบที่แล้ว (Plan)
-                </Label>
-                <PlusCircleIcon
-                  className="h-5 w-5 cursor-pointer"
-                  onClick={() => planAppend({ name: '' })}
-                />
+                <Label className="text-lg">4.1 การพัฒนาจากรอบที่แล้ว (Plan)</Label>
+                <PlusCircleIcon className="h-5 w-5 cursor-pointer" onClick={() => planAppend({ name: '' })} />
               </div>
               {planFields.map((item, index) => {
                 return (
@@ -370,13 +314,8 @@ const CoursePortfolioPage = () => {
                 );
               })}
               <div className="flex items-center space-x-5">
-                <Label className="text-lg">
-                  4.2 การพัฒนาและปัญหาหลัก (Do & Check)
-                </Label>
-                <PlusCircleIcon
-                  className="h-5 w-5 cursor-pointer"
-                  onClick={() => doAppend({ name: '' })}
-                />
+                <Label className="text-lg">4.2 การพัฒนาและปัญหาหลัก (Do & Check)</Label>
+                <PlusCircleIcon className="h-5 w-5 cursor-pointer" onClick={() => doAppend({ name: '' })} />
               </div>
               {doFields.map((item, index) => {
                 return (
@@ -390,13 +329,8 @@ const CoursePortfolioPage = () => {
                 );
               })}
               <div className="flex items-center space-x-5">
-                <Label className="text-lg">
-                  4.3 แนวทางการปรับปรุงในรอบหน้า (Act)
-                </Label>
-                <PlusCircleIcon
-                  className="h-5 w-5 cursor-pointer"
-                  onClick={() => actAppend({ name: '' })}
-                />
+                <Label className="text-lg">4.3 แนวทางการปรับปรุงในรอบหน้า (Act)</Label>
+                <PlusCircleIcon className="h-5 w-5 cursor-pointer" onClick={() => actAppend({ name: '' })} />
               </div>
               {actFields.map((item, index) => {
                 return (
@@ -410,9 +344,7 @@ const CoursePortfolioPage = () => {
                 );
               })}
               <div className="mx-auto w-11/12 space-y-2">
-                <Label className="text-lg font-semibold">
-                  4.4 ความคิดเห็นสำหรับวิชาอื่น
-                </Label>
+                <Label className="text-lg font-semibold">4.4 ความคิดเห็นสำหรับวิชาอื่น</Label>
                 <div>
                   <Label className="text-lg">วิชา Upstream</Label>
                   <div className="grid grid-cols-3 gap-5">

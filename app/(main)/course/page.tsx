@@ -130,11 +130,9 @@ const CoursePage = () => {
                   courseId={e.code}
                   courseName={e.name}
                   href={e.id}
-                  studentAmount={0}
-                  finishedTask={0}
-                  totalTask={0}
-                  teacherAmount={0}
                   curriculum={e.curriculum}
+                  lecturer={e.user.firstName + ' ' + e.user.lastName}
+                  semester={e.semester.semesterSequence + '/' + e.semester.year}
                 />
               );
             })}

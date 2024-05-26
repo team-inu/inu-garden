@@ -2,28 +2,11 @@ import { DialogClose } from '@radix-ui/react-dialog';
 import { useEffect } from 'react';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useStrictForm } from '@/hooks/form-hook';
-import {
-  CreateSubPloDefaultValues,
-  CreateSubPloSchema,
-  CreateSubPloType,
-} from '@/types/schema/sub-plo-schema';
+import { CreateSubPloDefaultValues, CreateSubPloSchema, CreateSubPloType } from '@/types/schema/sub-plo-schema';
 
 type SubPloDialogProps = {
   onSubmit: (values: CreateSubPloType) => void;
@@ -31,15 +14,8 @@ type SubPloDialogProps = {
   isEdit?: boolean;
 };
 
-const SubPloDialog: React.FC<SubPloDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  isEdit = false,
-}) => {
-  const form = useStrictForm(
-    CreateSubPloSchema,
-    defaultValues ?? CreateSubPloDefaultValues,
-  );
+const SubPloDialog: React.FC<SubPloDialogProps> = ({ onSubmit, defaultValues, isEdit = false }) => {
+  const form = useStrictForm(CreateSubPloSchema, defaultValues ?? CreateSubPloDefaultValues);
 
   useEffect(() => {
     form.reset(defaultValues);
@@ -52,9 +28,7 @@ const SubPloDialog: React.FC<SubPloDialogProps> = ({
         <DialogHeader>
           <DialogTitle>{isEdit ? 'Edit SubPlo' : 'Add SubPlo'}</DialogTitle>
           <DialogDescription>
-            {isEdit
-              ? 'Edit the sub-plo information'
-              : 'Fill in the sub-plo information'}
+            {isEdit ? 'Edit the sub-plo information' : 'Fill in the sub-plo information'}
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

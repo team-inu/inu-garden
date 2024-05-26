@@ -33,12 +33,8 @@ export type CloColumn = Clo;
 // form
 
 export const CreateCloFormSchema = z.object({
-  code: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  description: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  code: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  description: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   expectedPassingAssignmentPercentage: z.coerce.number({
     required_error: 'required',
   }),
@@ -51,9 +47,7 @@ export const CreateCloFormSchema = z.object({
   programLearningOutcomeId: z.string({ required_error: 'required' }).min(1, {
     message: 'required',
   }),
-  subProgramLearningOutcomeId: z
-    .array(optionSchema)
-    .min(1, { message: 'required' }),
+  subProgramLearningOutcomeId: z.array(optionSchema).min(1, { message: 'required' }),
   programOutcomeId: z.string({ required_error: 'required' }).min(1, {
     message: 'required',
   }),
@@ -77,9 +71,7 @@ export const CreateCloLinkAssignmentSchema = z.object({
 export type CreateCloForm = z.infer<typeof CreateCloFormSchema>;
 export type CreateManyCloForm = z.infer<typeof CreateManyCloFormSchema>;
 export type EditCloForm = z.infer<typeof EditCloFormSchema>;
-export type CreateCloLinkAssignment = z.infer<
-  typeof CreateCloLinkAssignmentSchema
->;
+export type CreateCloLinkAssignment = z.infer<typeof CreateCloLinkAssignmentSchema>;
 
 // payload
 

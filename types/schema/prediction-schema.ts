@@ -1,9 +1,7 @@
 import * as z from 'zod';
 
 export const PredictGradeFormSchema = z.object({
-  programmeName: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  programmeName: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
   gpax: z.coerce
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
@@ -20,12 +18,8 @@ export const PredictGradeFormSchema = z.object({
     .number({ required_error: 'required' })
     .min(0, { message: 'value could more that 0' })
     .max(4, { message: 'value could less than 4' }),
-  school: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
-  admission: z
-    .string({ required_error: 'required' })
-    .min(1, { message: 'required' }),
+  school: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
+  admission: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
 });
 
 export const PredictionGradeResponseSchema = z.object({
@@ -43,6 +37,4 @@ export const PredictGradeRequestDefaultValue: PredictGradeForm = {
   school: '',
   admission: '',
 };
-export type PredictionGradeResponse = z.infer<
-  typeof PredictionGradeResponseSchema
->;
+export type PredictionGradeResponse = z.infer<typeof PredictionGradeResponseSchema>;

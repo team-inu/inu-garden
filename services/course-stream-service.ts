@@ -1,8 +1,5 @@
 import { ApiService } from '@/services/api-service';
-import {
-  CourseStream,
-  CreateCourseStreamPayload,
-} from '@/types/schema/course-stream-schema';
+import { CourseStream, CreateCourseStreamPayload } from '@/types/schema/course-stream-schema';
 
 class CourseStreamService extends ApiService {
   public async getCourseStreamList() {

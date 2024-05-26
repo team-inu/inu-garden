@@ -1,20 +1,8 @@
 import { DialogClose } from '@radix-ui/react-dialog';
 
 import { Button } from '@/components/ui/button';
-import {
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form';
+import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Form, FormControl, FormField, FormItem, FormLabel } from '@/components/ui/form';
 import MultipleSelector from '@/components/ui/muti-select';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useGetSubPloList } from '@/hooks/sub-plo-hook';
@@ -30,15 +18,8 @@ type SubPloDialogProps = {
   subPloId?: string[];
 };
 
-const SubPloLinkCloDialog: React.FC<SubPloDialogProps> = ({
-  onSubmit,
-  defaultValues,
-  subPloId,
-}) => {
-  const form = useStrictForm(
-    CreateSubPloLinkCloSchema,
-    defaultValues ?? CreateSubPloLinkCloDefaultValues,
-  );
+const SubPloLinkCloDialog: React.FC<SubPloDialogProps> = ({ onSubmit, defaultValues, subPloId }) => {
+  const form = useStrictForm(CreateSubPloLinkCloSchema, defaultValues ?? CreateSubPloLinkCloDefaultValues);
   const { data: subPlos } = useGetSubPloList();
 
   return (
@@ -46,9 +27,7 @@ const SubPloLinkCloDialog: React.FC<SubPloDialogProps> = ({
       <DialogContent className="min-w-[50%]">
         <DialogHeader>
           <DialogTitle>Add Sub Program Learning Outcome</DialogTitle>
-          <DialogDescription>
-            Select the sub program learning outcome
-          </DialogDescription>
+          <DialogDescription>Select the sub program learning outcome</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}>

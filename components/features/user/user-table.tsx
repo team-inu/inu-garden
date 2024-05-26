@@ -27,14 +27,7 @@ import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent } from '@/components/ui/collapsible';
 import { DataTablePagination } from '@/components/ui/data-table-pagination';
 import { Option } from '@/components/ui/data-table-toolbar';
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table';
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useCourseListByUser } from '@/hooks/course-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
 import { UserColumn } from '@/types/schema/user-schema';
@@ -57,16 +50,10 @@ export const useres: Option[] = [
   },
 ];
 
-export function UserDataTable<TData extends UserColumn, TValue>({
-  columns,
-  data,
-}: DataTableProps<TData, TValue>) {
+export function UserDataTable<TData extends UserColumn, TValue>({ columns, data }: DataTableProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = React.useState({});
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({});
-  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
-    [],
-  );
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({});
+  const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([]);
   const [sorting, setSorting] = React.useState<SortingState>([]);
 
   const table = useReactTable({
@@ -137,9 +124,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({
                   <UserCircle className="h-5 w-5" />
                   <div>{data.curriculum}</div>
                   <div>
-                    <Badge
-                      variant={data.isPortfolioCompleted ? 'green' : 'warning'}
-                    >
+                    <Badge variant={data.isPortfolioCompleted ? 'green' : 'warning'}>
                       {data.isPortfolioCompleted ? 'Finished' : 'In progress'}
                     </Badge>
                   </div>
@@ -165,11 +150,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({
 
   return (
     <div className="space-y-4">
-      <UserTableToolbar
-        table={table}
-        selectorOptions={[]}
-        handleImport={handleUploadUser}
-      />
+      <UserTableToolbar table={table} selectorOptions={[]} handleImport={handleUploadUser} />
       <div className="rounded-md border">
         <Table>
           <TableHeader>
@@ -177,17 +158,8 @@ export function UserDataTable<TData extends UserColumn, TValue>({
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="font-bold text-primary"
-                    >
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
+                    <TableHead key={header.id} colSpan={header.colSpan} className="font-bold text-primary">
+                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
                     </TableHead>
                   );
                 })}
@@ -199,17 +171,9 @@ export function UserDataTable<TData extends UserColumn, TValue>({
               table.getRowModel().rows.map((row) => (
                 <Collapsible key={row.id} asChild>
                   <>
-                    <TableRow
-                      key={row.id}
-                      data-state={row.getIsSelected() && 'selected'}
-                    >
+                    <TableRow key={row.id} data-state={row.getIsSelected() && 'selected'}>
                       {row.getVisibleCells().map((cell) => (
-                        <TableCell key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </TableCell>
+                        <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
                     <CollapsibleContent asChild className="bg-black">
@@ -222,10 +186,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({
               ))
             ) : (
               <TableRow>
-                <TableCell
-                  colSpan={columns.length}
-                  className="h-24 text-center"
-                >
+                <TableCell colSpan={columns.length} className="h-24 text-center">
                   No results.
                 </TableCell>
               </TableRow>

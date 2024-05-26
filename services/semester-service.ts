@@ -1,9 +1,5 @@
 import { ApiService } from '@/services/api-service';
-import {
-  CreateSemesterForm,
-  UpdateSemesterForm,
-  getSemesterList,
-} from '@/types/schema/semsester-schema';
+import { CreateSemesterForm, UpdateSemesterForm, getSemesterList } from '@/types/schema/semsester-schema';
 
 class SemesterService extends ApiService {
   public async getSemesterList(): Promise<getSemesterList[]> {
@@ -15,19 +11,14 @@ class SemesterService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async createSemester(
-    semester: CreateSemesterForm,
-  ): Promise<CreateSemesterForm> {
+  public async createSemester(semester: CreateSemesterForm): Promise<CreateSemesterForm> {
     const url = '/semesters';
     return this.post(url, semester)
       .then(() => semester)
       .catch(this.throwError);
   }
 
-  public async updateSemester(
-    semester: UpdateSemesterForm,
-    id: string,
-  ): Promise<UpdateSemesterForm> {
+  public async updateSemester(semester: UpdateSemesterForm, id: string): Promise<UpdateSemesterForm> {
     const url = `/semesters/${id}`;
     return this.patch(url, semester)
       .then(() => semester)

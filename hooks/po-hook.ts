@@ -2,11 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { poService } from '@/services/po-service';
-import {
-  CreateManyPoForm,
-  CreatePoForm,
-  UpdatePoForm,
-} from '@/types/schema/po-schema';
+import { CreateManyPoForm, CreatePoForm, UpdatePoForm } from '@/types/schema/po-schema';
 
 export const useGetPoList = () =>
   useQuery({
@@ -53,8 +49,7 @@ export const useCreateManyPos = () => {
 export const useUpdatePo = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ po, id }: { po: UpdatePoForm; id: string }) =>
-      poService.updatePo(po, id),
+    mutationFn: ({ po, id }: { po: UpdatePoForm; id: string }) => poService.updatePo(po, id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['pos'] });
       toast.success('PO has been updated');
