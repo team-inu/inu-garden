@@ -18,6 +18,13 @@ class CourseService extends ApiService {
       .catch(this.throwError);
   }
 
+  public async deleteCourse(courseId: string): Promise<void> {
+    const url = `/courses/${courseId}`;
+    return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
+
   public async getStudentEnrollList(): Promise<any> {
     const url = '/students';
     return this.get(url)
