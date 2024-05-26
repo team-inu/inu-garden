@@ -1,7 +1,6 @@
 'use client';
 
 import { withAuth } from '@/components/features/routes/private-route';
-import Semester from '@/components/features/semester/semester';
 import Student from '@/components/features/student/student';
 import { Role } from '@/types/auth-type';
 
@@ -9,7 +8,6 @@ const AdmissionPage = () => {
   return (
     <div className="mx-auto w-10/12 py-8">
       <Student />
-      <Semester />
     </div>
   );
 };

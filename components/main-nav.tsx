@@ -23,6 +23,14 @@ export function MainNav({ className, role }: MainNavProps) {
         Student
       </Link>
       <Link
+        href="/semester"
+        className={cn('text-sm font-medium text-muted-foreground transition-colors hover:text-primary', {
+          hidden: role === Role.LECTURER,
+        })}
+      >
+        Semester
+      </Link>
+      <Link
         href="/graduation"
         className={cn('text-sm font-medium text-muted-foreground transition-colors hover:text-primary', {
           hidden: role === Role.LECTURER,
