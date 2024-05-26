@@ -20,13 +20,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
         <Link href="/course">
           <Button>Try again</Button>
         </Link>
-        <Image
-          className=""
-          src="https://media.tenor.com/O_x4UCmt5p0AAAAi/among-us-twerk.gif"
-          alt={''}
-          width={160}
-          height={160}
-        />
+        <Image className="" src="/images/inu_sleep.png" alt={''} width={160} height={160} />
       </div>
     </div>
   );

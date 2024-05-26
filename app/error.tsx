@@ -16,13 +16,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
       <div className="flex flex-col items-center space-y-3">
         <h2 className="text-xl font-bold">Something went wrong! </h2>
         <Link href="/course">Try again</Link>
-        <Image
-          className=""
-          src="https://media.tenor.com/O_x4UCmt5p0AAAAi/among-us-twerk.gif"
-          alt={''}
-          width={160}
-          height={160}
-        />
+        <Image className="" src="/images/inu_sleep.png" alt={''} width={160} height={160} />
       </div>
     </div>
   );
