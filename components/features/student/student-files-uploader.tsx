@@ -365,28 +365,27 @@ const InuFormatDialog = () => {
     const [studentTable] = await worksheetToTables(sheet);
     const students = tableToObject(studentTable[0], studentTable.slice(1));
 
-    form.reset(
-      students.map((e) => {
-        return {
-          kmuttId: e['_kmuttId'],
-          // ...e,
-          admission: e['admission'],
-          city: e['city'],
-          departmentName: e['departmentName'],
-          email: e['email'],
-          engGPA: e['engGPA'],
-          firstName: e['firstName'],
-          lastName: e['lastName'],
-          gpax: e['GPAX'],
-          mathGPA: e['mathGPA'],
-          programmeName: e['programmeName'],
-          remark: e['remark'],
-          school: e['school'],
-          sciGPA: e['sciGPA'],
-          year: e['year'],
-        };
-      }),
-    );
+    const studentData: CreateStudentsForm = students.map((e) => {
+      return {
+        kmuttId: String(e['_kmuttId']),
+        // ...e,
+        admission: String(e['admission']),
+        city: String(e['city']),
+        departmentName: String(e['departmentName']),
+        email: String(e['email']),
+        engGPA: Number(e['engGPA']),
+        firstName: String(e['firstName']),
+        lastName: String(e['lastName']),
+        gpax: Number(e['GPAX']),
+        mathGPA: Number(e['mathGPA']),
+        programmeName: String(e['programmeName']),
+        remark: String(e['remark']),
+        school: String(e['school']),
+        sciGPA: Number(e['sciGPA']),
+        year: String(e['year']),
+      };
+    });
+    form.reset(studentData);
 
     toast.success('Students excel parsed successfully, please review the data before submit');
   };
