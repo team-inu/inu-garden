@@ -1,10 +1,12 @@
 'use client';
 
 import { DialogClose } from '@radix-ui/react-dialog';
+import { AxiosError } from 'axios';
 import excel from 'exceljs';
 import { FileOutputIcon, FolderDotIcon, ImportIcon, Trash2Icon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import CourseImporterDialog from '@/components/features/course/importer/course-importer-dialog';
 import CourseSettingForm from '@/components/features/course/settings/course-setting-form';
@@ -38,6 +40,9 @@ const SettingPage = () => {
   const [isExportOpen, setIsExportOpen] = useState(false);
   const { mutate, isError } = useImportCourse();
   const { mutate: deleteCourse, isSuccess } = useDeleteCourse();
+
+  const [isExporting, setIsExporting] = useState(false);
+  const [exportButtonMessage, setExportButtonMessage] = useState('Export to Excel');
 
   useEffect(() => {
     if (isSuccess) {
@@ -128,7 +133,7 @@ const SettingPage = () => {
       ),
       rows: [
         [
-          poSheetData.course.title,
+          poSheetData.course.id,
           poSheetData.course.title,
           poSheetData.course.curriculum,
           poSheetData.course.semester,
@@ -238,136 +243,168 @@ const SettingPage = () => {
       ),
     });
 
+    workbook.addWorksheet('Course Catalogue');
+    workbook.addWorksheet('Assessment techniques');
+    workbook.addWorksheet('Learning techniques');
+
     return workbook;
   };
 
   const downloadExcel = async () => {
     if (!courseData) {
-      throw new Error('aa');
+      throw new Error('course data not found');
     }
 
-    const clos = await cloService.getCloByCourseId(courseId);
+    try {
+      setIsExporting(true);
 
-    const fullClosPromises = clos.map((e) => cloService.getCloById(e.id));
-    const fullClos = await Promise.all(fullClosPromises);
+      setExportButtonMessage('[1/9] retrieving course learning outcomes');
+      const clos = await cloService.getCloByCourseId(courseId);
 
-    const programOutcomes = await poService.getPoList();
+      setExportButtonMessage('[2/9] retrieving full clos info');
+      const fullClosPromises = clos.map((e) => cloService.getCloById(e.id));
+      const fullClos = await Promise.all(fullClosPromises);
 
-    const assignmentGroups = await assignmentGroupService.getAssignmentGroupsByCourseId(courseId);
-    const assignments = await assignmentService.getAssignmentsByCourseId(courseId);
+      setExportButtonMessage('[3/9] retrieving program outcome');
+      const programOutcomes = await poService.getPoList();
 
-    const fullAssignmentsPromises = assignments.map((e) => assignmentService.getAssignmentById(e.id));
-    const fullAssignments = await Promise.all(fullAssignmentsPromises);
+      setExportButtonMessage('[4/9] retrieving assignment groups');
+      const assignmentGroups = await assignmentGroupService.getAssignmentGroupsByCourseId(courseId);
 
-    const fullScoresPromises = assignments.map((assignment) => scoreService.getScoresByAssignmentId(assignment.id));
-    const fullScores = await Promise.all(fullScoresPromises);
+      setExportButtonMessage('[5/9] retrieving assignments');
+      const assignments = await assignmentService.getAssignmentsByCourseId(courseId);
 
-    const po: PoSheet = {
-      course: {
-        id: courseData.code,
-        title: courseData.name,
-        academicYear: courseData.academicYear,
-        graduateYear: courseData.graduateYear,
-        programYear: courseData.programYear,
-        curriculum: courseData.curriculum,
-        semester: `${courseData.semester.year}/${courseData.semester.semesterSequence}`,
-      },
-      clos: fullClos.map((e) => {
-        const po = programOutcomes.find((po) => po.id === e.programOutcomeId);
-        if (po === undefined) {
-          throw new Error('ssss');
-        }
+      setExportButtonMessage('[6/9] retrieving full assignments clo');
+      const fullAssignmentsPromises = assignments.map((e) => assignmentService.getAssignmentById(e.id));
+      const fullAssignments = await Promise.all(fullAssignmentsPromises);
 
-        return {
-          name: e.code,
-          description: e.description,
-          po: po.code,
-          plo: e.subProgramLearningOutcomes[0].code,
-          type: 'NO_DATA',
-        };
-      }),
-      assignmentGroups: assignmentGroups.map((e) => {
-        return { name: e.name, description: 'NO_DATA', value: e.weight };
-      }),
-      thresholds: [
-        {
-          name: 'PassingScoreThres',
-          description: 'Minimum percentage of score for students to pass each assessment',
-          value: assignments[0].expectedScorePercentage,
+      setExportButtonMessage('[7/9] retrieving scores');
+      const fullScoresPromises = assignments.map((assignment) => scoreService.getScoresByAssignmentId(assignment.id));
+      const fullScores = await Promise.all(fullScoresPromises);
+
+      setExportButtonMessage('[8/9] writing data to excel');
+      const po: PoSheet = {
+        course: {
+          id: courseData.code,
+          title: courseData.name,
+          academicYear: courseData.academicYear,
+          graduateYear: courseData.graduateYear,
+          programYear: courseData.programYear,
+          curriculum: courseData.curriculum,
+          semester: `${courseData.semester.year}/${courseData.semester.semesterSequence}`,
         },
-        {
-          name: 'PassingStudentThres',
-          description: 'Minimum percentage of passing students to succeed each assessment.',
-          value: assignments[0].expectedPassingStudentPercentage,
-        },
-        {
-          name: 'PassingItemsThres',
-          description: 'Minimum percentage of passing items in CLO for a student to meet CLO.',
-          value: clos[0].expectedPassingAssignmentPercentage,
-        },
-        {
-          name: 'PassingCLOsThres',
-          description: 'Minimum percentage of CLOs in PO for a student to meet PO',
-          value: courseData.expectedPassingCloPercentage,
-        },
-      ],
-    };
+        clos: fullClos.map((e) => {
+          const po = programOutcomes.find((po) => po.id === e.programOutcomeId);
+          if (po === undefined) {
+            throw new Error('ssss');
+          }
 
-    const weeklyPlan: WeeklyPlanSheet = {
-      assignments: fullAssignments.map((e, i) => {
-        const assignmentGroup = assignmentGroups.find((ag) => ag.id === e.assignmentGroupId);
-        if (assignmentGroup === undefined) {
-          throw new Error('xxxxxxxxxx');
-        }
+          return {
+            name: e.code,
+            description: e.description,
+            po: po.code,
+            plo: e.subProgramLearningOutcomes[0].code,
+            type: 'NO_DATA',
+          };
+        }),
+        assignmentGroups: assignmentGroups.map((e) => {
+          return { name: e.name, description: 'NO_DATA', value: e.weight };
+        }),
+        thresholds: [
+          {
+            name: 'PassingScoreThres',
+            description: 'Minimum percentage of score for students to pass each assessment',
+            value: assignments[0].expectedScorePercentage,
+          },
+          {
+            name: 'PassingStudentThres',
+            description: 'Minimum percentage of passing students to succeed each assessment.',
+            value: assignments[0].expectedPassingStudentPercentage,
+          },
+          {
+            name: 'PassingItemsThres',
+            description: 'Minimum percentage of passing items in CLO for a student to meet CLO.',
+            value: clos[0].expectedPassingAssignmentPercentage,
+          },
+          {
+            name: 'PassingCLOsThres',
+            description: 'Minimum percentage of CLOs in PO for a student to meet PO',
+            value: courseData.expectedPassingCloPercentage,
+          },
+        ],
+      };
 
-        return {
-          lecture: i + 1,
-          topics: e.description,
-          clo: e.courseLearningOutcomes[0].code,
-          assessment: assignmentGroup.name,
-          item: e.name,
-          include: e.isIncludedInClo,
-          evidence: 'NO_DATA',
-          score: e.maxScore,
-          description: 'NO_DATA',
-          assessmentType: 'NO_DATA',
-        };
-      }),
-    };
+      const weeklyPlan: WeeklyPlanSheet = {
+        assignments: fullAssignments.map((e, i) => {
+          const assignmentGroup = assignmentGroups.find((ag) => ag.id === e.assignmentGroupId);
+          if (assignmentGroup === undefined) {
+            throw new Error('xxxxxxxxxx');
+          }
 
-    const scoreByAssignmentByStudent = new Map<string, Map<string, number>>();
+          return {
+            lecture: i + 1,
+            topics: e.description,
+            clo: e.courseLearningOutcomes[0].code,
+            assessment: assignmentGroup.name,
+            item: e.name,
+            include: e.isIncludedInClo,
+            evidence: 'NO_DATA',
+            score: e.maxScore,
+            description: 'NO_DATA',
+            assessmentType: 'NO_DATA',
+          };
+        }),
+      };
 
-    fullScores.forEach((assignment) => {
-      assignment.scores.forEach((score) => {
-        const assignment = fullAssignments.find((a) => a.id === score.assignmentId);
-        if (!assignment) {
-          throw new Error('sdfsfdasfd');
-        }
+      const scoreByAssignmentByStudent = new Map<string, Map<string, number>>();
 
-        if (!scoreByAssignmentByStudent.get(score.studentId)) {
-          scoreByAssignmentByStudent.set(score.studentId, new Map<string, number>().set(assignment.name, score.score));
-        } else {
-          scoreByAssignmentByStudent.get(score.studentId)!.set(assignment.name, score.score);
-        }
+      fullScores.forEach((assignment) => {
+        assignment.scores.forEach((score) => {
+          const assignment = fullAssignments.find((a) => a.id === score.assignmentId);
+          if (!assignment) {
+            throw new Error('sdfsfdasfd');
+          }
+
+          if (!scoreByAssignmentByStudent.get(score.studentId)) {
+            scoreByAssignmentByStudent.set(
+              score.studentId,
+              new Map<string, number>().set(assignment.name, score.score),
+            );
+          } else {
+            scoreByAssignmentByStudent.get(score.studentId)!.set(assignment.name, score.score);
+          }
+        });
       });
-    });
 
-    const rawScore: RawScoreSheet = {
-      scoreByAssignmentByStudent,
-    };
+      const rawScore: RawScoreSheet = {
+        scoreByAssignmentByStudent,
+      };
 
-    const workbook = toExcel(po, weeklyPlan, rawScore);
+      setExportButtonMessage('[9/9] DONE');
 
-    const buffer = await workbook.xlsx.writeBuffer();
+      const workbook = toExcel(po, weeklyPlan, rawScore);
 
-    const blob = new Blob([buffer], {
-      type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    });
-    const a = document.createElement('a');
+      const buffer = await workbook.xlsx.writeBuffer();
 
-    a.href = URL.createObjectURL(blob);
-    a.download = 'PLO_report.xlsx';
-    a.click();
+      const blob = new Blob([buffer], {
+        type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      });
+
+      const a = document.createElement('a');
+      setIsExporting(false);
+      setExportButtonMessage('Export to Excel');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'PLO_report.xlsx';
+      a.click();
+    } catch (e) {
+      setIsExporting(false);
+      setExportButtonMessage('Export to Excel');
+      if (e instanceof AxiosError) {
+        toast.error(e.message);
+      }
+
+      toast.error('unexpected error :(', e as any);
+    }
   };
 
   return (
@@ -389,9 +426,9 @@ const SettingPage = () => {
             <ImportIcon className="h-5 w-5" />
             <div className="">Import From Excel</div>
           </Button>
-          <Button variant={'secondary'} className="space-x-3" onClick={() => downloadExcel()}>
+          <Button variant={'secondary'} className="space-x-3" onClick={() => downloadExcel()} disabled={isExporting}>
             <FileOutputIcon className="h-5 w-5" />
-            <div className="">Export to Excel</div>
+            <div className="">{exportButtonMessage}</div>
           </Button>
           <Button variant={'secondary'} className=" grow ">
             <a className="flex  items-center space-x-3" href="/template/CPE_course_import_template.xlsx">
