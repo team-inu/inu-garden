@@ -13,6 +13,7 @@ export const AssignmentSchema = z.object({
   expectedPassingStudentPercentage: z.number(),
   courseId: z.string(),
   isIncludedInClo: z.boolean(),
+  assignmentGroupId: z.string(),
 });
 
 // response
