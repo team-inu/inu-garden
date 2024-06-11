@@ -2,7 +2,7 @@
 
 import { DialogClose } from '@radix-ui/react-dialog';
 import excel from 'exceljs';
-import { FolderDotIcon, ImportIcon, Trash2Icon } from 'lucide-react';
+import { FileOutputIcon, FolderDotIcon, ImportIcon, Trash2Icon } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -45,9 +45,9 @@ const SettingPage = () => {
     }
   }, [isSuccess, router]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  // if (isLoading) {
+  //   return <Loading />;
+  // }
 
   const handleSubmitImport = async (value: ImportCourse) => {
     mutate(value);
@@ -312,7 +312,7 @@ const SettingPage = () => {
         },
       ],
     };
-    console.log(fullAssignments);
+
     const weeklyPlan: WeeklyPlanSheet = {
       assignments: fullAssignments.map((e, i) => {
         const assignmentGroup = assignmentGroups.find((ag) => ag.id === e.assignmentGroupId);
@@ -373,32 +373,34 @@ const SettingPage = () => {
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-medium">Course Information</h3>
-        <p className="text-sm text-muted-foreground">Update your course information and settings.</p>
-        <div className="flex flex-row gap-1">
-          <Button variant={'secondary'} className="my-5 space-x-3" onClick={() => setIsImportOpen(true)}>
-            <ImportIcon className="h-5 w-5" />
-            <div className="">Import From Excel</div>
-          </Button>
-          <Button variant={'secondary'} className="my-5 space-x-3" onClick={() => downloadExcel()}>
-            <ImportIcon className="h-5 w-5" />
-            <div className="">Export to Excel</div>
-          </Button>
-          <Button variant={'secondary'} className="my-5 space-x-3">
-            <a className="flex items-center" href="/template/CPE_course_import_template.xlsx">
-              <FolderDotIcon className="mr-2 h-4 w-4" />
-              Download Example Template
-            </a>
-          </Button>
-          <Button
-            variant={'destructive'}
-            className="my-5 ml-auto space-x-3"
-            onClick={() => setIsDeleteDialogOpen(true)}
-          >
+        <div className="mb-5  flex justify-between">
+          <div>
+            <h3 className="text-lg font-medium">Course Information</h3>
+            <p className="text-sm text-muted-foreground">Update your course information and settings.</p>
+          </div>
+          <Button variant={'destructive'} className=" space-x-3" onClick={() => setIsDeleteDialogOpen(true)}>
             <Trash2Icon className="h-5 w-5" />
             <div className="">Delete course</div>
           </Button>
         </div>
+
+        <div className="grid grid-cols-2 gap-5">
+          <Button variant={'secondary'} className="  space-x-3" onClick={() => setIsImportOpen(true)}>
+            <ImportIcon className="h-5 w-5" />
+            <div className="">Import From Excel</div>
+          </Button>
+          <Button variant={'secondary'} className="space-x-3" onClick={() => downloadExcel()}>
+            <FileOutputIcon className="h-5 w-5" />
+            <div className="">Export to Excel</div>
+          </Button>
+          <Button variant={'secondary'} className=" grow ">
+            <a className="flex  items-center space-x-3" href="/template/CPE_course_import_template.xlsx">
+              <FolderDotIcon className="h-5 w-5 " />
+              <div className="taunca">Download Example Template</div>
+            </a>
+          </Button>
+        </div>
+
         <Dialog open={isImportOpen} onOpenChange={setIsImportOpen}>
           <CourseImporterDialog onSubmit={handleSubmitImport} />
         </Dialog>
