@@ -176,7 +176,7 @@ export function UserDataTable<TData extends UserColumn, TValue>({ columns, data 
                         <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
-                    <CollapsibleContent asChild className="bg-black">
+                    <CollapsibleContent asChild className="bg-secondary/20">
                       <tr>
                         <CollapsibleRowContent userId={row.getValue('id')} />
                       </tr>

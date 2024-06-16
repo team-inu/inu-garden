@@ -176,7 +176,7 @@ export function ProgramLearningOutcomeDataTable<TData, TValue>({
                         <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
                       ))}
                     </TableRow>
-                    <CollapsibleContent asChild className="bg-black">
+                    <CollapsibleContent asChild className="bg-secondary/20">
                       <tr>
                         <CollapsibleRowContent ploId={row.getValue('id')} />
                       </tr>
