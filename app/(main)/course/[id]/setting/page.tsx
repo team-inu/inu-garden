@@ -96,7 +96,7 @@ const SettingPage = () => {
 
   type WeeklyPlanSheet = {
     assignments: {
-      lecture: number;
+      lecture: string;
       topics: string;
       clo: string;
       assessment: string;
@@ -106,6 +106,7 @@ const SettingPage = () => {
       score: number;
       description: string;
       assessmentType: string;
+      learningActivity: string;
     }[];
   };
 
@@ -136,7 +137,7 @@ const SettingPage = () => {
           poSheetData.course.id,
           poSheetData.course.title,
           poSheetData.course.curriculum,
-          poSheetData.course.semester,
+          poSheetData.course.semester.split('/')[1],
           poSheetData.course.academicYear,
           poSheetData.course.graduateYear,
           poSheetData.course.programYear,
@@ -170,10 +171,42 @@ const SettingPage = () => {
       }),
       rows: poSheetData.thresholds.map((e) => [e.name, e.description, e.value]),
     });
+    poSheet.columns = [
+      { width: 25 },
+      { width: 72 },
+      { width: 16 },
+      { width: 15 },
+      { width: 17 },
+      { width: 17 },
+      { width: 18 },
+    ];
+    poSheet.properties.defaultRowHeight = 20;
 
     // student sheet
 
-    workbook.addWorksheet('(IN) StudentList');
+    const studentSheet = workbook.addWorksheet('(IN) StudentList');
+    studentSheet.addTable({
+      name: 'student_list',
+      ref: `A1`,
+      columns: ['Seq No.', 'Student Code', 'Student Name'].map((e) => {
+        return { name: e };
+      }),
+
+      rows: Array.from(rawScoreSheetData.scoreByAssignmentByStudent.entries()).map(
+        ([student, scoreByAssignment], index) => {
+          // return [
+          //   student,
+          //   'NO_DATA',
+          //   ...Array.from(scoreByAssignment.values()).map((score) => {
+          //     return score;
+          //   }),
+          // ];
+          return [index + 1, student, 'NO_DATA'];
+        },
+      ),
+    });
+    studentSheet.columns = [{ width: 10 }, { width: 19 }, { width: 40 }];
+    studentSheet.properties.defaultRowHeight = 15;
 
     // weekly plan sheet
 
@@ -192,6 +225,7 @@ const SettingPage = () => {
         'Raw full score',
         'Description',
         'AssessmentType',
+        'Learning Activity',
       ].map((e) => {
         return { name: e };
       }),
@@ -206,8 +240,23 @@ const SettingPage = () => {
         e.score,
         e.description,
         e.assessmentType,
+        e.learningActivity,
       ]),
     });
+    weeklyPlanSheet.columns = [
+      { width: 11 },
+      { width: 33 },
+      { width: 8 },
+      { width: 16 },
+      { width: 12 },
+      { width: 10 },
+      { width: 20 },
+      { width: 17 },
+      { width: 34 },
+      { width: 20 },
+      { width: 40 },
+    ];
+    weeklyPlanSheet.properties.defaultRowHeight = 15;
 
     const assignmentNames: string[] = [];
 
@@ -221,11 +270,13 @@ const SettingPage = () => {
     // rawScoreSheetData.scoreByAssignmentByStudent.entries();
 
     // raw score sheet
+    let rawScoreColumns = [{ width: 15 }, { width: 31 }];
     const rawScoreSheet = workbook.addWorksheet('(IN) RawScores');
     rawScoreSheet.addTable({
       name: 'raw_score',
       ref: `A1`,
       columns: ['ID', 'Name', ...assignmentNames].map((e) => {
+        rawScoreColumns.push({ width: 7 });
         return { name: e };
       }),
 
@@ -242,6 +293,8 @@ const SettingPage = () => {
         },
       ),
     });
+    rawScoreSheet.columns = rawScoreColumns;
+    rawScoreSheet.properties.defaultRowHeight = 15;
 
     workbook.addWorksheet('Course Catalogue');
     workbook.addWorksheet('Assessment techniques');
@@ -342,7 +395,7 @@ const SettingPage = () => {
           }
 
           return {
-            lecture: i + 1,
+            lecture: 'NO_DATA',
             topics: e.description,
             clo: e.courseLearningOutcomes[0].code,
             assessment: assignmentGroup.name,
@@ -352,6 +405,7 @@ const SettingPage = () => {
             score: e.maxScore,
             description: 'NO_DATA',
             assessmentType: 'NO_DATA',
+            learningActivity: 'NO_DATA',
           };
         }),
       };

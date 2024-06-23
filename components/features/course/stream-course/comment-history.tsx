@@ -17,7 +17,7 @@ const CommentHistory = () => {
     <div className="space-y-5 p-5 ">
       <div className="text-lg font-semibold">History</div>
       <div className="h-[500px] overflow-y-auto scrollbar scrollbar-thumb-primary ">
-        <div className="space-y-6 rounded-md bg-black p-5 py-0">
+        <div className="space-y-6 rounded-md bg-secondary/20 p-5 py-0">
           {historyCourseStreams ? (
             historyCourseStreams?.map((e, i) => {
               return (
