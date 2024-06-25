@@ -45,6 +45,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           secrets: |
-            dotenv: ${{ env.DOTENV_CONTENT }}
+            dotenv=${{ env.DOTENV_CONTENT }}
             
             
