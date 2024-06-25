@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import { Axios } from '@/libs/axios';
 import { ApiError, ApiResponse } from '@/types/api-response-type';
@@ -8,8 +8,8 @@ export abstract class ApiService {
     return Axios.get<ApiResponse<T>>(url);
   }
 
-  protected post<T = object>(url: string, data: object) {
-    return Axios.post<ApiResponse<T>>(url, data);
+  protected post<T = object>(url: string, data: object, config?: AxiosRequestConfig<any>) {
+    return Axios.post<ApiResponse<T>>(url, data, config);
   }
 
   protected put<T = object>(url: string, data: object) {

@@ -10,8 +10,8 @@ class AuthService extends ApiService {
       .catch(this.throwError);
   }
 
-  public async signIn(email: string, password: string): Promise<void> {
-    return this.post('/auth/login', { email, password })
+  public async signIn(email: string, password: string, cfToken: string): Promise<void> {
+    return this.post('/auth/login', { email, password }, { headers: { 'Cf-Token': cfToken } })
       .then(() => {})
       .catch(this.throwError);
   }
