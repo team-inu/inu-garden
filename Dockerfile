@@ -17,7 +17,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 RUN corepack enable pnpm
 
 RUN --mount=type=secret,id=dotenv \
-  cat /run/secrets/dotenv > .env
+  cat /run/secrets/dotenv | base64 -d > .env
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN pnpm build
