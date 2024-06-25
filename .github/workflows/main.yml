@@ -28,13 +28,7 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          
-      - name: Create env
-        run: |
-          echo ${{secrets.DOTENV}} > env_enc
-          cat env_enc | base64 -d > env
-          echo "DOTENV_CONTENT=$(cat env)" >> $GITHUB_ENV
-        
+  
       - name: Build image and push to Docker Hub and GitHub Container Registry
         uses: docker/build-push-action@v5
         with:
@@ -45,6 +39,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           secrets: |
-            dotenv=${{ env.DOTENV_CONTENT }}
+            dotenv=${{secrets.dotenv}}
             
             
