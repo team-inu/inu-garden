@@ -39,4 +39,6 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           secrets: |
-            "dotenv=${{secrets.DOTENV}}"
+            dotenv=NEXT_PUBLIC_TURNSTILE_SITE_KEY=${{vars.NEXT_PUBLIC_TURNSTILE_SITE_KEY}}\nNEXT_PUBLIC_BACKEND_URL=${{vars.NEXT_PUBLIC_BACKEND_URL}}
+            
+            
