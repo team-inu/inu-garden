@@ -19,9 +19,9 @@ export const useAuth = () => {
   const router = useRouter();
   const user = useUser();
 
-  const signIn = (email: string, password: string) => {
+  const signIn = (email: string, password: string, cfToken: string) => {
     authService
-      .signIn(email, password)
+      .signIn(email, password, cfToken)
       .then(() => {
         router.push('/course', { scroll: false });
       })

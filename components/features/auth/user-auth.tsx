@@ -1,5 +1,6 @@
 'use client';
 
+import { Turnstile } from '@marsidev/react-turnstile';
 import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -14,11 +15,12 @@ import { SigninDefaultValues, SigninSchema, SigninType } from '@/types/schema/au
 interface UserAuthFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
+  const [isSolve, setIsSolve] = React.useState(false);
   const form = useStrictForm(SigninSchema, SigninDefaultValues);
   const { signIn } = useAuth();
 
   async function onSubmit(data: SigninType) {
-    signIn(data.email, data.password);
+    signIn(data.email, data.password, data.cfToken);
   }
 
   return (
@@ -63,8 +65,16 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
             )}
           />
 
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
+            onSuccess={(token) => {
+              console.log(token);
+              form.setValue('cfToken', token);
+              setIsSolve(true);
+            }}
+          />
           <div className="space-y-5">
-            <Button type="submit" size="sm" className="w-full">
+            <Button type="submit" size="sm" className="w-full" disabled={!isSolve}>
               Sign in
             </Button>
           </div>
