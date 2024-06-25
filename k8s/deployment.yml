@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inu-garden-deployment
+  labels:
+    app: inu
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inu
+  template:
+    metadata:
+      labels:
+        app: inu
+        type: frontend
+    spec:
+      containers:
+      - name: inu-garden
+        image: <private image>
+        ports:
+        - containerPort: 3000
+        volumeMounts:
+        - name: env
+          mountPath: /app/.env.local
+          subPath: .env.local
+      volumes:
+        - name: env
+          configMap:
+            name: inu-garden-config-map
+      imagePullSecrets:
+        - name: ghcr-login-secret
+

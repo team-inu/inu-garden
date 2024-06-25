@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: inu-garden-config-map
+data:
+  .env: |
+    <ENV>
