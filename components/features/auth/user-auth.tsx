@@ -67,7 +67,7 @@ export function UserAuthForm({ className, ...props }: UserAuthFormProps) {
 
           <Turnstile
             siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!}
-            onSuccess={(token) => {
+            onSuccess={(token: string) => {
               console.log(token);
               form.setValue('cfToken', token);
               setIsSolve(true);
