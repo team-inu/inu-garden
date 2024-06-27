@@ -53,6 +53,7 @@ export const EditUserFormSchema = UserFormSchema.pick({
 
 export const ChangePasswordFormSchema = z
   .object({
+    userId: z.string(),
     oldPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
     newPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
     confirmNewPassword: z.string({ required_error: 'required' }).min(1, { message: 'required' }),
@@ -93,6 +94,7 @@ export const CreateManyUserFormDefaultValues: CreateManyUserForm = {
 };
 
 export const ChangePasswordFormDefaultValues: ChangePasswordForm = {
+  userId: '',
   oldPassword: '',
   newPassword: '',
   confirmNewPassword: '',

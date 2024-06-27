@@ -1,5 +1,11 @@
 import { ApiService } from '@/services/api-service';
-import { CreateManyUserForm, CreateUserForm, EditUserForm, GetUserResponse } from '@/types/schema/user-schema';
+import {
+  ChangePasswordForm,
+  CreateManyUserForm,
+  CreateUserForm,
+  EditUserForm,
+  GetUserResponse,
+} from '@/types/schema/user-schema';
 
 class UserService extends ApiService {
   public async getUserList(): Promise<GetUserResponse[]> {
@@ -38,6 +44,13 @@ class UserService extends ApiService {
   public async deleteUser(id: string) {
     const url = `/users/${id}`;
     return this.delete(url)
+      .then(() => {})
+      .catch(this.throwError);
+  }
+
+  public async changePasswordUser(data: ChangePasswordForm): Promise<void> {
+    const url = `/users/${data.userId}/password`;
+    return this.post(url, data)
       .then(() => {})
       .catch(this.throwError);
   }

@@ -10,6 +10,7 @@ import { useAuth } from '@/hooks/auth-hook';
 
 const Navbar = () => {
   const { user } = useAuth();
+
   return (
     <div className="hidden flex-col md:flex">
       <div className="border-b">

@@ -2,7 +2,7 @@ import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
 import { userService } from '@/services/user-service';
-import { CreateManyUserForm, CreateUserForm, EditUserForm } from '@/types/schema/user-schema';
+import { ChangePasswordForm, CreateManyUserForm, CreateUserForm, EditUserForm } from '@/types/schema/user-schema';
 
 export const useGetUserList = () =>
   useQuery({
@@ -52,6 +52,20 @@ export const useUpdateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (user: EditUserForm) => userService.updateUser(user.id, user),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['lecturers'] });
+      toast.success('User has been updated');
+    },
+    onError: (error) => {
+      toast.error('Failed to update user');
+    },
+  });
+};
+
+export const useUpdatePassword = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (data: ChangePasswordForm) => userService.changePasswordUser(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['lecturers'] });
       toast.success('User has been updated');
