@@ -19,6 +19,7 @@ export const useImportCourse = () => {
     onError: (error) => {
       toast.error('Failed to create course', {
         description: error.message,
+        duration: 20000,
       });
     },
   });
