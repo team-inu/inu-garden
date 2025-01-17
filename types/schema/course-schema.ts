@@ -74,14 +74,14 @@ export const CreateCourseSchemaDefaultValues: Partial<CreateCourseSchemaValues> 
   programYear: new Date().getFullYear() + 543,
   description: 'This description can be changed later by the lecturer',
   expectedPassingCloPercentage: 65,
-  criteriaGradeA: 80,
-  criteriaGradeBP: 75,
-  criteriaGradeB: 70,
-  criteriaGradeCP: 65,
-  criteriaGradeC: 60,
-  criteriaGradeDP: 55,
-  criteriaGradeD: 50,
-  criteriaGradeF: 45,
+  criteriaGradeA: 85,
+  criteriaGradeBP: 80,
+  criteriaGradeB: 75,
+  criteriaGradeCP: 70,
+  criteriaGradeC: 65,
+  criteriaGradeDP: 60,
+  criteriaGradeD: 55,
+  criteriaGradeF: 54,
 };
 
 export const UpdateCourseSchema = CreateCourseSchema.pick({
