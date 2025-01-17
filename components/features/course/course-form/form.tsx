@@ -70,11 +70,13 @@ const CourseForm = () => {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {users?.map((user) => (
-                    <SelectItem key={user.id} value={user.id}>
-                      {user.firstName} {user.lastName}
-                    </SelectItem>
-                  ))}
+                  {users
+                    ?.sort((a, b) => a.firstName.localeCompare(b.firstName))
+                    .map((user) => (
+                      <SelectItem key={user.id} value={user.id}>
+                        {user.firstName} {user.lastName}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
               <FormMessage />
