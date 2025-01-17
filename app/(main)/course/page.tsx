@@ -125,9 +125,10 @@ const CoursePage = () => {
               return String(e.semester.year) === year;
             })
             .sort((a: GetCourseList, b: GetCourseList) => {
-              return b.academicYear - a.academicYear;
-            })
-            .sort((a: GetCourseList, b: GetCourseList) => {
+              if (b.academicYear !== a.academicYear) {
+                return b.academicYear - a.academicYear;
+              }
+
               return a.code.localeCompare(b.code);
             })
             .map((e, i) => {
