@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVa
 import { useAuth } from '@/hooks/auth-hook';
 import { useCourseList } from '@/hooks/course-hook';
 import { Role } from '@/types/auth-type';
+import { GetCourseList } from '@/types/schema/course-schema';
 
 const CoursePage = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -122,6 +123,12 @@ const CoursePage = () => {
                 return true;
               }
               return String(e.semester.year) === year;
+            })
+            .sort((a: GetCourseList, b: GetCourseList) => {
+              return b.academicYear - a.academicYear;
+            })
+            .sort((a: GetCourseList, b: GetCourseList) => {
+              return a.code.localeCompare(b.code);
             })
             .map((e, i) => {
               return (
