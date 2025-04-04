@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs-api';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useCreateStudentBulk } from '@/hooks/student-hook';
@@ -403,13 +404,9 @@ const InuFormatDialog = () => {
         Import
       </Button>
 
-      {/* <ScrollArea className="h-[200px] w-full rounded-md border p-4 font-mono">
-        {form.getValues().map((e, i) => (
-          <div key={i}>
-            {e.kmuttId}: {e.firstName}
-          </div>
-        ))}
-      </ScrollArea> */}
+      <ScrollArea className="h-[200px] w-full rounded-md border p-4 font-mono">
+        <pre>{JSON.stringify(form.getValues(), null, 2)}</pre>
+      </ScrollArea>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}></form>
