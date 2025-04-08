@@ -54,7 +54,8 @@ export const worksheetToTables = async (worksheet: XLSX.WorkSheet): Promise<Tabl
       headerPositions.push(headerPosition);
     } else {
       const headerPosition = headerPositions[headerPositions.length - 1] as HeaderPosition | undefined;
-      if (!headerPosition) return;
+      if (!headerPosition)
+        throw new Error('cannot get header position. try to prepend underscore (_) of beginning of the table?');
 
       const prevCol = headerPosition.toColumn;
       const prevRow = headerPosition.toRow;
