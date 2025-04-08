@@ -11,10 +11,12 @@ import { Button } from '@/components/ui/button';
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs-api';
 import { useStrictForm } from '@/hooks/form-hook';
 import { useCreateStudentBulk } from '@/hooks/student-hook';
 import { tableToObject, worksheetToTables } from '@/libs/excel';
+import { parseNumber } from '@/libs/number';
 import { ApplicantSpreadsheetRow, FirstDataHeaderRow } from '@/libs/spreadsheet/applicant-spreadsheet';
 import { EligibleSpreadsheetRow } from '@/libs/spreadsheet/eligible-spreadsheet';
 import {
@@ -356,6 +358,7 @@ const InuFormatDialog = () => {
     if (!file) {
       return toast.error('Can not read file');
     }
+    console.log('sdddddd');
 
     const buffer = await file.arrayBuffer();
     const workBook = xlsx.read(buffer, { type: 'buffer' });
@@ -373,25 +376,23 @@ const InuFormatDialog = () => {
         city: String(e['city']),
         departmentName: String(e['departmentName']),
         email: String(e['email']),
-        engGPA: Number(e['engGPA']),
+        engGPA: parseNumber(e['engGPA'], 0),
         firstName: String(e['firstName']),
         lastName: String(e['lastName']),
-        gpax: Number(e['GPAX']),
-        mathGPA: Number(e['mathGPA']),
+        gpax: parseNumber(e['GPAX'], 0),
+        mathGPA: parseNumber(e['mathGPA'], 0),
         programmeName: String(e['programmeName']),
         remark: String(e['remark']),
         school: String(e['school']),
-        sciGPA: Number(e['sciGPA']),
+        sciGPA: parseNumber(e['sciGPA'], 0),
         year: String(e['year']),
       };
     });
     form.reset(studentData);
-
     toast.success('Students excel parsed successfully, please review the data before submit');
   };
 
   const onSubmit = (data: CreateStudentsForm) => {
-    console.log(data);
     mutate(data);
   };
 
@@ -402,14 +403,19 @@ const InuFormatDialog = () => {
         <ImportIcon className="mr-2 h-4 w-4" />
         Import
       </Button>
-
-      {/* <ScrollArea className="h-[200px] w-full rounded-md border p-4 font-mono">
-        {form.getValues().map((e, i) => (
-          <div key={i}>
-            {e.kmuttId}: {e.firstName}
-          </div>
-        ))}
-      </ScrollArea> */}
+      <div></div>
+      <ScrollArea className="h-[200px] w-full rounded-md border p-4 font-mono">
+        <div>{'-------------------------------------------------------'}</div>
+        <div>{'department | programme | kmuttId | firstName | lastName'}</div>
+        <div>{'-------------------------------------------------------'}</div>
+        {Object.entries(form.getValues()).map(([k, v]) => {
+          return (
+            <div
+              key={`${k}_${v.kmuttId}`}
+            >{`${v.departmentName} | ${v.programmeName} | ${v.kmuttId} | ${v.firstName} | ${v.lastName}`}</div>
+          );
+        })}
+      </ScrollArea>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}></form>
