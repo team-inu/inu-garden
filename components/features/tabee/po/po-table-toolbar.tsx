@@ -72,7 +72,7 @@ export function PoTableToolbar<TData>({
 
     const poSheet = workbook.addWorksheet('PO Report');
 
-    poSheet.addRow(['รหัส/รายชื่อวิชา', 'ผลลัพธ์ของการศึกษาตามเกณฑ์ที่กำหนด']);
+    poSheet.addRow([`รหัส/รายชื่อวิชา\n(${filter.programme})`, 'ผลลัพธ์ของการศึกษาตามเกณฑ์ที่กำหนด']);
 
     let header = ['', 'ปี'];
     let columns = [{ width: 15 }, { width: 10 }];
@@ -95,7 +95,9 @@ export function PoTableToolbar<TData>({
 
       po.courses
         ?.filter((course) => {
-          return course.year >= filter.fromYear && course.year <= filter.toYear;
+          return (
+            course.year >= filter.fromYear && course.year <= filter.toYear && course.curriculum == filter.programme
+          );
         })
         .forEach((course) => {
           if (course.id == '') {
@@ -138,7 +140,7 @@ export function PoTableToolbar<TData>({
     poSheet.addRow(header);
 
     if (courseMap.size == 0) {
-      poSheet.addRow(['There are no records from the specified years range']);
+      poSheet.addRow(['There are no records from the specified years range or curriculum']);
       return workbook;
     }
 

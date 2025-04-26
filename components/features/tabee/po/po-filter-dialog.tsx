@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useStrictForm } from '@/hooks/form-hook';
+import { useGetProgrammeList } from '@/hooks/programme-hook';
 import { PoReportFilter, PoReportFilterSchema } from '@/types/schema/po-schema';
 
 type PoDialogProps = {
@@ -13,6 +15,7 @@ type PoDialogProps = {
 
 const PoFilterDialog: React.FC<PoDialogProps> = ({ onSubmit }) => {
   const form = useStrictForm(PoReportFilterSchema);
+  const { data: programmes } = useGetProgrammeList();
   return (
     <div>
       <DialogContent>
@@ -66,6 +69,30 @@ const PoFilterDialog: React.FC<PoDialogProps> = ({ onSubmit }) => {
                       <FormMessage />
                     </div>
                   </FormControl>
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="programme"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>Curriculum</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select a curriculum" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {programmes?.map((programme, index) => (
+                        <SelectItem key={index} value={programme.name}>
+                          {programme.name}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
                 </FormItem>
               )}
             />

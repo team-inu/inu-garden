@@ -53,6 +53,7 @@ export const GetCourseWithPo = z.object({
     z.object({
       id: z.string(),
       code: z.string(),
+      curriculum: z.string(),
       name: z.string(),
       passingPercentage: z.number(),
       year: z.number(),
@@ -67,6 +68,7 @@ export const PoReportFilterSchema = z.object({
   passingCriteria: z.coerce.number(),
   fromYear: z.coerce.number(),
   toYear: z.coerce.number(),
+  programme: z.string(),
 });
 
 export type PoReportFilter = z.infer<typeof PoReportFilterSchema>;
