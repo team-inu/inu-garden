@@ -76,7 +76,7 @@ export function PloTableToolbar<TData>({
 
     const ploSheet = workbook.addWorksheet('PLO Report');
 
-    ploSheet.addRow(['รหัส/รายชื่อวิชา', 'ผลลัพธ์ของการศึกษาตามเกณฑ์ที่กำหนด']);
+    ploSheet.addRow([`รหัส/รายชื่อวิชา\n(${filter.programme})`, 'ผลลัพธ์ของการศึกษาตามเกณฑ์ที่กำหนด']);
 
     let header = ['', 'ปี'];
     let columns = [{ width: 15 }, { width: 10 }];
@@ -145,7 +145,15 @@ export function PloTableToolbar<TData>({
     ploSheet.mergeCells('A1:A2');
     ploSheet.mergeCells(1, 2, 1, 2 + amount);
 
-    courseMap.forEach((values, key) => {
+    let sortedCourseMapArray = Array.from(courseMap).sort((a: [string, any], b: [string, any]) => {
+      let aCode = parseInt(a[0].replace(/^\D+/g, '').split(' ')[0]) || 0;
+      let bCode = parseInt(b[0].replace(/^\D+/g, '').split(' ')[0]) || 0;
+      return aCode - bCode;
+    });
+
+    let sortedCourseMap = new Map(sortedCourseMapArray);
+
+    sortedCourseMap.forEach((values, key) => {
       let firstRowIndex = ploSheet.rowCount + 1;
 
       values
